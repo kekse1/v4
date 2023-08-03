@@ -6,10 +6,13 @@
 ## Lottie
 That's the default format, as it got very small files, better graphics, etc..
 
-BUT unfortunately it's not supported by browsers 'as is', so I just implemented to include the
-player (from the CDN) whenever a Lottie emoji is being used (and then the player stays..).
+BUT unfortunately it's not supported by browsers 'as is', so the player is being loaded once a Lottie emoji is being used
+(so only once, then it just stays ;)~
 
-_JFYI_: CDN URL for the latest version is: `https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js`.
-
-Include it in the `.html` `<head>` like `<script src="..." crossorigin="anonymous"></script>`.
-
+> **Note**
+> **You** can include it in your `.html`s `<head>` like this:
+>
+> `<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" crossorigin="anonymous"></script>`.
+>
+> That's the latest version, directly out of a CDN. :)~
+> I don't like this, but it's neccessary..

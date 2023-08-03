@@ -5,7 +5,6 @@
 <img src="https://mirror.kekse.biz/noto-emoji-animation/emoji.php?tag=plant&type=webp" />
 
 ## Overview
-...
 
 ### Modules
 See the [Module Index](docs/modules/README.md).

@@ -8,12 +8,9 @@
 ...
 
 ### Modules
-* **lib/**
-* **web/**
+See the [Module Index](docs/modules/README.md).
 
-#### **lib/**
-...
-
-#### **web/**
-* [`emoji`.js](docs/modules/emoji.md)
+The documentation is splitted as my JavaScript code (the FS hierarchy).
+* **lib**/
+* **web**/
 

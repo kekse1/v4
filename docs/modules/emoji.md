@@ -1,4 +1,9 @@
-# Syntax (examples)
+<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+
+# **`emoji`**.js
+A pre-processor to replace HTML code with any emoji-syntax (using my own, see below).
+
+## Syntax (examples)
 * **`/:smile:-96px|#39b/`** // `:smile:` at `96px` plus `#39b` **string** color
 * **`/:smile:96pt/`** // `:smile:` at `96pt` and **image** (positive size ;)~
 * Use **`!`** as last character before the closing **`/`** to prefer **WebP** `.webp` or **GIF** `.gif` over **Lottie** `.json`! :)~
@@ -16,3 +21,4 @@ BUT unfortunately it's not supported by browsers 'as is', so the player is being
 >
 > That's the latest version, directly out of a CDN. :)~
 > I don't like this, but it's neccessary..
+

@@ -9,7 +9,7 @@
 ### Modules
 See the [Module Index](docs/modules/README.md).
 
-The documentation is splitted as my JavaScript code (the FS hierarchy).
+The documentation is splitted like my JavaScript code (in the FS hierarchy).
 * **lib**/
 * **web**/
 

@@ -10,3 +10,7 @@ after **4pm** o'clock, it's **16:14:52**, to be exact.
 
 ![Clock example, w/ example percentage](progress-example.png)
 
+## TODO
+Tomorrow I'll configure different clock hand lengths (to be sorted, is
+currently done by hand thickness..).
+

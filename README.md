@@ -13,3 +13,7 @@ The documentation is splitted like my JavaScript code (in the FS hierarchy).
 * **lib**/
 * **web**/
 
+I'm using the newer `ES Modules` here (the first time for me). Because they're asynchronous etc.,
+whereas my older versions used an own `require()` implementation (which had to be synchronous,
+for obvious reasons).
+

@@ -5,6 +5,7 @@ This `.md` will grow in time.. currently I'm busy with implementing all this shi
 ...
 
 ## **web**/
+* [`date`](date.md)
 * [`emoji`](emoji.md)
 * [`mobile`](mobile.md)
 * [`progress`](progress.md)

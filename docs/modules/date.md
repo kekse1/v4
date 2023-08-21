@@ -7,8 +7,8 @@ Here's atm only one feature of my `Date` extensions. There are more, but this is
 You can use `new Date().format()` or `Date.format()`, maybe even the `date()` function.
 
 ### Modifiers
-These are the **`%`** modifiers for format strings. I tried to make them one single char only (plus the **`%`** prefix),
-as already known from other implementations of this feature.
+These are the **`%`** modifiers for format strings. I tried to make them one single char only
+(plus the **`%`** prefix, as already known from other implementations of this feature).
 
 | Modifier | Time component / function / .. |
 | -------: | :----------------------------- |

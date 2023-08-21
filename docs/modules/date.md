@@ -10,16 +10,16 @@ You can use `new Date().format()` or `Date.format()`, maybe even the `date()` fu
 These are the **`%`** modifiers for format strings. I tried to make them one single char only
 (plus the **`%`** prefix, as already known from other implementations of this feature).
 
-| Modifier | Time component / function / .. |
-| -------: | :----------------------------- |
-|  **%D**  | Day in Year
-|  **%y**  | Year (full 4 digits)
-|  **%Y**  | Year (2 digits only)
-|  **%M**  | Month
-|  **%d**  | Day of Month
-|  **%k**  | Week of Year
-|  **%h**  | Hours (24)                                        
-|  **%H**  | Hours (12)
+| Modifier | Time component |
+| -------: | :---------------------------------------------------------- |
+|  **%D**  | Day in Year                                                 |
+|  **%y**  | Year (full 4 digits)                                        |
+|  **%Y**  | Year (2 digits only)                                        |
+|  **%M**  | Month                                                       |
+|  **%d**  | Day of Month                                                |
+|  **%k**  | Week of Year                                                |
+|  **%h**  | Hours (24)                                                  |
+|  **%H**  | Hours (12)                                                  |
 |  **%m**  | Minutes                                                     |
 |  **%s**  | Seconds                                                     |
 |  **%S**  | Milliseconds                                                |

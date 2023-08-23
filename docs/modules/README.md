@@ -2,11 +2,11 @@
 This `.md` will grow in time.. currently I'm busy with implementing all this shit.
 
 ## **lib**/
-...
+* [`date`](lib/date.md)
+* [`mime`](lib/mime.md)
 
 ## **web**/
-* [`date`](date.md)
-* [`emoji`](emoji.md)
-* [`mobile`](mobile.md)
-* [`progress`](progress.md)
+* [`emoji`](web/emoji.md)
+* [`mobile`](web/mobile.md)
+* [`progress`](web/progress.md)
 

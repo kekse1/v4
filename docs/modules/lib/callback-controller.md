@@ -44,4 +44,8 @@ Ausschnitt aus meiner `TODO.txt`:
 !!!!!!					# je nachdem einfach .add() w/ true/false rueckgabe, und entsprechend evtl. sofort return;
 
 !!!!!!				# und wenn arbeit fertig, einfach '.call(key, ... _a)' zum einfachen aufruf aller cb's, mit .clear() danach! :)~
+
+!!!!!!				# und bei .add()/.set() *optional* als ersten string-parameter den callback-type.. z.b. 'finish', 'cancel', ...!!! :)~
+				
+!!!!!!					# bestenfalls dadurch in die ..._callbacks jeweils als [type] eingesetzt, und bei .call() evtl. gefiltert! ^_^
 ```

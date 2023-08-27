@@ -17,3 +17,8 @@ I'm using the newer `ES Modules` here (the first time for me). Because they're a
 whereas my older versions used an own `require()` implementation (which had to be synchronous,
 for obvious reasons).
 
+> **Note**
+> JFYI: When you read about ES Modules that the `import` and `export` need to be defined at the
+> beginning of your files: it's not meant that they need to be 'on top', they just need to be
+> in the first level, without any nested structures! So they can also be set on the bottom.. xD~
+

@@ -21,4 +21,5 @@ for obvious reasons).
 > JFYI: When you read about ES Modules that the `import` and `export` need to be defined at the
 > beginning of your files: it's not meant that they need to be 'on top', they just need to be
 > in the first level, without any nested structures! So they can also be set on the bottom.. xD~
+> ... OTHERWISE just use `import()` and `export()`.
 

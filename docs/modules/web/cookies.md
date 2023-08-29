@@ -1,0 +1,32 @@
+<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+
+# **`cookies`**.js
+To easily manage your `document.cookie`; otherwise you'd to deal with long strings (so your key and value plus parameters).
+
+## Functions
+These ones are defined in the `document` object:
+
+* `.setCookie(_name, _value, _hours, _path, _same_site, _secure)`
+* `.removeCookie(_name, _seconds_to_live, _path)`
+* `.getCookie(_name)`
+* `.hasCookie(_name)`
+* `.hasNumericCookie(_name)`
+* `.clearCookies(... _args)`
+* `.getCookies()`
+* `.listCookies()`
+
+## Proxy
+I also added `document.cookies` and `window.cookies` (are the same, references) as a `Proxy` object,
+so manage the cookies directly via `cookies[_name]`, e.g.
+
+The used proxy traps are:
+* `defineProperty`
+* `deleteProperty`
+* `get`
+* `getOwnPropertyDescriptor`
+* `has`
+* `isExtensible`
+* `ownKeys`
+* `set`
+
+So you can just e.g. `++cookies.uptime`, or `delete cookies.test` (same as `cookies['test'] = null` or smth.).

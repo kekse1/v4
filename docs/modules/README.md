@@ -9,6 +9,7 @@ This `.md` will grow in time.. currently I'm busy with implementing all this shi
 * [`mime.js`](lib/mime.md)
 
 ## **web**/
+* [`cookies.js`](web/cookies.md)
 * [`emoji.js`](web/emoji.md)
 * [`mobile.js`](web/mobile.md)
 * [`progress.js`](web/progress.md)

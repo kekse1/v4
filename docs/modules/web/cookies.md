@@ -3,6 +3,9 @@
 # **`cookies`**.js
 To easily manage your `document.cookie`; otherwise you'd to deal with long strings (so your key and value plus parameters).
 
+## Parsing/..
+The routines will automatically convert numerical cookies to/from `Number` or `BigInt`.
+
 ## Functions
 These ones are defined in the `document` object:
 

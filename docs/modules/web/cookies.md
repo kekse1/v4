@@ -3,7 +3,7 @@
 # **`cookies`**.js
 To easily manage your `document.cookie`; otherwise you'd to deal with long strings (so your key and value plus parameters).
 
-## Parsing/..
+## Numerical cookies
 The routines will automatically convert numerical cookies to/from `Number` or `BigInt`.
 
 ## Functions
@@ -32,4 +32,5 @@ The used proxy traps are:
 * `ownKeys`
 * `set`
 
-So you can just e.g. `++cookies.uptime`, or `delete cookies.test` (same as `cookies['test'] = null` or smth.).
+So you can just e.g. `++cookies.uptime`, or `delete cookies.test` (same as `cookies['test'] = null` or `cookies.test = ''`).
+

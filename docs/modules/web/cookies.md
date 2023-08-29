@@ -6,14 +6,14 @@ To easily manage your `document.cookie`; otherwise you'd to deal with long strin
 ## Functions
 These ones are defined in the `document` object:
 
-* `.setCookie(_name, _value, _hours, _path, _same_site, _secure)`
-* `.removeCookie(_name, _seconds_to_live, _path)`
+* `.clearCookies(... _args)`
 * `.getCookie(_name)`
+* `.getCookies()`
 * `.hasCookie(_name)`
 * `.hasNumericCookie(_name)`
-* `.clearCookies(... _args)`
-* `.getCookies()`
 * `.listCookies()`
+* `.removeCookie(_name, _seconds_to_live, _path)`
+* `.setCookie(_name, _value, _hours, _path, _same_site, _secure)`
 
 ## Proxy
 I also added `document.cookies` and `window.cookies` (are the same, references) as a `Proxy` object,

@@ -39,6 +39,8 @@ the functions.
 * `.clear(_element)`
 * `.context(_element, _type, _context, ... _args)`
 * `.count(_element, _type)`
+* `.get(_element, _type)`
+* `.merge(_element, _object, _merge, ... _args)`
 * `.regular(_element, _type, ... _args)`
 * `.remove(_element, _type, ... _args)`
 * `.reset()`

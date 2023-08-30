@@ -19,7 +19,8 @@ call needed to be _replaced_, ... you understand me? hm. _see the 'My original c
 As either `.count()` (w/o `_type` string) or even directly `.set()` and `.add()` return the number of previously
 defined (until `.clear()`) callbacks (totally, not for a sub-`_type`!), you can see this way if the function is
 already running or not. **Very important feature** if you want to avoid multiple actions, so you'll return if
-the function is already running!
+the function is already running! .. maybe you think about simple bool-state-variables? Then you maybe had to
+pollute the instances environments, if it's not globally but per-instance. AND it's more easy this way, too.
 
 Another example is a drawing routine, or smth. else which also works async, like also with the `Web Animation API`, etc.
 It's really useful, not only as indicator, also to partially replace or append callbacks to be called after or within

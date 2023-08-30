@@ -1,13 +1,46 @@
 <img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
 
-# `class CallbackController extends Map`
+# `extends Map`
 Einerseits muss man pruefen, ob eine Funktion bereits laeuft, um sie nicht dabei zu stoeren,
 andererseits muss dort je nachdem ein altes Callback abgeloest/ersetzt werden, oder sogar
 neue Aufrufe mit Callbacks nach der Arbeit mit aufrufen.
 
-Dazu habe ich mir den `CallbackController` ausgedacht.. mehr Infos nur hier in diesem
-Ausschnitt aus meiner `TODO.txt`:
+## Usage
+We're using the map **keys** for some kind of context, so we can use a `CallbackController` instance
+right before the functions which need it. So we manage by e.g. `HTMLElement` instances, when we use
+this feature in a `HTMLElement.prototype` function. This way we avoid state variables in the instances.
 
+Additionally, managing callbacks also means that we can add or replace callbacks dynamically on every
+call, where the functions relate to this lists. This was neccessary here e.g. when the user interaction
+changes smth. that's already running (like an animation or a HTTP load process) and when the old callback
+call needed to be _replaced_, ... you understand me? hm. _see the 'My original comment..' section at the end!
+
+## 'Singleton' styles
+As either `.count()` (w/o `_type` string) or even directly `.set()` and `.add()` return the number of previously
+defined (until `.clear()`) callbacks, you can see this way if there's already a function running or not. **Very
+important feature** if you want to avoid multiple actions, so you'll return if the function is already running!
+
+Another example is a drawing routine, or smth. else which also works async, like also with the `Web Animation API`, etc.
+It's really useful, not only as indicator, also to partially replace or append callbacks to be called after or within
+the functions.
+
+## Implementation
+* `.add(_element, _type, ... _args)`
+* `.call(_element, _type, ... _args)`
+* `.clear(_element)`
+* `.context(_element, _type, _context, ... _args)`
+* `.count(_element, _type)`
+* `.regular(_element, _type, ... _args)`
+* `.remove(_element, _type, ... _args)`
+* `.reset()`
+* `.set(_element, _type, ... _args)`
+
+## TODO
+The `.sync` will **maybe** be used to synchronize the callbacks with real **events** (therefore there's the
+`static withEventFeature()` function, to check if the key implements `EventTarget` or `EventEmitter`.
+
+## My original comment, describing the 'problem'
+.. dazu habe ich mir den `CallbackController` ausgedacht.. mehr Infos nur hier in diesem Ausschnitt aus meiner `TODO.txt`:
 ```
 	@ toc.clear(), und eig. überall wo callbacks, '.isWorking'-status o.ae..
 

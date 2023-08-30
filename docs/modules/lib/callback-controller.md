@@ -15,6 +15,13 @@ call, where the functions relate to this lists. This was neccessary here e.g. wh
 changes smth. that's already running (like an animation or a HTTP load process) and when the old callback
 call needed to be _replaced_, ... you understand me? hm. _see the 'My original comment..' section at the end!
 
+## Transfer
+Here I'm replacing animations, to direct to another target style, e.g., without that original callbacks will
+be called, up until the newest (relay-)animation is finished or smth.
+
+So for this I'm using (beneath `.get()`) the `.clear()` for all `_type`s, and after handling the animation
+shit I only need to `.merge()` (or `.set()`) all the old callbacks. etc..
+
 ## 'Singleton' styles
 As either `.count()` (w/o `_type` string) or even directly `.set()` and `.add()` return the number of previously
 defined (until `.clear()`) callbacks (totally, not for a sub-`_type`!), you can see this way if the function is

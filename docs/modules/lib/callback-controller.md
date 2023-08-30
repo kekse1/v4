@@ -20,7 +20,7 @@ Here I'm replacing animations, to direct to another target style, e.g., without 
 be called, up until the newest (relay-)animation is finished or smth.
 
 So for this I'm using (beneath `.get()`) the `.clear()` for all `_type`s, and after handling the animation
-shit I only need to `.merge()` (or `.set()`) all the old callbacks. etc..
+shit I only need to `.all()` (or `.set()` vs. `.add()` w/ `Object`) all the old callbacks. etc..
 
 ## 'Singleton' styles
 As either `.count()` (w/o `_type` string) or even directly `.set()` and `.add()` return the number of previously
@@ -40,7 +40,7 @@ the functions.
 * `.context(_element, _type, _context, ... _args)`
 * `.count(_element, _type)`
 * `.get(_element, _type)`
-* `.merge(_element, _object, _merge, ... _args)`
+* `.all(_element, _object, _merge, ... _args)`
 * `.regular(_element, _type, ... _args)`
 * `.remove(_element, _type, ... _args)`
 * `.reset()`

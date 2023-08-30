@@ -10,10 +10,17 @@ We're using the map **keys** for some kind of context, so we can use a `Callback
 right before the functions which need it. So we manage by e.g. `HTMLElement` instances, when we use
 this feature in a `HTMLElement.prototype` function. This way we avoid state variables in the instances.
 
+> **Note**
+> I'd recommend you to make your instances more/less 'public', like `Node.prototype.clear.callbackController`.
+
 Additionally, managing callbacks also means that we can add or replace callbacks dynamically on every
 call, where the functions relate to this lists. This was neccessary here e.g. when the user interaction
 changes smth. that's already running (like an animation or a HTTP load process) and when the old callback
 call needed to be _replaced_, ... you understand me? hm. _see the 'My original comment..' section at the end!
+
+> **Note**
+> You could also use this one in all your instances, then the key could be your function names, e.g.
+> Both ways are possible - at least this two..
 
 ## Transfer
 Here I'm replacing animations, to direct to another target style, e.g., without that original callbacks will

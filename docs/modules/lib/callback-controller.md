@@ -19,8 +19,8 @@ changes smth. that's already running (like an animation or a HTTP load process) 
 call needed to be _replaced_, ... you understand me? hm. _see the 'My original comment..' section at the end!
 
 > **Note**
-> You could also use this one in all your instances, then the key could be your function names, e.g.
-> Both ways are possible - at least this two..
+> You could also use this one in all your instances, then the key could be your function names, e.g..
+> both ways (and more) are possible..
 
 ## Transfer
 Here I'm replacing animations, to direct to another target style, e.g., without that original callbacks will

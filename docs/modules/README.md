@@ -12,6 +12,7 @@ there's much more finished\[tm\], but still needs to be shown here).
 ## **web**/
 * [`cookies`.js](web/cookies.md)
 * [`emoji`.js](web/emoji.md)
+* [`event`.js](web/event.md)
 * [`mobile`.js](web/mobile.md)
 * [`osd`.js](web/osd.md)
 * [`progress`.js](web/progress.md)

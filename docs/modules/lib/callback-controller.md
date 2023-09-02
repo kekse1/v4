@@ -53,7 +53,7 @@ the functions.
 * `.call(_element, _type, ... _args)`
 * `.carrier`
 * `.carrierKey`
-* `.clear(_element)`
+* `.clear(_element, _type, _free_carrier)`
 * `.context(_element, _type, _context, ... _args)`
 * `.count(_element, _type)`
 * `.delete(... _args)`
@@ -92,3 +92,16 @@ As mentioned somewhere above, the `CallbackController` got it's own static insta
 to avoid unneccessary resources (of many Controller instances).
 
 And btw., this Carrier also free's up the memory by destroying all unused Controller instances (see `DEFAULT_FREE_CARRIER`).
+
+### Skip freeing carrier
+Destroying the `CallbackController` instances (so freeing memory) is the default, if `DEFAULT_FREE_CARRIER` is enabled.
+If you want to skip this step while using the `CallbackController`, you can define a `Boolean` in these functions:
+
+* `.clear(_element, _type = null, _free_carrier = DEFAULT_FREE_CARRIER)`
+* `.delete(... _args)`
+
+This is useful e.g. if you're clearing a controller instance but want to use it also after this. It's not often this case,
+but if this feature wouldn't be, you'd to request the controller twice from your `CallbackControllerCarrier` .. if it's
+used at all! If not, you don't need to care, but if so, the problem is that future requests to the carrier wouldn't give
+you back the same controller instance - so you wouldn't get your callbacks back again!
+

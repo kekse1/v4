@@ -71,3 +71,7 @@ constructor argument).
 * `.has(_key)`
 * `.keys`
 * `.size`
+
+### Proxy
+In the future this one will be a Proxy, so you can access it by e.g. `carrier[key]`.
+

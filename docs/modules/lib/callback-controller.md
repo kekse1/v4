@@ -16,7 +16,7 @@ this feature in a `HTMLElement.prototype` function. This way we avoid state vari
 > I'd recommend you to make your instances more/less 'public', like `Node.prototype.clear.callbackController`.
 
 > **Warning**
-> **UPDATE**! For better ressource management there the _static_ `CallbackController.get(_string_key)` now,
+> **UPDATE**! For better ressource management there's the _static_ `CallbackController.get(_string_key)` now,
 > which depends on a single, static `CallbackControllerCarrier` (whereas all it's members are also as static
 > versions in the `CallbackController` class). This way we're avoiding unneccessary instances (while the
 > Carrier also takes care of deleting unused controllers).

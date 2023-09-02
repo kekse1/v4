@@ -53,3 +53,12 @@ the functions.
 * `.reset()`
 * `.set(_element, _type, ... _args)`
 
+## `CallbackControllerCarrier`
+This is even newer. I'm using it in my `animate()` function (see `web/animate.js`), as every animation is identified
+by it's **`_type`**.
+
+The plan is to synchronize the `.carrier` (the `CallbackController` already accepts this one as constructor argument),
+as old ones (`CallbackController` without any key) stay in the carrier.
+
+Additionally, I'm planning a single **static** `CallbackController` **or** `CallbackControllerCarrier` in the Controller
+class itself.

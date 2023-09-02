@@ -43,15 +43,19 @@ the functions.
 ## Implementation
 * `.add(_element, _type, ... _args)`
 * `.call(_element, _type, ... _args)`
+* `.carrier`
+* `.carrierKey`
 * `.clear(_element)`
 * `.context(_element, _type, _context, ... _args)`
 * `.count(_element, _type)`
+* `.delete(... _args)`
 * `.get(_element, _type)`
 * `.all(_element, _object, _merge, ... _args)`
 * `.regular(_element, _type, ... _args)`
 * `.remove(_element, _type, ... _args)`
 * `.reset()`
 * `.set(_element, _type, ... _args)`
+* `.setCarrier(_carrier, _carrier_key)`
 
 ## `CallbackControllerCarrier`
 This is even newer. I'm using it in my `animate()` function (see `web/animate.js`), as every animation is identified
@@ -60,3 +64,10 @@ by it's **`_type`**.
 It's synchronized with it's `CallbackController` instances (since the `CallbackController` accepts one Carrier as
 constructor argument).
 
+### Implementation
+* `.clear(_destroy)`
+* `.delete(... _args)`
+* `.get(_key)`
+* `.has(_key)`
+* `.keys`
+* `.size`

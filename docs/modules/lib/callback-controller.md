@@ -91,4 +91,4 @@ In the future this one will be a Proxy, so you can access it by e.g. `carrier[ke
 As mentioned somewhere above, the `CallbackController` got it's own static instance of this `CallbackControllerCarrier`,
 to avoid unneccessary resources (of many Controller instances).
 
-And btw., this Carrier also free's up the memory by destroying all unused Controller instances (see `DEFAULT_CARRIER_DELETE`).
+And btw., this Carrier also free's up the memory by destroying all unused Controller instances (see `DEFAULT_FREE_CARRIER`).

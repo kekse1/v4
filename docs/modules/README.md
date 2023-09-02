@@ -10,6 +10,7 @@ there's much more finished\[tm\], but still needs to be shown here).
 * [`mime`.js](lib/mime.md)
 
 ## **web**/
+* [`animate`.js](web/animate.md)
 * [`cookies`.js](web/cookies.md)
 * [`emoji`.js](web/emoji.md)
 * [`event`.js](web/event.md)

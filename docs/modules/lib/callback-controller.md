@@ -84,9 +84,6 @@ constructor argument).
 * `.keys`
 * `.size`
 
-### Proxy
-This carrier is implemented as Proxy, so you can just e.g. request a Controller by `carrier[key]`, etc. pp..
-
 ### Static instance
 As mentioned somewhere above, the `CallbackController` got it's own static instance of this `CallbackControllerCarrier`,
 to avoid unneccessary resources (of many Controller instances).

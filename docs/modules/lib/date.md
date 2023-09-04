@@ -1,6 +1,6 @@
 <img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
 
-# `date.js`
+# `date`.js
 Here's atm only one feature of my `Date` extensions. There are more, but this is one of the most important ones.
 
 ## `.format()`

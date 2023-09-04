@@ -10,8 +10,8 @@ is much more important.
 
 ## Items
 * [`array`.js](globals/array.md)
-* [`date`.js`](globals/date.md)
-* [`math`.js`](globals/math.md)
+* [`date`.js](date.md)
+* [`math`.js](globals/math.md)
 * [`math.unit`.js](globals/math.unit.md)
 * [`numeric`.js](globals/numeric.md)
 * [`object`.js](globals/object.md)

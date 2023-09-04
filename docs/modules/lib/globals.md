@@ -5,7 +5,7 @@ Like in my [`lib.js`](https://libjs.de/), I'm also extending the functionality o
 'global objects' (see the list below).
 
 BUT this time I'm thinking more economically - the Library has many, many extensions for
-many cases, this version has much less, as the loading time (for the browser/web version)
+many cases, this version has much less, since the loading time (for the browser/web version)
 is much more important.
 
 ## Items

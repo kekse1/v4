@@ -15,6 +15,7 @@ is much more important.
 * [`math.unit`.js](globals/math.unit.md)
 * [`numeric`.js](globals/numeric.md)
 * [`object`.js](globals/object.md)
+* [`proxy`.js](globals/proxy.md)
 * [`reflect`.js](globals/reflect.md)
 * [`regexp`.js](globals/regexp.md)
 * [`string`.js](globals/string.md)

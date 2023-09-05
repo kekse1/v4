@@ -14,7 +14,7 @@ other functions or smth.
 > native implementation (C++ or so), which will act really fast! So you really should
 > use the `.animate()` of your HTML elements!
 
-## Native mode
+## Managed or not managed
 First, if `_options.managed = false`, nothing will change - then it's the default behavior
 of the Animation. If left out or set `false`, the changes described below will be applied.
 

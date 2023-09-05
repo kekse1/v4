@@ -49,9 +49,8 @@ The number of relays always stays in the animation object (`.relays`).
 
 ### Relaying with less styles
 If you continue an animation with less styles in your keyframes than an older animation,
-but use a style which is used in this older animations, I'm also animating the other
-styles to their last keyframe element additionally to the new styles. So it's more fluid
-again.
+but use a style which is used in this older animations, then the other animations will run
+up to their ends, only the newest animation styles will stop and continue (being relayed).
 
 ## Scaling
 _Some_ animations are being scaled, if you define it in your `_options`, in the `duration`.

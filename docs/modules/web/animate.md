@@ -85,7 +85,7 @@ new ones, use the `_options.add = true`. Exception: the `free` callback, which w
 so you'll get called this way every time (to clean up your memory, etc.).
 
 ## Other functions
-.. are defined in the `window` object and every `HTMLElement`, to really **manage** 'em:
+.. are defined in the `document` object and every `HTMLElement`, to really **manage** 'em:
 
 * `.hasAnimation(... _args)`
 * `.getAnimation(... _args)`

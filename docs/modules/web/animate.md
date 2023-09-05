@@ -5,7 +5,7 @@ There are some problems with the native implementation. So I implemented some mo
 inclusive features for better animation handling. All totally managed!
 
 All my extensions are implemented straight into the `Animation(.prototype)` object (and,
-of course, the `Element.prototype.animate`), so you don't need to remember/care about
+of course, the `HTMLElement.prototype.animate`), so you don't need to remember/care about
 other functions or smth.
 
 > **Note**
@@ -86,7 +86,7 @@ new ones, use the `_options.add = true`. Exception: the `free` callback, which w
 so you'll get called this way every time (to clean up your memory, etc.).
 
 ## Other functions
-.. are defined in the `window` object and every `Element`, to really **manage** 'em:
+.. are defined in the `window` object and every `HTMLElement`, to really **manage** 'em:
 
 * `.hasAnimation(... _args)`
 * `.getAnimation(... _args)`

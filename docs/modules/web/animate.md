@@ -64,8 +64,8 @@ But it's hard to say when this is neccessary (it's not only the style to compare
 the direction - and I don't want to split up the style strings itself), it's turned OFF by
 default, and will only be applied if you really want it!
 
-For this, btw., every animation holds a `.done` floating value between 0 and 1. It's the
-division `currentTime / duration`.
+For this, btw., every animation holds a `.progress` floating value between 0 and 1.
+It's the division `currentTime / duration`.
 
 ## Callbacks
 You can define following callbacks in the `_options` object, which will be called with the

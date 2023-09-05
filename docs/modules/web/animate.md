@@ -95,3 +95,5 @@ so you'll get called this way every time (to clean up your memory, etc.).
     * `.finishAnimation(... _args)`
     * `.playAnimation(... _args)`
 
+Plus the `document.animations` and `(HTMLElement).animations` which count the amounts!
+

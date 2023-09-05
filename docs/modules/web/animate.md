@@ -35,7 +35,7 @@ Beneath the new `(Animate).stop()` method, which will cancel the animation and s
 current style state, a new animation with already animated styles will start from the
 current style states, so everything is really flowing..
 
-And, of course, for more 'flowing' any animation will also start with the currently set
+And, of course, for more smoothness any animation will also start with the currently set
 style state, since anything else looks bad. AND if you cancel animations, the old state
 will be set again, which will persist above animation relays (so the stop and continue
 of an animation). This means, every animation relay will hold the old state, so if you
@@ -50,8 +50,7 @@ The number of relays always stays in the animation object (`.relays`).
 ### Relaying with less styles
 If you continue an animation with less styles in your keyframes than an older animation,
 but use a style which is used in this older animations, I'm also animating the other
-styles to their last keyframe element additionally to the new styles. So it's more fluid
-again.
+styles to their last keyframe element additionally to the new styles. So it's more fluid!
 
 ## Scaling
 _Some_ animations are being scaled, if you define it in your `_options`, in the `duration`.

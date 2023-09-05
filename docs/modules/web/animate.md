@@ -4,9 +4,9 @@
 There are some problems with the native implementation. So I implemented some more logics,
 inclusive features for better animation handling. All totally managed!
 
-All my extensions are implemented straight into the `Animation(.prototype)` object, so
-you don't need to remember/care about other functions or smth. But maybe you are
-interested in my supporting functions? They are all defined below `Animation.prototype`.
+All my extensions are implemented straight into the `Animation(.prototype)` object (and,
+of course, the `Element.prototype.animate`), so you don't need to remember/care about
+other functions or smth.
 
 > **Note**
 > Did you knew? Even if I could implement own animation methods, it's always recommended

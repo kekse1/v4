@@ -2,7 +2,7 @@
 
 # Web Animations API
 There are some problems with the native implementation. So I implemented some more logics,
-inclusive features for better animation handling.
+inclusive features for better animation handling. All totally managed!
 
 All my extensions are implemented straight into the `Animation(.prototype)` object, so
 you don't need to remember/care about other functions or smth. But maybe you are
@@ -84,4 +84,15 @@ Since im using the [`CallbackController`](../lib/callback-controller.md), I'm re
 old callbacks by new ones, using `(CallbackController).set()`. If you want to `.add()` the
 new ones, use the `_options.add = true`. Exception: the `free` callback, which will be added,
 so you'll get called this way every time (to clean up your memory, etc.).
+
+## Other functions
+.. are defined in the `window` object and every `HTMLElement`, to really **manage** 'em:
+
+* `.hasAnimation(... _args)`
+* `.getAnimation(... _args)`
+* `.controlAnimation(... _args)`
+    * `.stopAnimation(... _args)`
+    * `.cancelAnimation(... _args)`
+    * `.finishAnimation(... _args)`
+    * `.playAnimation(... _args)`
 

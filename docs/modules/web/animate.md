@@ -18,6 +18,10 @@ other functions or smth.
 First, if `_options.managed = false`, nothing will change - then it's the default behavior
 of the Animation. If left out or set to `true`, the changes described below will be applied.
 
+At the moment I'm using my own `ManagedAnimation` class, as replacement for any `Animation`
+instance. This is because I'm splitting the styles in the keyframes, and create an own
+animation for each. You wonder why? Because there are some advantages in managing all!
+
 ## First problem: Persistance
 Of course you can use `fill = 'forwards'`, but those styles can't be changed afterwards
 via regular `.style[]` of your Elements! So I extended it this way, that after any animation

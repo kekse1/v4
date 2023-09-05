@@ -18,7 +18,7 @@ interested in my supporting functions? They are all defined below `Animation.pro
 First, if `_options.native = true`, nothing will change - then it's the default behavior
 of the Animation. If left out or set `false`, the changes described below will be applied.
 
-## First problem: persistance
+## First problem: Persistance
 Of course you can use `fill = 'forwards'`, but those styles can't be changed afterwards
 via regular `.style[]` of your Elements! So I extended it this way, that after any animation
 the last state will always be just set as new style - and so it stays changeable!

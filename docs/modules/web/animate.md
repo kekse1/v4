@@ -16,7 +16,7 @@ other functions or smth.
 
 ## Managed or not managed
 First, if `_options.managed = false`, nothing will change - then it's the default behavior
-of the Animation. If left out or set `false`, the changes described below will be applied.
+of the Animation. If left out or set `true`, the changes described below will be applied.
 
 ## First problem: Persistance
 Of course you can use `fill = 'forwards'`, but those styles can't be changed afterwards

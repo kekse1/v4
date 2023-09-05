@@ -47,7 +47,7 @@ cancel one, not the old state of an relay point but the really original state wi
 
 The number of relays always stays in the animation object (`.relays`).
 
-## Relaying with less styles
+### Relaying with less styles
 If you continue an animation with less styles in your keyframes than an older animation,
 but use a style which is used in this older animations, I'm also animating the other
 styles to their last keyframe element additionally to the new styles. So it's more fluid

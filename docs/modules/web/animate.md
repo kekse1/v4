@@ -20,10 +20,8 @@ of the Animation. If left out or set `false`, the changes described below will b
 
 ## First problem: persistance
 Of course you can use `fill = 'forwards'`, but those styles can't be changed afterwards
-via regular `.style[]` of your Elements!
-
-So I extended it this way, that after any animation the last state will always be just
-set as new style - and so it stays changeable!
+via regular `.style[]` of your Elements! So I extended it this way, that after any animation
+the last state will always be just set as new style - and so it stays changeable!
 
 ## CSS styles
 One 'problem' (more/less) is that CSS styles in the keyframes need to be camel-cased.

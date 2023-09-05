@@ -8,6 +8,12 @@ All my extensions are implemented straight into the `Animation(.prototype)` obje
 you don't need to remember/care about other functions or smth. But maybe you are
 interested in my supporting functions? They are all defined below `Animation.prototype`.
 
+> **Note**
+> Did you knew? Even if I could implement own animation methods, it's always recommended
+> to use the native `Web Animations API`, since it's based on the original browser's
+> native implementation (C++ or so), which will act really fast! So you really should
+> use the `.animate()` of your HTML elements!
+
 ## Native mode
 First, if your `_options` object/argument has `.native === true`, nothing will change,
 then it's the default behavior of the Animation. If left out our `=== false`, the changes

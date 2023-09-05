@@ -15,9 +15,8 @@ interested in my supporting functions? They are all defined below `Animation.pro
 > use the `.animate()` of your HTML elements!
 
 ## Native mode
-First, if your `_options` object/argument has `.native === true`, nothing will change,
-then it's the default behavior of the Animation. If left out our `=== false`, the changes
-described below will be applied.
+First, if `_options.native = true`, nothing will change - then it's the default behavior
+of the Animation. If left out or set `false`, the changes described below will be applied.
 
 ## First problem: persistance
 Of course you can use `fill = 'forwards'`, but those styles can't be changed afterwards

@@ -90,7 +90,7 @@ so you'll get called this way every time (to clean up your memory, etc.).
 
 * `.hasAnimation(... _args)`
 * `.getAnimation(... _args)`
-* `.controlAnimation(... _args)`
+* `.controlAnimation(_func, ... _args)`
     * `.stopAnimation(... _args)`
     * `.cancelAnimation(... _args)`
     * `.finishAnimation(... _args)`

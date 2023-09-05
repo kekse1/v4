@@ -15,7 +15,7 @@ other functions or smth.
 > use the `.animate()` of your HTML elements!
 
 ## Native mode
-First, if `_options.native = true`, nothing will change - then it's the default behavior
+First, if `_options.managed = false`, nothing will change - then it's the default behavior
 of the Animation. If left out or set `false`, the changes described below will be applied.
 
 ## First problem: Persistance
@@ -43,7 +43,7 @@ cancel one, not the old state of an relay point but the really original state wi
 
 > **Note**
 > But don't panic: as already mentioned above, you can omit this behavior with the
-> `native` option (set it to `true` to leave out all my extensions).
+> `managed` option (set it to `false` to leave out all my extensions).
 
 The number of relays always stays in the animation object (`.relays`).
 

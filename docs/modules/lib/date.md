@@ -1,7 +1,68 @@
 <img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
 
 # `date`.js
-Here's atm only one feature of my `Date` extensions. There are more, but this is one of the most important ones.
+The [`format()`](#format) is maybe most interesting for you?
+
+## Extensions
+* `Date.toString(_date, _html, _parenthesis)`
+* `Date.prototype.toString(_html, _parenthesis)`
+* `Date.dayByYear(_date)`
+* `Date.prototype.dayByYear`
+* `Date.dayInYear(_date)`
+* `Date.prototype.dayInYear`
+* `Date.daysInYear(_date)`
+* `Date.prototype.daysInYear`
+* `Date.daysInMonth(_date)`
+* `Date.prototype.daysInMonth`
+* `Date.isLeapYear(_date)`
+* `Date.prototype.isLeapYear`
+* `Date.yearPercent(_date)`
+* `Date.prototype.yearPercent`
+* `Date.years(_date)`
+* `Date.prototype.years`
+* `Date.year(_date)`
+* `Date.prototype.year`
+* `Date.months(_date)`
+* `Date.prototype.months`
+* `Date.month(_date)`
+* `Date.prototype.month`
+* `Date.weeks(_date)`
+* `Date.prototype.weeks`
+* `Date.week(_date)`
+* `Date.prototype.week`
+* `Date.days(_date)`
+* `Date.prototype.days`
+* `Date.day(_date)`
+* `Date.prototype.day`
+* `Date.hours(_date)`
+* `Date.prototype.hours`
+* `Date.hour(_date)`
+* `Date.prototype.hour`
+* `Date.minutes(_date)`
+* `Date.prototype.minutes`
+* `Date.minute(_date)`
+* `Date.prototype.minute`
+* `Date.seconds(_date)`
+* `Date.prototype.seconds`
+* `Date.second(_date)`
+* `Date.prototype.second`
+* `Date.milliseconds(_date)`
+* `Date.prototype.milliseconds`
+* `Date.millisecond(_date)`
+* `Date.prototype.millisecond`
+* `Date.unix(_date)`
+* `Date.prototype.unix`
+* `Date.modifiers`
+* `Date.hasModifier(... _args)`
+* `Date.prototype.format(_format)`
+* `Date.format(_format, _date)`
+* `Date.format[*]`
+* `Date.format.modifiers`
+* `Date.WEEKDAY(_day, _short, _lang)`
+* `Date.MONTH(_month, _short, _lang)`
+* `[Date.]date(_which, _date)`
+* `date.getDateFormat(_format)`
+* `date.getDefaultDateFormat(_resolve)`
 
 ## `.format()`
 You can use `new Date().format()` or `Date.format()`, maybe even the `date()` function.
@@ -49,3 +110,4 @@ The names (after `--date-`) can be used for `.format()` etc. instead of real for
 	--date-ms: '%X';
 	--date-unix: '%x';
 ```
+

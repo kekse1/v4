@@ -17,5 +17,6 @@ there's much more finished\[tm\], but still needs to be shown here).
 * [`event`.js](web/event.md)
 * [`mobile`.js](web/mobile.md)
 * [`osd`.js](web/osd.md)
+* [`page`.js](web/page.md)
 * [`progress`.js](web/progress.md)
 

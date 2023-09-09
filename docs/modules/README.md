@@ -6,6 +6,7 @@ there's much more finished\[tm\], but still needs to be shown here).
 
 ## **lib**/
 * [`callback-controller`.js](lib/callback-controller.md)
+* [`camel`.js](lib/camel.md)
 * [`date`.js](lib/date.md)
 * [`globals`](lib/globals.md)
 * [`mime`.js](lib/mime.md)

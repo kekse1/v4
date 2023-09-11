@@ -32,9 +32,10 @@ are defined in the `_options` object, with these names (mapping to a `Function`)
 ## Functions
 Only managed animations are affected here:
 
-* `HTMLElement.prototype.show()`
-* `HTMLElement.prototype.hide()`
-* `HTMLElement.prototype.blink()`
+* `HTMLElement.prototype.fade(_type, _options, ... _args)`
+* `HTMLElement.prototype.show(_options, ... _args)`
+* `HTMLElement.prototype.hide(_options, ... _args)`
+* `HTMLElement.prototype.blink(_options, ... _args)`
 * `HTMLElement.prototype.animation`
 * `HTMLElement.prototype.animations`
 * `HTMLElement.prototype.hasAnimation(... _args)`

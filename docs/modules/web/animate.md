@@ -19,7 +19,8 @@ This way I can handle them each. To make things easier, I've also implemented th
 **I'm going to explain more l8rs.. so this whole module documentation is still TODO.**
 
 ## Events
-The bold ones are my own, new event types. They all are based on the `AnimationEvent`.
+The bold ones are my own, new event types. Respective callbacks (w/ `.type`), since they
+are defined in the `_options` object, with these names (mapping to a `Function`):
 
 * `finish`
 * `cancel`

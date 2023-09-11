@@ -61,7 +61,8 @@ Only managed animations are affected here:
 
 This function is also an extension of me, but also works in non-managed mode;
 it'll stop the animation like `.cancel()`, but will commit the current style
-state before. So the animation stopps and it all looks like regular `.pause()`.
+state before. So the animation stopps and it all looks like regular `.pause()`;
+BUT the `_event.type` is changed to `stop`!
 
 * `Animation.prototype.stop()`
 

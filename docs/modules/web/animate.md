@@ -16,7 +16,7 @@ a `.managed` one) in it's own styles (by checking the keyframes object/array).
 This way I can handle them each. To make things easier, I've also implemented the new
 **`ManagedAnimation`** class, which is essential for any (`.managed`) animation, etc..
 
-I'm going to explain more l8rs.. so this whole module documentation is still TODO.
+**I'm going to explain more l8rs.. so this whole module documentation is still TODO.**
 
 ## Events
 The bold ones are my own, new event types. They all are based on the `AnimationEvent`.
@@ -28,6 +28,32 @@ The bold ones are my own, new event types. They all are based on the `AnimationE
 * **`relay`**
 * **`stop`**
 
-## TODO
-...
+## Functions
+Only managed animations are affected here:
+
+* `HTMLElement.prototype.show()`
+* `HTMLElement.prototype.hide()`
+* `HTMLElement.prototype.blink()`
+* `HTMLElement.prototype.animation`
+* `HTMLElement.prototype.animations`
+* `HTMLElement.prototype.hasAnimation(... _args)`
+* `HTMLElement.prototype.getAnimation(... _args)`
+* `HTMLElement.prototype.getAnimations(... _args)`
+* `HTMLElement.prototype.controlAnimation(_func, ... _args)`
+* `HTMLElement.prototype.stopAnimation(... _args)`
+* `HTMLElement.prototype.cancelAnimation(... _args)`
+* `HTMLElement.prototype.finishAnimation(... _args)`
+* `HTMLElement.prototype.playAnimation(... _args)`
+* `HTMLElement.prototype.pauseAnimation(... _args)`
+* `document.animation`
+* `document.animations`
+* `document.getAnimation(... _args)`
+* `document.getAnimations(... _args)`
+* `document.hasAnimation(... _args)`
+* `document.controlAnimation(_func, ... _args)`
+* `document.stopAnimation(... _args)`
+* `document.cancelAnimation(... _args)`
+* `document.finishAnimation(... _args)`
+* `document.playAnimation(... _args)`
+* `document.pauseAnimation(... _args)`
 

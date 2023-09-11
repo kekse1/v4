@@ -24,6 +24,7 @@ The bold ones are my own, new event types. They all are based on the `AnimationE
 * `finish`
 * `cancel`
 * `remove`
+* **`callback`**
 * **`relay`**
 * **`stop`**
 

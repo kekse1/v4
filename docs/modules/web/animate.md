@@ -57,3 +57,9 @@ Only managed animations are affected here:
 * `document.playAnimation(... _args)`
 * `document.pauseAnimation(... _args)`
 
+This function is also an extension of me, but also works in non-managed mode;
+it'll stop the animation like `.cancel()`, but will commit the current style
+state before. So the animation stopps and it all looks like regular `.pause()`.
+
+* `Animation.prototype.stop()`
+

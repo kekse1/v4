@@ -8,6 +8,6 @@ Beneath a 24h analog clock it also got it's own timer (and countdown).
 But here's an example of the clock, with enabled percentage.. here it's
 after **12 o'clock**, it's **12:40:10**, to be exact.
 
-**_UPDATE_: This is out-dated, I already improved the progress in many ways (drawing ticks, and so on)!**
+**_UPDATE_: Second image is out-dated, I already improved the progress in many ways (drawing ticks, and so on)!**
+![Newer version, just a clock](../img/clock.png)
 ![Clock example, w/ example percentage](../img/progress.png)
-

@@ -5,7 +5,7 @@
 * Fetches a file (if too big or unsupported MIME type, a download will be offered (if not done manually))
 * Presents it, depending on it's MIME type (or file extension if none sent); also animated.
 * _Automatically creates a **Table of Contents** (also animated, etc.)_!
-* If downloading a markdown file (`.md` extension), it'll first be converted to `.html`
+* If downloading a markdown file (`.md` extension), it'll first be converted to `.html` (/TODO/)
 * DEAD links will be highlighted and disabled (for an amount of time); with [OSD](osd.md)
 * HTML will be pre-processed, inter alia for [`emoji`.js](emoji.md)
 * .. AFTER it'll be parsed, inter alia to get only the `<body>` part, etc. (and for the **TOC**, etc.); see `web/html.js`

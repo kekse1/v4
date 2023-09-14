@@ -6,6 +6,11 @@
 
 ## Overview
 
+### Status
+Theoretically I could already present my site (though the contents itself are not really ready,
+but from the technical site..). But I'm fine tuning many features right now, and I also wanted
+to present a finished documentation right here. So I'm still waiting.
+
 ### Modules
 See the [Module Index](docs/modules/README.md).
 
@@ -13,13 +18,11 @@ The documentation is splitted like my JavaScript code (in the FS hierarchy).
 * **lib**/
 * **web**/
 
-I'm using the newer `ES Modules` here (the first time for me). Because they're asynchronous etc.,
-whereas my older versions used an own `require()` implementation (which had to be synchronous,
-for obvious reasons).
+.. and it's still TODO, so it's growing. Many things are already ready, but I'm still improving
+them and so, because I'm lazy, this documentation is not really the current state.
 
 > **Note**
-> JFYI: When you read about ES Modules that the `import` and `export` need to be defined at the
-> beginning of your files: it's not meant that they need to be 'on top', they just need to be
-> in the first level, without any nested structures! So they can also be set on the bottom.. xD~
-> ... OTHERWISE just use `import()` and `export()`.
+> I'm using the newer `ES Modules` here (the first time for me). Because they're asynchronous etc.,
+> whereas my older versions used an own `require()` implementation (which had to be synchronous,
+> for obvious reasons).
 

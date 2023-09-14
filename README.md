@@ -18,9 +18,6 @@ The documentation is splitted like my JavaScript code (in the FS hierarchy).
 * **lib**/
 * **web**/
 
-.. and it's still TODO, so it's growing. Many things are already ready, but I'm still improving
-them and so, because I'm lazy, this documentation is not really the current state.
-
 > **Note**
 > I'm using the newer `ES Modules` here (the first time for me). Because they're asynchronous etc.,
 > whereas my older versions used an own `require()` implementation (which had to be synchronous,

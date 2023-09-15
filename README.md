@@ -13,9 +13,3 @@ to present a finished documentation right here. So I'm still waiting.
 
 ### Modules
 See the [Module Index](docs/modules/README.md).
-
-> **Note**
-> I'm using the newer `ES Modules` here (the first time for me). Because they're asynchronous etc.,
-> whereas my older versions used an own `require()` implementation (which had to be synchronous,
-> for obvious reasons).
-

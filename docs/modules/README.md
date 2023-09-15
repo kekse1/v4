@@ -20,4 +20,5 @@ there's much more finished\[tm\], but still needs to be shown here).
 * [`osd`.js](web/osd.md)
 * [`page`.js](web/page.md)
 * [`progress`.js](web/progress.md)
+* [`toc`.js](web/toc.md)
 

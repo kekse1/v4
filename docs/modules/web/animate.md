@@ -66,3 +66,8 @@ BUT the `_event.type` is changed to `stop`!
 
 * `Animation.prototype.stop()`
 
+## For your info..
+There's a `--speed` CSS Custom Property to change the whole acceleration of
+any animation. If disabled (setting to `0`), any animation will only set the
+CSS styles to the target values. But the optional `delay` will be enforced..
+

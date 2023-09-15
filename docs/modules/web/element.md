@@ -3,7 +3,7 @@
 # **`element.js`**
 Extends the **`HTMLElement`** in most times, partially also the **`Node`** or the **`Element`**.
 
-** Implementation
+## Implementation
 This is the current state - it may change in some time (or rather: will be extended!).
 
 * `HTMLElement.prototype.parseVariable(... _args)`

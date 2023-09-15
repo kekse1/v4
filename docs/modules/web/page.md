@@ -4,7 +4,7 @@
 - [x] Catches all clicks on elements with `[href]` attribute (and animates them), if below page path
 - [x] Fetches a file (if too big or unsupported MIME type, a download will be offered (if not done manually))
 - [x] Presents it, depending on it's MIME type (or file extension if none sent); also animated.
-- [x] _Automatically creates a **Table of Contents** (also animated, etc.)_!
+- [x] _Automatically creates a **Table of Contents** (also animated, etc.)_! See [`toc.js`](toc.md)!
 - [x] DEAD links will be highlighted and disabled (for an amount of time); with [OSD](osd.md)
 - [x] HTML will be pre-processed, inter alia for [`emoji`.js](emoji.md)
 - [x] .. AFTER it'll be parsed, inter alia to get only the `<body>` part, etc. (and for the **TOC**, etc.); see `web/html.js`

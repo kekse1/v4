@@ -14,6 +14,8 @@ there's much more finished\[tm\], but still needs to be shown here).
 ## **web**/
 * [`animate`.js](web/animate.md)
 * [`cookies`.js](web/cookies.md)
+* [`dialog`.js](web/dialog.md)
+* [`element`.js](web/element.md)
 * [`emoji`.js](web/emoji.md)
 * [`event`.js](web/event.md)
 * [`mobile`.js](web/mobile.md)

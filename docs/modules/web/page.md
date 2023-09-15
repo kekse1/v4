@@ -1,6 +1,11 @@
 <img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
 
 # **`page`**.js
+A page is loaded on demand, and inserted into the `#MAIN`/`<main>` of the site. So not
+the whole website is being reloaded (with all the JavaScript etc.), but only the content,
+when neccessary (when the user/client requests it).
+
+## Functions
 - [x] Catches all clicks on elements with `[href]` attribute (and animates them), if below page path
 - [x] Fetches a file (if too big or unsupported MIME type, a download will be offered (if not done manually))
 - [x] Presents it, depending on it's MIME type (or file extension if none sent); also animated.
@@ -13,3 +18,4 @@
 - [x] Downloads will present a [`progress`.js](progress.md) with percent and/or passed time
 - [x] Errors will be presented better (not *only* in the console, which is the usus here..)
 - [ ] If downloading a markdown file (`.md` extension), it'll first be converted to `.html` (/TODO/)
+

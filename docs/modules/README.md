@@ -19,6 +19,7 @@ there's much more finished\[tm\], but still needs to be shown here).
 * [`camel`.js](lib/camel.md)
 * [`date`.js](lib/date.md)
 * [`globals`](lib/globals.md)
+* [`levenshtein`.js](lib/levenshtein.md)
 * [`mime`.js](lib/mime.md)
 
 ## **web**/

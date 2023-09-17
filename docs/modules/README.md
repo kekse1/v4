@@ -29,6 +29,7 @@ there's much more finished\[tm\], but still needs to be shown here).
 * [`element`.js](web/element.md)
 * [`emoji`.js](web/emoji.md)
 * [`event`.js](web/event.md)
+* [`help`.js](web/help.md)
 * [`mobile`.js](web/mobile.md)
 * [`osd`.js](web/osd.md)
 * [`page`.js](web/page.md)

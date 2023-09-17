@@ -14,6 +14,11 @@ and some more advantages.
 Either defined by a String in the `Node`-**Attribute**, or either as String or another
 real `Node` in the `(Node).help` member.
 
+### Hide any higher help
+If one of the elements we're looping through encodes an EMPTY string, either as attribute
+or as member, higher help definitions will be overridden, so they won't appear then. This
+is also an important feature.
+
 ## Mobile
 Won't be shown in `mobile` view neither with a pointer(-type) which isn't a `mouse`.
 

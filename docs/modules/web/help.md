@@ -7,6 +7,8 @@ _experimental_ popup support, so I avoided name collisions.
 ## Events
 It's working via `pointermove`, `pointerover`, and `pointerout`, but not [only]
 with regular `_event.target` check, but by looking up any `document.elementsFromPoint()`.
+This ensures that also nested elements won't override any higher popup/help definition,
+and some more advantages.
 
 ## Elements
 Either defined by a String in the `Node`-**Attribute**, or either as String or another

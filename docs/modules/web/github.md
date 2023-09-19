@@ -17,6 +17,10 @@ They'll be converted to an object like `{ user, repo, path }`, and then
 be used to either ask the API as described above (if only the `{user}`
 component is defined) or by converting to a RAW URL (`raw.githubusercontent..`).
 
+## Tree
+The latest feature is using the API to receive the repository contents, so
+I can easily list such an index of files on my website now.
+
 ## Configuration
 The `config.css` file holds all necessary config variables (like the URLs, etc.)
 

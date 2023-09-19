@@ -15,8 +15,7 @@ I'm using my own **`github:`** URL (scheme) for this reason.
 
 They'll be converted to an object like `{ user, repo, path }`, and then
 be used to either ask the API as described above (if only the `{user}`
-component is defined) or by converting to a RAW url (so `raw.githubusercontent..`
-etc.).
+component is defined) or by converting to a RAW URL (`raw.githubusercontent..`).
 
 ## Configuration
 The `config.css` file holds all necessary config variables (like the URLs, etc.)

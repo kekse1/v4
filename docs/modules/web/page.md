@@ -17,5 +17,6 @@ when necessary (when the user/client requests it).
 - [x] JavaScript and CSS styles will be selected out (and downloaded partially), for evaluation or better embedding
 - [x] Downloads will present a [`progress`.js](progress.md) with percent and/or passed time
 - [x] Errors will be presented better (not *only* in the console, which is the usus here..)
-- [ ] If downloading a markdown file (`.md` extension), it'll first be converted to `.html` (/TODO/)
+- [x] If downloading a markdown file (`.md` extension), it'll first be converted to `.html`
+- [x] If a JSON file (by the GitHub API) is received, it'll render a list of repositories by the `github:user`.
 

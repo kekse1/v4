@@ -13,5 +13,5 @@
 * `Array.size(_array, _keys)`
 * `Array.concat(... _args)`
 * `Array.prototype.concat(... _args)`
-* `Array.prototype.render(_colors, _keys, ... _args)`
+* `Array.prototype.toText(_colors, _keys, ... _args)`
 

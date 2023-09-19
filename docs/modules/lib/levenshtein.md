@@ -11,7 +11,7 @@ you really wanted to call.
 ## My version
 * (a) can also be non-case-sensitive (by boolean argument)
 * (b) can return a (always sorted, asc.) list w/ or w/o distances
-* (c) currently only implements matrix form; vector is TODO (but not really neccessary)
+* (c) currently only implements matrix form; vector is TODO (but not really necessary)
 
 ## Implementation
 * `levenshtein(_word, ... _compare)`

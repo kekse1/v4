@@ -18,11 +18,11 @@ this feature in a `HTMLElement.prototype` function. This way we avoid state vari
 > **Warning**
 > **UPDATE**! For better ressource management there's the _static_ `CallbackController.get(_string_key)` now,
 > which depends on a single, static `CallbackControllerCarrier` (whereas all it's members are also as static
-> versions in the `CallbackController` class). This way we're avoiding unneccessary instances (while the
+> versions in the `CallbackController` class). This way we're avoiding unnecessary instances (while the
 > Carrier also takes care of deleting unused controllers).
 
 Additionally, managing callbacks also means that we can add or replace callbacks dynamically on every
-call, where the functions relate to this lists. This was neccessary here e.g. when the user interaction
+call, where the functions relate to this lists. This was necessary here e.g. when the user interaction
 changes smth. that's already running (like an animation or a HTTP load process) and when the old callback
 call needed to be _replaced_, ... you understand me? hm. _see the 'My original comment..' section at the end!
 
@@ -86,7 +86,7 @@ constructor argument).
 
 ### Static instance
 As mentioned somewhere above, the `CallbackController` got it's own static instance of this `CallbackControllerCarrier`,
-to avoid unneccessary resources (of many Controller instances).
+to avoid unnecessary resources (of many Controller instances).
 
 And btw., this Carrier also free's up the memory by destroying all unused Controller instances (see `DEFAULT_FREE_CARRIER`).
 

@@ -24,7 +24,7 @@ Won't be shown in `mobile` view neither with a pointer(-type) which isn't a `mou
 
 ## `Freeze` support
 .. is also done! Look at `freeze.js` (also TODO in this documentation). Here it was
-neccessary to e.g. select popup text/html without closing or moving this help, etc.
+necessary to e.g. select popup text/html without closing or moving this help, etc.
 
 ## More/..
 .. still TODO _in this documentation_. My real progress is more than documentated in here.

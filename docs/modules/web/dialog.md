@@ -5,7 +5,7 @@ Own **Dialog**/Modal element (`extends HTMLElement`).
 
 Can be used as **alert()** (w/ modal) and also as **confirm()**, since optional
 `buttons[]` can be configured. These buttons are `extends HTMLButtonElement`, and
-at least one default `OK` is neccessary..
+at least one default `OK` is necessary..
 
 ## Use case(s)
 Currently I'm using it instead of regular **`alert()`** or **`confirm()`**, etc.;

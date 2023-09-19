@@ -20,5 +20,5 @@ BUT unfortunately it's not supported by browsers 'as is', so the player is being
 > `<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" crossorigin="anonymous"></script>`.
 >
 > That's the latest version, directly out of a CDN. :)~
-> I don't like this, but it's neccessary..
+> I don't like this, but it's necessary..
 

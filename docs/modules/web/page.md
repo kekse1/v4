@@ -3,7 +3,7 @@
 # **`page`**.js
 A page is loaded on demand, and inserted into the `#MAIN`/`<main>` of the site. So not
 the whole website is being reloaded (with all the JavaScript etc.), but only the content,
-when neccessary (when the user/client requests it).
+when necessary (when the user/client requests it).
 
 ## Functions
 - [x] Catches all clicks on elements with `[href]` attribute (and animates them), if below page path

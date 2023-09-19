@@ -11,7 +11,7 @@ So I'm using the API to get a JSON with all my repositories in it. The
 [`page`.js](page.md) will handle everything.
 
 ### URLs
-I'm using my own `github:` URLs for this reason.
+I'm using my own **`github:`** URL (scheme) for this reason.
 
 They'll be converted to an object like `{ user, repo, path }`, and then
 be used to either ask the API as described above (if only the `{user}`

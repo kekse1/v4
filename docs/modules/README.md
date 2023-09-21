@@ -2,9 +2,10 @@
 
 # Introduction
 > **Note**
-> I'm using 'ES Modules' here, which is the first time for me.
-> All my old implementation used `require()`, also as own implementation
-> (they had to be **sync**hronous, for obvious reasons).
+> I'm using 'ES modules' here, which is the first time for me.
+> All my old implementations used `require()` ('CommonJS modules'),
+> also as my own implementation (which had to be **sync**hronous,
+> for obvious reasons).
 
 > **Warning**
 > I'm implementing everything as **asynchronous** as I can!

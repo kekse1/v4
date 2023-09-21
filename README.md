@@ -2,9 +2,8 @@
 
 # **`v4`**
 <img src="https://mirror.kekse.biz/noto-emoji-animation/emoji.php?tag=face-in-clouds&type=webp" />
-<img src="https://mirror.kekse.biz/noto-emoji-animation/emoji.php?tag=plant&type=webp" />
-
 ## Overview
+This shall be the _private_ website of the cake/pie ('Kuchen')! :)~
 
 ### Status
 Theoretically I could already present my site (though the contents itself are not really ready,
@@ -13,3 +12,4 @@ to present a finished documentation right here. So I'm still waiting.
 
 ### Modules
 See the [Module Index](docs/modules/README.md).
+

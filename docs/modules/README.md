@@ -2,13 +2,13 @@
 
 # Introduction
 > **Note**
-> I'm using the newer `ES Modules` here (the first time for me). Because they're asynchronous etc.,
-> whereas my older versions used an own `require()` implementation (which had to be synchronous,
-> for obvious reasons).
+> I'm using 'ES Modules' here, which is the first time for me.
+> All my old implementation used `require()`, also as own implementation
+> (they had to be **sync**hronous, for obvious reasons).
 
 > **Warning**
-> I'm implementing everything as **asynchronous** as I can! **But** I'm avoiding any Promise also
-> as good as I can.. xD~
+> I'm implementing everything as **asynchronous** as I can!
+> **But** I'm also avoiding any Promise as good as I can.. xD~
 
 # Module Index
 This `.md` will grow in time.. currently I'm busy with implementing all this shit (actually

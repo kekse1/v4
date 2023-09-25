@@ -40,4 +40,5 @@ This is the current state - it may change in some time (or rather: will be exten
 * `HTMLElement.prototype.top(_value, _options)`
 * `HTMLElement.prototype.right(_value, _options)`
 * `HTMLElement.prototype.bottom(_value, _options)`
+* `Node.prototype.hasParent(... _args)`
 

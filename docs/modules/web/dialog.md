@@ -1,11 +1,13 @@
 <img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
 
 # **`dialog.js`**
-Own **Dialog**/Modal element (`extends HTMLElement`).
+... `extends HTMLElement`. Can be used as **`alert()`**, **`confirm()`** or **`prompt()`** replacement.
 
-Can be used as **alert()** and also as **confirm()**, since optional `.buttons[]`
-can be configured. These buttons are `extends HTMLButtonElement`, and at least one
-default `OK` is necessary (automatically inserted if no others defined).
+## Features
+* Supports dynamic/variable buttons (using `class DialogButton extends HTMLButtonElement`);
+* Plus optional input *text* field
+* The document without dialog(s) will be locked when at least one Dialog is open (really open, not just as instance).
+* Plus: it will be blurred out a bit, etc.
 
 ## Usage
 The 'easiest' way is to just call `dialog(... _args)`; the result will be the instance.
@@ -21,13 +23,14 @@ to the `dialog()` function mentioned above. These possible parameters/arguments 
 * `(Array)`: either only Strings for the buttons, or each w/ `[0] = string` and `[1] = callback`
 * `(Object)`: either real options which are implemented here, or CSS styles/variables
 
-## Use case(s)
-Currently I'm using it instead of regular **`alert()`** or **`confirm()`**, etc.;
-e.g. when the [`page`.js](page.md) offers a download (so it's some dialog you can
-confirm, the download usually won't start automatically; this is **bad behavior**
-in my eyes..).
+### Event(s)
+Since this class is extending a regular `HTMLElement`, it's also implementing the `EventTarget`,
+which was in turn extended with my own `.emit()` function (see [**`event`.js**](event.md)).
 
-## Control
+So if you've enabled the `.input` (by setting it to true, btw. with optional `.default` string
+as the input element's placeholder), you can also `(Dialog).addEventListener('input', ...)`.
+
+## Keyboard Control
 Following keys can control any dialog (respective their buttons).
 
 * `<Tab>`, `<Shift>+<Tab>`

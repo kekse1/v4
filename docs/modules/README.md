@@ -29,7 +29,6 @@ needs to be documentated in here).
 * [`cookies`.js](web/cookies.md)
 * [`dialog`.js](web/dialog.md)
 * [`element`.js](web/element.md)
-* [`emoji`.js](web/emoji.md)
 * [`event`.js](web/event.md)
 * [`github`.js](web/github.md)
 * [`help`.js](web/help.md)

@@ -5,7 +5,7 @@
 
 ## Features
 * Supports dynamic/variable buttons (using `class DialogButton extends HTMLButtonElement`);
-* Plus optional input *text* field
+* Plus optional input *text* field (using `class DialogInput extends HTMLInputElement`);
 * The document without dialog(s) will be locked when at least one Dialog is open (really open, not just as instance).
 * Plus: it will be blurred out a bit, etc.
 

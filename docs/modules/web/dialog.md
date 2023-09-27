@@ -24,11 +24,25 @@ to the `dialog()` function mentioned above. These possible parameters/arguments 
 * `(Object)`: either real options which are implemented here, or CSS styles/variables
 
 ### Event(s)
-Since this class is extending a regular `HTMLElement`, it's also implementing the `EventTarget`,
-which was in turn extended with my own `.emit()` function (see [**`event`.js**](event.md)).
+There are two kind of events, respective callbacks; .. and since this class is extending a regular `HTMLElement`,
+it's also implementing the `EventTarget`, which was in turn extended with my own `.emit()` function
+(see [**`event`.js**](event.md)).
 
-So if you've enabled the `.input` (by setting it to true, btw. with optional `.default` string
+#### w/ `.input` (`DialogInput` class)
+If you've enabled the `.input` (by setting it to true, btw. with optional `.default` string
 as the input element's placeholder), you can also `(Dialog).addEventListener('input', ...)`.
+
+#### Callbacks
+The first one is the one mentioned above (@ [Parameters](#parameters)), a function which will be called when
+the dialog is _really_ closed (including animations, etc.). It's `_event` argument will contain the same as
+the second callback form: these of the buttons.
+
+Any `DialogButton` can get it's own callback function, which will also be called when closing the Dialog, but
+these ones directly with the button selection, _before_ any animation, etc.
+
+So use the regalar Dialog callback if you want to be sure everything's really done, and use the DialogButton
+callback**s** if you want an instantaneous effect when the user selects a button (and only then.. if no such
+button selected, e.g. via `<Escape>` key, then only the regular callback will get called).
 
 ## Keyboard Control
 Following keys can control any dialog (respective their buttons).
@@ -39,4 +53,3 @@ Following keys can control any dialog (respective their buttons).
 * `<Left>`, `<Right>`
 * `<1-9>`
 * `<Home>`, `<End>`
-

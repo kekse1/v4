@@ -19,10 +19,15 @@ needs to be documentated in here).
 ## **lib**/
 * [`callback-controller`.js](lib/callback-controller.md)
 * [`camel`.js](lib/camel.md)
+* [`config`.js](lib/config.md)
+* [`console`.js](lib/console.md)
 * [`date`.js](lib/date.md)
 * [`globals`](lib/globals.md)
+* [`id`.js](lib/id.md)
 * [`levenshtein`.js](lib/levenshtein.md)
 * [`mime`.js](lib/mime.md)
+* [`multiset`.js](lib/multiset.md)
+* [`path`.js](lib/path.md)
 
 ## **web**/
 * [`animate`.js](web/animate.md)

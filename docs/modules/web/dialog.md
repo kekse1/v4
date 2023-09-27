@@ -40,7 +40,7 @@ the second callback form: these of the buttons.
 Any `DialogButton` can get it's own callback function, which will also be called when closing the Dialog, but
 these ones directly with the button selection, _before_ any animation, etc.
 
-So use the regalar Dialog callback if you want to be sure everything's really done, and use the DialogButton
+So use the regular Dialog callback if you want to be sure everything's really done, and use the DialogButton
 callback**s** if you want an instantaneous effect when the user selects a button (and only then.. if no such
 button selected, e.g. via `<Escape>` key, then only the regular callback will get called).
 

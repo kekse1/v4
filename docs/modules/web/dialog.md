@@ -23,7 +23,7 @@ to the `dialog()` function mentioned above. These possible parameters/arguments 
 * `(Array)`: either only Strings for the buttons, or each w/ `[0] = string` and `[1] = callback`
 * `(Object)`: either real options which are implemented here, or CSS styles/variables
 
-### Event(s)
+### Event(s) / Callback(s)
 There are two kind of events, respective callbacks; .. and since this class is extending a regular `HTMLElement`,
 it's also implementing the `EventTarget`, which was in turn extended with my own `.emit()` function
 (see [**`event`.js**](event.md)).

@@ -71,3 +71,6 @@ There's a `--speed` CSS Custom Property to change the whole acceleration of
 any animation. If disabled (setting to `0`), any animation will only set the
 CSS styles to the target values. But the optional `delay` will be enforced..
 
+## `nofade` and `noanim`
+If an Element got one of these both attributes, they will be ignored when trying to animate them.
+

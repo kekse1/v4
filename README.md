@@ -6,7 +6,7 @@
 ## Overview
 This will be the _private_ website of the cake/pie/cookie/.. (`Kuchen` in Germany): **`https://kekse.biz/`**.
 
-_State_: site will be online approximately **this day**! :-D
+_State_: site will be online approximately **this day or tomorrow**! :-D
 
 ### Status
 Theoretically I could already present my site (though the contents itself are not really ready,

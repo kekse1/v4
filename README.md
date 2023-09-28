@@ -16,3 +16,6 @@ to present a finished documentation right here. So I'm still waiting.
 ### Modules
 See the [Module Index](docs/modules/README.md).
 
+## Copyright and License
+The Copyright is [(c) Sebastian Kucharczyk](COPYRIGHT.txt),
+and it's licensed under the [MIT](LICENSE.txt) (also known as 'X' or 'X11' license).

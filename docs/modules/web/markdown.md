@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Markdown`&override=github:v4" />
 
 # `text/markdown`
 Since some HTTPDs won't set this content/mime type, I'm manually overriding it if the file extension is `.md`.

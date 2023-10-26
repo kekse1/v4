@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`TOC`&override=github:v4" />
 
 # **`toc.js`**
 Extends the [`page.js`](page.md).

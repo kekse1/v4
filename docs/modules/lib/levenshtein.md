@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Levenshtein`&override=github:v4" />
 
 # The `levenshtein distance`
 An algorithm for word comparison.

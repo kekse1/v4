@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Progress`&override=github:v4" />
 
 # **`progress`**.js
 `class Progress extends HTMLCanvasElement`..

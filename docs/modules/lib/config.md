@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Configuration`&override=github:v4" />
 
 # Configuration file(s)
 In the future this will be a class for configuration files,

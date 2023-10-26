@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Cookies`&override=github:v4" />
 
 # **`cookies`**.js
 To easily manage your `document.cookie`; otherwise you'd to deal with long strings (so your key and value plus parameters).

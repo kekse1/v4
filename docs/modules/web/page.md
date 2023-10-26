@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Page`&override=github:v4" />
 
 # **`page`**.js
 A page is loaded on demand, and inserted into the `#MAIN`/`<main>` of the site. So not
@@ -11,12 +11,12 @@ when necessary (when the user/client requests it).
 - [x] Presents it, depending on it's MIME type (or file extension if none sent); also animated.
 - [x] _Automatically creates a **Table of Contents** (also animated, etc.)_! See [`toc.js`](toc.md)!
 - [x] DEAD links will be highlighted and disabled (for an amount of time); with [OSD](osd.md)
-- [x] HTML will be pre-processed, inter alia for [`emoji`.js](emoji.md)
 - [x] .. AFTER it'll be parsed, inter alia to get only the `<body>` part, etc. (and for the **TOC**, etc.); see `web/html.js`
 - [x] Relative links will be converted, so the HTML code can refer relative to it's original location (all `[href]` and `[url]`)
 - [x] JavaScript and CSS styles will be selected out (and downloaded partially), for evaluation or better embedding
 - [x] Downloads will present a [`progress`.js](progress.md) with percent and/or passed time
 - [x] Errors will be presented better (not *only* in the console, which is the usus here..)
-- [ ] If downloading a markdown file, it'll first be converted to `.html` (and then handled as usual)
-- [ ] Using the GitHub API to either render a list of repositories, or an index of files in each one.
+- [x] If downloading a markdown file, it'll first be converted to `.html` (and then handled as usual)
+- [x] Using the GitHub API to either render a list of repositories, or an index of files in each one.
+- [x] As it's an `EventTarget` we got at least: [ 'load', 'error', 'loaded', 'change', 'clear' ];
 

@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`MultiSet`&override=github:v4" />
 
 # `class MultiSet extends Map`
 As a logical extension to the regular `Set` class.

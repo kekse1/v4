@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Emoji`&override=github:v4" />
 
 # **`emoji`**.js
 A pre-processor to replace HTML code with any emoji-syntax (using my own, see below).

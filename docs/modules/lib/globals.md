@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Globals`&override=github:v4" />
 
 # Globals
 Like in my [`lib.js`](https://libjs.de/), I'm also extending the functionality of many

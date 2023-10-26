@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`animation`&override=github:v4" />
 
 # Web Animations API
 There are some problems with the native implementation. So I implemented some more logics,

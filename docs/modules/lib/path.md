@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`path`&override=github:v4" />
 
 # `path`
 Similar to the regular [Node.js](https://nodejs.org/)\` version, and will also be

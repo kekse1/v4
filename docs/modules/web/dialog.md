@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Dialog`&override=github:v4" />
 
 # **`dialog.js`**
 ... `extends HTMLElement`. Can be used as **`alert()`**, **`confirm()`** or **`prompt()`** replacement.

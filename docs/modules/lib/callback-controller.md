@@ -1,4 +1,4 @@
-<img src="https://kekse.biz/php/count.php?draw&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`CallbackController`&override=github:v4" />
 
 # `CallbackController`
 
@@ -49,25 +49,27 @@ It's really useful, not only as indicator, also to partially replace or append c
 the functions.
 
 ### Implementation
-* `.add(_element, _type, ... _args)`
-* `.call(_element, _type, ... _args)`
+**Bold** entries are the important ones:
+
+* **`.add(_element, _type, ... _args)`**
+* **`.call(_element, _type, ... _args)`**
 * `.carrier`
 * `.carrierKey`
-* `.clear(_element, _type, _free_carrier)`
+* **`.clear(_element, _type, _free_carrier)`**
 * `.context(_element, _type, _context, ... _args)`
 * `.count(_element, _type)`
 * `.delete(... _args)`
-* `.get(_element, _type)`
+* **`.get(_element, _type)`**
+* `.has(_element, _type)`
 * `.all(_element, _object, _merge, ... _args)`
 * `.regular(_element, _type, ... _args)`
-* `.remove(_element, _type, ... _args)`
+* **`.remove(_element, _type, ... _args)`**
 * `.reset()`
-* `.set(_element, _type, ... _args)`
+* **`.set(_element, _type, ... _args)`**
 * `.setCarrier(_carrier, _carrier_key)`
-
-### **static** Carrier
-See the [Static instance](#static-instance) section below. So all the `CallbackControllerCarrier` members are
-statically defined in this `CallbackController`.
+* `.checkForCarrierDeletion(_confirm)`
+* `.checkIsDestroyed(_error)`
+* `.destroy()`
 
 ## `CallbackControllerCarrier`
 This is even newer. I'm using it in my `animate()` function (see `web/animate.js`), as every animation is identified
@@ -77,9 +79,10 @@ It's synchronized with it's `CallbackController` instances (since the `CallbackC
 constructor argument).
 
 ### Implementation
+* `.set(_key, _controller, _overwrite)`
 * `.clear(_destroy)`
 * `.delete(... _args)`
-* `.get(_key)`
+* `.get(_key, _create)`
 * `.has(_key)`
 * `.keys`
 * `.size`
@@ -87,6 +90,8 @@ constructor argument).
 ### Static instance
 As mentioned somewhere above, the `CallbackController` got it's own static instance of this `CallbackControllerCarrier`,
 to avoid unnecessary resources (of many Controller instances).
+
+All necessary static members are a relay to a static `CallbackController` instance,
 
 And btw., this Carrier also free's up the memory by destroying all unused Controller instances (see `DEFAULT_FREE_CARRIER`).
 
@@ -101,4 +106,7 @@ This is useful e.g. if you're clearing a controller instance but want to use it 
 but if this feature wouldn't be, you'd to request the controller twice from your `CallbackControllerCarrier` .. if it's
 used at all! If not, you don't need to care, but if so, the problem is that future requests to the carrier wouldn't give
 you back the same controller instance - so you wouldn't get your callbacks back again!
+
+###### TODO...
+//TODO/..
 

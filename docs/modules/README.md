@@ -1,5 +1,7 @@
 <img src="https://kekse.biz/github.php?draw&override=github:v4&text=`v4`&draw" />
 
+<i style="font-size: 1.5rem;">// <b>TODO</b> /</i>
+
 # Introduction
 > **Note**
 > I'm using 'ES modules' here, which is the first time for me.

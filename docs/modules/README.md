@@ -1,6 +1,6 @@
 <img src="https://kekse.biz/github.php?draw&override=github:v4&text=`v4`&draw" />
 
-<i style="font-size: 1.5rem;">// <b>TODO</b> /</i>
+// <b>TODO</b> /
 
 # Introduction
 > **Note**

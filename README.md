@@ -6,6 +6,9 @@
 
 ## Overview
 
+### Link
+[https://**`kekse.biz`**/](https://kekse.biz/)
+
 ### Status
 *Finally* available in the World Wide Web!! It's Friday, 2023-10-27.. around midnight it was public. **:-)**
 
@@ -17,6 +20,10 @@ See the [Module Index](docs/modules/README.md).
 
 ### Counter script
 See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
+
+### **`config.css`**
+I'm massively using **CSS Custom Properties** (so CSS styles with `--` prefix) to configure any behavior
+of my website. This single file is also [**here**](files/config.css)!
 
 ## Copyright and License
 The Copyright is [(c) Sebastian Kucharczyk](COPYRIGHT.txt),

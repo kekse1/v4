@@ -15,6 +15,9 @@ But a part is already online, see the link below ([Modules section](#modules)).
 ### Modules
 See the [Module Index](docs/modules/README.md).
 
+### Counter script
+See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
+
 ## Copyright and License
 The Copyright is [(c) Sebastian Kucharczyk](COPYRIGHT.txt),
 and it's licensed under the [MIT](LICENSE.txt) (also known as 'X' or 'X11' license).

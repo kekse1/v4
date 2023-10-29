@@ -21,9 +21,9 @@ See the [Module Index](docs/modules/README.md).
 ### Counter script
 See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
 
-### **`config.css`**
+### Configuration
 I'm massively using **CSS Custom Properties** (so CSS styles with `--` prefix) to configure
-any behavior of my website. This single file is here: [**`config.css`**](files/config.css)!
+any behavior of my website. See my [**`config.css`**](files/config.css)!
 
 ## Copyright and License
 The Copyright is [(c) Sebastian Kucharczyk](COPYRIGHT.txt),

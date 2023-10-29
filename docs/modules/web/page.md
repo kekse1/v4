@@ -18,5 +18,5 @@ when necessary (when the user/client requests it).
 - [x] Errors will be presented better (not *only* in the console, which is the usus here..)
 - [x] If downloading a markdown file, it'll first be converted to `.html` (and then handled as usual)
 - [x] Using the GitHub API to either render a list of repositories, or an index of files in each one.
-- [x] As it's an `EventTarget` we got at least: [ 'load', 'error', 'loaded', 'change', 'clear' ];
+- [x] Since it's an `EventTarget` we got here at least the additional: [ 'load', 'error', 'loaded', 'change', 'clear' ];
 

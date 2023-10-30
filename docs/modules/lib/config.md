@@ -15,10 +15,8 @@ start = abc def;
 
 eins
 {
-	zwei
-	{
-		pi: 3.14;
-	};
+	zwei {
+        pi: 3.14; };
 
     bool: yes;
     string: `yes`; };
@@ -27,13 +25,15 @@ eins.empty = ``;
 eins.space = ` `;
 
 eins.zwei {
-	drei.vier
-	{ arr: eins, zwei, drei; };
+	drei.vier {
+	    arr: [ eins, zwei, drei, 3.14, `3.14` ];
+    };
 
     size: 1024MiB;
     regexp: /tmp/gi;
 };
 
 eins.zwei.drei.five = /abc/gi;
+zwei.drei.vier.big = 4096n;
 ```
 

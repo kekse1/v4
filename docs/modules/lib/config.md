@@ -21,15 +21,14 @@ eins
 	};
 
     bool: yes;
-    string: `yes`;
-};
+    string: `yes`; };
 
-eins.zwei
-{
+eins.empty = ``;
+eins.space = ` `;
+
+eins.zwei {
 	drei.vier
-	{
-        arr: eins, zwei, drei;
-	};
+	{ arr: eins, zwei, drei; };
 
     size: 1024MiB;
     regexp: /tmp/gi;

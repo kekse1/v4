@@ -26,7 +26,7 @@ eins.space = ` `;
 
 eins.zwei {
 	drei.vier {
-	    arr: [ eins, zwei, drei, 3.14, `3.14` ];
+	    arr: eins, ``, zwei, drei, 3.14, `3.14`, yes;
     };
 
     size: 1024MiB;

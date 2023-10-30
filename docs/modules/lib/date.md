@@ -111,7 +111,6 @@ The names (after `--date-`) can be used for `.format()` etc. instead of real for
 	--date-year: '%d (%w)';
 	--date-ms: '%X';
 	--date-unix: '%x';
-    --date-gmt: '%G';
-    --date-utc: '%U';
+	--date-gmt: '%G';
+	--date-utc: '%U';
 ```
-

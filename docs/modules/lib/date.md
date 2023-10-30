@@ -92,6 +92,8 @@ These are the **`%`** modifiers for format strings. I tried to make them one sin
 |  **%n**  | Name of Month (short)                                       |
 |  **%W**  | Name of Weekday (long)                                      |
 |  **%w**  | Name of Weekday (short)                                     |
+|  **%G**  | GMT format                                                  |
+|  **%U**  | UTC format                                                  |
 
 ### Pre-defined formats (see `css/config.css`);
 The names (after `--date-`) can be used for `.format()` etc. instead of real format strings. These are **pre-defined** formats.
@@ -109,5 +111,7 @@ The names (after `--date-`) can be used for `.format()` etc. instead of real for
 	--date-year: '%d (%w)';
 	--date-ms: '%X';
 	--date-unix: '%x';
+    --date-gmt: '%G';
+    --date-utc: '%U';
 ```
 

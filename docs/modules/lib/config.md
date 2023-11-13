@@ -8,9 +8,10 @@ but they are usually being well-corrected), with some basic data/value types.
 
 Comments are allowed (`#`, `//` and `/* .. */`), escaping with backslash `\` is also supported. Plus,
 if you don't want to parse the values or want special cases like multiple spaces on the beginning or
-so, e.g., you can also use one of three support quotes (`\``, `'`, `"`).
+so, e.g., you can also use one of three support quote characters.
 
-List are also supported, or JavaScript expressions, and much more planned (follows soon)!
+Lists are also supported (don't know if maps are necessary), and also JavaScript expressions,
+and much more planned (follows soon)!
 
 ## Example
 ![Example configuration](../img/config-test.png)

@@ -24,6 +24,7 @@ needs to be documentated in here).
 * [`config`.js](lib/config.md)
 * [`console`.js](lib/console.md)
 * [`date`.js](lib/date.md)
+* [`getopt`](lib/getopt.md)
 * [`globals`](lib/globals.md)
 * [`id`.js](lib/id.md)
 * [`levenshtein`.js](lib/levenshtein.md)

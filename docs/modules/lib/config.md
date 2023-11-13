@@ -1,7 +1,7 @@
 <img src="https://kekse.biz/github.php?draw&text=`Configuration`&override=github:v4" />
 
 # Configuration files
-This is first used in my `httpz` web server (which I'm currently working on): my own config file syntax.
+This is first used in my `httpz` web server (which I'm currently working on): my own configuration files.
 
 There are some more features planned. But atm it's capable of parsing my own syntax (errors can occure,
 but they are usually being well-corrected), with some basic data/value types.

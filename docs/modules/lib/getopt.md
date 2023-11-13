@@ -3,3 +3,8 @@
 # **getopt**
 Nice design! It's already working great, only very less rest TODO left.
 
+## Test/Example Screenshot
+But as already said, that's not the finite state..
+
+![`getopt` Test](../img/getopt-test.png)
+

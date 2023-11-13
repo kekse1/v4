@@ -1,11 +1,17 @@
 <img src="https://kekse.biz/github.php?draw&text=`Configuration`&override=github:v4" />
 
-# Configuration file(s)
-In the future this will be a class for configuration files, with my own syntax.
+# Configuration files
+This is first used in my `httpz` web server (which I'm currently working on): my own config file syntax.
 
-Since I'll be using this `lib/` part in console apps etc. l8rs, this could
-be as useful as my `getopt` module (which is also a future feature.. my old
-version of this can be seen at [libjs.de](https://libjs.de/)).
+There are some more features planned. But atm it's capable of parsing my own syntax (errors can occure,
+but they are usually being well-corrected), with some basic data/value types.
 
-## TODO
-...
+Comments are allowed (`#`, `//` and `/* .. */`), escaping with backslash `\` is also supported. Plus,
+if you don't want to parse the values or want special cases like multiple spaces on the beginning or
+so, e.g., you can also use one of three support quotes (`\``, `'`, `"`).
+
+List are also supported, or JavaScript expressions, and much more planned (follows soon)!
+
+## Example
+![Example configuration](../img/config-test.png)
+

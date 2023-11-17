@@ -25,7 +25,7 @@ See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which i
 I'm massively using **CSS Custom Properties** (so CSS styles with `--` prefix) to configure
 any behavior of my website. See my [**`config.css`**](files/config.css)!
 
-## Copyright and License
+# Copyright and License
 The Copyright is [(c) Sebastian Kucharczyk](COPYRIGHT.txt),
 and it's licensed under the [MIT](LICENSE.txt) (also known as 'X' or 'X11' license).
 

@@ -24,3 +24,6 @@ is much more important.
 
 .. 'more is yet to come'.
 
+### `numeric.js`
+For this you should also take a look at the [`radix.js`](radix.md)!
+

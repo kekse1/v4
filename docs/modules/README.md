@@ -31,6 +31,7 @@ needs to be documentated in here).
 * [`mime`.js](lib/mime.md)
 * [`multiset`.js](lib/multiset.md)
 * [`path`.js](lib/path.md)
+* [`radix`.js](lib/radix.md)
 
 ## **web**/
 * [`animation`.js](web/animation.md)

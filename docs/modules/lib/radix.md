@@ -61,7 +61,7 @@ And there are also own things like `String.is{Number,BigInt,Numeric,*}()` etc.; 
 * **`Number.isFloat()`**
 
 **THESE are very important**, I'm using them many, many times. This way I avoid the regular `typeof .. === 'number'`, which also returns
-`true` for numbers which are either `NaN`, `Infinity`, etc.
+`true` for numbers which are either `NaN`, `Infinity`, etc. _But they're located in the **`globals/numeric.js`**!_
 
 ### `const DEFAULT_*` or the numerical features
 Since I'm most times using a set of `DEFAULT_` constants in my files, here one is important to be explained here: the `DEFAULT_PREFER`

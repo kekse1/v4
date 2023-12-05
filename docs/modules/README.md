@@ -1,5 +1,13 @@
 <img src="https://kekse.biz/github.php?draw&override=github:v4&text=`v4`&draw" />
 
+# Index
+* [Introduction](#introduction)
+* [Module Index](#module-index)
+	* [**lib**/](#lib)
+	* [**web**/](#web)
+	* [**test**/](#test)
+	* [**app**/](#app)
+
 // <b>TODO</b> /
 
 # Introduction
@@ -50,17 +58,15 @@ needs to be documentated in here).
 * [`test`.js](web/test.md)
 * [`toc`.js](web/toc.md)
 
-## **app**/
-These are (and will be) stand-alone apps, mostly for the server-side, .. but
-also some web-apps which I'm planning, so also the news-, blog- or guestbook-
-module..
-
-Since I'm mostly developing my [_personal website_](https://kekse.biz/) here,
-I'm going to implement my own web server, inter alia with **WebSocket API**
-support (of course, all from scratch, without using the modules of Node.js).
-
 ## **test**/
 Here are (and will be) all my own unit tests (manually done!), especially
 for the [**globals**/](lib/globals/README.md)..!
 
+## **app**/
+These are (and will be) stand-alone apps, mostly for the server-side, .. but
+also some web-apps which I'm planning, so also the news-, blog- or guestbook-
+modules.
 
+Since I'm mostly developing my [_personal website_](https://kekse.biz/) here,
+I'm going to implement my own web server, inter alia with **WebSocket API**
+support (of course, all from scratch, without using the modules of Node.js).

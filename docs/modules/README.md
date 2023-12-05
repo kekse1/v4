@@ -31,7 +31,7 @@ needs to be documentated in here).
 * [`console`.js](lib/console.md)
 * [`date`.js](lib/date.md)
 * [`getopt`.js](lib/getopt.md)
-* [`globals`](lib/globals.md)
+* [`globals`](lib/globals/README.md)
 * [`id`.js](lib/id.md)
 * [`levenshtein`.js](lib/levenshtein.md)
 * [`mime`.js](lib/mime.md)

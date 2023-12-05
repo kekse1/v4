@@ -9,18 +9,18 @@ many cases, this version has much less, since the loading time (for the browser/
 is much more important.
 
 ## Items
-* [`array`.js](globals/array.md)
-* [`boolean`.js](globals/boolean.md)
-* [`date`.js](date.md)
-* [`math`.js](globals/math.md)
-* [`math.unit`.js](globals/math.unit.md)
-* [`numeric`.js](globals/numeric.md)
-* [`object`.js](globals/object.md)
-* [`proxy`.js](globals/proxy.md)
-* [`reflect`.js](globals/reflect.md)
-* [`regexp`.js](globals/regexp.md)
-* [`string`.js](globals/string.md)
-* [`typed-array`.js](globals/typed-array.md)
+* [`array`.js](array.md)
+* [`boolean`.js](boolean.md)
+* [`date`.js](../date.md)
+* [`math`.js](math.md)
+* [`math.unit`.js](math.unit.md)
+* [`numeric`.js](numeric.md)
+* [`object`.js](object.md)
+* [`proxy`.js](proxy.md)
+* [`reflect`.js](reflect.md)
+* [`regexp`.js](regexp.md)
+* [`string`.js](string.md)
+* [`typed-array`.js](typed-array.md)
 
 .. 'more is yet to come'.
 

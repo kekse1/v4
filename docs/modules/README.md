@@ -51,7 +51,9 @@ needs to be documentated in here).
 * [`toc`.js](web/toc.md)
 
 ## **app**/
-These are (and will be) stand-alone _server-side_ apps.
+These are (and will be) stand-alone apps, mostly for the server-side, .. but
+also some web-apps which I'm planning, so also the news-, blog- or guestbook-
+module..
 
 Since I'm mostly developing my [_personal website_](https://kekse.biz/) here,
 I'm going to implement my own web server, inter alia with **WebSocket API**

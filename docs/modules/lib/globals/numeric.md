@@ -16,7 +16,7 @@ if all are real numbers, not Infinity nor NaN!
 * `isNumeric(... _args)`
 
 .. is another extension, only in the global namespace, since it supports both
-Numbers and BigInt (.. located, btw., in [radix.js](../radix.js)).
+Numbers and BigInt (.. located, btw., in [radix.js](../radix.md)).
 
 ## /(TODO)/
 ...

@@ -51,5 +51,14 @@ needs to be documentated in here).
 * [`toc`.js](web/toc.md)
 
 ## **app**/
-...
+These are (and will be) stand-alone _server-side_ apps.
+
+Since I'm mostly developing my [_personal website_](https://kekse.biz/) here,
+I'm going to implement my own web server, inter alia with **WebSocket API**
+support (of course, all from scratch, without using the modules of Node.js).
+
+## **test**/
+Here are (and will be) all my own unit tests (manually done!), especially
+for the [**globals**/](lib/globals/README.md)..!
+
 

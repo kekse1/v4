@@ -25,7 +25,8 @@ If you define a `_radix` (and only in this case!), it'll also check if such nume
 are encoded in the strings - if such is specified. Otherwise, if `typeof === 'number'`, it'll
 use the functions above (in the `Number` namespace).
 
-The string-ones work only together with the [`radix.js`](../radix.md) module, btw.
+> **Note**
+> The string-ones only work with the help of my [`radix.js`](../radix.md), btw.
 
 ### **`isNaN()`**
 This (global namespace only, not the `Number` one!) is extending the regular

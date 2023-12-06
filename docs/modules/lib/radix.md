@@ -54,6 +54,10 @@ count them up (`alphabet.binary`, which is not pre-set, is not listed there).
 The `_throw` argument (using `DEFAULT_THROW`, also see below) is there to either throw an Exception if something went wrong, or my
 preferred form is to return `(null)` in case of any error (or even `(undefined)` if the radix/alphabet was wrong).
 
+> **Note**
+> There's the `radix.checkSigns()` function to interprete all preceding `-` and `+` signs.
+> Unlike JavaScript itself it supports multiple ones!
+
 ### More numerical algorithms
 .. look at the [`globals/numeric`](globals/numeric.md).
 

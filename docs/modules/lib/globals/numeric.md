@@ -30,8 +30,8 @@ use the functions above (in the `Number` namespace).
 
 ### **`isNaN()`**
 This (global namespace only, not the `Number` one!) is extending the regular
-`isNaN()` function: it 'parses' all (possible) preceding `-` and `+`, and it
-returns `true` if the given **string** argument is zero-length..!
+`isNaN()` function: it interpretes **all** (possible) preceding `-` and `+`,
+and additionally returns `true` if the given **string** argument is zero-length..!
 
 ## /(TODO)/
 ...

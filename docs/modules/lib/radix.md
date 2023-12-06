@@ -54,20 +54,8 @@ count them up (`alphabet.binary`, which is not pre-set, is not listed there).
 The `_throw` argument (using `DEFAULT_THROW`, also see below) is there to either throw an Exception if something went wrong, or my
 preferred form is to return `(null)` in case of any error (or even `(undefined)` if the radix/alphabet was wrong).
 
-And there are also own things like `String.is{Number,BigInt,Numeric,*}()` etc.; whereas the `globals/numeric.js` also holds:
-
-* **`Number.isNumber(... _args)`**
-* **`Number.isInt(... _args)`**
-* **`Number.isFloat(... _args)`**
-
-**THESE are very important**, I'm using them many, many times. This way I avoid the regular `typeof .. === 'number'`, which also returns
-`true` for numbers which are either `NaN`, `Infinity`, etc. _But they're located in the **`globals/numeric.js`**!_
-
-* **`isNumeric(... _args)`**
-
-And this one also checks for **BigInt** types.
-
-For both, see the [`globals/numeric`](globals/numeric.md).
+### More numerical algorithms
+.. look at the [`globals/numeric`](globals/numeric.md).
 
 ### `const DEFAULT_*` or the numerical features
 Since I'm most times using a set of `DEFAULT_` constants in my files, here one is important to be explained here: the `DEFAULT_PREFER`

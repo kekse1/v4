@@ -17,7 +17,7 @@ you really wanted to call.
 * `levenshtein(_word, ... _compare)`
 * `levenshtein.distance(_a, _b, _case_sensitive, _algorithm)`
 * `levenshtein.distance.matrix(_a, _b)`
-* `levenshtein.distance.vector(_a, _b)` (TODO)
+* `levenshtein.distance.vector(_a, _b)`
 
 You only need the first base function, where you can define the e.g. entered word input,
 and then a list of words to compare against (so e.g. the list of available commands).
@@ -25,5 +25,15 @@ and then a list of words to compare against (so e.g. the list of available comma
 If there's a boolean type in the `... _compare`, it'll count as true/false **case sensitive**,
 and a `null` value will negate the `DEFAULT_WITH_DISTANCES = true`.
 
-hf.
+## Vector instead of Matrix
+This is a somewhat 'optimized' version of the algorithm, where e.g. no special visualization
+or so is necessary, so it works with less data and so in better time/power consumption, etc.
+
+Therefore:
+* `levenshtein.distance.vector(_a, _b)`
+
+... **:-)**
+
+Just use the `const DEFAULT_DISTANCE` on top of the `levenshtein.js` file to switch between
+`matrix` and `vector` mode/usage.
 

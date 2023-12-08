@@ -34,7 +34,7 @@ Only managed animations are affected here:
 
 * `HTMLElement.prototype.vibrate(_enabled, _speed, _interval, _dots, _default_inner_html, _dot)`
 * `HTMLElement.prototype.vibrating`
-* `HTMLElement.prototype.wallpaperAnimation(_speed, _animation)`
+* `HTMLElement.prototype.wallpaperAnimation(_enabled, _speed, _animation)`
 * `HTMLElement.prototype.wallpaper`
 * `HTMLElement.prototype.pulse(... _args)`
 * `HTMLElement.prototype.pulseIn(... _args)`

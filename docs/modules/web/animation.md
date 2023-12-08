@@ -32,6 +32,13 @@ are defined in the `_options` object, with these names (mapping to a `Function`)
 ## Functions
 Only managed animations are affected here:
 
+* `HTMLElement.prototype.vibrate(_enabled, _speed, _interval, _dots, _default_inner_html, _dot)`
+* `HTMLElement.prototype.vibrating`
+* `HTMLElement.prototype.wallpaperAnimation(_speed, _animation)`
+* `HTMLElement.prototype.wallpaper`
+* `HTMLElement.prototype.pulse(... _args)`
+* `HTMLElement.prototype.pulseIn(... _args)`
+* `HTMLElement.prototype.pulseOut(... _args)`
 * `HTMLElement.prototype.fade(_type, _options, ... _args)`
 * `HTMLElement.prototype.show(_options, ... _args)`
 * `HTMLElement.prototype.hide(_options, ... _args)`
@@ -72,4 +79,15 @@ any animation. If disabled (setting to `0`), any animation will only set the
 CSS styles to the target values. But the optional `delay` will be enforced..
 
 Additionally, there's the (only global!) `--global` for more global adaption.
+
+## Attributes
+These are two possible modifier attributes (of the `HTMLElement`s).
+
+* **noanim**
+* **ignanim**
+
+The first one will enforce the animations target styles without animating them,
+and will also call the callbacks, etc.
+
+The second one will just `return false` when trying to `.animate()` these elements.
 

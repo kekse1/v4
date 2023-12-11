@@ -16,6 +16,7 @@ The most important effect is obvious: when opening some page with JavaScript emb
 the states _can_ stay the same they was when called this one page before. So there's some 'progress'..
 
 That the defined variables don't reside in the global scope or so is another great effect.
+
 > **Warning**
 > This doesn't work atm.. (the only bug left here..) **:-(**
 

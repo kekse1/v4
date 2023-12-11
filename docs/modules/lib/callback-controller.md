@@ -35,10 +35,10 @@ Here I'm replacing animations, to direct to another target style, e.g., without 
 be called, up until the newest (relay-)animation is finished or smth.
 
 So for this I'm using (beneath `.get()`) the `.clear()` for all `_type`s, and after handling the animation
-shit I only need to `.all()` (or `.set()` vs. `.add()` w/ `Object`) all the old callbacks. etc..
+shit I only need to `.all()` (or `.set()` or `.fix()` vs. `.add()` w/ `Object`) all the old callbacks. etc..
 
 ### 'Singleton' styles
-As either `.count()` (w/o `_type` string) or even directly `.set()` and `.add()` return the number of previously
+As either `.count()` (w/o `_type` string) or even directly `.set()`, `.fix()` and `.add()` return the number of previously
 defined (until `.clear()`) callbacks (totally, not for a sub-`_type`!), you can see this way if the function is
 already running or not. **Very important feature** if you want to avoid multiple actions, so you'll return if
 the function is already running! .. maybe you think about simple bool-state-variables? Then you maybe had to
@@ -59,6 +59,7 @@ the functions.
 * `.context(_element, _type, _context, ... _args)`
 * `.count(_element, _type)`
 * `.delete(... _args)`
+* `.fix(_element, _type, ... _args)`
 * **`.get(_element, _type)`**
 * `.has(_element, _type)`
 * `.all(_element, _object, _merge, ... _args)`

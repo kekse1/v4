@@ -53,6 +53,7 @@ needs to be documentated in here).
 * [`osd`.js](web/osd.md)
 * [`page`.js](web/page.md)
 * [`progress`.js](web/progress.md)
+* [`session`.js](web/session.md)
 * [`test`.js](web/test.md)
 * [`toc`.js](web/toc.md)
 

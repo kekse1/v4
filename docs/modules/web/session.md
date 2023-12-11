@@ -11,6 +11,11 @@ If no `_session` parameter is defined (as String, which is (in [`page.js`](page.
 resolved module/page path..), either an anonymous one-time session is returned, or a single
 one which is being shared across multiple modules. This depends on the type of _session argument.
 
-## TODO
-There's one bug left atm, which is going to be fixed soon.
+## Effect
+The most important effect is obvious: when opening some page with JavaScript embedded or so,
+the states _can_ stay the same they was when called this one page before. So there's some 'progress'..
+
+That the defined variables don't reside in the global scope or so is another great effect.
+> **Warning**
+> ***BUT** this doesn't work atm., the only bug left here.. **:-(***
 

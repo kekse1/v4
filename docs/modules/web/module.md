@@ -14,7 +14,7 @@ being executed in a special **context**. This is because:
 
 If no `_module` parameter is defined (as String, which is (in [`page.js`](page.md)) the
 resolved module/page path..), either an anonymous one-time session is returned, or a single
-one which is being shared across multiple modules. This depends on the type of _module argument.
+one which is being shared across multiple modules. This depends on the type of `_module` argument.
 
 ## Effect
 The most important effect is obvious: when opening some page with JavaScript embedded or so,
@@ -22,9 +22,12 @@ the states _can_ stay the same they was when called this one page before. So the
 
 That the defined variables don't reside in the global scope or so is another great effect.
 
-The current module context is available in `this` and also the same in `module` (so if `this`
-could be overridden by local sub functions, etc..). Internally, it's given as first argument
+The current module context is available in `this` and also in `module` (so if `this` would be overridden
+by local sub functions, etc., it's nevertheless accessable). Internally, it's given as first argument
 of a `new Function()` being used, which is on the other hand also called with `..bind(_ctx, ..);`.
 
 There's also the `params` array available in those modules, btw.
+
+## TODO
+I'm going to extend all of this much more, l8rs.. /TODO/.
 

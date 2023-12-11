@@ -19,6 +19,12 @@ for obvious reasons).
 > I'm implementing everything as **asynchronous** as I can!
 > **But** I'm also avoiding any Promise as good as I can.. xD~
 
+## Configuration
+Beneath the regular configuration elements (like `config.css`, which will maybe be used at
+server-side, too?) most `.js` files got some `const DEFAULT_*` constants defined on their
+tops; .. for things that don't really fit into some configuration, but which are nevertheless
+not really static. Thus, avoiding hard-coded styles etc., just look at the files beginnings, too.
+
 # Module Index
 This `.md`s will grow in time.. currently I'm busy with implementing
 all this shit (actually there's much more finished\[tm\], but still

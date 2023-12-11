@@ -17,5 +17,5 @@ the states _can_ stay the same they was when called this one page before. So the
 
 That the defined variables don't reside in the global scope or so is another great effect.
 > **Warning**
-> ***BUT** this doesn't work atm., the only bug left here.. **:-(***
+> This doesn't work atm.. (the only bug left here..) **:-(**
 

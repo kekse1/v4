@@ -20,3 +20,6 @@ when necessary (when the user/client requests it).
 - [x] Using the GitHub API to either render a list of repositories, or an index of files in each one.
 - [x] Since it's an `EventTarget` we got here at least the additional: [ 'load', 'error', 'loaded', 'change', 'clear' ];
 
+### More?
+I've re-written the whole file from scratch, so maybe the feature list even grew in reality.. so: /TODO/..
+

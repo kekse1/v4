@@ -9,17 +9,16 @@ when necessary (when the user/client requests it).
 - [x] Catches all clicks on elements with `[href]` attribute (and animates them), if below page path
 - [x] Fetches a file (if too big or unsupported MIME type, a download will be offered (if not done manually))
 - [x] Presents it, depending on it's MIME type (or file extension if none sent); also animated.
-- [x] _Automatically creates a **Table of Contents** (also animated, etc.)_! See [`toc.js`](toc.md)!
-- [x] DEAD links will be highlighted and disabled (for an amount of time); with [OSD](osd.md)
-- [x] .. AFTER it'll be parsed, inter alia to get only the `<body>` part, etc. (and for the **TOC**, etc.); see `web/html.js`
+- [x] _Automatically creates a **Table of Contents** (also animated, etc.)_, see [`toc.js`](toc.md)!
+- [x] DEAD links will be highlighted and disabled (for an amount of time); with [`osd.js`](osd.md)
+- [x] Any `text/html` data will be parsed using `html.js`. In there's more magic..
 - [x] Relative links will be converted, so the HTML code can refer relative to it's original location (all `[href]` and `[url]`)
 - [x] JavaScript and CSS styles will be selected out (and downloaded partially), for evaluation or better embedding
 - [x] Downloads will present a [`progress`.js](progress.md) with percent and/or passed time
 - [x] Errors will be presented better (not *only* in the console, which is the usus here..)
-- [x] If downloading a markdown file, it'll first be converted to `.html` (and then handled as usual)
+- [x] If downloading a markdown file, it'll first be converted to `text/html` (and then handled as usual)
 - [x] Using the GitHub API to either render a list of repositories, or an index of files in each one.
-- [x] Since it's an `EventTarget` we got here at least the additional: [ 'load', 'error', 'loaded', 'change', 'clear' ];
+- [x] Since it's an `EventTarget`, we also got some own events being fired here, after starting to load..
 
-### More?
-I've re-written the whole file from scratch, so maybe the feature list even grew in reality.. so: /TODO/..
+More? Yes, maybe.. just re-written the whole file from scratch; maybe there are even more features not listed here.. /TODO/.
 

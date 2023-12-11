@@ -3,15 +3,18 @@
 	--copyright: url('COPYRIGHT.txt');
 	--license: url('LICENSE.txt');
 	--favicon: url('favicon.png');
+	--home: 'home';
 }
 
 :root
 {
+	--blink-simple: none;
 	--method: add;
+	--fixed: none;
 	--size: 14px;
 	--size-mobile: 12px;
 	--animate: auto;/* global disable here; .. also possible in the elements itself. */
-	--easing: ease-in-out;/* linear; then set --speed = ~1.5; w/ ease-in-out better ~1.0; ... */
+	--easing: linear;/*ease-in-out;*//* linear; then set --speed = ~1.5; w/ ease-in-out better ~1.0; ... */
 	--scale: 600;/* a boolean or a number of minimum scaled duration */
 	--speed: 1.42;
 	--global: 1.21;
@@ -22,6 +25,7 @@
 	--delay: 0;
 	--delay-each: 60;
 	--delay-each-hide: 40;
+	--force-animation: none;
 	--resize-timeout: 280;
 	--dead-timeout: 600000;
 	--center-x: none;
@@ -47,6 +51,28 @@
 :root
 {
 	--sidebars: none;
+}
+
+:root
+{
+	--wallpaper-speed: 1.2;
+	--wallpaper-background: rgba(220, 230, 240, 0.5) 0%, rgba(180, 190, 200, 0.5) 25%, rgba(140, 150, 160, 0.5) 50%, rgba(100, 110, 120, 0.5) 75%, rgba(60, 70, 80, 0.5) 100%;
+	--vibration-speed: 3.9;
+	--vibration-interval: 0.4;
+	--vibration-dots: 4;
+	--vibration-dot: '.';
+}
+
+#MAIN
+{
+	--wallpaper: auto;
+	--wallpaper-speed: 0.6;
+	--wallpaper-background: rgba(220, 230, 240, 0.75) 0%, rgba(190, 200, 210, 0.75) 25%, rgba(160, 170, 180, 0.75) 50%, rgba(130, 140, 150, 0.75) 75%, rgba(100, 110, 120, 0.75) 100%;
+}
+
+#MENU
+{
+	--wallpaper: auto;
 }
 
 :root
@@ -98,7 +124,7 @@
 #MAIN
 {
 	--threshold: 420px;
-	--max-size: 16777216;
+	--max-file-size: 1048576;
 }
 
 #MENU, #TOC, #MAIN
@@ -107,7 +133,18 @@
 	--speed: 0.7;
 	--duration-each: 700;
 	--easing: linear;
-	--duration-blink: 2100;
+}
+
+#MENU, #TOC
+{
+	--duration-blink: 800;
+}
+
+#MAIN
+{
+	--blink-simple: none;
+	--duration-data: 2400;
+	--duration-blink: 700;
 }
 
 #MENU, #TOC
@@ -119,7 +156,6 @@
 {
 	--delay-init: 1011;
 	--delay-each: 80;
-	--duration-blink: 600;
 }
 
 #MAIN
@@ -239,10 +275,8 @@
 
 .loadProgress, .loadProgressPage
 {
-	--fill-style: rgba(80, 110, 10, 0.5);
-	--fill-style-percent: rgba(60, 90, 0, 0.75);
-	--second-color: yellow;
-	--minute-color: green;
+	--fill-style: rgba(140, 170, 60, 0.5);
+	--fill-style-percent: rgba(80, 90, 30, 0.75);
 	--duration: 440;
 	--center: auto;
 	--method: set;
@@ -265,6 +299,8 @@
 	--date-year-full: '%d, %W';
 	--date-ms: '%X';
 	--date-unix: '%x';
+	--date-gmt: '%G';
+	--date-utc: '%U';
 }
 
 .a-dialog
@@ -272,6 +308,7 @@
 	--duration: 500;
 	--center: auto;
 	--timeout: 0;
+	--wallpaper: auto;
 }
 
 .a-dialog-button, .a-dialog
@@ -295,6 +332,8 @@
 	--duration-move: 480;
 	--position: arrange; /* arrange/move */
 	--duration-style: 600;/*TODO yet!!!*/
+	--easing: linear;
+	--wallpaper: auto;
 }
 
 .a-github-box
@@ -311,11 +350,12 @@
 	--delay-each: 140;
 }
 
-.test
+.box
 {
 	--center-x: auto;
 	--center-y: auto;
 	--position: move;
+	--wallpaper: auto;
 }
 
 #mobileInfo

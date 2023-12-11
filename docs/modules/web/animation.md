@@ -18,6 +18,17 @@ This way I can handle them each. To make things easier, I've also implemented th
 
 **I'm going to explain more l8rs.. so this whole module documentation is still TODO.**
 
+## Classes
+* **`ManagedAnimation`**, as described in here, somewhere.
+* **`GradientAnimation`**
+
+The `GradientAnimation` animates the `wallpaper` of `HTMLElement`, but with**out** the
+'Web Animations API'. It uses `requestAnimationFrame` and some `Math.psin()`, etc..
+
+> **Note**
+> **`Math.psin()`** is my own version which uses `Math.sin()`, but converts the results
+> to be only **positive** values. JFYI: **`((Math.sin(...) + 1) / 2)`**..
+
 ## Events
 The bold ones are my own, new event types. Respective callbacks (w/ `.type`), since they
 are defined in the `_options` object, with these names (mapping to a `Function`):

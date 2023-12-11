@@ -4,7 +4,7 @@
 This is for the scripts loaded within any [`page`](page.md) load: the pages **can\'t** easily
 be loaded (via `fetch()`) to embed their scripts 'as is'. I'm parsing the pages (via `html()`,
 see `html.js`) and extract (inter alia) the `<script>` nodes, to manually manage and execute
-them (after the whole content has been inserted into the `#MAIN` element).
+them (after the whole content has been inserted into the `#MAIN` element, see [`page.js`](page.md)).
 
 So, instead of 'just' evaluating the scripts (which is now done via `new Function()`), they're
 being executed in a special **context**. This is because:

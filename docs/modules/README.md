@@ -56,10 +56,10 @@ needs to be documentated in here).
 * [`help`.js](web/help.md)
 * [`markdown`.js](web/markdown.md)
 * [`mobile`.js](web/mobile.md)
+* [`module`.js](web/module.md)
 * [`osd`.js](web/osd.md)
 * [`page`.js](web/page.md)
 * [`progress`.js](web/progress.md)
-* [`session`.js](web/session.md)
 * [`test`.js](web/test.md)
 * [`toc`.js](web/toc.md)
 

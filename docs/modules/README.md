@@ -52,6 +52,7 @@ needs to be documentated in here).
 * [`dialog`.js](web/dialog.md)
 * [`element`.js](web/element.md)
 * [`event`.js](web/event.md)
+* [`fetching`.js](web/fetching.md)
 * [`github`.js](web/github.md)
 * [`help`.js](web/help.md)
 * [`markdown`.js](web/markdown.md)

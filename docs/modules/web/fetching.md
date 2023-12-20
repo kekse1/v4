@@ -7,6 +7,8 @@ so a Promise you can use by `.then()` and `.catch()`.
 It's there as global location for HTTP data transfer, since there are my default headers and fetch options defined
 at one place. Until now, I hard-coded it every time a `fetch()` was used..
 
+The `fetch()`'s return will also hold the `.options` object.
+
 ## My defined **default options**
 | Option      | Value                                   |
 | ----------: | :-------------------------------------- |

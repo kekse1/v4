@@ -8,7 +8,8 @@ It's there as global location for (**async**!) HTTP data transfer, since there a
 and fetch options defined at one place. Until now, I hard-coded it every time a `fetch()` was used..
 
 The `fetch()`'s return will also hold the resulting `.options` object (with headers converted from
-regular Objects to `Headers` instances).
+regular Objects to `Headers` instances, .. with filtered out non-string values and with all header
+keys `.toLowerCase()`..).
 
 ## My defined **default options**
 | Option      | Value                                   |

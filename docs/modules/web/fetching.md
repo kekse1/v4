@@ -4,8 +4,8 @@
 This is the default function used instead of regular `fetch()` calls. It'll return the original result,
 so a Promise you can use by `.then()` and `.catch()`.
 
-It's there as global location for HTTP data transfer, since there are my default headers and fetch options defined
-at one place. Until now, I hard-coded it every time a `fetch()` was used..
+It's there as global location for (**async**!) HTTP data transfer, since there are my default headers
+and fetch options defined at one place. Until now, I hard-coded it every time a `fetch()` was used..
 
 The `fetch()`'s return will also hold the `.options` object.
 

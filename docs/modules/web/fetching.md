@@ -1,8 +1,7 @@
 <img src="https://kekse.biz/github.php?draw&text=`fetching()`&override=github:v4" />
 
 # `fetching()`
-This is the default function used instead of regular `fetch()` calls. It'll return the original result,
-so a Promise you can use by `.then()` and `.catch()`.
+This is the default function used instead of regular `fetch()` calls.
 
 It's there as global location for (**async**!) HTTP data transfer, since there are my default headers
 and fetch options defined at one place. Until now, I hard-coded it every time a `fetch()` was used..
@@ -11,9 +10,18 @@ The `fetch()`'s return will also hold the resulting `.options` object (with head
 regular Objects to `Headers` instances, .. with filtered out non-string values and with all header
 keys `.toLowerCase()`..).
 
+## Return value
+If called with a **callback function**, the download will call it after end or on error.
+
+In this case you'll get a `{ data, text }` result in the first callback argument. If response became
+too large for a String (here around **~512 MiB**), the `text` element will be `null`.
+
+> **Warning**
+> Only with real `fetch()` in it, so calling the `fetching.apply()` **won't** return above things,
+> but only an options object.
+
 ## [`new Progress()`](progress.md)
-I'm thinking about directly integrating my [`progress.js`](progress.md) into here. But that's,
-maybe, TODO. But a great idea at all.
+This module already implements a [`Progress`](progress.md) (*if, and only if called with a callback argument*).
 
 ## Implementation
 The three most important functions are:
@@ -39,4 +47,3 @@ The rest is just some less helper closures, and the following both (see the next
 | Header **Key** | **Value**   |
 | -------------: | :---------- |
 | `user-agent`   | `kekse.biz` |
-

@@ -22,6 +22,7 @@ too large for a String (here around **~512 MiB**), the `text` element will be `n
 
 ## [`new Progress()`](progress.md)
 This module already implements a [`Progress`](progress.md) (*if, and only if called with a callback argument*).
+It'll be instanciated only **once**, while summing up all response lengths, etc., to show _one_ progress for all.
 
 ## Implementation
 The three most important functions are:

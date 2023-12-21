@@ -21,8 +21,8 @@ too large for a String (here around **~512 MiB**), the `text` element will be `n
 > but only an options object.
 
 If **no** callback is defined in the arguments, the regular Promise of `fetch()` will be returned (with
-`.options` etc. inside of this request). So then you can use `.then()` and `.catch()` as usual.. BUT as
-said above, then the [`Progress`](progress.md) won't be used.
+`.options` etc. inside of this request). So then you can use `.then()` and `.catch()` as usual.. BUT, as
+said in the section right here below, then the [`Progress`](progress.md) won't be used.
 
 ## [`new Progress()`](progress.md)
 This module already implements a [`Progress`](progress.md) (*if, and only if called with a callback argument*).

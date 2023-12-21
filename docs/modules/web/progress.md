@@ -13,6 +13,6 @@ This is mainly being used for the main 24h clock on the top/right (when clicking
 ## Example
 *_UPDATE_: Last image is out-dated, I already improved the progress in many ways (drawing ticks, and so on)!*
 ![Newer version, just a clock](../img/clock.png)
-![CSS configuration](../img/progress.css.png)
+![CSS configuration](../img/progress.config.png)
 ![Clock example, w/ example percentage](../img/progress.png)
 

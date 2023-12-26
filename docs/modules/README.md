@@ -37,6 +37,7 @@ needs to be documentated in here).
 ## **lib**/
 * [`callback-controller`.js](lib/callback-controller.md)
 * [`camel`.js](lib/camel.md)
+* [`color`.js](lib/color.md)
 * [`config`.js](lib/config.md)
 * [`console`.js](lib/console.md)
 * [`date`.js](lib/date.md)

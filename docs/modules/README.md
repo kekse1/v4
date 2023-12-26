@@ -25,6 +25,10 @@ server-side, too?) most `.js` files got some `const DEFAULT_*` constants defined
 tops; .. for things that don't really fit into some configuration, but which are nevertheless
 not really static. Thus, avoiding hard-coded styles etc., just look at the files beginnings, too.
 
+## TODO
+Here's the whole [**TODO**](https://kekse.biz/home/todo/) (and there's an extra menu item on
+the website itself for it).
+
 # Module Index
 This `.md`s will grow in time.. currently I'm busy with implementing
 all this shit (actually there's much more finished\[tm\], but still

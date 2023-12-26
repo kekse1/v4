@@ -9,6 +9,7 @@ These seem to be the most important functions:
 * `Number.isNumber(... _args)`
 * `Number.isInt(... _args)`
 * `Number.isFloat(... _args)`
+* `Number.isByte(... _args)`
 
 They expect an arbitrary number of items and will only return true,
 if all are real numbers, not Infinity nor NaN! .. BUT: they do only
@@ -20,6 +21,7 @@ following functions (all in the `global` namespace!):
 * `isFloat(_item, _radix)`
 * `isBigInt(_item, _radix)`
 * `isNumeric(_item, _radix)`
+* `isByte(_item, _radix)`
 
 If you define a `_radix` (and only in this case!), it'll also check if such numeric values
 are encoded in the strings - if such is specified. Otherwise, if `typeof === 'number'`, it'll

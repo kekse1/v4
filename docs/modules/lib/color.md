@@ -29,5 +29,7 @@ supported color types (see above).
 This and more is still TODO. But I'll need it in some days or so, .. so stay tuned. :-)
 
 * `.complement(... _args)`
+* `.contrast(... _args)`
+
 ...
 

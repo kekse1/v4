@@ -25,6 +25,9 @@ The base is a new `color` object/function in the global namespace. There we go w
 At least this is the current state. All these functions got sub functions named by the
 supported color types (see above).
 
-## Status
-It's still TODO. But I'll need it in some days or so, .. so stay tuned. :-)
+## More functionality
+This and more is still TODO. But I'll need it in some days or so, .. so stay tuned. :-)
+
+* `.complement(... _args)`
+...
 

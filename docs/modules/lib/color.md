@@ -11,6 +11,7 @@ already part of the [Lib\[rary\].js](https://libjs.de/)).
 * **cmyk**
 * **hsv**
 * **hsl**
+* **yuv**
 * **array**
 * **int**
 

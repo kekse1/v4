@@ -8,11 +8,11 @@
 
 :root
 {
-	--blink-simple: none;
+	--abort-method: 'cancel';/*try out! also possible: 'stop'..*/
 	--method: add;
 	--fixed: none;
-	--size: 14px;
-	--size-mobile: 12px;
+	--font-size: 14px;
+	--font-size-mobile: 12px;
 	--animate: auto;/* global disable here; .. also possible in the elements itself. */
 	--easing: linear;/*ease-in-out;*//* linear; then set --speed = ~1.5; w/ ease-in-out better ~1.0; ... */
 	--scale: 600;/* a boolean or a number of minimum scaled duration */
@@ -21,12 +21,12 @@
 	--duration: 1000;
 	--duration-show: 1080;
 	--duration-hide: 800;
-	--duration-blink: 640;
+	--duration-blink: 600;
 	--delay: 0;
 	--delay-each: 60;
 	--delay-each-hide: 40;
 	--force-animation: none;
-	--resize-timeout: 280;
+	--resize-timeout: 160;
 	--dead-timeout: 600000;
 	--center-x: none;
 	--center-y: none;
@@ -40,6 +40,8 @@
 	 * Pen eraser button: 32
 	 */
 	--movable-buttons: 4;
+	--duration-pulse: 600;
+	--border-width-pulse: none;
 }
 
 #MAIN
@@ -57,10 +59,10 @@
 {
 	--wallpaper-speed: 1.2;
 	--wallpaper-background: rgba(220, 230, 240, 0.5) 0%, rgba(180, 190, 200, 0.5) 25%, rgba(140, 150, 160, 0.5) 50%, rgba(100, 110, 120, 0.5) 75%, rgba(60, 70, 80, 0.5) 100%;
-	--vibration-speed: 3.9;
-	--vibration-interval: 0.4;
-	--vibration-dots: 4;
+	--vibration-speed: 3;
+	--vibration-interval: 0.369;
 	--vibration-dot: '.';
+	--vibration-opacity: 0.25;
 }
 
 #MAIN
@@ -127,46 +129,45 @@
 	--max-file-size: 1048576;
 }
 
+#TOC
+{
+	--resize-after: 0.5;
+}
+
 #MENU, #TOC, #MAIN
 {
 	--method: set;
 	--speed: 0.7;
-	--duration-each: 700;
+	--duration-each: 400;
 	--easing: linear;
-}
-
-#MENU, #TOC
-{
-	--duration-blink: 800;
+	--delay-each: 36;
 }
 
 #MAIN
 {
-	--blink-simple: none;
-	--duration-data: 1400;
-	--duration-blink: 700;
+	--duration-blink: 900;
+	--duration-each: 300;
 }
 
 #MENU, #TOC
 {
-	--delay-each: 40;
+	--duration-blink: 1200;
+}
+
+#MAIN
+{
+	--duration-data: 1400;
 }
 
 #MENU
 {
 	--delay-init: 1011;
-	--delay-each: 80;
-}
-
-#MAIN
-{
-	--delay-each: 40;
 }
 
 #TOC
 {
-	--delay-each: 56;
-	--delay-each-hide: 24;
+	--delay-each: 100;
+	--delay-each-hide: 30;
 }
 
 #STATE
@@ -200,8 +201,8 @@
 
 #TOC
 {
-	--resize-timeout: 70;
-	--scroll-timeout: 70;
+	--resize-timeout: 40;
+	--scroll-timeout: 60;
 }
 
 :root
@@ -223,23 +224,26 @@
 
 .a-progress
 {
+	--round: 1;
+	--marquee: none;
 	--center: auto;
 	--day-percent: none;
 	--help: auto;
 	--draw-time: auto;
 	--draw-text: auto;
 	--draw-ticks: auto;
-	--resize-timeout: 280;
+	--draw-text-zero: auto;
+	--resize-timeout: 180;
 	--duration: 360;
 	--line-width: 1.3;
 	--fill-style: rgba(100, 110, 120, 0.5);
 	--fill-style-percent: rgba(90, 100, 110, 0.5);
-	--stroke-style-percent: rgb(50, 60, 10);
-	--line-width-percent: 0.75;
+	--stroke-style-percent: rgb(240, 190, 10);
+	--line-width-percent: 1.2;
 	--line-width-percent-arc: 0.5;
 	--text-fill: rgb(230, 240, 250);
-	--text-stroke: rgb(20, 30, 40);
-	--text-line-width: 1.6;
+	--text-stroke: rgb(60, 70, 80);
+	--text-line-width: 1.4;
 	--arc-space: 8px;
 	--hour-color: rgb(170, 100, 25);
 	--hour-line: 5.4;
@@ -257,29 +261,60 @@
 	--tick-inner-radius: 0.02;
 	--tick-inner-position: 0.85;
 	--tick-inner-color: rgba(96, 96, 96, 0.8);
+	--resize-linear: none;
 }
 
 #CLOCK, .clock, #SCROLL, .scroll
 {
 	--center: none;
-	--day-percent: auto;
-	--duration: 1000;
+	--duration: 1200;
+	--scale-factor: 0.92;
+	--scale-duration: 1200;
+	--speed: 0.75;
+	--size: 144px;
+	--size-mobile: 96px;
+}
+
+#CLOCK, .clock
+{
 	--draw-time: auto;
+	--day-percent: auto;
 	--draw-text: none;
 	--size: 144px;
 	--size-mobile: 96px;
-	--scale-factor: 0.92;
-	--scale-duration: 340;
-	--speed: 0.75;
 }
 
-.loadProgress, .loadProgressPage
+#SCROLL, .scroll
 {
-	--fill-style: rgba(140, 170, 60, 0.5);
-	--fill-style-percent: rgba(80, 90, 30, 0.75);
+	--round: 0;
+	--draw-text-zero: auto;
+	--fill-style: rgba(160, 180, 30, 0.4);
+	--fill-style-percent: rgba(110, 120, 30, 0.4);
+	--text-fill: rgb(110, 120, 30);
+	--text-stroke: rgba(190, 210, 40, 0.75);
+	--day-percent: none;
+	--draw-time: none;
+	--draw-text: auto;
+	--size: 96px;
+	--size-mobile: 80px;
+	--text-fill: rgb(230, 240, 120);
+	--text-stroke: rgba(60, 90, 0, 0.8);
+	--text-line-width: 1;
+}
+
+.loadProgressStart, .loadProgress
+{
+	--stroke-style-percent: rgb(160, 210, 40);
+	--second-color: rgb(210, 170, 40);
+	--second-line: 3.4;
+	--line-width-percent: 2.75;
+	--fill-style: rgba(50, 110, 150, 0.5);
+	--fill-style-percent: rgba(50, 110, 150, 0.75);
 	--duration: 440;
 	--center: auto;
 	--method: set;
+	--draw-time: auto;
+	--draw-text: auto;
 }
 
 :root
@@ -352,8 +387,8 @@
 
 .box
 {
-	--center-x: auto;
-	--center-y: auto;
+	--center-x: none;
+	--center-y: none;
 	--position: move;
 	--wallpaper: auto;
 }

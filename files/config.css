@@ -8,7 +8,7 @@
 
 :root
 {
-	--abort-method: 'cancel';/*try out! also possible: 'stop'..*/
+	--abort-method: 'stop';/*try out! also possible: 'cancel', 'stop', 'finish', ...*/
 	--method: add;
 	--fixed: none;
 	--font-size: 14px;
@@ -47,6 +47,11 @@
 {
 	--top-space: 32px;
 	--bottom-space: 192px;
+}
+
+#TOC
+{
+	--scroll: auto;
 }
 
 :root
@@ -201,7 +206,7 @@
 #TOC
 {
 	--resize-timeout: 40;
-	--scroll-timeout: 60;
+	--scroll-timeout: 40;
 }
 
 :root

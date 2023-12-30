@@ -14,3 +14,7 @@ right site of the website the #TOC is created with `<ol>` and `<li>`
 (which is optional - if a site has no such `<h*>` elements, or when
 it's just `text/plain`, the whole #TOC will be disabled and hidden).
 
+## Update
+Now w/ automatic scrolling in the `#TOC` on scrolling the `#MAIN`
+contents.. see `--scroll` in the `config.css`.
+

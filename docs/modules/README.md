@@ -35,7 +35,7 @@ all this shit (actually there's much more finished\[tm\], but still
 needs to be documentated in here).
 
 ## **lib**/
-* [`callback-controller`.js](lib/callback-controller.md)
+* [`callback`.js](lib/callback.md)
 * [`camel`.js](lib/camel.md)
 * [`color`.js](lib/color.md)
 * [`config`.js](lib/config.md)

@@ -35,6 +35,7 @@ all this shit (actually there's much more finished\[tm\], but still
 needs to be documentated in here).
 
 ## **lib**/
+* [`alphabet`.js](lib/alphabet.md)
 * [`callback`.js](lib/callback.md)
 * [`camel`.js](lib/camel.md)
 * [`color`.js](lib/color.md)

@@ -2,6 +2,7 @@
 
 # **`radix`**
 My own functions for radix/base conversions; like to encode numbers as strings, or parse strings of 'arbitrary' numerical systems.
+Here also the reference to my [`alphabet`.js](alphabet.md), which is the counter-part of this extension(s).
 
 ## Reasons
 At first, JavaScript can only handle radix between 2 and 36. I extended it up to 62 and even to binary code until radix 256; but
@@ -61,13 +62,6 @@ preferred form is to return `(null)` in case of any error (or even `(undefined)`
 ### More numerical algorithms
 .. look at the [`globals/numeric`](globals/numeric.md).
 
-### `const DEFAULT_*` or the numerical features
-Since I'm most times using a set of `DEFAULT_` constants in my files, here one is important to be explained here: the `DEFAULT_PREFER`
-(the `DEFAULT_THROW` etc. are as usual): this is where you use a binary alphabet (above **62**, up to **256**); to keep there the
-support of floating points and negative numbers, the `.` (decimal point), the `-` and the `+` will be kept out of the alphabet as
-long as possible. So maybe you don't like to use the whole **256** radix for all bytes, instead either **255** to keep support for
-floating points, or the **254** to also allow negative values, and maybe even **253** to also support `+`.
-
 #### Negative numbers in strings
 These `-` and `+` can be any length in the beginning of a numeric string value, which is also my own extension. So the code will
 sum up the `-` to count if a number is negative or not (and the `+` are ignored, or also removed from the string).
@@ -76,3 +70,4 @@ sum up the `-` to count if a number is negative or not (and the `+` are ignored,
 
 ## (TODO)
 (so more description, etc.)
+

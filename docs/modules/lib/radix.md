@@ -29,10 +29,8 @@ with both combined. As usual, you can also define -1 or -2 for these both revers
 On the one hand there is my base implementation in the `radix.js` file. On the other, there are my overrides of regular JavaScript
 functions, so they support my extended version.
 
-I also decided to use the regular `Number()` and `BigInt()` for decimal radix 10, since I've seen that's much more performant
-than even the regular JavaScript's `parseInt()` or `parseFloat()`.
-
-Some other code is located in the `globals/numeric.js`, which fits better in there.
+Some other code is located in the `globals/numeric.js`, which fits better in there. And, of course, the [`alphabet`.js](alphabet.md),
+worth a look..
 
 Additionally, some native functions like `isNaN()` are also being overridden by me. For example the one mentioned here, which can
 be very important (is also used for BigInt, since there is no limit in the length of the number strings), is changed to also return

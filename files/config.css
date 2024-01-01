@@ -43,6 +43,15 @@
 	--duration-pulse: 600;
 }
 
+:root
+{
+	--console-log: '';
+	--console-info: 'color: rgb(50, 90, 20);';
+	--console-warn: 'color: rgb(110, 70, 20); font-weight: bold;';
+	--console-error: 'color: rgb(130, 30, 30); font-weight: bold;';
+	--console-debug: 'color: rgb(30, 90, 150);';
+}
+
 #MAIN
 {
 	--top-space: 32px;
@@ -66,7 +75,7 @@
 	--vibration-speed: 3;
 	--vibration-interval: 0.369;
 	--vibration-dot: '.';
-	--vibration-opacity: 0.25;
+	--vibration-opacity: 0.1;
 }
 
 #MAIN
@@ -176,8 +185,8 @@
 
 #STATE
 {
-	--duration: 1600;
-	--delay-each: 940;
+	--duration: 1200;
+	--delay-each: 800;
 }
 
 #countState

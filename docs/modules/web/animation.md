@@ -43,17 +43,16 @@ are defined in the `_options` object, with these names (mapping to a `Function`)
 ## Functions
 Only managed animations are affected here:
 
+* **`HTMLElement.prototype.animate(_keyframes, _options, ... _args)`**
+* `HTMLElement.prototype.show(_options, ... _args)`
+* `HTMLElement.prototype.hide(_options, ... _args)`
+* `HTMLElement.prototype.fade(_type, _options, ... _args)`
+* `HTMLElement.prototype.blink(_options, ... _args)`
 * `HTMLElement.prototype.vibrate(_enabled, _speed, _interval, _dots, _default_inner_html, _dot)`
 * `HTMLElement.prototype.vibrating`
 * `HTMLElement.prototype.wallpaperAnimation(_enabled, _speed, _animation)`
 * `HTMLElement.prototype.wallpaper`
 * `HTMLElement.prototype.pulse(... _args)`
-* `HTMLElement.prototype.pulseIn(... _args)`
-* `HTMLElement.prototype.pulseOut(... _args)`
-* `HTMLElement.prototype.fade(_type, _options, ... _args)`
-* `HTMLElement.prototype.show(_options, ... _args)`
-* `HTMLElement.prototype.hide(_options, ... _args)`
-* `HTMLElement.prototype.blink(_options, ... _args)`
 * `HTMLElement.prototype.animation`
 * `HTMLElement.prototype.animations`
 * `HTMLElement.prototype.hasAnimation(... _args)`
@@ -84,12 +83,34 @@ BUT the `_event.type` is changed to `stop`!
 
 * `Animation.prototype.stop()`
 
+I hope this are all.. but I'm not sure (just look for yourself in the `animation.js`).
+
+### Most used ones
+These are the most important functions (using my Managed Animations):
+
+* **`HTMLElement.prototype.animate()`**
+* `HTMLElement.prototype.show()`
+* `HTMLElement.prototype.hide()`
+
+The rest is shown [above](#functions).
+
+> **Warning**
+> The current state is that only one of both possible keyframe formats are supported
+> (since I've been lazy, just a bit..). But that'll change.
+
 ## For your info..
 There's a `--speed` CSS Custom Property to change the whole acceleration of
 any animation. If disabled (setting to `0`), any animation will only set the
 CSS styles to the target values. But the optional `delay` will be enforced..
 
 Additionally, there's the (only global!) `--global` for more global adaption.
+
+### Another info for you
+Both animation types (whether managed or not) do support the `AbortController` (native
+JavaScript), you just need to put a `{ signal }` into the `_options`. The type of stopping
+animations this way is configurable in the `config.css` (see `--abort-method`), and this
+will also hold if not specified as the reason for the `.abort()` (so [ `stop`, `cancel`,
+`finish`, .. ]).
 
 ## Attributes
 These are two possible modifier attributes (of the `HTMLElement`s).

@@ -42,6 +42,7 @@ needs to be documentated in here).
 * [`config`.js](lib/config.md)
 * [`console`.js](lib/console.md)
 * [`date`.js](lib/date.md)
+* [`file`.js](lib/file.md)
 * [`getopt`.js](lib/getopt.md)
 * [`globals`](lib/globals/README.md)
 * [`id`.js](lib/id.md)

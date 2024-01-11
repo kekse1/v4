@@ -4,7 +4,7 @@
 `class Progress extends HTMLCanvasElement`..
 
 ## `(Progress).sizeAnimation(_options, ... _callbacks)`
-This is a special case of animations: since the regularily used 'Web Animations API' neither got something like
+This is a special case of animations: since the normally used 'Web Animations API' neither got something like
 'intermediateCallbacks' or so, nor the `transform: scale(...)` has a good quality when scaling small elements
 to bigger views, I decided to use my own animation routine here.
 

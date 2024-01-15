@@ -14,4 +14,5 @@
 * `Array.concat(... _args)`
 * `Array.prototype.concat(... _args)`
 * `Array.prototype.toText(_colors, _keys, ... _args)`
+* `Array.prototype.resolve(_path)`
 

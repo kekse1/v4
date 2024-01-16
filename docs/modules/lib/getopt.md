@@ -1,10 +1,11 @@
 <img src="https://kekse.biz/github.php?draw&text=`getopt`&override=github:v4" />
 
 # **getopt**
-Nice design! It's already working great, only very less rest TODO left.
+Nice design.. and It's already working great (seems to be finished).
 
-## Test/Example Screenshot
-But as already said, that's not the finite state..
+## Reference
+I'm referring you to my special [`getopt.js` github repository page](https://github.com/kekse1/getopt.js/).
 
-![`getopt` Test](../img/getopt-test.png)
+There are all features listed, there's also a polyfill as replacement for my library functions from here,
+and the documentation is also done /there/.
 

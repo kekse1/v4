@@ -19,6 +19,7 @@ when necessary (when the user/client requests it).
 - [x] If downloading a markdown file, it'll first be converted to `text/html` (and then handled as usual)
 - [x] Using the GitHub API to either render a list of repositories, or an index of files in each one.
 - [x] Since it's an `EventTarget`, we also got some own events being fired here, after starting to load..
+- [x] And since I've got my own `URL[.prototype].render()` (better style in HTML), after loading all/some will be replaced
 
 More? Yes, maybe.. just re-written the whole file from scratch; maybe there are even more features not listed here.. /TODO/.
 

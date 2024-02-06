@@ -8,7 +8,9 @@ The [`format()`](#format) is maybe most interesting for you?
 * `Date.prototype.toString(_html, _parenthesis)`
 * `Date.moonPhase(_date)`
 * `Date.prototype.moonPhase`
-* `Date.MOON(_day, _lang)`
+* `Date.moonPhaseDay(_date)`
+* `Date.prototype.moonPhaseDay`
+* `Date.MOON(_value, _lang)`
 * `Date.dayByYear(_date)`
 * `Date.prototype.dayByYear`
 * `Date.dayInYear(_date)`

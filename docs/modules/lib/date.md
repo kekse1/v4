@@ -7,7 +7,7 @@ The [`format()`](#format) is maybe most interesting for you?
 * `Date.toString(_date, _html, _parenthesis)`
 * `Date.prototype.toString(_html, _parenthesis)`
 * `Date.moonPhase(_date)`
-* `Date.prototype.moonPhase()`
+* `Date.prototype.moonPhase`
 * `Date.dayByYear(_date)`
 * `Date.prototype.dayByYear`
 * `Date.dayInYear(_date)`

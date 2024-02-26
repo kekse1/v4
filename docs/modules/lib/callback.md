@@ -1,6 +1,8 @@
-<img src="https://kekse.biz/github.php?draw&text=`CallbackController`&override=github:v4" />
+<img src="https://kekse.biz/github.php?draw&text=`Callback`&override=github:v4" />
 
-# `CallbackController`
+# `Callback`(-'Controller')
+Previosly `class CallbackController`, now renamed to only `class Callback`, so we avoid
+coding time.. don't know if it's better this way, but it makes some calls (etc.) easier.
 
 ## `extends Map`
 Einerseits muss man pruefen, ob eine Funktion bereits laeuft, um sie nicht dabei zu stoeren,
@@ -8,17 +10,17 @@ andererseits muss dort je nachdem ein altes Callback abgeloest/ersetzt werden, o
 neue Aufrufe mit Callbacks nach der Arbeit mit aufrufen.
 
 ### Usage
-We're using the map **keys** for some kind of context, so we can use a `CallbackController` instance
+We're using the map **keys** for some kind of context, so we can use a `Callback` instance
 right before the functions which need it. So we manage by e.g. `HTMLElement` instances, when we use
 this feature in a `HTMLElement.prototype` function. This way we avoid state variables in the instances.
 
 > **Note**
-> I'd recommend you to make your instances more/less 'public', like `Node.prototype.clear.callbackController`.
+> I'd recommend you to make your instances more/less 'public', like `Node.prototype.clear.callbacks`.
 
 > **Warning**
-> **UPDATE**! For better ressource management there's the _static_ `CallbackController.get(_string_key)` now,
-> which depends on a single, static `CallbackControllerCarrier` (whereas all it's members are also as static
-> versions in the `CallbackController` class). This way we're avoiding unnecessary instances (while the
+> **UPDATE**! For better ressource management there's the _static_ `Callback.get(_string_key)` now,
+> which depends on a single, static `CallbackCarrier` (whereas all it's members are also as static
+> versions in the `Callback` class). This way we're avoiding unnecessary instances (while the
 > Carrier also takes care of deleting unused controllers).
 
 Additionally, managing callbacks also means that we can add or replace callbacks dynamically on every
@@ -72,11 +74,11 @@ the functions.
 * `.checkIsDestroyed(_error)`
 * `.destroy()`
 
-## `CallbackControllerCarrier`
+## `CallbackCarrier`
 This is even newer. I'm using it in my `animate()` function (see `web/animate.js`), as every animation is identified
 by it's **`_type`**.
 
-It's synchronized with it's `CallbackController` instances (since the `CallbackController` accepts one Carrier as
+It's synchronized with it's `Callback` instances (since the `Callback` accepts one Carrier as
 constructor argument).
 
 ### Implementation
@@ -89,22 +91,22 @@ constructor argument).
 * `.size`
 
 ### Static instance
-As mentioned somewhere above, the `CallbackController` got it's own static instance of this `CallbackControllerCarrier`,
+As mentioned somewhere above, the `Callback` got it's own static instance of this `CallbackCarrier`,
 to avoid unnecessary resources (of many Controller instances).
 
-All necessary static members are a relay to a static `CallbackController` instance,
+All necessary static members are a relay to a static `Callback` instance,
 
 And btw., this Carrier also free's up the memory by destroying all unused Controller instances (see `DEFAULT_FREE_CARRIER`).
 
 ### Skip freeing carrier
-Destroying the `CallbackController` instances (so freeing memory) is the default, if `DEFAULT_FREE_CARRIER` is enabled.
-If you want to skip this step while using the `CallbackController`, you can define a `Boolean` in these functions:
+Destroying the `Callback` instances (so freeing memory) is the default, if `DEFAULT_FREE_CARRIER` is enabled.
+If you want to skip this step while using the `Callback`, you can define a `Boolean` in these functions:
 
 * `.clear(_element, _type = null, _free_carrier = DEFAULT_FREE_CARRIER)`
 * `.delete(... _args)`
 
 This is useful e.g. if you're clearing a controller instance but want to use it also after this. It's not often this case,
-but if this feature wouldn't be, you'd to request the controller twice from your `CallbackControllerCarrier` .. if it's
+but if this feature wouldn't be, you'd to request the controller twice from your `CallbackCarrier` .. if it's
 used at all! If not, you don't need to care, but if so, the problem is that future requests to the carrier wouldn't give
 you back the same controller instance - so you wouldn't get your callbacks back again!
 

@@ -20,8 +20,8 @@ The [`format()`](#format) is maybe most interesting for you?
 * `Date.prototype.moonPhaseAngle`
 * `Date.moonIlluminatedRatio(_date)`
 * `Date.prototype.moonIlluminatedRatio`
-//* `Date.moonPhase(_date)`
-//* `Date.prototype.moonPhase`
+* `Date.moonPhase(_date)`
+* `Date.prototype.moonPhase`
 * `Date.MOON(_value, _lang)`
 * `Date.dayByYear(_date)`
 * `Date.prototype.dayByYear`

@@ -13,13 +13,15 @@ when necessary (when the user/client requests it).
 - [x] DEAD links will be highlighted and disabled (for an amount of time); with [`osd.js`](osd.md)
 - [x] Any `text/html` data will be parsed using `html.js`. In there's more magic..
 - [x] Relative links will be converted, so the HTML code can refer relative to it's original location (all `[href]` and `[url]`)
-- [x] JavaScript and CSS styles will be selected out (and downloaded partially), for evaluation or better embedding
+- [x] JavaScript and CSS styles will be selected out (and downloaded partially), for evaluation or better embedding (see [`module.js`](module.md));
+- [x] The JavaScript's mentioned above will also be evaluated, right AFTER all content was inserted (see [`module.js`](module.md);
 - [x] Downloads will present a [`progress`.js](progress.md) with percent and/or passed time
 - [x] Errors will be presented better (not *only* in the console, which is the usus here..)
 - [x] If downloading a markdown file, it'll first be converted to `text/html` (and then handled as usual)
 - [x] Using the GitHub API to either render a list of repositories, or an index of files in each one.
 - [x] Since it's an `EventTarget`, we also got some own events being fired here, after starting to load..
 - [x] And since I've got my own `URL[.prototype].render()` (better style in HTML), after loading all/some will be replaced
+- [x] Anchor `<a>` without content will also be `URL[.protoype].render()`ed automatically now.
 
 More? Yes, maybe.. just re-written the whole file from scratch; maybe there are even more features not listed here.. /TODO/.
 

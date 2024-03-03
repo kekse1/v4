@@ -8,15 +8,15 @@ It's my own, extended version of a simple popup for HTML Nodes with their
 `title` attribute.
 
 ## Node attributes
-| Attribute **key** | Description                                                                             |
-| ----------------: | :-------------------------------------------------------------------------------------- |
-| **`help`**        | Regular HTML content/data for this popups                                               |
-| **`helpText`**    | The same, but plain text. HTML code displayed **raw**                                   |
-| **`title`**       | HTML spec. conform version, less priority than both above                               |
-| **`alt`**         | Normally for images, but shown as this `Help` popup                                     |
-| **`href`**        | Fallback (if nothing else); shows clickable link (rendered, see [`URL`](../lib/url.md)) |
-| **`helpStyle`**   | Define **additional** CSS styles for the `Help` node/element                            |
-| **`helpClass`**   | Also **additional** CSS classes (space separated list!)                                 |
+| Attribute/Member **key** | Description                                                                             |
+| -----------------------: | :-------------------------------------------------------------------------------------- |
+| **`help`**               | Regular HTML content/data for this popups                                               |
+| **`helpText`**           | The same, but plain text. HTML code displayed **raw**                                   |
+| **`title`**              | HTML spec. conform version, less priority than both above                               |
+| **`alt`**                | Normally for images, but shown as this `Help` popup                                     |
+| **`href`**               | Fallback (if nothing else); shows clickable link (rendered, see [`URL`](../lib/url.md)) |
+| **`helpStyle`**          | Define **additional** CSS styles for the `Help` node/element                            |
+| **`helpClass`**          | Also **additional** CSS classes (space separated list!)                                 |
 
 The other way to (un-)set these ones as (node) object members, without HTML
 attributes. Great thing when setting whole HTML **Node**s as payload/content,

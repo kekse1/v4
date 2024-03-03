@@ -33,6 +33,9 @@ generated, even if parent nodes define some! Good be quite important!
 Delete any defined help on a `Node`. `_more` to also clear styles and classes, and the
 `_apply` to also directly close a maybe opened Help element.
 
+BUT dynamically change the attributes/members (the ones above) also directly
+changes or closes open Helps.
+
 ## `EventTarget`
 Since the `.related` elements are EventTargets, they'll fire a `help` event
 both on `.show()` and `.hide()` (w/ this as the `_event.type` parameter).

@@ -4,7 +4,7 @@
 I got own extensions to the `URL` class.
 
 ## Rendering URL's (HTML code)
-This is an important feature, especially in the [**web**]() code:
+This is an important feature, especially in the **web** code:
 
 * **`URL.render(_url, ... _args)`**
 * **`URL.prototype.render(... _args)`**

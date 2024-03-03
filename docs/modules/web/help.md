@@ -1,6 +1,6 @@
 <img src="https://kekse.biz/github.php?draw&text=`Help`&override=github:v4" />
 
-# Help via Popup..
+# **`class Help`**
 BTW., needed to rename them to **`help`**, since (at least) Chrome got it's own
 _experimental_ popup support, so I avoided name collisions.
 

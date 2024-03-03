@@ -33,5 +33,3 @@ See it's Custom Properties starting with `--url-`.
 * `URL.prototype.render(... _args)`
 * `URL.equal(_a, _b, _protocol, _port)` (see also [`path.js`](../lib/path.md))
 
-.. and is still *TODO* (also at [`address.js`](address.md)).
-

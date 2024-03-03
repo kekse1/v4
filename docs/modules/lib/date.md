@@ -112,7 +112,7 @@ These are the **`%`** modifiers for format strings. I tried to make them one sin
 |  **%G**  | GMT format                                                  |
 |  **%U**  | UTC format                                                  |
 
-### Pre-defined formats (see `css/config.css`);
+### Pre-defined formats (see [`config.css`](../../../css/config.css));
 The names (after `--date-`) can be used for `.format()` etc. instead of real format strings. These are **pre-defined** formats.
 
 ```css

@@ -1,32 +1,31 @@
 <img src="https://kekse.biz/github.php?draw&text=`Help`&override=github:v4" />
 
-# **`class Help`**
-BTW., needed to rename them to **`help`**, since (at least) Chrome got it's own
-_experimental_ popup support, so I avoided name collisions.
+# **`class Help` (global as `Help`)
+A help, which is some **PopUp**/**ToolTip**, is only working on desktops, not mobile
+browsers; or, better said, it works only with **mouse** (not touch or pen).
 
-## `EventTarget`
-Since the `.related` elements are EventTargets, they'll fire a `help` event both on
-`.show()` and `.hide()` (w/ this as the `_event.type` parameter).
+It's my own, extended version of a simple popup for HTML Nodes with their
+`title` attribute.
 
-## Elements
-Either defined by a String in the `Node`-**Attribute**, or either as String or another
-real `Node` in the `(Node).help` member. If wished, a fallback to `[href]` is available.
+## Node attributes
+| Attribute **key** | Description                                                                             |
+| ----------------: | :-------------------------------------------------------------------------------------- |
+| **`help`**        | Regular HTML content/data for this popups                                               |
+| **`helpText`**    | The same, but plain text. HTML code displayed **raw**                                   |
+| **`title`**       | HTML spec. conform version, less priority than both above                               |
+| **`alt`**         | Normally for images, but shown as this `Help` popup                                     |
+| **`href`**        | Fallback (if nothing else); shows clickable link (rendered, see [`URL`](../lib/url.md)) |
+| **`helpStyle`**   | Define **additional** CSS styles for the `Help` node/element                            |
+| **`helpClass`**   | Also **additional** CSS classes (space separated list!)                                 |
 
-Additionally there's also (again both attrib and member) `.helpText`, so not the `.innerHTML`
-but the `.textContent` value will be set in the help box.. sometimes maybe necessary (I'm
-using it in the `GitHub` 'index')!
+The other way to (un-)set these ones as (node) object members, without HTML
+attributes. Great thing when setting whole HTML **Node**s as payload/content,
+which is - especially when node's content quickly changes, or is in it's own
+movement - more performant than to always change a text/code member/attribute!
 
-### Hide any higher help
-If one of the elements we're looping through encodes an EMPTY string, either as attribute
-or as member, higher help definitions will be overridden, so they won't appear then. This
-is also an important feature.
-
-### More Attributes and Members
-* **class**: More CSS class names to add to the `.classList`
-* **style**: Whole CSS style string to **add**.
-
-Both can be defined as (Element) attributes or as instance members. Members are preferred,
-at least for this both items. The behavior for [href] and [help] is partially different.
+### Disabling (if parents define any help)
+When you define empty Strings as content, there will no such popup be
+generated, even if parent nodes define some! Good be quite important!
 
 ### Clearing
 * `Node.prototype.clearHelp(_more = true, _apply = true)`
@@ -34,10 +33,10 @@ at least for this both items. The behavior for [href] and [help] is partially di
 Delete any defined help on a `Node`. `_more` to also clear styles and classes, and the
 `_apply` to also directly close a maybe opened Help element.
 
-## Mobile
-Won't be shown in `mobile` view neither with a pointer(-type) which isn't a `mouse`.
+## `EventTarget`
+Since the `.related` elements are EventTargets, they'll fire a `help` event
+both on `.show()` and `.hide()` (w/ this as the `_event.type` parameter).
 
 ## `Freeze` support
-.. is also done! Look at `freeze.js` (also TODO in this documentation). Here it was
-necessary to e.g. select popup text/html without closing or moving this help, etc.
+Look at [`freeze.js`](freeze.md) for more info.
 

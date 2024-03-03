@@ -12,7 +12,7 @@ the `test()` function.
 `var t = test('ein test\nzwei', MAIN, { 'backgroundColor': 'slategray', help: 'see `help.js`!' });`
 
 ## Configuration
-.. is also done via the **`config.css`**, mostly with the **CSS Custom Properties**!
+.. is also done via the [`config.css`](../../../css/config.css), mostly with the **CSS Custom Properties**!
 
 ## Plans
 .. fuzzy. Is very less code atm., but can be extended in case of real debugging situations, etc. ;)~

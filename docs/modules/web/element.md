@@ -65,7 +65,7 @@ These function have moved to `css.js`.
 ### Moving elements
 Assign the `Node` which should be moved to another Node's `.movable` member.
 
-So if you're moving the pointer (after `pointerdown`, see `--movable-buttons` @ `config.css`)
+So if you're moving the pointer (after `pointerdown`, see `--movable-buttons` @ [`config.css`](../../../css/config.css))
 over a first `Node`, during this another second `Node` will be moved/dragged around.
 
 This is in case you have some kinda 'title bar' or so, which should not move by itself, but

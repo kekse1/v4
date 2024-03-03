@@ -20,7 +20,7 @@ for obvious reasons).
 > **But** I'm also avoiding any Promise as good as I can.. xD~
 
 ## Configuration
-Beneath the regular configuration elements (like `config.css`, which will maybe be used at
+Beneath the regular configuration elements (like [`config.css`](../../css/config.css), which will maybe be used at
 server-side, too?) most `.js` files got some `const DEFAULT_*` constants defined on their
 tops; .. for things that don't really fit into some configuration, but which are nevertheless
 not really static. Thus, avoiding hard-coded styles etc., just look at the files beginnings, too.
@@ -51,6 +51,7 @@ needs to be documentated in here).
 * [`multiset`.js](lib/multiset.md)
 * [`path`.js](lib/path.md)
 * [`radix`.js](lib/radix.md)
+* [`url`.js](lib/url.md)
 
 ## **web**/
 * [`animation`.js](web/animation.md)
@@ -60,7 +61,9 @@ needs to be documentated in here).
 * [`element`.js](web/element.md)
 * [`event`.js](web/event.md)
 * [`fetching`.js](web/fetching.md)
+* [`freeze`.js](web/freeze.md)
 * [`github`.js](web/github.md)
+* [`hash`.js](web/hash.md)
 * [`help`.js](web/help.md)
 * [`markdown`.js](web/markdown.md)
 * [`mobile`.js](web/mobile.md)

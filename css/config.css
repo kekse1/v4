@@ -10,14 +10,13 @@
 {
 	--abort-method: 'stop';/*try out! also possible: 'cancel', 'stop', 'finish', ...*/
 	--method: add;
-	--fixed: none;
 	--font-size: 14px;
 	--font-size-mobile: 12px;
 	--animate: auto;/* global disable here; .. also possible in the elements itself. */
 	--easing: linear;/*ease-in-out;*//* linear; then set --speed = ~1.5; w/ ease-in-out better ~1.0; ... */
 	--scale: 600;/* a boolean or a number of minimum scaled duration */
 	--speed: 1.42;
-	--global: 1.21;
+	--global: 1.5;
 	--duration: 1000;
 	--duration-show: 1080;
 	--duration-hide: 800;
@@ -41,6 +40,7 @@
 	 */
 	--movable-buttons: 4;
 	--duration-pulse: 600;
+	--pulse-colorization: complement;/*[contrast,complement]*/
 }
 
 :root
@@ -142,11 +142,6 @@
 	--max-file-size: 1048576;
 }
 
-#TOC
-{
-	--resize-after: 0.5;
-}
-
 #MENU, #TOC, #MAIN
 {
 	--method: set;
@@ -154,6 +149,7 @@
 	--duration-each: 400;
 	--easing: linear;
 	--delay-each: 36;
+	--delay-start: 600;
 }
 
 #MAIN
@@ -404,10 +400,5 @@
 	--center-y: none;
 	--position: move;
 	--wallpaper: auto;
-}
-
-#mobileInfo
-{
-	--duration-show: 3600;
 }
 

@@ -13,5 +13,5 @@ due to some incompatibilities etc..); or to handle such links.
 * Either only with the GitHub **user** component, then a list of his repositories will be rendered
 * Or with **repo** and maybe even **path** component, then URLs will be resolved to `raw.githubusercontent..` etc.
 
-Configuration as usual in the `config.css`, including all (RAW and API) URLs.
+Configuration as usual in the [`config.css`](../../../css/config.css), including all (RAW and API) URLs.
 

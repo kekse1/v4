@@ -16,5 +16,5 @@ it's just `text/plain`, the whole #TOC will be disabled and hidden).
 
 ## Update
 Now w/ automatic scrolling in the `#TOC` on scrolling the `#MAIN`
-contents.. see `--scroll` in the `config.css`.
+contents.. see `--scroll` in the [`config.css`](../../../css/config.css).
 

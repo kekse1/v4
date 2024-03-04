@@ -65,6 +65,7 @@ needs to be documentated in here).
 * [`github`.js](web/github.md)
 * [`hash`.js](web/hash.md)
 * [`help`.js](web/help.md)
+* [`html`.js](web/html.md)
 * [`markdown`.js](web/markdown.md)
 * [`mobile`.js](web/mobile.md)
 * [`module`.js](web/module.md)

@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/
-// v0.6.4
+// v0.6.5
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 //
@@ -165,12 +165,10 @@ const proceed = (_bool = null, _answer) => { if(_bool === false) { console.log('
 		encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => { if(_err) return error(_err);
 			for(var i = 0; i < _files.length; ++i) { if(_files[i].name[0] !== '.' && /*_files[i].isFile() &&*/ _files[i].name.endsWith('.js')) {
 				++amount; const p = path.join(_files[i].path, _files[i].name); result[p] = {
-					base: path.basename(_files[i].name, '.js'),
-						name: path.join(_files[i].path, _files[i].name)
-							.split(path.sep).slice(-2).join(path.sep) };
-				fs.stat(p, { bigint: false }, (_err, _stats) => {
-					if(_err) return error(_err); else cb();
-					result[p].size = Math.size.render(result[p].bytes = _stats.size).toString(); }); }}}); };
+					base: path.basename(_files[i].name, '.js'), path: p, name: p.split(path.sep).slice(-2).join(path.sep) };
+						fs.stat(p, { bigint: false }, (_err, _stats) => {
+							if(_err) return error(_err); else cb();
+							result[p].size = Math.size.render(result[p].bytes = _stats.size).toString(); }); }}}); };
 
 const handle = (_result) => {
 	var rest = Object.keys(_result).length; const cb = (_path, _full, _real) => {

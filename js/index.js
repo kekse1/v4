@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/
-// v0.6.2
+// v0.6.3
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 //
@@ -26,8 +26,8 @@ const PATH_SUB = [ 'lib', 'web' ];
 var PATH = '../js/';
 var PATH_INDEX, PATH_SUMMARY;
 
-const DEFAULT_MODE_DIR = 0o700;
-const DEFAULT_MODE_FILE = 0o600;
+const DEFAULT_MODE_DIR = 0o777;//better 'd be 0o700
+const DEFAULT_MODE_FILE = 0o666;//better: 0o600
 
 //
 var DEBUG = false;
@@ -70,6 +70,10 @@ ready(() => {
 					console.error('Path to index output file exists, but ain\'t a directory!');
 					process.exit(2);
 				}
+				else
+				{
+					fs.chmodSync(dirIndex, DEFAULT_MODE_DIR);
+				}
 			}
 			else
 			{
@@ -82,6 +86,10 @@ ready(() => {
 				{
 					console.error('Path to summary output file exists, but ain\'t a directory!');
 					process.exit(3);
+				}
+				else
+				{
+					fs.chmodSync(dirSummary, DEFAULT_MODE_DIR);
 				}
 			}
 			else
@@ -96,6 +104,10 @@ ready(() => {
 					console.error('Index output file path exists, but ain\'t a regular file!');
 					process.exit(4);
 				}
+				else
+				{
+					fs.chmodSync(INDEX, DEFAULT_MODE_FILE);
+				}
 			}
 
 			if(fs.exists(SUMMARY))
@@ -104,6 +116,10 @@ ready(() => {
 				{
 					console.error('Summary output file path exists, but ain\'t a regular file!');
 					process.exit(5);
+				}
+				else
+				{
+					fs.chmodSync(SUMMARY, DEFAULT_MODE_FILE);
 				}
 			}
 		}

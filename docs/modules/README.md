@@ -1,7 +1,7 @@
 <img src="https://kekse.biz/github.php?draw&override=github:v4&text=`v4`&draw" />
 
 # Index
-* [Module Index](#module-index)
+* [Module INDEX](#module-index)
 	* [**lib**/](#lib)
 	* [**web**/](#web)
 	* [**test**/](#test)
@@ -29,7 +29,7 @@ not really static. Thus, avoiding hard-coded styles etc., just look at the files
 Here's the whole [**TODO**](https://kekse.biz/home/todo/) (and there's an extra menu item on
 the website itself for it).
 
-# Module Index
+# Module INDEX
 This `.md`s will grow in time.. currently I'm busy with implementing
 all this shit (actually there's much more finished\[tm\], but still
 needs to be documentated in here).

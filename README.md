@@ -16,7 +16,7 @@ _There_ you can also read this API documentation, which is not really finished h
 But a part is already online, see the link below ([Modules section](#modules)).
 
 ### **Modules**
-See the [**Module Index**](docs/modules/README.md); and there's also my whole site [**TODO**](https://kekse.biz/home/todo/).
+See the [**Module INDEX**](docs/modules/README.md); and there's also my whole site [**TODO**](https://kekse.biz/home/todo/).
 
 ### **Index**
 The [**source code**](https://kekse.biz/?~sources) section on [**the website**](https://kekse.biz/) acts as index/overview

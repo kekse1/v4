@@ -23,7 +23,8 @@ The [**source code**](https://kekse.biz/?~sources) section on [**the website**](
 and summary for the **lib**/ and **web**/ JavaScript sources. Here you shall see more than the
 [API documentation / Module Index](docs/modules/README.md) linked above.
 
-I re-generate them from time to time via my [**index.js**](js/index.js) script.
+I re-generate them from time to time via my [**index.js**](js/index.js) script. Feel free to execute it with `-? / --help`
+or `-d / --debug` parameter. It depends on the library part of this project, btw.
 
 ### Counter script
 See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..

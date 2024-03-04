@@ -7,7 +7,7 @@ when necessary (when the user/client requests it).
 
 ## Functions
 - [x] Insert all newly loaded HTML nodes into the `#MAIN` element (after parsing by [`html.js`/`DOMParser`](html.md));
-- [x] Comment nodes (`.nodeType === Node.COMMENT_NODE`) will be filtered out (so admins/designer can securely/privately use 'em);
+- [x] Comment nodes (`.nodeType === Node.COMMENT_NODE`) will be filtered out (a **bit** of privacy for admins/designers/);
 - [x] Catches all clicks on elements with `[href]` attribute (and animates them), if below page path
 - [x] Fetches a file (if too big or unsupported MIME type, a download will be offered (if not done manually))
 - [x] Presents it, depending on it's MIME type (or file extension if none sent); also animated.

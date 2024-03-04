@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/
-// v0.6.3
+// v0.6.4
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 //
@@ -181,7 +181,9 @@ const handle = (_result) => {
 const countLines = (_path, _callback) => { var full = 0, real = 0, last;
 	const stream = fs.createReadStream(_path, { autoClose: true });
 	stream.on('data', (_chunk) => { for(var i = 0; i < _chunk.length; ++i) {
-		if(_chunk[i] === 10) { ++full; if(last !== 10) ++real; } last = _chunk[i]; }});
+		if(_chunk[i] === 13) continue;
+		else if(_chunk[i] === 10) { ++full; if(last !== 10) ++real; }
+		last = _chunk[i]; }});
 	stream.on('end', (... _a) => _callback(_path, full, real)); return stream; };
 
 //

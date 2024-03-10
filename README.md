@@ -16,7 +16,7 @@ _There_ you can also read this API documentation, which is not really finished h
 But a part is already online, see the link below ([Modules section](#modules)).
 
 ### **Modules**
-See the [**Module INDEX**](docs/modules/README.md); and there's also my whole site [**TODO**](https://kekse.biz/home/todo/).
+See the [**Module INDEX**](docs/modules/README.md); much parts already described here (but still much TODO in here).
 
 ### **Index**
 The [**source code**](https://kekse.biz/?~sources) section on [**the website**](https://kekse.biz/) acts as index/overview
@@ -25,6 +25,9 @@ and summary for the **lib**/ and **web**/ JavaScript sources. Here you shall see
 
 I re-generate them from time to time via my [**index.js**](js/index.js) script. Feel free to execute it with `-? / --help`
 or `-d / --debug` parameter. It depends on the library part of this project, btw.
+
+### **TODO**
+It can be found on my website, look at [**this link**](https://kekse.biz/?~todo).
 
 ### Counter script
 See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..

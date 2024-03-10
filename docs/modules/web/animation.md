@@ -98,6 +98,27 @@ The rest is shown [above](#functions).
 > The current state is that only one of both possible keyframe formats are supported
 > (since I've been lazy, just a bit..). But that'll change.
 
+### 'Emergency stop'
+The `Animation` object implements the **`.destroy(_func, ... _args)`** function, which
+controls **any** active animation - even the **un**managed ones. Use it with a String
+as `_func` argument (will call this function in every animation), or use on of these
+(used/introduced here for `window.destroy()`, of the `window.stop()`, etc.. see also
+the [**`window.js`**](window.md)):
+
+* `Animation.destroy(_func, ... _args)`
+* **`Animation.stop(... _args)`**
+* **`Animation.cancel(... _args)`**
+* **`Animation.finish(... _args)`**
+* **`Animation.play(... _args)`**
+* **`Animation.pause(... _args)`**
+
+> **Warning**
+> Holds for really **every** animation, also all NON-managed ones (uses the
+> `document.realAnimations[]` array, jfyi).
+
+> **Note**
+> More or less similar to `document.controlAnimation(_func, ... _args)`..
+
 ## For your info..
 There's a `--speed` CSS Custom Property to change the whole acceleration of
 any animation. If disabled (setting to `0`), any animation will only set the

@@ -17,8 +17,10 @@ is my own version to 'hard stop' everything with an error message.. used also fr
 function, if it's `_options` argument has `{ stop: true/(string) }`.
 
 ## Managed timeouts/intervals
-Using `window.timeout` and `window.interval` you can ask for the amount of such managed items.
-Furthermore.. with the regular ones listed below, they're altered as well!
+Using `window.timeouts` and `window.intervals` you can ask for the amount of such managed items. Asking
+for their IDs? Use `window.timeout` or `window.interval`, which return an array with all IDs. And, last
+but not least, using `window.getTimeout()` or `window.getInterval()` w/o any argument will return all
+managed items with their full object (holding more infos for you and me/us).
 
 And btw: I removed the `_code` parameter from `setTimeout()` and `setInterval()`, so no evil `eval()`
 can be utilized here. Additionally, I'm managing both types (timeout vs. interval) separated!! The
@@ -31,6 +33,10 @@ and `setInterval()`).
 Using `getTimeout()` and `getInterval()` will either return an array with all available ones, if
 NO argument is defined, or just a single or a selection of some (or null if nothing found).
 
+* `window.timeout`
+* `window.timeouts`
+* `window.interval`
+* `window.intervals`
 * `window.setTimeout(_handler, _delay, ... _params)`
 * `window.setInterval(_handler, _delay, ... _params)`
 * `window.clearTimeout(... _args)`

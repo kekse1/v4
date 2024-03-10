@@ -12,6 +12,10 @@ Additionally, beneath the last implementation, visible here below, I'm going to 
 * **`window._stop()`**
 * **`window.stop(_message)`**
 
+`window._stop()` is the extended base function you already might now, while `window.stop(_message)`
+is my own version to 'hard stop' everything with an error message.. used also from my `error()`
+function, if it's `_options` argument has `{ stop: true/(string) }`.
+
 ## Managed timeouts/intervals
 Using `window.timeout` and `window.interval` you can ask for the amount of such managed items.
 Furthermore.. with the regular ones listed below, they're altered as well!

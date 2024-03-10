@@ -74,6 +74,7 @@ needs to be documentated in here).
 * [`progress`.js](web/progress.md)
 * [`test`.js](web/test.md)
 * [`toc`.js](web/toc.md)
+* [`window`.js](web/window.md)
 
 ## **test**/
 Here are (and will be) all my own unit tests (manually done!), especially

@@ -11,6 +11,7 @@ Additionally, beneath the last implementation, visible here below, I'm going to 
 * **`window.isVertical`**
 * **`window._stop()`**
 * **`window.stop(_message, ... _printf)`**
+* **`window.destroy()`**
 
 `window._stop()` is the extended base function you already might now, while `window.stop(_message)`
 is my own version to 'hard stop' everything with an error message.. used also from my `error()`

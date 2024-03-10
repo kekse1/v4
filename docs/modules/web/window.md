@@ -41,6 +41,8 @@ NO argument is defined, or just a single or a selection of some (or null if noth
 * `window.setInterval(_handler, _delay, ... _params)`
 * `window.clearTimeout(... _args)`
 * `window.clearInterval(... _args)`
+* **`window.clearTimeouts()`**
+* **`winodw.clearIntervals()`**
 * **`window.getTimeout(... _args)`**
 * **`window.getInterval(... _args)`**
 

@@ -22,6 +22,17 @@ the `static get elements()`, as follows:
 
 So I designed this `DesignElement` **PROXY** class.
 
+## Most important members ..
+... for the **PROXY** object of the `DesignElement` class and it's instances:
+
+* **`static isOwnProperty(_key)`**
+* **`static get default()`**
+* `static getProxy(_this)`
+
+* **`___destroy()`**
+* **`___original`**
+* **`___destroyed`**
+
 ## Reason(s)
 Try to think about it for yourself. I'm going to explain this **l8rs**..
 

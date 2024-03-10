@@ -19,7 +19,7 @@ But a part is already online, see the link below ([Modules section](#modules)).
 See the [**Module INDEX**](docs/modules/README.md); much parts already described here (but still much TODO in here).
 
 ### **Index**
-The [**source code**](https://kekse.biz/?~sources) section on [**the website**](https://kekse.biz/) acts as index/overview
+The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/) acts as index/overview
 and summary for the **lib**/ and **web**/ JavaScript sources. Here you shall see more than the
 [API documentation / Module Index](docs/modules/README.md) linked above.
 

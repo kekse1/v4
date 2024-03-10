@@ -8,6 +8,12 @@ All my extensions are implemented straight into the `Animation(.prototype)` obje
 of course, the `HTMLElement.prototype.animate`), so you don't need to remember/care about
 other functions or smth.
 
+## General thoughts
+This documentation element is still TODO..!!
+
+I just wanted to say that even with **un**-managed animations, keyframes can contain the
+value `null`, which will be replaced by the current element's real style (from `getComputedStyle()`).
+
 ## Functionality
 Since I'm combining some animated styles sometimes, and because I nevertheless want to
 replace (or smth.) parts of this styles, I'm first splitting up every animation (if it's

@@ -9,8 +9,8 @@ Additionally, beneath the last implementation, visible here below, I'm going to 
 ## Current implementation
 This is without the planned extension described above, simply atm:
 
-* **`window.horizontal`**
-* **`window.vertical`**
-* **`window._stop()`**
+* **`window.isHorizontal`**
+* **`window.isVertical`**
+* **`window.\_stop()`**
 * **`window.stop(_message)`**
 

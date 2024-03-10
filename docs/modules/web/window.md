@@ -11,6 +11,6 @@ This is without the planned extension described above, simply atm:
 
 * **`window.isHorizontal`**
 * **`window.isVertical`**
-* **`window.\_stop()`**
+* **`window._stop()`**
 * **`window.stop(_message)`**
 

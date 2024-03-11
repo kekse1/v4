@@ -54,8 +54,10 @@
 
 #MAIN
 {
-	--top-space: 32px;
-	--bottom-space: 192px;
+	--top-space: 64px;
+	--top-space-text: 6;
+	--bottom-space: 640px;
+	--bottom-space-text: 32;
 }
 
 #TOC
@@ -108,17 +110,21 @@
 	--unit-base: 1024;
 }
 
-#OSD
+li.OSD
 {
 	--speed: 1;
 	--refresh: 800;/*important, maybe..!*/
 	--clear: none;
 	--scale: none;
 	--timeout: 1900;
+	--timeout-speed: 1.6;
 	--duration: 900;
 	--duration-blink: 340;
 	--font-size: 3.4rem;
 	--font-size-mobile: 2.4rem;
+	--text: none;
+	--space: 32px;
+	--space-top-add: 32px;
 }
 
 :root
@@ -400,5 +406,10 @@
 	--center-y: none;
 	--position: move;
 	--wallpaper: auto;
+}
+
+#BUTTON
+{
+	--duration-click: 2800;
 }
 

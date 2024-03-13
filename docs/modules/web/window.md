@@ -17,7 +17,7 @@ Additionally, beneath the last implementation, visible here below, I'm going to 
 is my own version to 'hard stop' everything with an error message.. used also from my `error()`
 function, if it's `_options` argument has `{ stop: true/(string) }`.
 
-## Managed timeouts/intervals
+## _Managed_ timeouts/intervals
 Using `window.timeouts` and `window.intervals` you can ask for the amount of such managed items. Asking
 for their IDs? Use `window.timeout` or `window.interval`, which return an array with all IDs. And, last
 but not least, using `window.getTimeout()` or `window.getInterval()` w/o any argument will return all
@@ -34,6 +34,19 @@ and `setInterval()`).
 Using `getTimeout()` and `getInterval()` will either return an array with all available ones, if
 NO argument is defined, or just a single or a selection of some (or null if nothing found).
 
+Now also with `has{Timeout,Interval}()`, to check for existing IDs or handler functions. You can
+call them with any number of arguments. Without any, the result shows if at least one timeout/interval
+is defined. One argument directly returns `true/false` (if not `null`, when none is defined), or many
+will return in a result array.
+
+### _Unique_ handler functions
+Like it's the way with events, my timeouts/intervals support UNIQUE handler functions.
+
+So if `DEFAULT_UNIQUE` is true, no more timeouts/intervals are being created if a previously defined
+handler function is already there.
+
+### Implementation
+
 * `window.timeout`
 * `window.timeouts`
 * `window.interval`
@@ -46,4 +59,5 @@ NO argument is defined, or just a single or a selection of some (or null if noth
 * **`winodw.clearIntervals()`**
 * **`window.getTimeout(... _args)`**
 * **`window.getInterval(... _args)`**
-
+* **`window.hasTimeout(... _args)`**
+* **`window.hasInterval(... _args)`**

@@ -51,6 +51,16 @@ are defined in the `_options` object, with these names (mapping to a `Function`)
 * **`callback`**
 * **`relay`**
 * **`stop`**
+* **`error`**
+
+The `callback` event is always fired, after any kind of ending an animation.
+
+The `error` is there as opposite to `finish`, if the animation is changed without finish.
+
+The `relay` event is being emitted when another animation with a style which is already
+been animated starts. You should know, that you can use the `{ method: 'set'/'add' }` in
+the options object to select the behavior for new vs. old callbacks. It's also the event
+which won't emit the `error` event (or should it? Tell me your opinion..).
 
 ## Functions
 Only managed animations are affected here:
@@ -138,12 +148,11 @@ CSS styles to the target values. But the optional `delay` will be enforced..
 
 Additionally, there's the (only global!) `--global` for more global adaption.
 
-### Another info for you
+### Using the `AbortController`
 Both animation types (whether managed or not) do support the `AbortController` (native
 JavaScript), you just need to put a `{ signal }` into the `_options`. The type of stopping
 animations this way is configurable in the [`config.css`](../../../css/config.css) (see `--abort-method`), and this
-will also hold if not specified as the reason for the `.abort()` (so [ `stop`, `cancel`,
-`finish`, .. ]).
+will also hold if not specified as the reason for the `.abort()` (so [ `stop`, `cancel`, `finish`, .. ]).
 
 ## Attributes
 These are two possible modifier attributes (of the `HTMLElement`s).

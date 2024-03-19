@@ -6,7 +6,6 @@ Extends the **`HTMLElement`** in most times, partially also the **`Node`** or th
 ## Implementation
 This is the current state - it may change in some time (or rather: will be extended!).
 
-* `Node.prototype.isVisible`
 * `HTMLElement.prototype.borderWidth`
 * `HTMLElement.prototype.borderHeight`
 * `HTMLElement.prototype.scrollbarHeight`

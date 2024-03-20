@@ -16,7 +16,7 @@
 	--easing: linear;/*ease-in-out;*//* linear; then set --speed = ~1.5; w/ ease-in-out better ~1.0; ... */
 	--scale: 600;/* a boolean or a number of minimum scaled duration */
 	--speed: 1.42;
-	--global: 1.5;
+	--global: 1.8;
 	--duration: 1000;
 	--duration-show: 1080;
 	--duration-hide: 800;
@@ -117,13 +117,13 @@ li.OSD
 	--clear: none;
 	--scale: none;
 	--timeout: 1900;
-	--timeout-speed: 1.6;
+	--timeout-speed: 1.5;
 	--duration: 900;
 	--duration-blink: 340;
-	--font-size: 3.4rem;
-	--font-size-mobile: 2.4rem;
+	--font-size: 3.6rem;
+	--font-size-mobile: 1.8rem;
 	--text: none;
-	--space: 32px;
+	--space: 12px;
 	--space-top-add: 32px;
 }
 
@@ -239,7 +239,11 @@ li.OSD
 
 .a-progress
 {
+	--size: 256px;
+	--width: 384px;
+	--height: 32px;
 	--round: 1;
+	--block: none;
 	--marquee: none;
 	--center: auto;
 	--day-percent: none;
@@ -288,6 +292,7 @@ li.OSD
 	--speed: 0.75;
 	--size: 144px;
 	--size-mobile: 96px;
+	--block: none;
 }
 
 #CLOCK, .clock
@@ -330,6 +335,7 @@ li.OSD
 	--method: set;
 	--draw-time: auto;
 	--draw-text: auto;
+	--block: none;
 }
 
 :root

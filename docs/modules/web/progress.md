@@ -11,6 +11,10 @@ but also usable if no `Content-Length` HTTP header was sent to us).
 
 There are some more features than covered here (since this documentation is still much TODO).
 
+## Customization
+Take a look at my [**`config.css`**](/css/config.css), there are really many Custom CSS Properties to configure
+the behavior and look of this `Progress` class.
+
 ## `.block`
 Please take notice of this one. If it's `<a-progress block>`, you shouldn't use `.size` but `.width` and `.height`.
 

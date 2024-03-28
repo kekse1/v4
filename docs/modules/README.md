@@ -57,7 +57,6 @@ needs to be documentated in here).
 * [`animation`.js](web/animation.md)
 * [`cookies`.js](web/cookies.md)
 * [`css`.js](web/css.md)
-<!--* [`design`.js](web/design.md.ORIG)-->
 * [`dialog`.js](web/dialog.md)
 * [`element`.js](web/element.md)
 * [`event`.js](web/event.md)

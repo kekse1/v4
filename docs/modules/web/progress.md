@@ -25,3 +25,7 @@ to bigger views (see `transform` CSS style), I decided to use my own animation r
 
 This is mainly being used for the main 24h clock on the top/right (when clicking/tapping on the small 'preview').
 
+## Example screenshots
+![blocks @ fetching.js](../img/progress-blocks.png)
+![scroll & clock](../img/progress-scroll+clock.png)
+

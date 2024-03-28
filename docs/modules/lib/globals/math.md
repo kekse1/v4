@@ -55,13 +55,23 @@ whereas in regular `cos/sin()` the `0` is the center/middle (since they count be
 Obvious, isn't it?! ;-)
 
 #### More Drawing
-* `Math.scale(_value, _max, _min)`
+* `Math.scale(_value, _max = 100, _min = 0)`
+* `Math.scale.in(_value, _max = 100, _min = 0)`
+* `Math.scale.out(_value, _max = 100, _min = 0)`
 
-Usefull when manually animating, e.g.. when either `Math.{,p}sin()` or some `(runtime / duration)`
-returns a float between `0 .. 1`, this `Math.scale()` will translate it to a value between `_max`
-and `_min`.
+Usefull when manually animating, e.g.. when either `Math.{,p}sin()` or some
+`(runtime / duration)` returns a float between `0 .. 1`, this `Math.scale()`
+(or `Math.scale.in()`, it's the same) will translate it to a value between
+`_max` and `_min`.
 
-Example: `Math.scale(0.5, 10, 0)` will return `5`. `Math.scale(0.5, 20, 10)` will return `15`. :-)
+Example: `Math.scale(0.5, 100, 0)` will return `50`.
+`Math.scale.in(0.5, 20, 10)` will return `15`.
+
+Additionally some inverse: if you have a value (which `..in()` would return)
+and want it's factor for between `_max` and `min`.
+
+Example: `Math.scale.out(50, 100, 0)` returns `0.5`.
+`Math.scale.out(15, 20, 10)` returns `0.5`.
 
 ### Other Conversions..
 Accessing single items in an Array or String, as an example, can be easier with this function:

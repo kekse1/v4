@@ -34,6 +34,8 @@ This is the current state - it may change in some time (or rather: will be exten
 * `HTMLElement.prototype.right(_value, _options)`
 * `HTMLElement.prototype.bottom(_value, _options)`
 * `Node.prototype.hasParent(... _args)`
+* `Node.prototype.hasChild(... _args)`
+* `Node.prototype.hasAnyChild(... _args)`
 * `HTMLElement.prototype.centerX`
 * `HTMLElement.prototype.centerY`
 * `HTMLElement.prototype.center(_animate, ... _args)`

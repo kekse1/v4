@@ -239,9 +239,11 @@ li.OSD
 
 .a-progress
 {
+	--animation: sigmoid;/* [ linear, sigmoid ]; */
+	--relay-method: finish;
 	--size: 256px;
-	--width: 384px;
-	--height: 32px;
+	/*--width: 384px;
+	--height: 32px;*/
 	--round: 1;
 	--block: none;
 	--marquee: none;
@@ -291,6 +293,7 @@ li.OSD
 
 #CLOCK, .clock, #SCROLL, .scroll
 {
+	--relay-method: stop;
 	--center: none;
 	--duration: 1200;
 	--scale-factor: 0.92;
@@ -341,6 +344,17 @@ li.OSD
 	--draw-time: auto;
 	--draw-text: auto;
 	--block: none;
+	--draw-zero: auto;
+	--draw-text-zero: auto;
+}
+
+.loadProgress, .loadProgressInfo
+{
+	--block: auto;
+	--space-between: 8px;
+	--duration: 1800;
+	--duration-show: 800;
+	--duration-hide: 600;
 }
 
 :root

@@ -14,7 +14,7 @@
 	--font-size-mobile: 12px;
 	--animate: auto;/* global disable here; .. also possible in the elements itself. */
 	--easing: linear;/*ease-in-out;*//* linear; then set --speed = ~1.5; w/ ease-in-out better ~1.0; ... */
-	--scale: 600;/* a boolean or a number of minimum scaled duration */
+	--scale: none;/* a boolean or a number of minimum scaled duration */
 	--speed: 1.42;
 	--global: 1.8;
 	--duration: 1000;
@@ -237,10 +237,15 @@ li.OSD
 	--url-font-size-param: 1em;
 }
 
+div#loadProgressCarrier
+{
+	--resize-timeout: 120;
+}
+
 .a-progress
 {
 	--animation: sigmoid;/* [ linear, sigmoid ]; */
-	--relay-method: finish;
+	--relay-method: stop;
 	--size: 256px;
 	/*--width: 384px;
 	--height: 32px;*/
@@ -255,6 +260,7 @@ li.OSD
 	--draw-ticks: auto;
 	--resize-timeout: 180;
 	--duration: 360;
+	--duration-resize: 1400;
 	--fill-style: rgba(100, 120, 140, 0.5);
 	--fill-style-percent: rgba(90, 110, 130, 0.5);
 	--stroke-style-percent: rgb(240, 190, 10);
@@ -293,11 +299,10 @@ li.OSD
 
 #CLOCK, .clock, #SCROLL, .scroll
 {
-	--relay-method: stop;
 	--center: none;
 	--duration: 1200;
+	--duration-resize: 1200;
 	--scale-factor: 0.92;
-	--scale-duration: 1200;
 	--speed: 0.75;
 	--size: 144px;
 	--size-mobile: 96px;
@@ -355,6 +360,12 @@ li.OSD
 	--duration: 1800;
 	--duration-show: 800;
 	--duration-hide: 600;
+}
+
+div.loadProgressSummary
+{
+	--duration-show: 1900;
+	--duration-hide: 1300;
 }
 
 :root

@@ -251,6 +251,8 @@ div#loadProgressCarrier
 	--height: 32px;*/
 	--round: 1;
 	--block: none;
+	--sub-blocks: 6px;
+	--sub-block-space: 9px;
 	--marquee: none;
 	--center: auto;
 	--day-percent: none;
@@ -351,7 +353,6 @@ div#loadProgressCarrier
 	--block: none;
 	--draw-zero: auto;
 	--draw-text-zero: auto;
-	--relay-method: finish;
 }
 
 .loadProgress, .loadProgressInfo

@@ -351,6 +351,7 @@ div#loadProgressCarrier
 	--block: none;
 	--draw-zero: auto;
 	--draw-text-zero: auto;
+	--relay-method: finish;
 }
 
 .loadProgress, .loadProgressInfo

@@ -27,7 +27,8 @@ This is mainly being used for the main 24h clock on the top/right (when clicking
 
 ## Example screenshots
 Here are two examples! One in regular mode (here with scroll progress and time drawn @ 24h analog clock), and
-the other is visible when downloading via `fetching()` function (my extension to usual `fetch()`).
+the other is visible when downloading via `fetching()` function (my extension to usual `fetch()`); using the
+`.block` attribute.
 
 ![scroll & clock](../img/progress-scroll+clock.png)
 ![blocks @ fetching.js](../img/progress-block.png)

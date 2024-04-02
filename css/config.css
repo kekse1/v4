@@ -29,7 +29,7 @@
 	--dead-timeout: 600000;
 	--center-x: none;
 	--center-y: none;
-	--duration-center: 320;
+	--duration-center: 480;
 	--position: arrange; /* arrange|move */
 	/* Left Mouse, Touch Contact, Pen contact: 1
 	 * Middle Mouse: 4
@@ -120,8 +120,8 @@ li.OSD
 	--timeout-speed: 1.5;
 	--duration: 900;
 	--duration-blink: 340;
-	--font-size: 3.6rem;
-	--font-size-mobile: 1.8rem;
+	--font-size: 2.4rem;
+	--font-size-mobile: 1.4rem;
 	--text: none;
 	--space: 12px;
 	--space-top-add: 32px;
@@ -239,7 +239,7 @@ li.OSD
 
 div#loadProgressCarrier
 {
-	--resize-timeout: 120;
+	--resize-timeout: 90;
 }
 
 .a-progress
@@ -254,13 +254,14 @@ div#loadProgressCarrier
 	--sub-blocks: 6px;
 	--sub-block-space: 9px;
 	--marquee: none;
-	--center: auto;
+	--center-x: auto;
+	--center-y: auto;
 	--day-percent: none;
 	--help: auto;
 	--draw-time: auto;
 	--draw-text: auto;
 	--draw-ticks: auto;
-	--resize-timeout: 180;
+	--resize-timeout: 90;
 	--duration: 360;
 	--duration-resize: 1400;
 	--fill-style: rgba(100, 120, 140, 0.5);
@@ -301,7 +302,8 @@ div#loadProgressCarrier
 
 #CLOCK, .clock, #SCROLL, .scroll
 {
-	--center: none;
+	--center-x: none;
+	--center-y: none;
 	--duration: 1200;
 	--duration-resize: 1200;
 	--scale-factor: 0.92;
@@ -346,13 +348,19 @@ div#loadProgressCarrier
 	--fill-style: rgba(50, 110, 150, 0.5);
 	--fill-style-percent: rgba(50, 110, 150, 0.75);
 	--duration: 440;
-	--center: auto;
 	--method: set;
 	--draw-time: auto;
 	--draw-text: auto;
 	--block: none;
 	--draw-zero: auto;
 	--draw-text-zero: auto;
+}
+
+.loadProgressStart
+{
+	--size: 0;
+	--center-x: none;
+	--center-y: none;
 }
 
 .loadProgress, .loadProgressInfo
@@ -362,6 +370,8 @@ div#loadProgressCarrier
 	--duration: 1800;
 	--duration-show: 800;
 	--duration-hide: 600;
+	--center-x: auto;
+	--center-y: none;
 }
 
 div.loadProgressSummary
@@ -394,21 +404,34 @@ div.loadProgressSummary
 .a-dialog
 {
 	--duration: 500;
-	--center: auto;
+	--center-x: auto;
+	--center-y: auto;
 	--timeout: 0;
 	--wallpaper: auto;
 }
 
-.a-dialog-button, .a-dialog
+.a-dialog
 {
 	--duration: 900;
 	--delay-each: 280;
+}
+
+.a-dialog-button, .a-dialog-button-area, .a-dialog-countdown, .a-dialog-input
+{
+	--center-x: none;
+	--center-y: none;
 }
 
 .a-dialog-button-area
 {
 	--duration: 400;
 	--space: 28px;
+}
+
+.a-dialog-button, .a-dialog-countdown, .a-dialog-input
+{
+	--duration: 900;
+	--delay-each: 280;
 }
 
 .a-help

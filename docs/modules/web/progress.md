@@ -31,4 +31,5 @@ the other is visible when downloading via `fetching()` function (my extension to
 `.block` attribute.
 
 ![scroll & clock](../img/progress-scroll+clock.png)
-![blocks @ fetching.js](../img/progress-block.png)
+![blocks @ fetching.js](../img/progress-blocks.png)
+

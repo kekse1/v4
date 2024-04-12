@@ -25,8 +25,10 @@ If **no** callback is defined in the arguments, the regular Promise of `fetch()`
 said in the section right here below, then the [`Progress`](progress.md) won't be used.
 
 ## [`new Progress()`](progress.md)
-This module already implements a [`Progress`](progress.md) (*if, and only if called with a callback argument*).
-It'll be instanciated only **once**, while summing up all response lengths, etc., to show _one_ progress for all.
+If using a callback or `null`, the whole `fetching.js` will manage some of my own `Progress`, both drawn
+as one circle (for the sums of all downloads) and many blocks (each one download). You can see this screenshot:
+
+![Example with multiple downloads](../img/progress-blocks.png)
 
 ## Implementation
 The three most important functions are:

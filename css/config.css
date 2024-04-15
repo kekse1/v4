@@ -120,8 +120,8 @@ li.OSD
 	--timeout-speed: 1.5;
 	--duration: 900;
 	--duration-blink: 340;
-	--font-size: 2.4rem;
-	--font-size-mobile: 1.4rem;
+	--font-size: 2.5rem;
+	--font-size-mobile: 1.75rem;
 	--text: none;
 	--space: 12px;
 	--space-top-add: 32px;
@@ -315,6 +315,7 @@ div#loadProgressCarrier
 
 #CLOCK, .clock
 {
+	--round: 3;
 	--draw-time: auto;
 	--day-percent: auto;
 	--draw-text: none;
@@ -374,10 +375,31 @@ div#loadProgressCarrier
 	--center-y: none;
 }
 
+#summaryProgress
+{
+	--block: none;
+	--space-between: 16px;
+	--draw-zero: auto;
+	--draw-text-zero: auto;
+	--round: 1;
+	--draw-text: auto;
+	--draw-time: auto;
+	--size: 240px;
+	--duration-show: 2600;
+	--duration-hide: 1600;
+	--center-x: none;
+	--center-y: none;
+}
+
 div.loadProgressSummary
 {
 	--duration-show: 1900;
 	--duration-hide: 1300;
+}
+
+span.loadProgressPercent
+{
+	--round: 1;
 }
 
 :root

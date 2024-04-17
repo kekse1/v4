@@ -97,6 +97,7 @@
 	--github-sort: updated desc;
 	--github-index: 'README.md';
 	--github: url('https://github.com/');
+	--github-blob: url('https://github.com/${user}/${repo}/blob/git/${path}');
 	--github-raw: url('https://raw.githubusercontent.com/%{user}/%{repo}/master/%{path}');
 	--github-repo: url('https://github.com/%{user}/%{repo}');
 	--github-api-repo: url('https://api.github.com/users/%{user}/repos');
@@ -134,7 +135,7 @@ li.OSD
 
 #MENU
 {
-	--data-json: url('json/index.json');
+	--data-json: url('json/menu.json');
 }
 
 .menuItem

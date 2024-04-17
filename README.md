@@ -34,7 +34,7 @@ See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which i
 
 ### Configuration
 I'm massively using **CSS Custom Properties** (so CSS styles with `--` prefix) to configure
-any behavior of my website. See my [**`config.css`**](css/config.css)!
+any behavior of my website. See my [**`config.css`**](/css/config.css)!
 
 # Copyright and License
 The Copyright is [(c) Sebastian Kucharczyk](COPYRIGHT.txt),

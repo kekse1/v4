@@ -360,9 +360,18 @@ div#loadProgressCarrier
 
 .loadProgressStart
 {
-	--size: 0;
 	--center-x: none;
 	--center-y: none;
+	--size: 0;
+}
+
+.loadProgress
+{
+	--size: 0;
+	--block: none;
+	--center-x: auto;
+	--center-y: auto;
+	--height: 50;
 }
 
 .loadProgress, .loadProgressInfo
@@ -372,6 +381,19 @@ div#loadProgressCarrier
 	--duration: 1800;
 	--duration-show: 800;
 	--duration-hide: 600;
+}
+
+.loadProgressPage
+{
+	--block: none;
+}
+
+.loadProgressFetching
+{
+}
+
+.loadProgressInfo
+{
 	--center-x: auto;
 	--center-y: none;
 }

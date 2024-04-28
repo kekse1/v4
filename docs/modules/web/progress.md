@@ -32,4 +32,5 @@ the other is visible when downloading via `fetching()` function (my extension to
 
 ![scroll & clock](../img/progress-scroll+clock.png)
 ![blocks @ fetching.js](../img/progress-blocks.png)
+![config.css excerpts...](../img/config-progress.png)
 

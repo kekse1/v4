@@ -26,6 +26,15 @@ and summary for the **lib**/ and **web**/ JavaScript sources. Here you shall see
 I re-generate them from time to time via my [**index.js**](js/index.js) script. Feel free to execute it with `-? / --help`
 or `-d / --debug` parameter. It depends on the library part of this project, btw.
 
+### **Updates** and **Backups**
+So I designed my *second version* of my [**`git.sh`**](sh/git.sh), inside the **root** of my own
+**www** git repository.. if you deploy this site on your own, it'd be recommended to also create
+such a base repository (for any of your htdocs/).
+
+So now I can [**`fresh`.sh**](https://github.com/kekse1/scripts/#freshsh) everything, and directly
+create some (of many...) backups, and execute helper scripts like the [**`index`.sh**](#index) (see
+above).
+
 ### **TODO**
 It can be found on my website, look at [**this link**](https://kekse.biz/?~todo).
 

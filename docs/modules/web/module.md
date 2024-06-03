@@ -29,8 +29,10 @@ of a `new Function()` being used, which is on the other hand also called with `.
 There's also the `params` array available in those modules, btw.
 
 ## Paths
-Unlike `page.resolve()` (**`page`**, **not** `path`), in a module the `path.resolve()` is being overridden;
-just locally, so you can use it as usual, but then with adapted `_base` path (the `.id` is important).
+The `path.resolve()` get's 'overridden', so we can translate paths to the
+relative source directory where these scripts/modules reside.
+
+Internally it's the `page.resolve()` function (or a relay to it).
 
 ## TODO
 I'm going to extend all of this much more, l8rs.. /TODO/.

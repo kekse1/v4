@@ -14,7 +14,7 @@ when necessary (when the user/client requests it).
 - [x] _Automatically creates a **Table of Contents** (also animated, etc.)_, see [`toc.js`](toc.md)!
 - [x] DEAD links will be highlighted and disabled (for an amount of time); with [`osd.js`](osd.md)
 - [x] Any `text/html` data will be parsed using [`html.js`](html.md). In there's more magic..
-- [x] Relative links will be converted, so the HTML code can refer relative to it's original location (all `[href]` and `[url]`)
+- [x] Relative links will be translated to the real source directories, so the HTML code can refer relative to it's original location (within the `[href]` and `[url]`)
 - [x] JavaScript and CSS styles will be selected out (and downloaded partially), for evaluation or better embedding (see [`module.js`](module.md));
 - [x] The JavaScript's mentioned above will also be evaluated, right AFTER all content was inserted (see [`module.js`](module.md);
 - [x] Downloads will present a [`progress`.js](progress.md) with percent and/or passed time

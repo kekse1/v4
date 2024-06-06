@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
+ * https://kekse.biz/ https://github.com/kekse1/
+ */
+
 //
 //TODO/ < https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Keyframe_Formats >
 // < https://developer.mozilla.org/en-US/docs/Web/API/Element/getAnimations >

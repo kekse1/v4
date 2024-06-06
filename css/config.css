@@ -63,6 +63,11 @@ button
 	--duration-toggle: 900;
 }
 
+#BUTTON
+{
+	--duration-toggle: 3600;
+}
+
 #MAIN
 {
 	--top-space: 64px;
@@ -528,10 +533,5 @@ span.loadProgressPercent
 	--center-y: none;
 	--position: move;
 	--wallpaper: auto;
-}
-
-#BUTTON
-{
-	--duration-click: 2800;
 }
 

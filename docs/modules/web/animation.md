@@ -77,6 +77,7 @@ Only managed animations are affected here:
 * `HTMLElement.prototype.wallpaperAnimation(_enabled, _speed, _animation)`
 * `HTMLElement.prototype.wallpaper`
 * `HTMLElement.prototype.pulse(... _args)`
+* `HTMLElement.prototype.toggle(... _args)`
 * `HTMLElement.prototype.animation`
 * `HTMLElement.prototype.animations`
 * `HTMLElement.prototype.hasAnimation(... _args)`

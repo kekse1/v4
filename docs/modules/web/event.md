@@ -5,7 +5,9 @@ This one is extended to manage all events better. Even `.removeAllListeners()` i
 and also `.getEventListener()`, and - of course - the capabilities of regular event functions
 are also extended.
 
-Additionally there's a `.emit()` function for easier emitting. etc..
+Additionally there's a `.emit()` function for easier emitting. etc.. plus: any `<button>` will
+automatically `.toggle()` before it's click handlers are being called (at the half time of the
+toggle animation).
 
 ## Implementation
 * `EventTarget.prototype.emit(_type, _options, _custom_event)`

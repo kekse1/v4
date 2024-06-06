@@ -26,6 +26,7 @@
 	--duration-show: 1080;
 	--duration-hide: 800;
 	--duration-blink: 600;
+	--duration-toggle: 1100;
 	--delay: 0;
 	--delay-each: 60;
 	--delay-each-hide: 40;
@@ -55,6 +56,11 @@
 	--console-warn: 'color: rgb(110, 70, 20); font-weight: bold;';
 	--console-error: 'color: rgb(130, 30, 30); font-weight: bold;';
 	--console-debug: 'color: rgb(30, 90, 150);';
+}
+
+button
+{
+	--duration-toggle: 900;
 }
 
 #MAIN
@@ -131,6 +137,11 @@ li.OSD
 	--text: none;
 	--space: 12px;
 	--space-top-add: 32px;
+}
+
+div#OSDInfo
+{
+	--duration: 800;
 }
 
 :root

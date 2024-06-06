@@ -8,7 +8,7 @@ All my extensions are implemented straight into the `Animation(.prototype)` obje
 of course, the `HTMLElement.prototype.animate`), so you don't need to remember/care about
 other functions or smth.
 
-And [here's the **source code**](/src/web/animation.js)!
+And [here's the **source code**](/js/web/animation.js)!
 
 ## General thoughts
 This documentation element is still TODO..!!

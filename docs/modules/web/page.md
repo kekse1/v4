@@ -12,6 +12,7 @@ when necessary (when the user/client requests it).
 - [x] Fetches a file (if too big or unsupported MIME type, a download will be offered (if not done manually))
 - [x] Presents it, depending on it's MIME type (or file extension if none sent); also animated.
 - [x] _Automatically creates a **Table of Contents** (also animated, etc.)_, see [`toc.js`](toc.md)!
+- [x] Animates the presentation of any page.. most complex form in the `['text/html']` sub routine (following the scroll area!);
 - [x] DEAD links will be highlighted and disabled (for an amount of time); with [`osd.js`](osd.md)
 - [x] Any `text/html` data will be parsed using [`html.js`](html.md). In there's more magic..
 - [x] Relative links will be translated to the real source directories, so the HTML code can refer relative to it's original location (within the `[href]` and `[url]`)

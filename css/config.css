@@ -47,6 +47,8 @@
 	--movable-buttons: 4;
 	--duration-pulse: 600;
 	--pulse-colorization: complement;/*[contrast,complement]*/
+	--toggle: none;
+	--toggle-axes: xy;
 }
 
 :root
@@ -60,7 +62,13 @@
 
 button
 {
+	--toggle: 'half';
 	--duration-toggle: 900;
+}
+
+a-dialog-button, .a-dialog-button
+{
+	--toggle: none;
 }
 
 #BUTTON

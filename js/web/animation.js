@@ -861,10 +861,10 @@ Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_option
 	halfCallbacks.blink[_options.method](this, 'half', _options.half); halfCallbacks.blink[_options.method](this, 'callback', _options.callback);
 	halfCallbacks.blink[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
 	_options.finish = (_e, ... _a) => { delete _options.finish; _options.callback = (_e, ... _a) => { delete this._blink;
-		halfCallbacks.blink.call(this, 'callback', _e, ... _a); halfCallbacks.blink.call(this, _e.type, _e, ... _a);
-		halfCallbacks.blink.clear(this); }; delete _options.type; delete _options.sourceValues; delete _options.targetValues;
+		halfCallbacks.blink.call(this, 'callback', _e, ... _a); halfCallbacks.blink.call(this, _e.type, _e, ... _a); };
+		delete _options.type; delete _options.sourceValues; delete _options.targetValues;
 		Reflect.defineProperty(_e, 'type', { value: 'half' }); halfCallbacks.blink.call(this, 'half', _e, ... _a);
-		halfCallbacks.blink.clear(this); return this._blink = this.show(_options, ... _args); };
+		return this._blink = this.show(_options, ... _args); };
 	if(this._fade) this._fade.stop(); return this._blink = this.hide(_options, ... _args);
 }});
 
@@ -899,7 +899,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_option
 			this.style[idx] = this._pulseOptions.original[idx]; if(this._pulseOptions && this._pulseOptions.wallpaper)
 				this._pulseOptions.wallpaper.resume();
 			delete this._pulse; delete this._pulseOptions;
-			if(_a[0].type !== 'finish') { halfCallbacks.pulse.call(this, 'callback', ... _a); halfCallbacks.pulse.clear(this); }; };
+			if(_a[0].type !== 'finish') { halfCallbacks.pulse.call(this, 'callback', ... _a); }};
 		return this._pulse = this.animate(keyframes, _options, ... _args); };
 	if(this._pulse) return this._pulse/*.stop()!!TODO*/; return this._pulse = pulseIn();
 }});
@@ -938,17 +938,17 @@ Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_optio
 		if(_options.blur) keyframes.filter = 'blur(3px)'; _options.finish = (_e, ... _a) => { delete _options.sourceValues;
 			Reflect.defineProperty(_e, 'type', { value: 'half' }); halfCallbacks.toggle.call(this, 'half', _e, ... _a);
 			delete _options.targetValues; halfCallbacks.toggle.call(this, 'callback', _e, ... _a); return this._toggle = toggleOut(); };
-		_options.callback = (_e, ... _a) => { if(_e.type !== 'finish') { delete this._toggle; halfCallbacks.toggle.clear(this); }};
+		_options.callback = (_e, ... _a) => { if(_e.type !== 'finish') { delete this._toggle; }};
 		return this._toggle = this.animate(keyframes, _options, ... _args); };
 	const toggleOut = () => { const keyframes = { opacity: '1' }; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(1)');
 		for(const axis of _options.rotate) transform = appendKeyframeStyle(transform, 'rotate' + axis.toUpperCase() + '(359deg)');
 		if(transform) keyframes.transform = transform; if(_options.blur) keyframes.filter = 'blur(0)'; _options.finish = (... _a) => {
-			halfCallbacks.toggle.call(this, 'finish', ... _a); halfCallbacks.toggle.clear(this); }; _options.callback = (... _a) => {
+			halfCallbacks.toggle.call(this, 'finish', ... _a); }; _options.callback = (... _a) => {
 				if(this._toggleOptions?.source && !_options.persist) for(const idx in this._toggleOptions.source)
 					this.style[idx] = this._toggleOptions.source[idx]; else { this.style.transform = 'none';
 						this.style.filter = 'none'; this.style.opacity = '1'; }
 							delete this._toggle; delete this._toggleOptions;
-		halfCallbacks.toggle.call(this, 'callback', ... _a); if(_a[0].type !== 'finish') halfCallbacks.toggle.clear(this); };
+		halfCallbacks.toggle.call(this, 'callback', ... _a); };
 	return this._toggle = this.animate(keyframes, _options, ... _args); }; if(this._toggle) return this._toggle;/*.stop();*/ return this._toggle = toggleIn();
 }});
 

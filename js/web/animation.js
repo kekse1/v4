@@ -322,7 +322,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	for(var mgr in managers) { mgr = managers[mgr]; for(const idx in mgr.animation) if(!styles.includes(idx)) {
 		relays[idx] = mgr.animation[idx]; ++_options.relays; ++manager.relays }
 		if(_options.method === 'add') { for(const idx in callbacks)
-			callbacks[idx].push(... mgr.callbacks.get(this, idx)); } relayCallbacks.push(
+			callbacks[idx].pushUnique(... mgr.callbacks.get(this, idx)); } relayCallbacks.pushUnique(
 				... mgr.callbacks.get(this, 'callback'), ... mgr.callbacks.get(this, 'relay'));
 		mgr.destroy(false); }
 

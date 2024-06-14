@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/
-// v0.6.6
+// v0.7.0
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 //
@@ -136,7 +136,7 @@ ready(() => {
 	console.log();
 
 	//
-	PATH = path.join(modulePath(import.meta.url).directory, PATH);
+	PATH = path.join(import.meta.dirname, PATH);
 
 	for(var i = 0; i < PATH_SUB.length; ++i)
 		PATH_SUB[i] = path.join(PATH, PATH_SUB[i]);

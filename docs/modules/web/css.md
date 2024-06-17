@@ -41,3 +41,6 @@ which will always inherit from parent nodes, or - either manually or if the
 queried element is not connected (`.isConnected`) - the functions will simply
 traverse up each real `.parentNode` and continue the queries there.
 
+One **exception**: using the `.hasOwnVariable()` won't traverse up (nor use the
+`getComputedStyle()`).
+

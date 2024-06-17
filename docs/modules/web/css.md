@@ -35,3 +35,9 @@ also be correctly parsed, see above); the `Object` is a **functional style**, bt
 * `HTMLElement.prototype.removeVariable(... _args)`
 * `HTMLElement.prototype.setVariable(_variables, _value, _camel)`
 
+## CSS Custom Properties
+Either we directly use the `getComputedStyle()` styles to query for variables,
+which will always inherit from parent nodes, or - either manually or if the
+queried element is not connected (`.isConnected`) - the functions will simply
+traverse up each real `.parentNode` and continue the queries there.
+

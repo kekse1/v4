@@ -23,6 +23,7 @@ This is the current state - it may change in some time (or rather: will be exten
 * `HTMLElement.prototype.style`
 * `Element.prototype.scrollable`
 * `Node.prototype.isBaseElement`
+* `HTMLElement.prototype.stepWise(_options, _items, _callback)`
 * `HTMLElement.inScrollArea(... _args)`
 * `HTMLElement.totallyInScrollArea(... _args)`
 * `HTMLElement.prototype.inScrollArea`

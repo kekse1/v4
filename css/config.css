@@ -30,6 +30,7 @@
 	--delay: 0;
 	--delay-each: 60;
 	--delay-each-hide: 40;
+	--delay-start: 0;
 	--force-animation: none;
 	--resize-timeout: 160;
 	--dead-timeout: 600000;
@@ -73,7 +74,7 @@ a-dialog-button, .a-dialog-button
 
 #BUTTON
 {
-	--duration-toggle: 3600;
+	--duration-toggle: 2400;
 }
 
 #MAIN
@@ -96,7 +97,7 @@ a-dialog-button, .a-dialog-button
 
 :root
 {
-	--wallpaper-speed: 1.2;
+	--wallpaper-speed: 1.25;
 	--wallpaper-background: rgba(220, 230, 240, 0.5) 0%, rgba(180, 190, 200, 0.5) 25%, rgba(140, 150, 160, 0.5) 50%, rgba(100, 110, 120, 0.5) 75%, rgba(60, 70, 80, 0.5) 100%;
 	--vibration-speed: 3;
 	--vibration-interval: 0.369;
@@ -107,13 +108,14 @@ a-dialog-button, .a-dialog-button
 #MAIN
 {
 	--wallpaper: auto;
-	--wallpaper-speed: 0.6;
+	--wallpaper-speed: 1;
 	--wallpaper-background: rgba(220, 230, 240, 0.75) 0%, rgba(190, 200, 210, 0.75) 25%, rgba(160, 170, 180, 0.75) 50%, rgba(130, 140, 150, 0.75) 75%, rgba(100, 110, 120, 0.75) 100%;
 }
 
 #MENU
 {
 	--wallpaper: auto;
+	--wallpaper-speed: 1.2;
 }
 
 :root
@@ -256,15 +258,14 @@ div#OSDInfo
 	--url-container: auto;
 	--url-brackets: none;
 
-	--url-font-size-protocol: 0.82em;
-	--url-font-size-protocol-sep: 0.80em;
-	--url-font-size-hostname: 1.1em;
-	--url-font-size-port: 0.97em;
-	--url-font-size-pathname: 1.04em;
-	--url-font-size-search: 0.96em;
-	--url-font-size-hash: 0.95em;
-
-	--url-font-size-param: 1em;
+	--url-style-protocol: 'font-size: 0.9em;';
+	--url-style-protocol-sep: 'font-size: 0.93em;';
+	--url-style-hostname: 'font-size: 1.14em; font-weight: bold;';
+	--url-style-port: 'font-size: 0.99em;';
+	--url-style-pathname: 'font-size: 1.14em;';
+	--url-style-search: 'font-size: 1.12em;';
+	--url-style-hash: 'font-size: 1.08em;';
+	--url-style-param: 'font-size: 1.16em;';
 }
 
 div#loadProgressCarrier
@@ -519,6 +520,7 @@ span.loadProgressPercent
 	--duration-style: 600;/*TODO yet!!!*/
 	--easing: linear;
 	--wallpaper: auto;
+	--wallpaper-speed: 2;
 }
 
 .a-github-box

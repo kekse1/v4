@@ -822,11 +822,13 @@ keyframes.opacity = [ computedStyle.opacity, '0.6', '0' ];
 	switch(_type) {	case 'show': this.state = true; break;
 			case 'hide': this.state = false; break; }
 	//
-	_options.type = _type; if(this._fade) this._fade.finish();
-	if(typeof _options.callback === 'function') _options.callback = [ _options.callback ]; else if(!Array._isArray(_options.callback)) _options.callback = [];
-	_options.callback.unshift(() => { delete this._fade; delete this['_' + _type]; delete this._blink; });
-	const result = this.animate(keyframes, _options, ... _args); if(Reflect.is(result, 'ManagedAnimation')) {
-		this._fade = this['_' + _type] = result; } return result;
+	_options.type = _type; //if(this._fade) this._fade.finish();
+	if(typeof _options.callback === 'function') _options.callback = [ _options.callback ];
+	else if(Array.isArray(_options.callback, false)) _options.callback = [ ... _options.callback ];
+	else _options.callback = []; _options.callback.unshift(() => { delete this._fade; delete this['_' + _type]; });
+	const result = this.animate(keyframes, _options, ... _args);
+	if(Reflect.is(result, 'ManagedAnimation')) { this._fade = this['_' + _type] = result; }
+	return result;
 }});
 
 //
@@ -841,138 +843,60 @@ const _show = HTMLElement.prototype.show;
 const _hide = HTMLElement.prototype.hide;
 
 //
-const blinkCallbacks = new Callback();
+//TODO/finish this; then remove the toggle stuff below it!
 //
-//FINALLY.. in it's best form ever. TODO is the same for '.toggle()' and '.blink()' (both below)!!!
-//
-Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_options, ... _args)
+/*Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_options, ... _args)
 {
+	//
 	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
 	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
-	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
+	if(!Object.isObject(_options)) {
+		if(Number.isNumber(_options)) _options = { duration: _options };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
-	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
-	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
-
-	blinkCallbacks[_options.method](this, 'half', _options.half); delete _options.half;
-	const cbs = Animation.callbacks; for(const cb of cbs)
+		else _options = {}; }
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('--duration');
+	_options.method = Callback.checkMethod(_options.method, true, this);
+	_options.persist = false;
+	_options.relays = (_options.relays || 0);
+	
+	//
+	if(this._toggle)
 	{
-		blinkCallbacks[_options.method](this, cb, _options[cb]);
-		delete _options[cb];
-	}
+		this._toggle.pause();
+		++_options.relays;
 
-	var halfReached = false;
+		if(typeof _options.scale !== 'boolean' && !Number.isNumber(_options.scale))
+			_options.scale = this.parseVariable('scale');
 
-	_options.callback = (_e, ... _a) => {
-		this._blink = _a[0];
-
-		if(_e.type !== 'finish')
+		if(_options.scale || _options.scale === 0 && Number.isNumber(this._fade.currentTime))
 		{
-			blinkCallbacks.call(this, _e.type, _e, ... _a);
-		}
-
-		if(halfReached)
-		{
-			if(_e.type === 'finish')
+			_options.duration = (_options.duration * this._fade.currentTime / this._fade.options.duration);
+			
+			if(typeof _options.scale === 'number')
 			{
-				blinkCallbacks.call(this, _e.type, _e, ... _a);
+				_options.duration = Math.max(_options.duration, _options.scale);
 			}
 
-			blinkCallbacks.clear(this);
-			delete this._blink;
+			_options.duration = Math.round(_options.duration);
 		}
-		else if(_e.type === 'finish')
-		{
-			delete _options.type; delete _options.sourceValues; delete _options.targetValues;
-			halfReached = true;
-			Reflect.defineProperty(_e, 'type', { value: 'half' });
-			blinkCallbacks.call(this, 'half', _e, ... _a);
-			this._blink = this.show(_options, ... _args);
-		}
-		else if(_e.type !== 'relay')
-		{
-			blinkCallbacks.call(this, _e.type, _e, ... _a);
-			blinkCallbacks.clear(this);
-			delete this._blink;
-		}
-	};
-
-	return this._blink = this.hide(_options, ... _args);
-}});
+	}
+	else
+	{
+		_options.relays = 0;
+	}
+	
+	const keyframes = {};
+	_options.type = 'toggle'; //if(this._toggle) this._toggle.finish();
+	if(typeof _options.callback === 'function') _options.callback = [ _options.callback ];
+	else if(Array.isArray(_options.callback, false)) _options.callback = [ ... _options.callback ];
+	else _options.callback = []; _options.callback.unshift(() => delete this._toggle);
+	const result = this.animate(keyframes, _options, ... _args);
+	if(Reflect.is(result, 'ManagedAnimation')) this._toggle = result;
+	return result;
+}});*/
 
 //
-//TODO/same as above @ '.blink()'!! and remove their implementation below!
-//
-/*const pulseCallbacks = new Callback();
-
-Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
-{
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
-	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
-		else if(typeof _options === 'boolean') _options = { duration: _options };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
-	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
-	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
-
-}});
-
-//
-const toggleCallbacks = new Callback();
-
-Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_options, ... _args)
-{
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
-	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
-		else if(typeof _options === 'boolean') _options = { duration: _options };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
-	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
-	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
-
-}});
- */
-
-//
-const pulseCallbacks = new Callback();
-
-Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
-{
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
-	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
-		else if(typeof _options === 'boolean') _options = { duration: _options };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-pulse');
-	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
-	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
-	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
-	if(String.isString(_options.colorization, false)) switch(_options.colorization = _options.colorization.toLowerCase()) { case 'contrast': case 'complement':
-	break; default: return error('Invalid [%] option [ `contrast`, `complement` ]'); } else _options.colorization = this.parseVariable('pulse-colorization');
-	pulseCallbacks[_options.method](this, 'half', _options.half); pulseCallbacks[_options.method](this, 'callback', _options.callback);
-	pulseCallbacks[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
-	if(!this._pulseOptions) { const computed = getComputedStyle(this);
-	if(!(color.isValid(computed.backgroundColor) && color.isValid(computed.color))) return error('Invalid color(s)');
-	this._pulseOptions = { color: computed.color, backgroundColor: computed.backgroundColor, wallpaper: this.gradientAnimation,
-		original: { color: this.style.color, backgroundColor: this.style.backgroundColor }}; }
-	if(this._pulseOptions.wallpaper) this._pulseOptions.wallpaper.pause();
-	const pulseIn = () => { const keyframes = { color: [ this.style.color, color[_options.colorization](this._pulseOptions.color) ],
-		backgroundColor: [ this.style.backgroundColor, color[_options.colorization](this._pulseOptions.backgroundColor) ] };
-		_options.finish = (_e, ... _a) => { delete _options.sourceValues; Reflect.defineProperty(_e, 'type', { value: 'half' });
-		pulseCallbacks.call(this, 'half', _e, ... _a); delete _options.targetValues; pulseCallbacks.call(this, 'callback', _e, ... _a);
-		return this._pulse = pulseOut(); }; return this._pulse = this.animate(keyframes, _options, ... _args); };
-	const pulseOut = () => { if(!this._pulseOptions) { delete this._pulse; return; } const keyframes = { color: this._pulseOptions.color,
-		backgroundColor: this._pulseOptions.backgroundColor }; _options.finish = (... _a) => { pulseCallbacks.call(this, 'finish', ... _a);
-			pulseCallbacks.call(this, 'callback', ... _a); };
-		_options.callback = (... _a) => { if(!_options.persist && this._pulseOptions) for(const idx in this._pulseOptions.original)
-			this.style[idx] = this._pulseOptions.original[idx]; if(this._pulseOptions && this._pulseOptions.wallpaper)
-				this._pulseOptions.wallpaper.resume();
-			delete this._pulse; delete this._pulseOptions;
-			if(_a[0].type !== 'finish') { pulseCallbacks.call(this, 'callback', ... _a); }};
-		return this._pulse = this.animate(keyframes, _options, ... _args); };
-	if(this._pulse) return; return this._pulse = pulseIn();
-}});
-
+//TODO/finish the start above..!
 //
 const toggleCallbacks = new Callback();
 
@@ -1014,7 +938,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_optio
 	return this._toggle = this.animate(keyframes, _options, ... _args); }; return this._toggle = toggleIn();
 }});
 
-const extractAxes = (_value, _fallback = DEFAULT_AXES) => {
+const extractAxes = (_value, _fallback = DEFAULT_AXES) => { const result = [];
 	if(_value === null) return (Math.random.bool() ? 'x' : 'y');
 	if(typeof _value === 'boolean') { if(_value) return extractAxes(DEFAULT_AXES); return result; }
 	else if(typeof _value === 'string') { if(_value.length === 0) return result; var value; for(var i = 0; i < _value.length; ++i)
@@ -1024,6 +948,123 @@ const extractAxes = (_value, _fallback = DEFAULT_AXES) => {
 	else if(_fallback !== null && typeof _fallback !== 'string' && !Array.isArray(_fallback, true)) throw new Error('Invalid [%] option!', null, 'axes');
 	else return extractAxes(_fallback, null); return result.sort();
 };
+
+//
+const blinkCallbacks = new Callback();
+
+Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_options, ... _args)
+{
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
+		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
+	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
+
+	blinkCallbacks[_options.method](this, 'half', _options.half); delete _options.half;
+	const cbs = Animation.callbacks; for(const cb of cbs)
+	{
+		blinkCallbacks[_options.method](this, cb, _options[cb]);
+		delete _options[cb];
+	}
+
+	var halfReached = false;
+
+	_options.callback = (_e, ... _a) => {
+		this._blink = _a[0];
+
+		if(halfReached)
+		{
+			blinkCallbacks.call(this, 'callback', _e, ... _a);
+			blinkCallbacks.call(this, _e.type, _e, ... _a);
+			blinkCallbacks.clear(this);
+			delete this._blink;
+		}
+		else
+		{
+			if(_e.type === 'finish')
+			{
+				delete _options.type; delete _options.sourceValues; delete _options.targetValues;
+				halfReached = true;
+				Reflect.defineProperty(_e, 'type', { value: 'half' });
+				blinkCallbacks.call(this, 'half', _e, ... _a);
+				this._blink = this.show(_options, ... _args);
+			}
+			else
+			{
+				blinkCallbacks.call(this, 'callback', _e, ... _a);
+				blinkCallbacks.call(this, _e.type, _e, ... _a);
+				
+				if(_e.type !== 'relay')
+				{
+					blinkCallbacks.clear(this);
+					delete this._blink;
+				}
+			}
+		}
+	};
+
+	const result = this.hide(_options, ... _args);
+	if(Reflect.is(result, 'ManagedAnimation')) this._blink = result;
+	return result;
+}});
+
+//
+//TODO/same as above @ '.blink()'!! and remove their implementation below!
+//
+/*const pulseCallbacks = new Callback();
+
+Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
+{
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
+		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
+	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
+
+}});*/
+
+//
+const pulseCallbacks = new Callback();
+
+Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
+{
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
+		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-pulse');
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
+	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
+	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
+	if(String.isString(_options.colorization, false)) switch(_options.colorization = _options.colorization.toLowerCase()) { case 'contrast': case 'complement':
+	break; default: return error('Invalid [%] option [ `contrast`, `complement` ]'); } else _options.colorization = this.parseVariable('pulse-colorization');
+	pulseCallbacks[_options.method](this, 'half', _options.half); pulseCallbacks[_options.method](this, 'callback', _options.callback);
+	pulseCallbacks[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
+	if(!this._pulseOptions) { const computed = getComputedStyle(this);
+	if(!(color.isValid(computed.backgroundColor) && color.isValid(computed.color))) return error('Invalid color(s)');
+	this._pulseOptions = { color: computed.color, backgroundColor: computed.backgroundColor, wallpaper: this.gradientAnimation,
+		original: { color: this.style.color, backgroundColor: this.style.backgroundColor }}; }
+	if(this._pulseOptions.wallpaper) this._pulseOptions.wallpaper.pause();
+	const pulseIn = () => { const keyframes = { color: [ this.style.color, color[_options.colorization](this._pulseOptions.color) ],
+		backgroundColor: [ this.style.backgroundColor, color[_options.colorization](this._pulseOptions.backgroundColor) ] };
+		_options.finish = (_e, ... _a) => { delete _options.sourceValues; Reflect.defineProperty(_e, 'type', { value: 'half' });
+		pulseCallbacks.call(this, 'half', _e, ... _a); delete _options.targetValues; pulseCallbacks.call(this, 'callback', _e, ... _a);
+		return this._pulse = pulseOut(); }; return this._pulse = this.animate(keyframes, _options, ... _args); };
+	const pulseOut = () => { if(!this._pulseOptions) { delete this._pulse; return; } const keyframes = { color: this._pulseOptions.color,
+		backgroundColor: this._pulseOptions.backgroundColor }; _options.finish = (... _a) => { pulseCallbacks.call(this, 'finish', ... _a);
+			pulseCallbacks.call(this, 'callback', ... _a); };
+		_options.callback = (... _a) => { if(!_options.persist && this._pulseOptions) for(const idx in this._pulseOptions.original)
+			this.style[idx] = this._pulseOptions.original[idx]; if(this._pulseOptions && this._pulseOptions.wallpaper)
+				this._pulseOptions.wallpaper.resume();
+			delete this._pulse; delete this._pulseOptions;
+			if(_a[0].type !== 'finish') { pulseCallbacks.call(this, 'callback', ... _a); }};
+		return this._pulse = this.animate(keyframes, _options, ... _args); };
+	if(this._pulse) return; return this._pulse = pulseIn();
+}});
 
 //
 Reflect.defineProperty(HTMLElement.prototype, 'hasAnimation', { value: function(... _args)

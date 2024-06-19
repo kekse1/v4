@@ -168,16 +168,3 @@ and will also call the callbacks, etc.
 
 The second one will just `return false` when trying to `.animate()` these elements.
 
-## Other functions
-I think there are more functions which could be handy for you and your animations.
-At the moment I'm just pointing to this first one, since I'm currently working on it:
-
-* `Animation.extractAxes(_value, _fallback = DEFAULT_AXES)`
-
-If the `_value` argument ain't correct (neither Array nor String), it'll throw an adequate `Error`,
-if - and only if - you (un-)defined the `_fallback` argument to smth. non-valid (so Array or String);
-otherwise it'll return the `DEFAULT_AXES` fallback (also in an Array, as usual for this function).
-
-If an empty string or `false` is defined, it'll return an empty array, but if `true` is defined (mostly
-in the animation `_options`), it'll use the `DEFAULT_AXES`.
-

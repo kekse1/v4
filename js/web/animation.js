@@ -1,7 +1,7 @@
 /*
- * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
- * https://kekse.biz/ https://github.com/kekse1/
- */
+* Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
+* https://kekse.biz/ https://github.com/kekse1/v4/
+*/
 
 //
 //TODO/ < https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Keyframe_Formats >
@@ -15,7 +15,7 @@ const DEFAULT_PERSIST = true;//will end any (managed) animation with comitting t
 const DEFAULT_SMOOTH = true;//will start any (managed) animation with current style state!
 const DEFAULT_INIT = true;//if element not already faded/toggled, it'll start this with suitable start styles!!
 const DEFAULT_HARD_STOP = true;//after 'window.stop()/.stopped',set the styles w/o animation nevertheless, or do NOTHING at all!?
-const DEFAULT_AXES = null;//see 'Animation.extractAxes()'!! 'xyz' seems not to work, btw. (scheint sich gegenseitig aufzuheben! x)~
+const DEFAULT_AXES = null;//see 'extractAxes()'!! 'xyz' seems not to work, btw. (scheint sich gegenseitig aufzuheben! x)~
 
 //
 const appendKeyframeStyle = (_style, _new = '') => {
@@ -415,13 +415,8 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	//
 	if(_options.method === 'add') for(const idx in callbacks)
 		manager.callbacks.add(this, idx, callbacks[idx]);
-	manager.callbacks.add(this, 'callback', _options.callback);
-	manager.callbacks.add(this, 'error', _options.error);
-	manager.callbacks.add(this, 'relay', _options.relay);
-	manager.callbacks.add(this, 'finish', _options.finish);
-	manager.callbacks.add(this, 'cancel', _options.cancel);
-	manager.callbacks.add(this, 'remove', _options.remove);
-	manager.callbacks.add(this, 'stop', _options.stop);
+	const cbs = Animation.callbacks; for(const cb of cbs)
+		manager.callbacks.add(this, cb, _options[cb]);
 	
 	//
 	for(const style of styles)
@@ -430,6 +425,9 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	//
 	return manager;
 }});
+
+Reflect.defineProperty(Animation, 'callbacks', { get: () => [
+	'callback', 'error', 'relay', 'finish', 'cancel', 'remove', 'stop'  ]});
 
 HTMLElement.prototype.animate.__extended = true;
 
@@ -843,12 +841,10 @@ const _show = HTMLElement.prototype.show;
 const _hide = HTMLElement.prototype.hide;
 
 //
-const halfCallbacks = {
-	blink: new Callback(),
-	pulse: new Callback(),
-	toggle: new Callback()
-};
-
+const blinkCallbacks = new Callback();
+//
+//FINALLY.. in it's best form ever. TODO is the same for '.toggle()' and '.blink()' (both below)!!!
+//
 Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_options, ... _args)
 {
 	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
@@ -858,15 +854,88 @@ Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_option
 		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
-	halfCallbacks.blink[_options.method](this, 'half', _options.half); halfCallbacks.blink[_options.method](this, 'callback', _options.callback);
-	halfCallbacks.blink[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
-	_options.finish = (_e, ... _a) => { delete _options.finish; _options.callback = (_e, ... _a) => { delete this._blink;
-		halfCallbacks.blink.call(this, 'callback', _e, ... _a); halfCallbacks.blink.call(this, _e.type, _e, ... _a); };
-		delete _options.type; delete _options.sourceValues; delete _options.targetValues;
-		Reflect.defineProperty(_e, 'type', { value: 'half' }); halfCallbacks.blink.call(this, 'half', _e, ... _a);
-		return this._blink = this.show(_options, ... _args); };
-	if(this._fade) this._fade.stop(); return this._blink = this.hide(_options, ... _args);
+
+	blinkCallbacks[_options.method](this, 'half', _options.half); delete _options.half;
+	const cbs = Animation.callbacks; for(const cb of cbs)
+	{
+		blinkCallbacks[_options.method](this, cb, _options[cb]);
+		delete _options[cb];
+	}
+
+	var halfReached = false;
+
+	_options.callback = (_e, ... _a) => {
+		this._blink = _a[0];
+
+		if(_e.type !== 'finish')
+		{
+			blinkCallbacks.call(this, _e.type, _e, ... _a);
+		}
+
+		if(halfReached)
+		{
+			if(_e.type === 'finish')
+			{
+				blinkCallbacks.call(this, _e.type, _e, ... _a);
+			}
+
+			blinkCallbacks.clear(this);
+			delete this._blink;
+		}
+		else if(_e.type === 'finish')
+		{
+			delete _options.type; delete _options.sourceValues; delete _options.targetValues;
+			halfReached = true;
+			Reflect.defineProperty(_e, 'type', { value: 'half' });
+			blinkCallbacks.call(this, 'half', _e, ... _a);
+			this._blink = this.show(_options, ... _args);
+		}
+		else if(_e.type !== 'relay')
+		{
+			blinkCallbacks.call(this, _e.type, _e, ... _a);
+			blinkCallbacks.clear(this);
+			delete this._blink;
+		}
+	};
+
+	return this._blink = this.hide(_options, ... _args);
 }});
+
+//
+//TODO/same as above @ '.blink()'!! and remove their implementation below!
+//
+/*const pulseCallbacks = new Callback();
+
+Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
+{
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
+		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
+	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
+
+}});
+
+//
+const toggleCallbacks = new Callback();
+
+Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_options, ... _args)
+{
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
+		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
+	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
+
+}});
+ */
+
+//
+const pulseCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
 {
@@ -880,8 +949,8 @@ Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_option
 	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
 	if(String.isString(_options.colorization, false)) switch(_options.colorization = _options.colorization.toLowerCase()) { case 'contrast': case 'complement':
 	break; default: return error('Invalid [%] option [ `contrast`, `complement` ]'); } else _options.colorization = this.parseVariable('pulse-colorization');
-	halfCallbacks.pulse[_options.method](this, 'half', _options.half); halfCallbacks.pulse[_options.method](this, 'callback', _options.callback);
-	halfCallbacks.pulse[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
+	pulseCallbacks[_options.method](this, 'half', _options.half); pulseCallbacks[_options.method](this, 'callback', _options.callback);
+	pulseCallbacks[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
 	if(!this._pulseOptions) { const computed = getComputedStyle(this);
 	if(!(color.isValid(computed.backgroundColor) && color.isValid(computed.color))) return error('Invalid color(s)');
 	this._pulseOptions = { color: computed.color, backgroundColor: computed.backgroundColor, wallpaper: this.gradientAnimation,
@@ -890,29 +959,22 @@ Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_option
 	const pulseIn = () => { const keyframes = { color: [ this.style.color, color[_options.colorization](this._pulseOptions.color) ],
 		backgroundColor: [ this.style.backgroundColor, color[_options.colorization](this._pulseOptions.backgroundColor) ] };
 		_options.finish = (_e, ... _a) => { delete _options.sourceValues; Reflect.defineProperty(_e, 'type', { value: 'half' });
-		halfCallbacks.pulse.call(this, 'half', _e, ... _a); delete _options.targetValues; halfCallbacks.pulse.call(this, 'callback', _e, ... _a);
+		pulseCallbacks.call(this, 'half', _e, ... _a); delete _options.targetValues; pulseCallbacks.call(this, 'callback', _e, ... _a);
 		return this._pulse = pulseOut(); }; return this._pulse = this.animate(keyframes, _options, ... _args); };
-	const pulseOut = () => { const keyframes = { color: this._pulseOptions.color,
-		backgroundColor: this._pulseOptions.backgroundColor }; _options.finish = (... _a) => { halfCallbacks.pulse.call(this, 'finish', ... _a);
-			halfCallbacks.pulse.call(this, 'callback', ... _a); };
+	const pulseOut = () => { if(!this._pulseOptions) { delete this._pulse; return; } const keyframes = { color: this._pulseOptions.color,
+		backgroundColor: this._pulseOptions.backgroundColor }; _options.finish = (... _a) => { pulseCallbacks.call(this, 'finish', ... _a);
+			pulseCallbacks.call(this, 'callback', ... _a); };
 		_options.callback = (... _a) => { if(!_options.persist && this._pulseOptions) for(const idx in this._pulseOptions.original)
 			this.style[idx] = this._pulseOptions.original[idx]; if(this._pulseOptions && this._pulseOptions.wallpaper)
 				this._pulseOptions.wallpaper.resume();
 			delete this._pulse; delete this._pulseOptions;
-			if(_a[0].type !== 'finish') { halfCallbacks.pulse.call(this, 'callback', ... _a); }};
+			if(_a[0].type !== 'finish') { pulseCallbacks.call(this, 'callback', ... _a); }};
 		return this._pulse = this.animate(keyframes, _options, ... _args); };
-	if(this._pulse) return this._pulse/*.stop()!!TODO*/; return this._pulse = pulseIn();
+	if(this._pulse) return; return this._pulse = pulseIn();
 }});
 
-Reflect.defineProperty(Animation, 'extractAxes', { value: (_value, _fallback = DEFAULT_AXES) => { const result = [];
-	if(_value === null) return (Math.random.bool() ? 'x' : 'y');
-	if(typeof _value === 'boolean') { if(_value) return Animation.extractAxes(DEFAULT_AXES); return result; }
-	else if(typeof _value === 'string') { if(_value.length === 0) return result; var value; for(var i = 0; i < _value.length; ++i)
-		switch(value = _value[i].toLowerCase()) { case 'x': case 'y': case 'z': result.pushUnique(value); break; }}
-	else if(Array.isArray(_value, true)) { for(var i = _value.length - 1; i >= 0; --i) { if(typeof _value[i] !== 'string')
-		_value.splice(i, 1); else result.pushUnique(... Animation.extractAxes(_value[i])); }}
-	else if(_fallback !== null && typeof _fallback !== 'string' && !Array.isArray(_fallback, true)) throw new Error('Invalid [%] option!', null, 'axes');
-	else return Animation.extractAxes(_fallback, null); return result.sort(); }});
+//
+const toggleCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_options, ... _args)
 {
@@ -924,10 +986,10 @@ Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_optio
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
 	if(typeof _options.init !== 'boolean') _options.init = DEFAULT_INIT; if(typeof _options.scale !== 'boolean') _options.scale = true;
-	if('filter' in _options) { _options.blur = _options.filter; delete _options.filter; } _options.rotate = Animation.extractAxes(_options.rotate);
+	if('filter' in _options) { _options.blur = _options.filter; delete _options.filter; } _options.rotate = extractAxes(_options.rotate);
 	if(typeof _options.blur !== 'boolean') _options.blur = true; if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
-	halfCallbacks.toggle[_options.method](this, 'half', _options.half); halfCallbacks.toggle[_options.method](this, 'callback', _options.callback);
-	halfCallbacks.toggle[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
+	toggleCallbacks[_options.method](this, 'half', _options.half); toggleCallbacks[_options.method](this, 'callback', _options.callback);
+	toggleCallbacks[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
 	if(_options.init && !this._toggleOptions) { this.style.opacity = '1'; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(1)');
 		for(const axis of _options.rotate) transform = appendKeyframeStyle(transform, 'rotate' + axis.toUpperCase() + '(0)');
 		if(transform) this.style.transform = transform; if(_options.blur) this.style.filter = 'blur(0)'; }
@@ -936,21 +998,32 @@ Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_optio
 	const toggleIn = () => { const keyframes = { opacity: '0.4' }; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(0.4)');
 		for(const axis of _options.rotate) transform = appendKeyframeStyle(transform, 'rotate' + axis.toUpperCase() + '(180deg)'); if(transform) keyframes.transform = transform;
 		if(_options.blur) keyframes.filter = 'blur(3px)'; _options.finish = (_e, ... _a) => { delete _options.sourceValues;
-			Reflect.defineProperty(_e, 'type', { value: 'half' }); halfCallbacks.toggle.call(this, 'half', _e, ... _a);
-			delete _options.targetValues; halfCallbacks.toggle.call(this, 'callback', _e, ... _a); return this._toggle = toggleOut(); };
+			Reflect.defineProperty(_e, 'type', { value: 'half' }); toggleCallbacks.call(this, 'half', _e, ... _a);
+			delete _options.targetValues; toggleCallbacks.call(this, 'callback', _e, ... _a); return this._toggle = toggleOut(); };
 		_options.callback = (_e, ... _a) => { if(_e.type !== 'finish') { delete this._toggle; }};
 		return this._toggle = this.animate(keyframes, _options, ... _args); };
 	const toggleOut = () => { const keyframes = { opacity: '1' }; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(1)');
 		for(const axis of _options.rotate) transform = appendKeyframeStyle(transform, 'rotate' + axis.toUpperCase() + '(359deg)');
 		if(transform) keyframes.transform = transform; if(_options.blur) keyframes.filter = 'blur(0)'; _options.finish = (... _a) => {
-			halfCallbacks.toggle.call(this, 'finish', ... _a); }; _options.callback = (... _a) => {
+			toggleCallbacks.call(this, 'finish', ... _a); }; _options.callback = (... _a) => {
 				if(this._toggleOptions?.source && !_options.persist) for(const idx in this._toggleOptions.source)
 					this.style[idx] = this._toggleOptions.source[idx]; else { this.style.transform = 'none';
 						this.style.filter = 'none'; this.style.opacity = '1'; }
 							delete this._toggle; delete this._toggleOptions;
-		halfCallbacks.toggle.call(this, 'callback', ... _a); };
-	return this._toggle = this.animate(keyframes, _options, ... _args); }; if(this._toggle) return this._toggle;/*.stop();*/ return this._toggle = toggleIn();
+		toggleCallbacks.call(this, 'callback', ... _a); };
+	return this._toggle = this.animate(keyframes, _options, ... _args); }; return this._toggle = toggleIn();
 }});
+
+const extractAxes = (_value, _fallback = DEFAULT_AXES) => {
+	if(_value === null) return (Math.random.bool() ? 'x' : 'y');
+	if(typeof _value === 'boolean') { if(_value) return extractAxes(DEFAULT_AXES); return result; }
+	else if(typeof _value === 'string') { if(_value.length === 0) return result; var value; for(var i = 0; i < _value.length; ++i)
+		switch(value = _value[i].toLowerCase()) { case 'x': case 'y': case 'z': result.pushUnique(value); break; }}
+	else if(Array.isArray(_value, true)) { for(var i = _value.length - 1; i >= 0; --i) { if(typeof _value[i] !== 'string')
+		_value.splice(i, 1); else result.pushUnique(... extractAxes(_value[i])); }}
+	else if(_fallback !== null && typeof _fallback !== 'string' && !Array.isArray(_fallback, true)) throw new Error('Invalid [%] option!', null, 'axes');
+	else return extractAxes(_fallback, null); return result.sort();
+};
 
 //
 Reflect.defineProperty(HTMLElement.prototype, 'hasAnimation', { value: function(... _args)

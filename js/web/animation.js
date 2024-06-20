@@ -989,7 +989,14 @@ Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_option
 				halfReached = true;
 				Reflect.defineProperty(_e, 'type', { value: 'half' });
 				blinkCallbacks.call(this, 'half', _e, ... _a);
-				this._blink = this.show(_options, ... _args);
+				const res = this.show(_options, ... _args);
+				if(Reflect.is(result, 'ManagedAnimation'))
+					this._blink = res;
+				else
+				{
+					//TODO/blinkCallbacks.{call,clear}(...
+					delete this._blink;
+				}
 			}
 			else
 			{
@@ -1007,6 +1014,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_option
 
 	const result = this.hide(_options, ... _args);
 	if(Reflect.is(result, 'ManagedAnimation')) this._blink = result;
+	//TODO/else blinkCallbacks.{call,clear}...
 	return result;
 }});
 

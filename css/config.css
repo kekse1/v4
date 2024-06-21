@@ -84,10 +84,10 @@ a-dialog-button, .a-dialog-button
 
 #MAIN
 {
-	--top-space: 64px;
-	--top-space-text: 6;
-	--bottom-space: 640px;
-	--bottom-space-text: 32;
+	--top-space: 48px;
+	--top-space-text: 4;
+	--bottom-space: 384px;
+	--bottom-space-text: 16;
 }
 
 #TOC

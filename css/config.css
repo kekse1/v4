@@ -518,8 +518,8 @@ span.loadProgressPercent
 {
 	--speed: 1;
 	--scale: 720;
-	--duration-show: 1200;
-	--duration-hide: 900;
+	--duration-show: 1300;
+	--duration-hide: 1100;
 	--duration-move: 480;
 	--position: arrange; /* arrange/move */
 	--duration-style: 600;/*TODO yet!!!*/

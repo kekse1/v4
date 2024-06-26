@@ -164,6 +164,11 @@ div#OSDInfo
 	--duration: 800;
 }
 
+li.OSD
+{
+	--duration: 800;
+}
+
 :root
 {
 	--lottie-player: url('https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js');
@@ -313,16 +318,19 @@ div#loadProgressCarrier
 	--text-stroke: rgb(60, 70, 80);
 	--text-line-width: 1.4;
 	--arc-space: 8px;
-	--hour-color: rgb(170, 100, 25);
-	--hour-line: 5.4;
+	--hour-color: rgb(210, 120, 30);
+	/*--hour-line: 5.4;*/
+	--hour-line: 9;
 	--hour-length: 0.45;
-	--minute-color: rgb(30, 140, 220);
-	--minute-line: 3.4;
+	--minute-color: rgb(50, 120, 200);
+	/*--minute-line: 3.4;*/
+	--minute-line: 5;
 	--minute-length: 0.75;
-	--second-color: rgb(120, 170, 30);
-	--second-line: 2.4;
+	--second-color: rgb(110, 190, 40);
+	/*--second-line: 2.4;*/
+	--second-line: 3;
 	--second-length: 1.00;
-	--percent-color: rgb(110, 70, 20);
+	--percent-color: rgb(240, 200, 20);
 	--tick-outer-radius: 0.015;/* can also be 'px', etc.. */
 	--tick-outer-position: 0.96;/* can also be 'px', etc.. */
 	--tick-outer-color: rgba(240, 240, 240, 0.8);
@@ -334,6 +342,7 @@ div#loadProgressCarrier
 	--block-background-color: rgba(210, 230, 250, 0.6);
 	--draw-zero: none;
 	--draw-text-zero: none;
+	--help-value-pad: auto;
 }
 
 #CLOCK, .clock, #SCROLL, .scroll

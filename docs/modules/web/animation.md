@@ -68,6 +68,7 @@ which won't emit the `error` event (or should it? Tell me your opinion..).
 Only managed animations are affected here:
 
 * **`HTMLElement.prototype.animate(_keyframes, _options, ... _args)`**
+* `HTMLElement.prototype.fade(_options, _items, _callback)`
 * `HTMLElement.prototype.show(_options, ... _args)`
 * `HTMLElement.prototype.hide(_options, ... _args)`
 * `HTMLElement.prototype.blink(_options, ... _args)`

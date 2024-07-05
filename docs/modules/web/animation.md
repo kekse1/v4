@@ -70,7 +70,6 @@ Only managed animations are affected here:
 * **`HTMLElement.prototype.animate(_keyframes, _options, ... _args)`**
 * `HTMLElement.prototype.show(_options, ... _args)`
 * `HTMLElement.prototype.hide(_options, ... _args)`
-* `HTMLElement.prototype.fade(_type, _options, ... _args)`
 * `HTMLElement.prototype.blink(_options, ... _args)`
 * `HTMLElement.prototype.vibrate(_enabled, _speed, _interval, _dots, _default_inner_html, _dot)`
 * `HTMLElement.prototype.vibrating`

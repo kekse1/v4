@@ -80,7 +80,7 @@ Animation.manageKeyframes.array = (_keyframes, _element, _options, _result) => {
 //
 //TODO/< https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Keyframe_Formats#syntax >
 //TODO/BEDENKE: 'animate()' ist momentan [eher] auf objekte eingestellt... EVTL. IMMER objekt-return?? //TODO/...
-osd('TODO');
+osd('TODO', null, 'todo');
 throw new Error('TODO: Animation.manageKeyframes.array()');
 //
 };
@@ -721,7 +721,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animation', { get: function() {
 	return (this._animation = (Object.isObject(this._animation) ? this._animation : Object.create(null))); }});
 
 //
-Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_type, _options, ... _args)
+function fade(_type, _options, ... _args)
 {
 	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
 	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
@@ -787,11 +787,11 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_type, _
 			//var max
 		switch(_type) {
 			case 'show':
-				keyframes.opacity = [ computedStyle.opacity, '0.3', '1' ];
+				keyframes.opacity = [ computedStyle.opacity, '0.5', '1' ];
 				if(_options.relays > 0) keyframes.opacity.splice(1, 1);
 				break;
 			case 'hide':
-keyframes.opacity = [ computedStyle.opacity, '0.6', '0' ];
+				keyframes.opacity = [ computedStyle.opacity, '0.5', '0' ];
 				if(_options.relays > 0) keyframes.opacity.splice(1, 1);
 				break; }}
 	if(_options.styles.includes('filter')) {
@@ -829,13 +829,13 @@ keyframes.opacity = [ computedStyle.opacity, '0.6', '0' ];
 	const result = this.animate(keyframes, _options, ... _args);
 	if(Reflect.is(result, 'ManagedAnimation')) { this._fade = this['_' + _type] = result; }
 	return result;
-}});
+}
 
 //
 Reflect.defineProperty(HTMLElement.prototype, 'show', { value: function(_options, ... _args)
-{ return this.fade('show', _options, ... _args); }});
+{ return fade.call(this, 'show', _options, ... _args); }});
 Reflect.defineProperty(HTMLElement.prototype, 'hide', { value: function(_options, ... _args)
-{ return this.fade('hide', _options, ... _args); }});
+{ return fade.call(this, 'hide', _options, ... _args); }});
 
 //since some classes override {fade,show,..} etc. .. for the .blink() to work again! ^_^
 const _fade = HTMLElement.prototype.fade;
@@ -1696,4 +1696,202 @@ Reflect.defineProperty(HTMLElement.prototype, 'wallpaper', {
 });
 
 //
+Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options, _items, _callback)
+{
+	const withItems = Array.isArray(_items, true);
+	const items = (withItems ? _items : [ ... this.children ]);
+	
+	if(items.length === 0)
+	{
+		return 0;
+	}
+	
+	if(!Object.isObject(_options))
+	{
+		_options = {};
+	}
+	
+	if(typeof _callback !== 'function')
+	{
+		if(typeof _items === 'function')
+		{
+			_callback = _items;
+			_items = null;
+		}
 
+		_callback = null;
+	}
+	
+	var rest = items.length, total = items.length;
+	const cb = (_item) => {
+		if(_item && _item.style)
+		{
+			_item.style.opacity = '1';
+		}
+		
+		if(--rest <= 0)
+		{
+			if(_callback)
+			{
+				_callback.call(this, delay, total);
+			}
+			
+			this.emit('fade', { type: 'fade', delay, total, options: _options });
+		}
+	};
+	
+	var delay = 0;
+	
+	if(Number.isInt(_options.delayStart))
+	{
+		delay = _options.delayStart;
+	}
+	else if(Number.isInt(_options.delay))
+	{
+		delay = _options.delay;
+	}
+	else if(this.hasVariable('delay-start'))
+	{
+		delay = this.parseVariable('delay-start');
+	}
+	else
+	{
+		delay = this.parseVariable('delay');
+	}
+
+	var scroll;
+
+	if('scroll' in _options)
+	{
+		if((scroll = _options.scroll) === true)
+		{
+			scroll = this;
+		}
+		else if(scroll === false)
+		{
+			scroll = null;
+		}
+	}
+	else
+	{
+		//scroll = this;
+		scroll = null;
+	}
+
+	for(var i = 0; i < items.length; ++i)
+	{
+		const child = items[i];
+		
+		if(child.style)
+		{
+			child.style.opacity = '0';
+		}
+		
+		if(withItems)
+		{
+			this.appendChild(child);
+		}
+		
+		if((scroll && HTMLElement.inScrollArea(child, scroll)) || !scroll)
+		{
+			if(child.tagName === 'UL' || child.tagName === 'OL')
+			{
+				child.style.opacity = '1';
+				const children = [ ... child.children ];
+
+				var localRest = children.length;
+				const localCb = (_li) => { _li.style.opacity = '1';
+					if(--localRest > 0) return;
+					cb(child);
+					child.emit('fade', { type: 'fade', children, parent: this, total: children.length, options: _options });
+				};
+				
+				for(var j = 0; j < children.length; ++j)
+				{
+					const li = children[j];
+					li.style.opacity = '0';
+					
+					if((HTMLElement.inScrollArea(li, scroll)) || !scroll)
+					{
+						const options = { ... _options };
+						
+						if(!Number.isInt(options.duration))
+						{
+							options.duration = li.parseVariable('duration');
+						}
+						
+						options.delay = delay;
+						options.callback = () => localCb(li);
+						
+						li.show(options);
+						
+						if(!Number.isInt(_options.delayEach))
+						{
+							delay += li.parseVariable('delay-each');
+						}
+						else
+						{
+							delay += _options.delayEach;
+						}
+					}
+					else
+					{
+						localCb(li);
+					}
+				}
+			}
+			else if(typeof child.show === 'function')
+			{
+				const options = { ... _options };
+				
+				if(!Number.isInt(options.duration))
+				{
+					if(typeof child.parseVariable === 'function')
+					{
+						options.duration = child.parseVariable('duration');
+					}
+					else
+					{
+						options.duration = this.parseVariable('duration');
+					}
+				}
+
+				options.delay = delay;
+				options.callback = () => cb(child);
+
+				child.show(options);
+			}
+			else
+			{
+				setTimeout(() => cb(child), delay);
+			}
+			
+			if(child.tagName !== 'UL' && child.tagName !== 'OL')
+			{
+				if(!Number.isInt(_options.delayEach))
+				{
+					if(typeof child.parseVariable === 'function')
+					{
+						delay += child.parseVariable('delay-each');
+					}
+					else
+					{
+						delay += this.parseVariable('delay-each');
+					}
+				}
+				else
+				{
+					delay += _options.delayEach;
+				}
+			}
+		}
+		else
+		{
+			cb(child);
+		}
+	}
+	
+	return delay;
+}});
+
+//

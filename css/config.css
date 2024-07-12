@@ -236,7 +236,7 @@ li.OSD
 #countState
 {
 	--count: url('php/count.php');
-	--refresh: 40000;
+	--refresh: 60000;
 	--duration: 520;
 	--duration-blink: 800;
 	--scale: none;
@@ -343,6 +343,10 @@ div#loadProgressCarrier
 	--draw-zero: none;
 	--draw-text-zero: none;
 	--help-value-pad: auto;
+	--vertical: none;
+	--min: 0;
+	--max: 100;
+	--percent: 0;
 }
 
 #CLOCK, .clock, #SCROLL, .scroll

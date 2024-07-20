@@ -47,10 +47,7 @@ The `GradientAnimation` animates the `wallpaper` of `HTMLElement`, but with**out
 ### **`Styles`** class
 This class will return a `Proxy` object for the `HTMLElement.prototype.styles`.
 
-With it, you can simply define animations. Either by assigning a style string/array (for
-the keyframes) to the `(HTMLElement).styles.width`, e.g.; or to dig deeper 'get' any style
-property key, and use the result as function (to also define _options or _duration); like
-`(HTMLElement).style.width('20px', { duration: 10000 });`.
+With it, you can simply define animations. //**TODO**/explain it..
 
 ## Events
 The bold ones are my own, new event types. Respective callbacks (w/ `.type`), since they

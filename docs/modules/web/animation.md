@@ -35,6 +35,7 @@ This way I can handle them each. To make things easier, I've also implemented th
 ## Classes
 * **`ManagedAnimation`**, as described in here, somewhere.
 * **`GradientAnimation`**
+* **`Styles`**
 
 The `GradientAnimation` animates the `wallpaper` of `HTMLElement`, but with**out** the
 'Web Animations API'. It uses `requestAnimationFrame` and some `Math.psin()`, etc..
@@ -42,6 +43,14 @@ The `GradientAnimation` animates the `wallpaper` of `HTMLElement`, but with**out
 > **Note**
 > **`Math.psin()`** is my own version which uses `Math.sin()`, but converts the results
 > to be only **positive** values. JFYI: **`((Math.sin(...) + 1) / 2)`**..
+
+### **`Styles`** class
+This class will return a `Proxy` object for the `HTMLElement.prototype.styles`.
+
+With it, you can simply define animations. Either by assigning a style string/array (for
+the keyframes) to the `(HTMLElement).styles.width`, e.g.; or to dig deeper 'get' any style
+property key, and use the result as function (to also define _options or _duration); like
+`(HTMLElement).style.width('20px', { duration: 10000 });`.
 
 ## Events
 The bold ones are my own, new event types. Respective callbacks (w/ `.type`), since they
@@ -67,6 +76,7 @@ which won't emit the `error` event (or should it? Tell me your opinion..).
 ## Functions
 Only managed animations are affected here:
 
+* `HTMLElement.prototype.styles`
 * **`HTMLElement.prototype.animate(_keyframes, _options, ... _args)`**
 * `HTMLElement.prototype.fade(_options, _items, _callback)`
 * `HTMLElement.prototype.show(_options, ... _args)`

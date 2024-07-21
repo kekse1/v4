@@ -35,7 +35,6 @@ This way I can handle them each. To make things easier, I've also implemented th
 ## Classes
 * **`ManagedAnimation`**, as described in here, somewhere.
 * **`GradientAnimation`**
-* **`Styles`**
 
 The `GradientAnimation` animates the `wallpaper` of `HTMLElement`, but with**out** the
 'Web Animations API'. It uses `requestAnimationFrame` and some `Math.psin()`, etc..
@@ -43,11 +42,6 @@ The `GradientAnimation` animates the `wallpaper` of `HTMLElement`, but with**out
 > **Note**
 > **`Math.psin()`** is my own version which uses `Math.sin()`, but converts the results
 > to be only **positive** values. JFYI: **`((Math.sin(...) + 1) / 2)`**..
-
-### **`Styles`** class
-This class will return a `Proxy` object for the `HTMLElement.prototype.styles`.
-
-With it, you can simply define animations. //**TODO**/explain it..
 
 ## Events
 The bold ones are my own, new event types. Respective callbacks (w/ `.type`), since they

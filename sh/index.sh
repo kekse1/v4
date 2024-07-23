@@ -48,7 +48,7 @@ fi
 #
 echo
 
-if [[ $FORCE -ne 0 || "$_INDEX" != "$__INDEX" || "$_SUMMARY" != "$__SUMMARY" ]]; then
+if [[ $FORCE -ne 0 || "$_SUMMARY" != "$__SUMMARY" ]]; then
 	now="$((`date +'%s%N'`/1000000))"
 	echo -e " >> Sources \e[1mchanged\e[0m!"
 	echo -n "$now" >"${UPDATE}"

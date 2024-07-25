@@ -50,7 +50,13 @@ echo
 
 if [[ $FORCE -ne 0 || "$_SUMMARY" != "$__SUMMARY" ]]; then
 	now="$((`date +'%s%N'`/1000000))"
-	echo -e " >> Sources \e[1mchanged\e[0m!"
+
+	if [[ "$_SUMMARY" != "$__SUMMARY" ]]; then
+		echo -e " >> Sources \e[1mchanged\e[0m!"
+	else
+		echo -e " >> \e[1mForced\e[0m version update!"
+	fi
+
 	echo -n "$now" >"${UPDATE}"
 	r=$?
 	if [[ $r -eq 0 ]]; then

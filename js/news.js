@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.0
+ * v0.1.2
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -188,7 +188,7 @@ const interprete = () => {
 		
 		for(const item of orig)
 		{
-			ORIG.set(p, item);
+			ORIG.set(item.path, item);
 		}
 		
 		console.info('Previous output file already exists.. so we also gonna compare them!');

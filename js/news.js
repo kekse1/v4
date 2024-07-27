@@ -12,7 +12,6 @@
  */
 
 const SOURCES = [
-	'html',
 	'js/lib',
 	'js/web',
 	'home',
@@ -236,7 +235,10 @@ const compare = (_map, _orig) => {
 		result[j++] = lastThings(item);
 	}
 	
-	return result.sort('time', false);
+	result.sort('bytes', false);
+	result.sort('time', false);
+
+	return result;
 };
 
 const withOrig = (_key) => {

@@ -18,22 +18,22 @@ But a part is already online, see the link below ([Modules section](#modules)).
 ### **Modules**
 See the [**Module INDEX**](docs/modules/README.md); much parts already described here (but still much TODO in here).
 
-### **Index**
+### **Scripts**
+These are some of my helper scripts.
+
+#### **Index**
 The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/) acts as index/overview
 and summary for the **lib**/ and **web**/ JavaScript sources. Here you shall see more than the
 [API documentation / Module Index](docs/modules/README.md) linked above.
 
-I re-generate them from time to time via my [**index.js**](js/index.js) script. Feel free to execute it with `-? / --help`
-or `-d / --debug` parameter. It depends on the library part of this project, btw.
+I re-generate them from time to time via my [**`index.js`**](js/index.js) script. Feel free to execute it with `-? / --help`
+or `-d / --debug` parameter. It depends on the library part of this project, btw. Will be called via the starter script
+[**`index.sh`**](sh/index.sh).
 
-### **Updates** and **Backups**
-So I designed my *second version* of my [**`git.sh`**](sh/git.sh), inside the **root** of my own
-**www** git repository.. if you deploy this site on your own, it'd be recommended to also create
-such a base repository (for any of your htdocs/).
+#### **News**
+Full overview over any file update; therefore the [**news** section](https://kekse.biz/~news).
 
-So now I can [**`fresh`.sh**](https://github.com/kekse1/scripts/#freshsh) everything, and directly
-create some (of many...) backups, and execute helper scripts like the [**`index`.sh**](#index) (see
-above).
+The [**`news.js`**](js/news.js) script uses hash sums, and is started via the [**`news.sh`**](sh/news.sh) starter script.
 
 ### **TODO**
 It can be found on my website, look at [**this link**](https://kekse.biz/?~todo).

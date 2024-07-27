@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-# kuchen@kekse.biz
-# https://kekse.biz/
+# 
+# Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
+# https://kekse.biz/ https://github.com/kekse1/v4/
+# v0.4.0
 #
-# will call my `index.js` with my parameters..
+# This will call the `index.js` with my parameters.
+#
 
 #
 INDEX="index.json"
@@ -14,15 +17,17 @@ UPDATE="version.now"
 real="$(realpath "$0")"
 dir="$(dirname "$real")"
 script="$(realpath "${dir}/index.js")"
+root="$(realpath "${dir}/../")"
+sources="$(realpath "${root}/home/sources/")"
 
 #
 FORCE=0
 [[ $# -gt 0 ]] && FORCE=1
 
 #
-INDEX="${dir}/${INDEX}"
-SUMMARY="${dir}/${SUMMARY}"
-UPDATE="${dir}/${UPDATE}"
+INDEX="${sources}/${INDEX}"
+SUMMARY="${sources}/${SUMMARY}"
+UPDATE="${sources}/${UPDATE}"
 
 #
 _INDEX=''

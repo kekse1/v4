@@ -2,7 +2,7 @@
 
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
-// https://kekse.biz/
+// https://kekse.biz/ https://github.com/kekse1/v4/
 // v0.7.0
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.

@@ -38,6 +38,10 @@ The [**`news.js`**](js/news.js) script uses hash sums, and is started via the [*
 ### **TODO**
 It can be found on my website, look at [**this link**](https://kekse.biz/?~todo).
 
+### **Features**
+Here's a list of all end-user features (only those they can really see):
+[**~features**](https://kekse.biz/?~features)
+
 ### Counter script
 See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
 

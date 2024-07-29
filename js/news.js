@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.2
+ * v0.1.3
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -198,7 +198,6 @@ const interprete = () => {
 	}
 	
 	const result = compare(MAP, ORIG);
-//	console.debug('Processing done: % items found' + (original ? ', with ' + UPDATE + ' really updated.' : ''), result.length);
 
 	const data = JSON.stringify(result, null, SPACE);
 	fs.writeFileSync(ARGS.output, data, { encoding: 'utf8', mode: MODE, flush: true });
@@ -217,7 +216,7 @@ const interprete = () => {
 
 	console.log();	
 	console.info('% items found in total.', result.length);
-	if(original) console.info('% items really updated.', UPDATE);
+	if(original) console.info('% item' + (UPDATE === 1 ? '' : 's') + ' really updated.', UPDATE);
 };
 
 const compare = (_map, _orig) => {

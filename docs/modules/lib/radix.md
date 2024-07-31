@@ -14,8 +14,9 @@ potential since they can hold really big numbers..
 One reason was also my interest in this, so the code of numbers. I also learned about this for my own `Field` structure, and
 much more.
 
-## Alphabets
-My own alphabets can be found in this `radix.js` file (with own `alphabet` object). But as already said, you can use any..
+# Alphabet
+This is the counter-part for my [`radix`.js](radix.md) extensions.. using bigger alphabets than the regular **36** maximum
+in plain JavaScript; so even real 'bytecode' is possible with the **256** radix (or it's negation **-257**).
 
 If you define a number as radix, you can also negate it to a negative value, so the resulting alphabets (see `isRadix()` and
 `getAlphabet()`) are being reversed.
@@ -24,6 +25,19 @@ In a 'Stellenwertsystem' (englisch translation could be 'place-value system' or 
 you absolutely need at least two symbols (that's the **binary** system, with bits - '**b**inary **d**igit'), but I'm also using both
 `0` and `1` as radix which use an alphabet with only letters, no numbers. One with all letters in one-case or lower-case, the other
 with both combined. As usual, you can also define -1 or -2 for these both reversed, and -3 would be the binary system in reverse form.
+
+## Special alphabet(s)
+There's also these both I call the 'whole' and the 'half' or 'full', which are represented as **0** and **1** radix.
+They only contain letters, one only lower cases (the half **1**), the other one letters w/ both cases (the whole/full **0**).
+
+## `DEFAULT_PREFER`
+This is merely the only interesting **constant** in here: this is where you use a binary alphabet (above **62**, up to **256**);
+to keep there the support of floating points and negative numbers, the `.` (decimal point), the `-` and the `+` will be kept out
+of the alphabet as long as possible. So maybe you don't like to use the whole **256** radix for all bytes, instead either **255**
+to keep support for floating points, or the **254** to also allow negative values, and maybe even **253** to also support `+`.
+
+## (TODO)
+(so more description, etc.)
 
 ## Implementation
 On the one hand there is my base implementation in the `radix.js` file. On the other, there are my overrides of regular JavaScript
@@ -68,4 +82,3 @@ sum up the `-` to count if a number is negative or not (and the `+` are ignored,
 
 ## (TODO)
 (so more description, etc.)
-

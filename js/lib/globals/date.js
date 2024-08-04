@@ -12,55 +12,6 @@ const DEFAULT_EFFICIENT_LEAP_YEAR = true;
 export default Date;
 
 //
-Reflect.defineProperty(Date, 'toString', { value: function(_date = new Date(), _html = DEFAULT_FORMAT_HTML, _parenthesis = DEFAULT_FORMAT_PARENTHESIS)
-{
-	if(typeof _html !== 'boolean')
-	{
-		_html = DEFAULT_FORMAT_HTML;
-	}
-
-	if(typeof _parenthesis !== 'boolean')
-	{
-		_parenthesis = DEFAULT_FORMAT_PARENTHESIS;
-	}
-
-	if(! Reflect.is(_date, 'Date'))
-	{
-		_date = new Date();
-	}
-
-	var result = (_html ? '<span class="date">' : '');
-
-	result += _date.getFullYear() + '-';
-	result += (_date.getMonth() + 1).toString().padStart(2, '0') + '-';
-	result += _date.getDate().toString().padStart(2, '0') + ' ';
-
-	if(_parenthesis)
-	{
-		result += '(';
-	}
-
-	result += _date.getHours().toString().padStart(2, '0') + ':';
-	result += _date.getMinutes().toString().padStart(2, '0') + ':';
-	result += _date.getSeconds().toString().padStart(2, '0');
-
-	if(_parenthesis)
-	{
-		result += ')';
-	}
-
-	return (result + (_html ? '</span>' : ''));
-}});
-
-const _toString = Date.prototype.toString;
-
-Reflect.defineProperty(Date.prototype, 'toString', { value: function(_html = DEFAULT_FORMAT_HTML, _parenthesis = DEFAULT_FORMAT_PARENTHESIS)
-{
-	if(typeof _html !== 'boolean') return _toString.call(this);
-	return Date.toString(this, _html, _parenthesis);
-}});
-
-//
 const moonPhaseIcon = [ '🌕', '🌔', '🌓', '🌒', '🌑', '🌑', '🌘', '🌗', '🌖', '🌕' ];
 
 Reflect.defineProperty(Date, 'moonPhaseIcon', { get: () => [ ... moonPhaseIcon  ] });
@@ -526,6 +477,55 @@ date.getDefaultDateFormat = (_resolve = false) => {
 	if(_resolve) return document.parseVariable('date-' + result);
 	return result;
 };
+
+//
+Reflect.defineProperty(Date, 'toString', { value: function(_date = new Date(), _html = DEFAULT_FORMAT_HTML, _parenthesis = DEFAULT_FORMAT_PARENTHESIS)
+{
+	if(typeof _html !== 'boolean')
+	{
+		_html = DEFAULT_FORMAT_HTML;
+	}
+
+	if(typeof _parenthesis !== 'boolean')
+	{
+		_parenthesis = DEFAULT_FORMAT_PARENTHESIS;
+	}
+
+	if(! Reflect.is(_date, 'Date'))
+	{
+		_date = new Date();
+	}
+
+	var result = (_html ? '<span class="date">' : '');
+
+	result += _date.getFullYear() + '-';
+	result += (_date.getMonth() + 1).toString().padStart(2, '0') + '-';
+	result += _date.getDate().toString().padStart(2, '0') + ' ';
+
+	if(_parenthesis)
+	{
+		result += '(';
+	}
+
+	result += _date.getHours().toString().padStart(2, '0') + ':';
+	result += _date.getMinutes().toString().padStart(2, '0') + ':';
+	result += _date.getSeconds().toString().padStart(2, '0');
+
+	if(_parenthesis)
+	{
+		result += ')';
+	}
+
+	return (result + (_html ? '</span>' : ''));
+}});
+
+const _toString = Date.prototype.toString;
+
+Reflect.defineProperty(Date.prototype, 'toString', { value: function(_html = DEFAULT_FORMAT_HTML, _parenthesis = DEFAULT_FORMAT_PARENTHESIS)
+{
+	if(typeof _html !== 'boolean') return _toString.call(this);
+	return Date.toString(this, _html, _parenthesis);
+}});
 
 //
 //FIXME/

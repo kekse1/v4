@@ -64,6 +64,18 @@ The [`format()`](#format) is maybe most interesting for you?
 * `date.getDateFormat(_format)`
 * `date.getDefaultDateFormat(_resolve)`
 
+## Moon phase(s)
+* `Date.moonPhaseIcon[]`
+* `Date.moonPhaseText{}`
+* `Date.moonDays` ('SYNODIC month' = `29.53058867`)
+* **`Date.moonPhase(_date)`**
+* **`Date.moonDay(_date)`**
+* **`Date.prototype.moonPhase`**
+* **`Date.prototype.moonDay`**
+
+The `.moonPhase()` will be a floating point value (`0 .. 1`) (where `0.5` is a full moon),
+and the `.moonDay()` will be the day within the 'synodic month' (`29.53058867`).
+
 ## `.format()`
 You can use `new Date().format()` or `Date.format()`, maybe even the `date()` function.
 
@@ -114,3 +126,4 @@ The names (after `--date-`) can be used for `.format()` etc. instead of real for
 	--date-gmt: '%G';
 	--date-utc: '%U';
 ```
+

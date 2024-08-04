@@ -725,18 +725,18 @@ Reflect.defineProperty(HTMLElement.prototype, 'animation', { get: function() {
 //
 function fade(_type, _options, ... _args)
 {
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
-	if(!String.isString(_type, false)) return error('Invalid % argument [ %, %, % ]', null, '_type', 'show', 'hide');
-	else switch(_type) {
-		case 'show': case 'hide': break;
-		default: return error('Invalid % argument [ %, %, % ]', null, '_type', 'show', 'hide'); }
 	if(!Object.isObject(_options)) {
 		if(Number.isNumber(_options)) _options = { duration: _options };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
 		else if(typeof _options === 'function') _options = { callback: _options };
 		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
 		else _options = {}; }
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!String.isString(_type, false)) return error('Invalid % argument [ %, %, % ]', null, '_type', 'show', 'hide');
+	else switch(_type) {
+		case 'show': case 'hide': break;
+		default: return error('Invalid % argument [ %, %, % ]', null, '_type', 'show', 'hide'); }
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('--duration-' + _type);
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('--duration');
 	if(typeof _options.init !== 'boolean') _options.init = DEFAULT_INIT;
@@ -851,15 +851,14 @@ const _hide = HTMLElement.prototype.hide;
 //
 /*Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_options, ... _args)
 {
-	//
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Object.isObject(_options)) {
 		if(Number.isNumber(_options)) _options = { duration: _options };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
 		else if(typeof _options === 'function') _options = { callback: _options };
 		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
 		else _options = {}; }
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('--duration');
 	_options.method = Callback.checkMethod(_options.method, true, this);
 	_options.persist = false;
@@ -908,13 +907,14 @@ const toggleCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_options, ... _args)
 {
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
 		else if(typeof _options === 'function') _options = { callback: _options };
 		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-toggle');
+		else _options = {}; }
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-toggle');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
 	if(typeof _options.init !== 'boolean') _options.init = DEFAULT_INIT; if(typeof _options.scale !== 'boolean') _options.scale = true;
@@ -962,13 +962,14 @@ const blinkCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_options, ... _args)
 {
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
 		else if(typeof _options === 'function') _options = { callback: _options };
 		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
+		else _options = {}; }
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
 
@@ -1035,11 +1036,14 @@ Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_option
 
 Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
 {
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
+		else if(typeof _options === 'function') _options = { callback: _options };
+		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
+		else _options = {}; }
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
 
@@ -1050,11 +1054,14 @@ const pulseCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
 {
-	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
-	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
-		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-pulse');
+		else if(typeof _options === 'function') _options = { callback: _options };
+		else if(Array.isArray(_options, false)) _options = { callback: _options };
+		else _options = {}; }
+	const earlyFinish = (_return) => { callCallbacks(this, _options, { type: 'finish' }); return _return; };
+	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
+	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-pulse');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
 	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;

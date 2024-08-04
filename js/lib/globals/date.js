@@ -51,9 +51,6 @@ const KNOWN_NEW_MOON = new Date(Date.UTC(2024, 1, 9, 22, 59)); // https://www.ti
 
 Reflect.defineProperty(Date, 'moonPhase', { value: (_date = new Date()) => {
 {
-	if(Number.isInt(_date)) _date = new Date(_date);
-	else if(String.isString(_date, false) && !isNaN(_date)) _date = new Date(Number(_date));
-	else if(!Reflect.is(_date, 'Date')) return error('Invalid % argument', null, '_date');
 	return (Date.moonAge(_date) / SYNODIC_MONTH);
 }}});
 
@@ -68,6 +65,13 @@ Reflect.defineProperty(Date, 'moonAge', { value: (_date = new Date()) => {
 	return result;
 }});
 
+Reflect.defineProperty(Date, 'moonLevel', { value: (_date = new Date()) => {
+	const moonPhase = Date.moonPhase(_date);
+	const fullMoonDiff = Math.abs(moonPhase - 0.5);
+	const brightness = (1 - fullMoonDiff * 2);
+	return Math.max(0, Math.min(brightness, 1));
+}});
+
 Reflect.defineProperty(Date.prototype, 'moonPhase', { get: function()
 {
 	return Date.moonPhase(this);
@@ -76,6 +80,11 @@ Reflect.defineProperty(Date.prototype, 'moonPhase', { get: function()
 Reflect.defineProperty(Date.prototype, 'moonAge', { get: function()
 {
 	return Date.moonAge(this);
+}});
+
+Reflect.defineProperty(Date.prototype, 'moonLevel', { get: function()
+{
+	return Date.moonLevel(this);
 }});
 
 //

@@ -13,7 +13,6 @@ export default Date;
 
 //
 const moonPhaseIcon = [ '🌕', '🌔', '🌓', '🌒', '🌑', '🌑', '🌘', '🌗', '🌖', '🌕' ];
-
 Reflect.defineProperty(Date, 'moonPhaseIcon', { get: () => [ ... moonPhaseIcon  ] });
 
 const moonPhaseText = {
@@ -48,8 +47,8 @@ Reflect.defineProperty(Date, 'moonPhaseText', {
 
 const SYNODIC_MONTH = 29.53058867;
 Reflect.defineProperty(Date, 'moonDays', { get: () => SYNODIC_MONTH });
+const KNOWN_NEW_MOON = new Date(2000, 0, 6, 19, 13); // https://www.timeanddate.de/mond/phasen/?year=2000
 //const KNOWN_NEW_MOON = New Date(Date.UTC(2000, 0, 6, 19, 13));
-const KNOWN_NEW_MOON = new Date(2000, 0, 6, 19, 13);
 
 Reflect.defineProperty(Date, 'moonPhase', { value: (_date = new Date()) => {
 {

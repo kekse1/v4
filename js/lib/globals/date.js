@@ -47,8 +47,7 @@ Reflect.defineProperty(Date, 'moonPhaseText', {
 
 const SYNODIC_MONTH = 29.53058867;
 Reflect.defineProperty(Date, 'moonDays', { get: () => SYNODIC_MONTH });
-const KNOWN_NEW_MOON = new Date(2000, 0, 6, 19, 13); // https://www.timeanddate.de/mond/phasen/?year=2000
-//const KNOWN_NEW_MOON = New Date(Date.UTC(2000, 0, 6, 19, 13));
+const KNOWN_NEW_MOON = new Date(Date.UTC(2024, 1, 9, 22, 59)); // https://www.timeanddate.de/mond/phasen/?year=2024
 
 Reflect.defineProperty(Date, 'moonPhase', { value: (_date = new Date()) => {
 {
@@ -58,11 +57,11 @@ Reflect.defineProperty(Date, 'moonPhase', { value: (_date = new Date()) => {
 	return (Date.moonDay(_date) / SYNODIC_MONTH);
 }}});
 
-Reflect.defineProperty(Date, 'moonDay', { value: (_date = new Date()) => {
+Reflect.defineProperty(Date, 'moonAge', { value: (_date = new Date()) => {
 	if(Number.isInt(_date)) _date = new Date(_date);
 	else if(String.isString(_date, false) && !isNaN(_date)) _date = new Date(Number(_date));
 	else if(!Reflect.is(_date, 'Date')) return error('Invalid % argument', null, '_date');
-	const diffInMilliSec = (_date.getTime() - KNOWN_NEW_MOON.getTime());
+	const diffInMilliSec = Math.abs(_date.getTime() - KNOWN_NEW_MOON.getTime());
 	const diffInDays = (diffInMilliSec / (1000 * 60 * 60 * 24));
 	return (diffInDays % SYNODIC_MONTH);
 }});
@@ -72,9 +71,9 @@ Reflect.defineProperty(Date.prototype, 'moonPhase', { get: function()
 	return Date.moonPhase(this);
 }});
 
-Reflect.defineProperty(Date.prototype, 'moonDay', { get: function()
+Reflect.defineProperty(Date.prototype, 'moonAge', { get: function()
 {
-	return Date.moonDay(this);
+	return Date.moonAge(this);
 }});
 
 //

@@ -1,7 +1,7 @@
 <img src="https://kekse.biz/github.php?draw&text=`Date`&override=github:v4" />
 
 # `date`.js
-The [`format()`](#format) is maybe most interesting for you?
+My `Date` extensions are [**right here**](https://github.com/kekse1/v4/blob/git/js/lib/globals/date.js).
 
 ## Extensions
 * `Date.toString(_date, _html, _parenthesis)`

@@ -9,31 +9,33 @@
 ### Link
 [https://**`kekse.biz`**/](https://kekse.biz/)
 
-### Status
-*Finally* available in the World Wide Web!! It's Friday, 2023-10-27.. around midnight it was public. **:-)**
-
-_There_ you can also read this API documentation, which is not really finished here; so that's a TODO item.
-But a part is already online, see the link below ([Modules section](#modules)).
-
 ### **Modules**
 See the [**Module INDEX**](docs/modules/README.md); much parts already described here (but still much TODO in here).
 
 ### **Scripts**
 These are some of my helper scripts.
 
+#### `news`
+Full overview over any file update; therefore the [**news** section](https://kekse.biz/~news).
+
+* [`news.sh`](scripts/news.sh)
+* [`news.js`](scripts/news.js)
+
+#### `index`
+Automatically manages the **source code** updates.
+
+* [`index.sh`](scripts/index.sh)
+* [`index.js`](scripts/index.js)
+
+#### `update`
+On all content updates I'm calling this really tiny script.
+
+* [`update.sh`](scripts/update.sh)
+
 #### **Index**
 The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/) acts as index/overview
 and summary for the **lib**/ and **web**/ JavaScript sources. Here you shall see more than the
 [API documentation / Module Index](docs/modules/README.md) linked above.
-
-I re-generate them from time to time via my [**`index.js`**](js/index.js) script. Feel free to execute it with `-? / --help`
-or `-d / --debug` parameter. It depends on the library part of this project, btw. Will be called via the starter script
-[**`index.sh`**](sh/index.sh).
-
-#### **News**
-Full overview over any file update; therefore the [**news** section](https://kekse.biz/~news).
-
-The [**`news.js`**](js/news.js) script uses hash sums, and is started via the [**`news.sh`**](sh/news.sh) starter script.
 
 ### **TODO**
 It can be found on my website, look at [**this link**](https://kekse.biz/?~todo).
@@ -56,4 +58,3 @@ and it's licensed under the [MIT](LICENSE.txt) (also known as 'X' or 'X11' licen
 <a href="favicon.512px.png" target="_blank">
 <img src="favicon.png" alt="Favicon" />
 </a>
-

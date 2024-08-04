@@ -134,24 +134,24 @@ const callCallbacks = (_context, _options, _event, ... _args) => {
 	var isError; switch(_event.type) {
 		case 'cancel': case 'remove': case 'stop': case 'abort': isError = true; break;//'abort' is not clear..
 		default: isError = false; break; } var callback = [], specific = [], error = []; const result = [];
-	if(typeof _options.callback === 'function') callback.push(_options.callback);
-	else if(Array.isArray(_options.callback, false)) callback.push(... _options.callback);
-	if(isError) { if(typeof _options.error === 'function') error.push(_options.error);
-		else if(Array.isArray(_options.error, false)) error.push(... _options.error); }
+	if(typeof _options.callback === 'function') callback.pushUnique(_options.callback);
+	else if(Array.isArray(_options.callback, false)) callback.pushUnique(... _options.callback);
+	if(isError) { if(typeof _options.error === 'function') error.pushUnique(_options.error);
+		else if(Array.isArray(_options.error, false)) error.pushUnique(... _options.error); }
 	if(typeof _options[_event.type] === 'function') specific = [ _options[_event.type] ];
-	else if(Array.isArray(_options[_event.type], false)) specific = [ ... _options[_event.type] ];
-	for(const cb of callback) { if(typeof _context === 'undefined') result.push(cb(_event, ... _args));
-		else result.push(cb.call(_context, _event, ... _args)); }
-	for(const cb of error) { if(typeof _context === 'undefined') result.push(cb(_event, ... _args));
-		else result.push(cb.call(_context, _event, ... _args)); }
-	for(const cb of specific) { if(typeof _context === 'undefined') result.push(cb(_event, ... _args));
-		else result.push(cb.call(_context, _event, ... _args)); }
+	else if(Array.isArray(_options[_event.type], false)) specific = [ ... _options[_event.type].unique() ];
+	for(const cb of callback) { if(typeof _context === 'undefined') result.pushUnique(cb(_event, ... _args));
+		else result.pushUnique(cb.call(_context, _event, ... _args)); }
+	for(const cb of error) { if(typeof _context === 'undefined') result.pushUnique(cb(_event, ... _args));
+		else result.pushUnique(cb.call(_context, _event, ... _args)); }
+	for(const cb of specific) { if(typeof _context === 'undefined') result.pushUnique(cb(_event, ... _args));
+		else result.pushUnique(cb.call(_context, _event, ... _args)); }
 	return result; };
 
 Reflect.defineProperty(HTMLElement.prototype, 'noAnimation', { get: function()
 {
 	if(window.stopped) return 1;
-	if(!this.isConnected) return 2;
+	if(!this.isConnected || !this.parentNode) return 2;
 	if(!document.parseVariable('animate')) return 3;
 	if(this.hasAttribute('noanim')) return 4;
 	if(!this.parseVariable('animate')) return 5;
@@ -178,6 +178,8 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	if(!Object.isObject(_options)) {
 		if(Number.isNumber(_options)) _options = { duration: _options };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else if(typeof _options === 'function') _options = { callback: _options };
+		else if(Array.isArray(_options, false)) _options  = { callback: _options.unique() };
 		else _options = {}; }
 
 	//
@@ -195,7 +197,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	if(typeof _options.force !== 'boolean') _options.force = this.parseVariable('force-animation');
 
 	//
-	var noAnimation = (this.isConnected ? (_options.force ? false : !!this.noAnimation) : true);
+	var noAnimation = ((this.isConnected && this.parentNode) ? (_options.force ? false : !!this.noAnimation) : true);
 	
 	//
 	if(!noAnimation) {
@@ -732,6 +734,8 @@ function fade(_type, _options, ... _args)
 	if(!Object.isObject(_options)) {
 		if(Number.isNumber(_options)) _options = { duration: _options };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else if(typeof _options === 'function') _options = { callback: _options };
+		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
 		else _options = {}; }
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('--duration-' + _type);
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('--duration');
@@ -824,7 +828,7 @@ function fade(_type, _options, ... _args)
 	//
 	_options.type = _type; //if(this._fade) this._fade.finish();
 	if(typeof _options.callback === 'function') _options.callback = [ _options.callback ];
-	else if(Array.isArray(_options.callback, false)) _options.callback = [ ... _options.callback ];
+	else if(Array.isArray(_options.callback, false)) _options.callback = [ ... _options.callback.unique() ];
 	else _options.callback = []; _options.callback.unshift(() => { delete this._fade; delete this['_' + _type]; });
 	const result = this.animate(keyframes, _options, ... _args);
 	if(Reflect.is(result, 'ManagedAnimation')) { this._fade = this['_' + _type] = result; }
@@ -853,6 +857,8 @@ const _hide = HTMLElement.prototype.hide;
 	if(!Object.isObject(_options)) {
 		if(Number.isNumber(_options)) _options = { duration: _options };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else if(typeof _options === 'function') _options = { callback: _options };
+		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
 		else _options = {}; }
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('--duration');
 	_options.method = Callback.checkMethod(_options.method, true, this);
@@ -888,7 +894,7 @@ const _hide = HTMLElement.prototype.hide;
 	const keyframes = {};
 	_options.type = 'toggle'; //if(this._toggle) this._toggle.finish();
 	if(typeof _options.callback === 'function') _options.callback = [ _options.callback ];
-	else if(Array.isArray(_options.callback, false)) _options.callback = [ ... _options.callback ];
+	else if(Array.isArray(_options.callback, false)) _options.callback = [ ... _options.callback.unique() ];
 	else _options.callback = []; _options.callback.unshift(() => delete this._toggle);
 	const result = this.animate(keyframes, _options, ... _args);
 	if(Reflect.is(result, 'ManagedAnimation')) this._toggle = result;
@@ -906,6 +912,8 @@ Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_optio
 	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else if(typeof _options === 'function') _options = { callback: _options };
+		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
 		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-toggle');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
@@ -958,6 +966,8 @@ Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_option
 	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
+		else if(typeof _options === 'function') _options = { callback: _options };
+		else if(Array.isArray(_options, false)) _options = { callback: _options.unique() };
 		else _options = {}; } if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-blink');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
@@ -1123,7 +1133,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'controlAnimation', { value: funct
 		case 'stop': case 'cancel': case 'finish': case 'play': case 'pause': break;
 		default: return error('Invalid % argument (%)', null, '_func', _func); }
 	if(!this._animation) return 0; const result = this.getAnimations(... _args);
-	for(var i = 0; i < result.length; ++i) if(result[i] !== null) result[i][_func]();
+	for(var i = 0; i < result.length; ++i) if(result[i]) result[i][_func]();
 	return result;
 }});
 
@@ -1142,7 +1152,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'playAnimation', { value: function
 Reflect.defineProperty(HTMLElement.prototype, 'pauseAnimation', { value: function(... _args)
 { return this.controlAnimation('pause', ... _args); }});
 //
-Reflect.defineProperty(document, 'getAnimation', { value: (... _args) => {
+Reflect.defineProperty(document, 'getAnimations', { value: (... _args) => {
 	var CAMEL = true; var arg; for(var i = 0; i < _args.length; ++i)
 		if(arg = Animation.getCSSStyleKey(_args[i])) _args[i] = arg;
 		else { if(typeof _args[i] === 'undefined') CAMEL = false; _args.splice(i--, 1); }
@@ -1153,7 +1163,7 @@ Reflect.defineProperty(document, 'getAnimation', { value: (... _args) => {
 	} return result;
 }});
 
-Reflect.defineProperty(document, 'getAnimations', { value: (... _args) => {
+Reflect.defineProperty(document, 'getAnimation', { value: (... _args) => {
 	const result = []; var arg; for(var i = 0; i < _args.length; ++i)
 		if(arg = Animation.getCSSStyleKey(_args[i])) _args[i] = arg;
 		else _args.splice(i--, 1);
@@ -1175,8 +1185,9 @@ Reflect.defineProperty(document, 'controlAnimation', { value: (_func, ... _args)
 	else switch(_func = _func.toLowerCase()) {
 		case 'stop': case 'cancel': case 'finish': case 'play': break;
 		default: return error('Invalid % argument (%)', null, '_func', _func); }
-	const result = document.getAnimations(... _args); for(var i = 0; i < result.length; ++i)
-		result[i][_func](); return result;
+	const result = document.getAnimation(... _args); for(var i = 0; i < result.length; ++i)
+		result[i][_func + 'Animation']();
+	return result;
 }});
 
 Reflect.defineProperty(document, 'stopAnimation', { value: (... _args) => {
@@ -1794,7 +1805,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 		
 		if((scroll && HTMLElement.inScrollArea(child, scroll)) || !scroll)
 		{
-			if(child.tagName === 'UL' || child.tagName === 'OL')
+			if(child.tagName === 'UL' || child.tagName === 'OL' || child.tagName === 'TABLE')
 			{
 				child.style.opacity = '1';
 				const children = [ ... child.children ];
@@ -1866,7 +1877,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 				setTimeout(() => cb(child), delay);
 			}
 			
-			if(child.tagName !== 'UL' && child.tagName !== 'OL')
+			if(child.tagName !== 'UL' && child.tagName !== 'OL' && child.tagName !== 'TABLE')
 			{
 				if(!Number.isInt(_options.delayEach))
 				{
@@ -1893,5 +1904,92 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 	
 	return delay;
 }});
+
+//
+const styles = {
+
+	deleteProperty: (_target, _property) => {
+
+		const anim = _target.animation[_property];
+		if(anim) { anim.finish(); return true; }
+		return false;
+		
+	},
+	
+	get: (_target, _property) => {
+	
+		if(_target.isConnected)
+			return getComputedStyle(_target).getPropertyValue(_property);
+		return _target.style.getPropertyValue(_property);
+		
+	},
+	
+	set: (_target, _property, _value) => {
+
+		if(!(_property in _target.style))
+		{
+			return false;
+		}
+
+		const options = { callback: [] };
+
+		if(Array._isArray(_value)) for(var i = 0; i < _value.length; ++i)
+		{
+			if(Object._isObject(_value[i]))
+			{
+				Object.assign(options, _value.splice(i--, 1)[0]);
+			}
+			else if(Number.isNumber(_value[i]))
+			{
+				options.duration = Math.int(_value.splice(i--, 1)[0]);
+			}
+			else if(typeof _value[i] === 'function')
+			{
+				options.callback.pushUnique(_value.splice(i--, 1)[0]);
+			}
+			else if(Array._isArray(_value[i]))
+			{
+				options.callback.pushUnique(... _value.splice(i--, 1)[0]);
+			}
+			else if(!String.isString(_value[i], false))
+			{
+				_value.splice(i--, 1);
+			}
+		}
+		
+		if(options.callback.length === 0)
+		{
+			delete options.callback;
+		}
+
+		if(!_target.animate({ [ _property ]: _value }, options))
+		{
+			return false;
+		}
+
+		return true;
+		
+	},
+	
+	has: (_target, _property) => {
+
+		return (_property in _target.animation);
+
+	},
+	
+	ownKeys: (_target) => {
+
+		return Object.keys(_target.animation);
+
+	}
+	
+};
+
+Reflect.defineProperty(HTMLElement.prototype, 'styles', {
+	get: function()
+	{
+		return new Proxy(this, styles);
+	}
+});
 
 //

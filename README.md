@@ -16,7 +16,7 @@ See the [**Module INDEX**](docs/modules/README.md); much parts already described
 These are some of my helper scripts.
 
 #### `news`
-Full overview over any file update; therefore the [**news** section](https://kekse.biz/~news).
+Full overview over any file update; therefore the [**news** section](https://kekse.biz/?~news).
 
 * [`news.sh`](scripts/news.sh)
 * [`news.js`](scripts/news.js)
@@ -33,9 +33,10 @@ On all content updates I'm calling this really tiny script.
 * [`update.sh`](scripts/update.sh)
 
 #### **Index**
-The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/) acts as index/overview
-and summary for the **lib**/ and **web**/ JavaScript sources. Here you shall see more than the
-[API documentation / Module Index](docs/modules/README.md) linked above.
+The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/)
+acts as index/overview and summary for the **lib**/ and **web**/ JavaScript sources.
+Here you shall see more than the [API documentation / Module Index](docs/modules/README.md)
+linked above.
 
 ### **TODO**
 It can be found on my website, look at [**this link**](https://kekse.biz/?~todo).

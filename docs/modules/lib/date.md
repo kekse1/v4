@@ -67,14 +67,14 @@ My `Date` extensions are [**right here**](https://github.com/kekse1/v4/blob/git/
 ## Moon phase(s)
 * `Date.moonPhaseIcon[]`
 * `Date.moonPhaseText{}`
-* `Date.moonDays` ('SYNODIC month' = `29.53058867` **days**)
+* `Date.moonDays` (**synodic** month = ~`29.53058867` **days**)
 * **`Date.moonPhase(_date)`**
 * **`Date.moonDay(_date)`**
 * **`Date.prototype.moonPhase`**
 * **`Date.prototype.moonDay`**
 
 The `.moonPhase()` will be a floating point value (`0 .. 1`) (where `0.5` is a full moon),
-and the `.moonDay()` will be the day within the 'synodic month' (`29.53058867` **days**).
+and the `.moonDay()` will be the day within the **synodic** month (~`29.53058867` **days**).
 
 ## `.format()`
 You can use `new Date().format()` or `Date.format()`, maybe even the `date()` function.

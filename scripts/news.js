@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.3
+ * v0.1.4
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -55,7 +55,7 @@ var ORIG = null;
 var UPDATE = 0;
 
 //
-const renderTime = (_value) => Math.time.render(_value, ', ', true, false, '0', false, true);//last (true) or (false), wg. (milliseconds)?
+//const renderTime = (_value) => Math.time.render(_value, ', ', true, false, '0', false, true);//last (true) or (false), wg. (milliseconds)?
 const renderSize = (_value) => Math.size.render(_value, null, 2, 1024, true).toString();
 
 //
@@ -146,7 +146,7 @@ const start = (_args, _callback) => {
 const readdirCallback = (_callback, _path, _error, _data) => {
 	for(var i = 0; i < _data.length; ++i)
 	{
-		if(_data[i].isFile() && EXTENSIONS.includes(path.extname(_data[i].name)))
+		if(_data[i].name[0] !== '.' && _data[i].isFile() && EXTENSIONS.includes(path.extname(_data[i].name)))
 		{
 			++REST; addFile(path.join(_data[i].path, _data[i].name), _callback);
 		}

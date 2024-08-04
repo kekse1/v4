@@ -61,9 +61,11 @@ Reflect.defineProperty(Date, 'moonAge', { value: (_date = new Date()) => {
 	if(Number.isInt(_date)) _date = new Date(_date);
 	else if(String.isString(_date, false) && !isNaN(_date)) _date = new Date(Number(_date));
 	else if(!Reflect.is(_date, 'Date')) return error('Invalid % argument', null, '_date');
-	const diffInMilliSec = Math.abs(_date.getTime() - KNOWN_NEW_MOON.getTime());
+	const diffInMilliSec = (_date.getTime() - KNOWN_NEW_MOON.getTime());
 	const diffInDays = (diffInMilliSec / (1000 * 60 * 60 * 24));
-	return (diffInDays % SYNODIC_MONTH);
+	const result = (diffInDays % SYNODIC_MONTH);
+	if(result < 0) return (SYNODIC_MONTH + result);
+	return result;
 }});
 
 Reflect.defineProperty(Date.prototype, 'moonPhase', { get: function()

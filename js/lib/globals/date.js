@@ -54,7 +54,7 @@ Reflect.defineProperty(Date, 'moonPhase', { value: (_date = new Date()) => {
 	if(Number.isInt(_date)) _date = new Date(_date);
 	else if(String.isString(_date, false) && !isNaN(_date)) _date = new Date(Number(_date));
 	else if(!Reflect.is(_date, 'Date')) return error('Invalid % argument', null, '_date');
-	return (Date.moonDay(_date) / SYNODIC_MONTH);
+	return (Date.moonAge(_date) / SYNODIC_MONTH);
 }}});
 
 Reflect.defineProperty(Date, 'moonAge', { value: (_date = new Date()) => {

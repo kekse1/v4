@@ -47,7 +47,7 @@ Reflect.defineProperty(Date, 'moonPhaseText', {
 
 const SYNODIC_MONTH = 29.53058867;
 Reflect.defineProperty(Date, 'moonDays', { get: () => SYNODIC_MONTH });
-const KNOWN_NEW_MOON = new Date(2024, 1, 24, 13, 31, 19);
+const KNOWN_NEW_MOON = new Date(2024, 1, 10, 0, 0, 0);
 
 Reflect.defineProperty(Date, 'moonPhase', { value: (_date = new Date()) => {
 {

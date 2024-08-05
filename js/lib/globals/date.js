@@ -512,15 +512,22 @@ Reflect.defineProperty(Date, 'toString', { value: function(_date = new Date(), _
 	result += (_date.getMonth() + 1).toString().padStart(2, '0') + '-';
 	result += _date.getDate().toString().padStart(2, '0') + ' ';
 
-	if(!String.isString(_smaller_time, false))
+	if(_html)
 	{
-		if(_smaller_time) _smaller_time = DEFAULT_FORMAT_SMALLER_TIME;
-		else _smaller_time = null;
-	}
+		if(!String.isString(_smaller_time, false))
+		{
+			if(_smaller_time) _smaller_time = DEFAULT_FORMAT_SMALLER_TIME;
+			else _smaller_time = null;
+		}
 
-	if(_smaller_time)
+		if(_smaller_time)
+		{
+			result += '<span style="font-size: ' + _smaller_time + ';">';
+		}
+	}
+	else
 	{
-		result += '<span style="font-size: ' + _smaller_time + ';">';
+		_smaller_time = null;
 	}
 
 	if(_parenthesis)

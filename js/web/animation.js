@@ -168,6 +168,7 @@ const continueAnimation = (_element, _options) => {
 		if(_element.locked) return false; }
 	return true; };
 
+Reflect.defineProperty(HTMLElement.prototype, '_animate', { value: _animate });
 Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyframes, _options, ... _args) {
 	//
 	const earlyFinish = (_return) => {
@@ -1818,66 +1819,70 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 				const children = [ ... child.children ];
 
 				var localRest = children.length;
-				const localCb = (_li) => { _li.style.opacity = '1';
-					if(--localRest > 0) return;
-					cb(child);
+				const localCb = (_item) => { _item.style.opacity = '1';
+					if(--localRest > 0) return; cb(child);
 					child.emit('fade', { type: 'fade', children, parent: this, total: children.length, options: _options });
 				};
 				
 				for(var j = 0; j < children.length; ++j)
 				{
-					const li = children[j];
-					li.style.opacity = '0';
+					const item = children[j];
+					item.style.opacity = '0';
 					
-					if((HTMLElement.inScrollArea(li, scroll)) || !scroll)
+					if((HTMLElement.inScrollArea(item, scroll)) || !scroll)
 					{
-						const options = { ... _options };
+						const opts = { ... _options };
 						
-						if(!Number.isInt(options.duration))
+						if(!Number.isInt(opts.duration))
 						{
-							options.duration = li.parseVariable('duration');
+							opts.duration = item.parseVariable('duration');
 						}
 						
-						options.delay = delay;
-						options.callback = () => localCb(li);
+						opts.delay = delay;
+						opts.callback = () => localCb(item);
 						
-						li.show(options);
+						item.show(opts);
 						
-						if(!Number.isInt(_options.delayEach))
+						if(!Number.isInt(opts.delayEach))
 						{
-							delay += li.parseVariable('delay-each');
+							if(item.hasVariable('delay-each'))
+								delay += item.parseVariable('delay-each');
+							else if(child.hasVariable('delay-each'))
+								delay += child.parseVariable('delay-each');
+							else
+								delay += this.parseVariable('delay-each');
 						}
 						else
 						{
-							delay += _options.delayEach;
+							delay += opts.delayEach;
 						}
 					}
 					else
 					{
-						localCb(li);
+						localCb(item);
 					}
 				}
 			}
 			else if(typeof child.show === 'function')
 			{
-				const options = { ... _options };
+				const opts = { ... _options };
 				
-				if(!Number.isInt(options.duration))
+				if(!Number.isInt(opts.duration))
 				{
-					if(typeof child.parseVariable === 'function')
+					if(typeof child.parseVariable === 'function' && child.hasVariable('duration'))
 					{
-						options.duration = child.parseVariable('duration');
+						opts.duration = child.parseVariable('duration');
 					}
 					else
 					{
-						options.duration = this.parseVariable('duration');
+						opts.duration = this.parseVariable('duration');
 					}
 				}
 
-				options.delay = delay;
-				options.callback = () => cb(child);
+				opts.delay = delay;
+				opts.callback = () => cb(child);
 
-				child.show(options);
+				child.show(opts);
 			}
 			else
 			{
@@ -1888,7 +1893,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 			{
 				if(!Number.isInt(_options.delayEach))
 				{
-					if(typeof child.parseVariable === 'function')
+					if(typeof child.parseVariable === 'function' && child.hasVariable('delay-each'))
 					{
 						delay += child.parseVariable('delay-each');
 					}

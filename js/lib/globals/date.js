@@ -6,6 +6,7 @@
 //
 const DEFAULT_FORMAT_HTML = !!BROWSER;
 const DEFAULT_FORMAT_PARENTHESIS = true;
+const DEFAULT_FORMAT_SMALLER_TIME = '0.8em';
 const DEFAULT_EFFICIENT_LEAP_YEAR = true;
 
 //
@@ -488,7 +489,7 @@ date.getDefaultDateFormat = (_resolve = false) => {
 };
 
 //
-Reflect.defineProperty(Date, 'toString', { value: function(_date = new Date(), _html = DEFAULT_FORMAT_HTML, _parenthesis = DEFAULT_FORMAT_PARENTHESIS)
+Reflect.defineProperty(Date, 'toString', { value: function(_date = new Date(), _html = DEFAULT_FORMAT_HTML, _parenthesis = DEFAULT_FORMAT_PARENTHESIS, _smaller_time = DEFAULT_FORMAT_SMALLER_TIME)
 {
 	if(typeof _html !== 'boolean')
 	{
@@ -511,6 +512,24 @@ Reflect.defineProperty(Date, 'toString', { value: function(_date = new Date(), _
 	result += (_date.getMonth() + 1).toString().padStart(2, '0') + '-';
 	result += _date.getDate().toString().padStart(2, '0') + ' ';
 
+	if(_html)
+	{
+		if(!String.isString(_smaller_time, false))
+		{
+			if(_smaller_time) _smaller_time = DEFAULT_FORMAT_SMALLER_TIME;
+			else _smaller_time = null;
+		}
+
+		if(_smaller_time)
+		{
+			result += '<span style="font-size: ' + _smaller_time + ';">';
+		}
+	}
+	else
+	{
+		_smaller_time = null;
+	}
+
 	if(_parenthesis)
 	{
 		result += '(';
@@ -523,6 +542,11 @@ Reflect.defineProperty(Date, 'toString', { value: function(_date = new Date(), _
 	if(_parenthesis)
 	{
 		result += ')';
+	}
+
+	if(_smaller_time)
+	{
+		result += '</span>';
 	}
 
 	return (result + (_html ? '</span>' : ''));

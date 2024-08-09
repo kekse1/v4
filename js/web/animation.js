@@ -201,13 +201,12 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	var noAnimation = ((this.isConnected && this.parentNode) ? (_options.force ? false : !!this.noAnimation) : true);
 	
 	//
-	if(!noAnimation) {
-		if(_options.duration === false) _options.duration = 0;
-		else if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
-		if(Number.isNumber(_options.duration)) { const global = document.parseVariable('global');
-			var speed = (this.parseVariable('speed') * global); if(speed <= 0) speed = 0;
-			if((_options.duration = Math.round(_options.duration / (speed === 0 ? 1 : speed))) < 1) _options.duration = 0;
-		} else _options.duration = 0; if(_options.duration <= 0) { _options.duration = 0; noAnimation = true; }}
+	if(_options.duration === false) _options.duration = 0;
+	else if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
+	if(Number.isNumber(_options.duration)) { const global = document.parseVariable('global');
+		var speed = (this.parseVariable('speed') * global); if(speed <= 0) speed = 0;
+		if((_options.duration = Math.round(_options.duration / (speed === 0 ? 1 : speed))) < 1) _options.duration = 0;
+	} else _options.duration = 0; if(_options.duration <= 0) { _options.duration = 0; noAnimation = true; }
 
 	if(_options.delay === false) _options.delay = 0;
 	else if(!Number.isNumber(_options.delay)) _options.delay = this.parseVariable('delay');
@@ -228,7 +227,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 		if(!_options.managed) { _keyframes = Animation.prepareKeyframes(_keyframes, this, _options);
 			const result = _animate.call(this, _keyframes, _options, ... _args);
 			if(!result) return null; else if(_options.managed === null) return result;
-			const onabort = (... _args) => { if(String.isString(abortSignal.reason, false) && typeof result[abortSignal.reason] === 'function')
+			result.options = _options; const onabort = (... _args) => { if(String.isString(abortSignal.reason, false) && typeof result[abortSignal.reason] === 'function')
 				return result[abortSignal.reason](... _args); else if(String.isString(_options.abortMethod, false) &&
 					typeof result[_options.abortMethod] === 'function') return result[_options.abortMethod](... _args);
 				const method = this.parseVariable('abort-method'); if(String.isString(method, false) &&
@@ -704,9 +703,9 @@ Reflect.defineProperty(Animation.prototype, 'currentTime', {
 Reflect.defineProperty(Animation.prototype, 'progress', { get: function()
 { return (this.playState === 'finished' ? 1 : Math.min(1, this.currentTime / this.duration)); }});
 Reflect.defineProperty(Animation.prototype, 'duration', { get: function()
-{ return this.options.duration; }});
+{ return this.options?.duration; }});
 Reflect.defineProperty(Animation.prototype, 'delay', { get: function()
-{ return this.options.delay; }});
+{ return this.options?.delay; }});
 Reflect.defineProperty(Animation.prototype, 'managed', { get: function()
 { return !!this.manager; }});
 Reflect.defineProperty(Animation.prototype, 'animations', { get: function()

@@ -39,15 +39,26 @@ const moonPhaseText = {
 	]
 };
 
+Reflect.defineProperty(Date, 'moonPhaseTextLanguage', { value: (_lang) => {
+	if(!String.isString(_lang, 2)) return null;
+	_lang = _lang.substr(0, 2).toLowerCase();
+	return (_lang in moonPhaseText);
+}});
+
 Reflect.defineProperty(Date, 'moonPhaseText', { value: (_lang) => {
 	if(String.isString(_lang, 2)) _lang = _lang.substr(0, 2).toLowerCase();
 	else return { ... moonPhaseText };
-	if(!(_lang in moonPhaseText)) return null;
+	if(!(_lang in moonPhaseText)) _lang = 'en';
 	return [ ... moonPhaseText[_lang] ];
 }});
 
-//TODO/..
-Reflect.defineProperty(Date.prototype, 'moonPhaseText', { value: (_lang) => {
+Reflect.defineProperty(Date.prototype, 'moonPhaseText', { value: function(_lang)
+{
+	if(!Date.moonPhaseTextLanguage(_lang)) _lang = 'en';
+	const index = Math.round(this.moonPhase * 8);
+	const result = Date.moonPhaseText(_lang);
+	if(Array.isArray(result, false)) return result[index];
+	return null;
 }});
 
 const SYNODIC_MONTH = 29.53058867;

@@ -40,7 +40,7 @@ const moonPhaseText = {
 };
 
 Reflect.defineProperty(Date, 'moonPhaseText', {
-	get: () => [ ... moonPhaseText ],
+	get: () => moonPhaseText,
 	set: (_lang) => { if(!String.isString(_lang, false)) return [ ... moonPhaseText ];
 		else if((_lang = _lang.substr(0, 2).toLowerCase()) in moonPhaseText)
 			return moonPhaseText[_lang];

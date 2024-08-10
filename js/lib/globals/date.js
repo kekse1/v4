@@ -39,12 +39,16 @@ const moonPhaseText = {
 	]
 };
 
-Reflect.defineProperty(Date, 'moonPhaseText', {
-	get: () => moonPhaseText,
-	set: (_lang) => { if(!String.isString(_lang, false)) return [ ... moonPhaseText ];
-		else if((_lang = _lang.substr(0, 2).toLowerCase()) in moonPhaseText)
-			return moonPhaseText[_lang];
-		return [ ... moonPhaseText ]; }});
+Reflect.defineProperty(Date, 'moonPhaseText', { value: (_lang) => {
+	if(String.isString(_lang, 2)) _lang = _lang.substr(0, 2).toLowerCase();
+	else return { ... moonPhaseText };
+	if(!(_lang in moonPhaseText)) return null;
+	return [ ... moonPhaseText[_lang] ];
+}});
+
+//TODO/..
+Reflect.defineProperty(Date.prototype, 'moonPhaseText', { value: (_lang) => {
+}});
 
 const SYNODIC_MONTH = 29.53058867;
 Reflect.defineProperty(Date, 'moonDays', { get: () => SYNODIC_MONTH });

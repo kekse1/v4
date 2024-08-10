@@ -30,11 +30,11 @@ const moonPhaseText = {
 	de: [
 		'Neumond',
 		'Zunehmender Mond',
-		'Halbmond',
+		'Zunehmender Halbmond',
 		'Zunehmender Dreiviertelmond',
 		'Vollmond',
 		'Abnehmender Dreiviertelmond',
-		'Halbmond',
+		'Abnehmender Halbmond',
 		'Abnehmender Mond'
 	]
 };

@@ -683,7 +683,7 @@ Reflect.defineProperty(Animation.prototype, 'play', { value: function(... _args)
 }});
 
 Reflect.defineProperty(Animation.prototype, 'isIdle', { get: function() { return (this.playState === 'idle'); }});
-Reflect.defineProperty(Animation.prototype, 'isRunning', { get: function() { return (this.playState === 'running'); }});
+Reflect.defineProperty(Animation.prototype, 'isPlaying', { get: function() { return (this.playState === 'running'); }});
 Reflect.defineProperty(Animation.prototype, 'isPaused', { get: function() { return (this.playState === 'paused'); }});
 Reflect.defineProperty(Animation.prototype, 'isFinished', { get: function() { return (this.playState === 'finished'); }});
 Reflect.defineProperty(Animation.prototype, 'isStopped', { get: function() { return !!this._isStopped; }});
@@ -1493,7 +1493,7 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 		this._last = this._lastStyle = null;
 	}
 	
-	get isRunning()
+	get isPlaying()
 	{
 		return (typeof this.animation === 'number' && !this._pause);
 	}
@@ -1671,12 +1671,12 @@ Reflect.defineProperty(HTMLElement.prototype, 'wallpaperAnimation', { value: fun
 	
 	if(typeof _enabled !== 'boolean')
 	{
-		_enabled = !this.gradientAnimation.isRunning;
+		_enabled = !this.gradientAnimation.isPlaying;
 	}
 	
 	if(_enabled)
 	{
-		if(this.gradientAnimation.isRunning)
+		if(this.gradientAnimation.isPlaying)
 		{
 			return false;
 		}
@@ -1700,7 +1700,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'wallpaperAnimation', { value: fun
 Reflect.defineProperty(HTMLElement.prototype, 'wallpaper', {
 	get: function()
 	{
-		return !!(this.gradientAnimation && this.gradientAnimation.isRunning);
+		return !!(this.gradientAnimation && this.gradientAnimation.isPlaying);
 	},
 	set: function(_value)
 	{

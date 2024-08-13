@@ -44,14 +44,6 @@
 	--center-y: none;
 	--duration-center: 480;
 	--position: arrange; /* arrange|move */
-	/* Left Mouse, Touch Contact, Pen contact: 1
-	 * Middle Mouse: 4
-	 * Right Mouse, Pen barrel button: 2
-	 * X1/Back Mouse: 8
-	 * X2/Forw Mouse: 16
-	 * Pen eraser button: 32
-	 */
-	--movable-buttons: 4;
 	--duration-pulse: 600;
 	--pulse-colorization: complement;/*[contrast,complement]*/
 	--toggle: none;
@@ -577,12 +569,13 @@ span.loadProgressPercent
 	--delay-each: 140;
 }
 
-.box
+a-box, .a-box, .box
 {
 	--center-x: none;
 	--center-y: none;
 	--position: move;
 	--wallpaper: auto;
+	--position: arrange; /* arrange/move */
 }
 
 #news

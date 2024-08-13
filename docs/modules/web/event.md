@@ -20,6 +20,8 @@ see the `load` event of the [`page.js`](page.md)).. you can just use the `window
 since it also allows removing events without having to care to which (EventTarget-)object
 this events belong to.
 
+See also the **`Event.INDEX`** (a `Map`).
+
 ## Implementation
 * **`EventTarget.prototype.emit(_type, _options, _custom_event)`**
 * **`Event.prototype.stop(_prevent_default, _stop_propagation)`**

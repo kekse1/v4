@@ -65,15 +65,16 @@ My `Date` extensions are [**right here**](https://github.com/kekse1/v4/blob/git/
 * `date.getDefaultDateFormat(_resolve)`
 
 ## Moon phase(s)
-* `Date.moonPhaseIcon[]`
-* `Date.moonPhaseText{}`
 * `Date.moonDays` (**synodic** month = ~`29.53058867` **days**)
-* **`Date.moonPhase(_date)`**
-* **`Date.prototype.moonPhase`**
-* **`Date.moonAge(_date)`**
-* **`Date.prototype.moonAge`**
-* **`Date.moonLevel(_date)`**
-* **`Date.prototype.moonLevel`**
+* `Date.moonPhase(_date)`
+* `Date.prototype.moonPhase`
+* `Date.moonAge(_date)`
+* `Date.prototype.moonAge`
+* `Date.moonBrightness(_date)`
+* `Date.prototype.moonBrightness`
+* `Date.moonPhaseTextLanguage(_lang)`
+* `Date.moonPhaseText(_lang)`
+* `Date.prototype.moonPhaseText(_lang)`
 
 The `.moonPhase()` will be a floating point value (`0 .. 1`) (where `0.5` is a full moon),
 and the `.moonDay()` will be the day within the **synodic** month (~`29.53058867` **days**).

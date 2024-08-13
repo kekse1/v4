@@ -13,9 +13,6 @@ const DEFAULT_EFFICIENT_LEAP_YEAR = true;
 export default Date;
 
 //
-const moonPhaseIcon = [ '🌕', '🌔', '🌓', '🌒', '🌑', '🌑', '🌘', '🌗', '🌖', '🌕' ];
-Reflect.defineProperty(Date, 'moonPhaseIcon', { get: () => [ ... moonPhaseIcon  ] });
-
 const moonPhaseText = {
 	en: [
 		'New Moon',
@@ -81,7 +78,7 @@ Reflect.defineProperty(Date, 'moonAge', { value: (_date = new Date()) => {
 	return result;
 }});
 
-Reflect.defineProperty(Date, 'moonLevel', { value: (_date = new Date()) => {
+Reflect.defineProperty(Date, 'moonBrightness', { value: (_date = new Date()) => {
 	const moonPhase = Date.moonPhase(_date);
 	const fullMoonDiff = Math.abs(moonPhase - 0.5);
 	const brightness = (1 - fullMoonDiff * 2);
@@ -98,9 +95,9 @@ Reflect.defineProperty(Date.prototype, 'moonAge', { get: function()
 	return Date.moonAge(this);
 }});
 
-Reflect.defineProperty(Date.prototype, 'moonLevel', { get: function()
+Reflect.defineProperty(Date.prototype, 'moonBrightness', { get: function()
 {
-	return Date.moonLevel(this);
+	return Date.moonBrightness(this);
 }});
 
 //

@@ -16,7 +16,7 @@ This way you can easily remove events later, which was a bit 'ugly' with anonymo
 
 It's also easy to do your own kinda **'Garbage Collection'** by pushing every ID return onto
 one (mostly local) array, and iterate through it at your end (e.g. when loading a new page,
-see the `load` event of the `page.js`).. you can just use the `window.removeEventListener()`,
+see the `load` event of the [`page.js`](page.md)).. you can just use the `window.removeEventListener()`,
 since it also allows removing events without having to care to which (EventTarget-)object
 this events belong to.
 

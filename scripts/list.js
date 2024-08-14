@@ -57,7 +57,7 @@ const prepare = () => {
 				
 				for(const i of orig)
 				{
-					ORIG.set(i.path, i);
+					ORIG.set(i.name, i);
 				}
 			}
 
@@ -131,7 +131,7 @@ const compare = (_result) => {
 	if(ORIG)
 	{
 		const NOW = new Set();
-		for(const i of _result) NOW.add(i.path);
+		for(const i of _result) NOW.add(i.name);
 		ORIG = [ ... ORIG.keys() ];
 		for(const o of ORIG) if(!NOW.has(o)) ++REM;
 	}
@@ -204,7 +204,7 @@ const statCallback = (_path, _error, _stats, _callback) => {
 	}
 	
 	const result = Object.create(null);
-	result.name = path.basename(result.path = _path);
+	result.name = path.basename(_path);
 	
 	if(_stats.isFile())
 	{
@@ -215,9 +215,9 @@ const statCallback = (_path, _error, _stats, _callback) => {
 			result.hash = hash.digest(DIGEST);
 			
 			//
-			if(ORIG && ORIG.has(result.path))
+			if(ORIG && ORIG.has(result.name))
 			{
-				const orig = ORIG.get(result.path);
+				const orig = ORIG.get(result.name);
 				
 				if(orig.hash === result.hash)
 				{
@@ -248,9 +248,9 @@ const statCallback = (_path, _error, _stats, _callback) => {
 	{
 		result.size = null;
 		
-		if(ORIG && ORIG.has(result.path))
+		if(ORIG && ORIG.has(result.name))
 		{
-			result.time = ORIG.get(result.path).time;
+			result.time = ORIG.get(result.name).time;
 		}
 		else
 		{

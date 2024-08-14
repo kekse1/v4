@@ -27,6 +27,10 @@ Automatically manages the **source code** updates.
 * [`index.sh`](scripts/index.sh)
 * [`index.js`](scripts/index.js)
 
+#### `list` / `docs`
+* [**`list.js`**](scripts/list.js) is a general file index script.
+* [**`docs.sh`**](scripts/docs.sh) is a concrete use case for it (here for automatic index of my [`~docs`](https://kekse.biz/?~docs));
+
 #### `update`
 On all content updates I'm calling this really tiny script.
 

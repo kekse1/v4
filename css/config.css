@@ -86,7 +86,7 @@ a-dialog-button, .a-dialog-button
 #TOC
 {
 	--auto-scroll: auto;
-	--min-headings: 3;
+	--min-headings: 2;
 }
 
 :root

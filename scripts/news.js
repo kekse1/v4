@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.4
+ * v0.1.6
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -52,7 +52,9 @@ var ARGS;
 var REST = 0;
 const MAP = new Map();
 var ORIG = null;
+var CREATE = 0;
 var UPDATE = 0;
+var DELETE = 0;
 
 //
 //const renderTime = (_value) => Math.time.render(_value, ', ', true, false, '0', false, true);//last (true) or (false), wg. (milliseconds)?
@@ -62,7 +64,7 @@ const renderSize = (_value) => Math.size.render(_value, null, 2, 1024, true).toS
 const prepare = () => {
 	ARGS = getopt({
 		config: { short: 'c', params: 0, help: 'Show the configuration for this script (see on top of this `.js` file itself)' },
-		root: { short: 'p', params: 1, index: 0, parse: false, help: 'The directory to start the traversing' },
+		root: { short: 'r', params: 1, index: 0, parse: false, help: 'The directory to start the traversing' },
 		output: { short: 'o', params: 1, index: 0, parse: false, help: 'The output path (a `.json` file)' },
 		time: { short: 't', params: 1, index: 0, parse: true, help: 'Milliseconds since unix epoche, for the current time' }
 	});
@@ -78,6 +80,11 @@ const prepare = () => {
 	}
 	else if(ARGS.root && ARGS.output)
 	{
+		if(ARGS.root[ARGS.root.length - 1] !== path.sep)
+		{
+			ARGS.root += path.sep;
+		}
+
 		if(fs.existsSync(ARGS.root))
 		{
 			if(ARGS.output[ARGS.output.length - 1] === path.sep)
@@ -96,7 +103,7 @@ const prepare = () => {
 			
 			ARGS.output = path.resolve(ARGS.output);
 			
-			if(ARGS.time)
+			if(Number.isInt(ARGS.time) && ARGS.time)
 			{
 				TIME = new Date(ARGS.time);
 			}
@@ -105,20 +112,20 @@ const prepare = () => {
 				TIME = new Date();
 			}
 			
-			console.info('      Used time: ' + TIME.toGMTString());
 			console.info('Using root path: `' + ARGS.root + '`');
 			console.info('    Output file: `' + ARGS.output + '`');
+			console.info('           Time:  ' + TIME.toGMTString());
 		}
 		else
 		{
-			console.error('You `--root / -r` path doesn\'t exist! Stopping here..');
+			console.error('Your `--root / -r` path doesn\'t exist! Stopping here..');
 			process.exit(2);
 		}
 	}
 	else
 	{
 		console.error(`Syntax: ${path.basename(process.argv[0])} < --root / -r > < --output / -o >`);
-		console.error(`	[ --help / -h ] / [ --config / -c ]`);
+		console.error(`	[ --help / -? ] / [ --config / -c ]`);
 		process.exit(1);
 	}
 	
@@ -164,7 +171,7 @@ const addFile = (_path, _callback) => {
 		result.time = TIME;
 		
 		//
-		result.path = result.path.substr(ARGS.root.length + 1);
+		result.path = result.path.substr(ARGS.root.length);
 		MAP.set(result.path, result);
 
 		//
@@ -198,6 +205,15 @@ const interprete = () => {
 	}
 	
 	const result = compare(MAP, ORIG);
+	
+	const orig = [ ... ORIG.keys() ];
+	for(const k of orig)
+	{
+		if(!MAP.has(k))
+		{
+			++DELETE;
+		}
+	}
 
 	const data = JSON.stringify(result, null, SPACE);
 	fs.writeFileSync(ARGS.output, data, { encoding: 'utf8', mode: MODE, flush: true });
@@ -216,7 +232,8 @@ const interprete = () => {
 
 	console.log();	
 	console.info('% items found in total.', result.length);
-	if(original) console.info('% item' + (UPDATE === 1 ? '' : 's') + ' really updated.', UPDATE);
+	if(original) console.info('% item' + (UPDATE === 1 ? '' : 's') + ' really updated, ' +
+		'% deleted, % newly created.', UPDATE, DELETE, CREATE);
 };
 
 const compare = (_map, _orig) => {
@@ -264,7 +281,7 @@ const withOrig = (_key) => {
 const withOutOrig = (_key) => {
 	const res = MAP.get(_key);
 	if(BOOL) res.updated = null;
-	return res;
+	++CREATE; return res;
 };
 
 const lastThings = (_item) => {

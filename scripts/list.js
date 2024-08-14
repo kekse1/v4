@@ -140,7 +140,7 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
-	const result = JSON.stringify(_result, null, '\t');
+	const result = JSON.stringify(_result);
 	fs.writeFileSync(ARGS.output, result, { encoding: 'utf8', mode: MODE, flush: true });
 	fin(_result, result);
 };

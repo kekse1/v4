@@ -34,7 +34,7 @@ const prepare = () => {
 		search: { short: 's', params: 1, index: 0, parse: false, help: 'The search path (for the documents)' },
 		output: { short: 'o', params: 1, index: 0, parse: false, help: 'Output path (a `.json` file)' },
 		home: { short: 'h', params: 1, index: 0, parse: false, help: 'The path below the ~home directory' },
-		main: { short: 'm', params: 1, index: 0, parse: false, help: 'Update some `main.txt` to get listed by `news`' }
+		update: { short: 'u', params: 1, index: 0, parse: false, help: 'Update some `main.now` to get listed by `news`' }
 	});
 
 	if(ARGS.search && ARGS.output)
@@ -44,9 +44,9 @@ const prepare = () => {
 			ARGS.search += path.sep;
 		}
 		
-		if(!ARGS.main)
+		if(!ARGS.update)
 		{
-			ARGS.main = null;
+			ARGS.update = null;
 		}
 
 		if(fs.existsSync(ARGS.search))
@@ -63,7 +63,7 @@ const prepare = () => {
 				
 				for(const i of orig)
 				{
-					ORIG.set(i.name, i);
+					ORIG.set(i.file, i);
 				}
 			}
 
@@ -137,7 +137,7 @@ const compare = (_result) => {
 	if(ORIG)
 	{
 		const NOW = new Set();
-		for(const i of _result) NOW.add(i.name);
+		for(const i of _result) NOW.add(i.file);
 		ORIG = [ ... ORIG.keys() ];
 		for(const o of ORIG) if(!NOW.has(o)) ++REM;
 	}
@@ -146,9 +146,9 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
-	if(ARGS.main && (ADD || REM || CHG))
+	if(ARGS.update && (ADD || REM || CHG))
 	{
-		fs.writeFileSync(ARGS.main, TIME.getTime().toString(), { encoding: 'utf8', mode: MODE, flush: true });
+		fs.writeFileSync(ARGS.update, TIME.getTime().toString(), { encoding: 'utf8', mode: MODE, flush: true });
 	}
 
 	const result = JSON.stringify(_result);
@@ -215,7 +215,7 @@ const statCallback = (_path, _error, _stats, _callback) => {
 	}
 	
 	const result = Object.create(null);
-	result.name = path.basename(_path);
+	result.file = path.basename(_path);
 	
 	if(_stats.isFile())
 	{
@@ -226,9 +226,9 @@ const statCallback = (_path, _error, _stats, _callback) => {
 			result.hash = hash.digest(DIGEST);
 			
 			//
-			if(ORIG && ORIG.has(result.name))
+			if(ORIG && ORIG.has(result.file))
 			{
-				const orig = ORIG.get(result.name);
+				const orig = ORIG.get(result.file);
 				
 				if(orig.hash === result.hash)
 				{
@@ -259,9 +259,9 @@ const statCallback = (_path, _error, _stats, _callback) => {
 	{
 		result.size = null;
 		
-		if(ORIG && ORIG.has(result.name))
+		if(ORIG && ORIG.has(result.file))
 		{
-			result.time = ORIG.get(result.name).time;
+			result.time = ORIG.get(result.file).time;
 		}
 		else
 		{

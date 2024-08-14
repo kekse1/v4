@@ -12,8 +12,8 @@
  */
 
 const SOURCES = [
-	'js/lib',
-	'js/web',
+	'js/lib/',
+	'js/web/',
 	'home',
 	'css'
 ];
@@ -24,7 +24,8 @@ const EXTENSIONS = [
 	'.html',
 	'.htm',
 	'.css',
-	'.js'
+	'.js',
+	'.now'
 ];
 
 const INDEX = [

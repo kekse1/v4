@@ -14,6 +14,7 @@ dir="$(dirname "$real")"
 root="$(realpath "${dir}/../")"
 script="$(realpath "${dir}/news.js")"
 output="$(realpath "${root}/home/news/news.json")"
+root="$(realpath "${root}/htdocs/")"
 
 #
 cmd="${script} --root '${root}' --output '${output}'"

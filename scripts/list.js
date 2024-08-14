@@ -33,7 +33,8 @@ const prepare = () => {
 		time: { short: 't', params: 1, index: 0, parse: true, help: 'Current time in milliseconds' },
 		search: { short: 's', params: 1, index: 0, parse: false, help: 'The search path (for the documents)' },
 		output: { short: 'o', params: 1, index: 0, parse: false, help: 'Output path (a `.json` file)' },
-		home: { short: 'h', params: 1, index: 0, parse: false, help: 'The path below the ~home directory' }
+		home: { short: 'h', params: 1, index: 0, parse: false, help: 'The path below the ~home directory' },
+		main: { short: 'm', params: 1, index: 0, parse: false, help: 'Update some `main.txt` to get listed by `news`' }
 	});
 
 	if(ARGS.search && ARGS.output)
@@ -43,6 +44,11 @@ const prepare = () => {
 			ARGS.search += path.sep;
 		}
 		
+		if(!ARGS.main)
+		{
+			ARGS.main = null;
+		}
+
 		if(fs.existsSync(ARGS.search))
 		{
 			if(ARGS.output[ARGS.output.length - 1] === path.sep)
@@ -140,6 +146,14 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
+	var TOTAL = (ADD + REM + CHG);
+	
+	if(TOTAL && ARGS.main)
+	{
+		TOTAL = (TIME.getTime() + ' ' + TOTAL);
+		fs.writeFileSync(ARGS.main, TOTAL, { encoding: 'utf8', mode: MODE, flush: true });
+	}
+
 	const result = JSON.stringify(_result);
 	fs.writeFileSync(ARGS.output, result, { encoding: 'utf8', mode: MODE, flush: true });
 	fin(_result, result);

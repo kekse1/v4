@@ -16,9 +16,10 @@ home="$(realpath "${root}/home/docs/")"
 script="$(realpath "${dir}/list.js")"
 output="$(realpath "${home}/docs.json")"
 search="$(realpath "${home}/files/")"
+main="$(realpath "${home}/main.txt")"
 
 #
-cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${docs}'"
+cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${docs}' --main '${main}'"
 #echo "'$cmd'"
 eval "$cmd"
 

@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.0
+ * v0.1.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -146,12 +146,9 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
-	var TOTAL = (ADD + REM + CHG);
-	
-	if(TOTAL && ARGS.main)
+	if(ARGS.main && (ADD || REM || CHG))
 	{
-		TOTAL = (TIME.getTime() + ' ' + TOTAL);
-		fs.writeFileSync(ARGS.main, TOTAL, { encoding: 'utf8', mode: MODE, flush: true });
+		fs.writeFileSync(ARGS.main, TIME.getTime().toString(), { encoding: 'utf8', mode: MODE, flush: true });
 	}
 
 	const result = JSON.stringify(_result);

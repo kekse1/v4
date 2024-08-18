@@ -515,6 +515,7 @@ span.loadProgressPercent
 	--center-y: auto;
 	--timeout: 0;
 	--wallpaper: auto;
+	--movable: auto;
 }
 
 .a-dialog

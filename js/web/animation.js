@@ -953,7 +953,8 @@ const extractAxes = (_value, _fallback = DEFAULT_AXES) => { const result = [];
 		switch(value = _value[i].toLowerCase()) { case 'x': case 'y': case 'z': result.pushUnique(value); break; }}
 	else if(Array.isArray(_value, true)) { for(var i = _value.length - 1; i >= 0; --i) { if(typeof _value[i] !== 'string')
 		_value.splice(i, 1); else result.pushUnique(... extractAxes(_value[i])); }}
-	else if(_fallback !== null && typeof _fallback !== 'string' && !Array.isArray(_fallback, true)) throw new Error('Invalid [%] option!', null, 'axes');
+	else if(_fallback !== null && typeof _fallback !== 'string' && !Array.isArray(_fallback, true))
+		return error('Invalid [%] option!', null, 'axes');
 	else return extractAxes(_fallback, null); return result.sort();
 };
 

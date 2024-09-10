@@ -186,7 +186,7 @@ const addFile = (_path, _callback) => {
 };
 
 const interprete = () => {
-	var original = false;
+	var original;
 	
 	if(fs.existsSync(ARGS.output))
 	{
@@ -202,17 +202,21 @@ const interprete = () => {
 	}
 	else
 	{
+		original = false;
 		console.info('No previous output file found, so all items are marked as updated.');
 	}
 	
 	const result = compare(MAP, ORIG);
-	
-	const orig = [ ... ORIG.keys() ];
-	for(const k of orig)
+
+	if(original)
 	{
-		if(!MAP.has(k))
+		result = compare(MAP, ORIG);
+		const orig = [ ... ORIG.keys() ];
+	
+		for(const k of orig)
 		{
-			++DELETE;
+			if(!MAP.has(k))
+				++DELETE;
 		}
 	}
 

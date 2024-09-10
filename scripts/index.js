@@ -16,10 +16,6 @@
 // Please use a shell stream pipeline to write to two .json files, just
 // like this: `./index.js >index.json 2>summary.json`.
 //
-// But this only holds if called this script withOUT arguments. With two
-// file paths these are used, so we're using my `console.confirm()` before
-// writing to any file..
-//
 
 //
 const PATH_SUB = [ 'lib', 'web' ];
@@ -153,8 +149,7 @@ ready(() => {
 		console.info('  Index: ' + INDEX.quote());
 		console.info('Summary: ' + SUMMARY.quote());
 		console.log();
-
-		console.confirm(proceed, 'Do you really want to continue (and WRITE DATA to two files) [Yes|No]? ');
+		proceed(); //console.confirm(proceed, 'Do you really want to continue (and WRITE DATA to two files) [Yes|No]? ');
 	}
 	else proceed(null);
 });

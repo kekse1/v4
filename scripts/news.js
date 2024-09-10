@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.6
+ * v0.2.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -106,16 +106,16 @@ const prepare = () => {
 			
 			if(Number.isInt(ARGS.time) && ARGS.time)
 			{
-				TIME = new Date(ARGS.time);
+				TIME = ARGS.time;
 			}
 			else
 			{
-				TIME = new Date();
+				TIME = Date.now();
 			}
 			
 			console.info('Using root path: `' + ARGS.root + '`');
 			console.info('    Output file: `' + ARGS.output + '`');
-			console.info('           Time:  ' + TIME.toGMTString());
+			console.info('           Time:  ' + new Date(TIME).toGMTString());
 		}
 		else
 		{
@@ -210,7 +210,6 @@ const interprete = () => {
 
 	if(original)
 	{
-		result = compare(MAP, ORIG);
 		const orig = [ ... ORIG.keys() ];
 	
 		for(const k of orig)
@@ -270,7 +269,7 @@ const withOrig = (_key) => {
 	//
 	if(curr.hash === orig.hash)
 	{
-		curr.time = new Date(orig.time);
+		curr.time = orig.time;
 		if(BOOL) curr.updated = false;
 	}
 	else
@@ -291,8 +290,7 @@ const withOutOrig = (_key) => {
 
 const lastThings = (_item) => {
 	_item.size = renderSize(_item.bytes);
-	_item.date = _item.time.toGMTString();
-	_item.time = _item.time.getTime();
+	_item.date = new Date(_item.time).toGMTString();
 	return _item;
 };
 

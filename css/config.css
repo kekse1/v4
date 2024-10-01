@@ -192,6 +192,7 @@ li.OSD
 #MAIN
 {
 	--threshold: 420px;
+	--threshold-toc: 1.4;
 	--max-file-size: 1048576;
 }
 

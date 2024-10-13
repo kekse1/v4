@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/ https://github.com/kekse1/v4/
-// v0.7.0
+// v0.8.0
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 //
@@ -16,6 +16,15 @@
 // Please use a shell stream pipeline to write to two .json files, just
 // like this: `./index.js >index.json 2>summary.json`.
 //
+// ...
+// TODO / bereits { hash } für stdout/index.json integriert; nötig/sinnvoll,
+// da bislang nur ungenau changes registriert.. fehlt nur noch vergleich mit
+// (nur evtl. vorhandener) alter 'index.json' (besser direkt schreiben in
+// files - dazu auch 'index.sh' anpassen!); und je nachdem, ob entweder
+// neue datei dazu (bzw. alte weg), oder bestehende geändert, bei NO change
+// (0)-return, sonst (1) o.ä.. und dann in 'index.sh' anpassen noch (sowie
+// dort keine eigenen hashes mehr!)! ..
+//
 
 //
 const PATH_SUB = [ 'lib', 'web' ];
@@ -26,12 +35,23 @@ var PATH_INDEX, PATH_SUMMARY;
 const DEFAULT_MODE_DIR = 0o777;//better 'd be 0o700
 const DEFAULT_MODE_FILE = 0o666;//better: 0o600
 
+const DEFAULT_HASH = 'sha3-256';
+const DEFAULT_DIGEST = 'hex';
+
 //
 var DEBUG = false;
 var withFiles = null, INDEX = null, SUMMARY = null;
 
 //
+import crypto from 'node:crypto';
+// hash = crypto.createHash('sha3-256')
+// { hash.update(..) }
+// digest = hash.digest('hex');
+
+//
 import { ready } from '../js/lib.js';
+
+//
 ready(() => {
 
 	//
@@ -155,31 +175,53 @@ ready(() => {
 });
 
 //
-const proceed = (_bool = null, _answer) => { if(_bool === false) { console.log('Goodbye!'); process.exit(); }
+const proceed = (_bool = null, _answer) => {
+	if(_bool === false) { console.log('Goodbye!'); process.exit(); }
 	var amount = 0; const cb = () => { if(--amount <= 0) return handle(result); };
 	const result = Object.create(null); for(const sub of PATH_SUB) fs.readdir(sub, {
-		encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => { if(_err) return error(_err);
-			for(var i = 0; i < _files.length; ++i) { if(_files[i].name[0] !== '.' && /*_files[i].isFile() &&*/ _files[i].name.endsWith('.js')) {
-				++amount; const p = path.join(_files[i].path, _files[i].name); result[p] = { base: path.basename(_files[i].name, '.js') };
-				const pp = p.split(path.sep); for(var j = pp.length - 1; j >= 0; --j) if(pp[j] === PATH_BASE) {
-					result[p].name = pp.slice(j - pp.length + 1).join(path.sep); break; }
-					if(!result[p].name) return error('Unknown/invalid/ path found');
-				fs.stat(p, { bigint: false }, (_err, _stats) => { if(_err) return error(_err);
-					result[p].size = Math.size.render(result[p].bytes = _stats.size).toString(); cb(); }); }}}); };
+		encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => {
+			if(_err) return error(_err); for(var i = 0; i < _files.length; ++i) {
+				if(_files[i].name[0] !== '.' && /*_files[i].isFile() &&*/ _files[i].name.endsWith('.js')) {
+					++amount; const p = path.join(_files[i].path, _files[i].name); result[p] = { base: path.basename(_files[i].name, '.js') };
+				const pp = p.split(path.sep);
+					for(var j = pp.length - 1; j >= 0; --j)
+						if(pp[j] === PATH_BASE) {
+							result[p].name = pp.slice(j - pp.length + 1).join(path.sep); break; }
+					if(!result[p].name)
+						return error('Unknown/invalid/ path found');
+				fs.stat(p, { bigint: false }, (_err, _stats) => {
+					if(_err) return error(_err);
+					result[p].size =
+						Math.size.render(result[p].bytes =
+							_stats.size).toString(); cb(); }); }}}); };
 
 const handle = (_result) => {
-	var rest = Object.keys(_result).length; const cb = (_path, _full, _real) => {
-		_result[_path].full = _full; _result[_path].real = _real;
+	var rest = Object.keys(_result).length; const cb = (_path, _full, _real, _hash) => {
+		_result[_path].full = _full;
+		_result[_path].real = _real;
+		_result[_path].hash = _hash;
 		if(--rest <= 0) return prepare(_result); };
-	for(const p in _result) countLines(p, cb); };
+	for(const p in _result) handleFile(p, cb); };
 
-const countLines = (_path, _callback) => { var full = 0, real = 0, last;
-	const stream = fs.createReadStream(_path, { autoClose: true });
-	stream.on('data', (_chunk) => { for(var i = 0; i < _chunk.length; ++i) {
-		if(_chunk[i] === 13) continue;
-		else if(_chunk[i] === 10) { ++full; if(last !== 10) ++real; }
-		last = _chunk[i]; }});
-	stream.on('end', (... _a) => _callback(_path, full, real)); return stream; };
+const handleFile = (_path, _callback) => { var full = 0, real = 0, last;
+	const hash = crypto.createHash(DEFAULT_HASH);
+	const stream = fs.createReadStream(_path, { autoClose: true, encoding: null });
+	stream.on('data', (_chunk) => { hash.update(_chunk);
+		for(var i = 0; i < _chunk.length; ++i) {
+			if(_chunk[i] === 10) {
+				if(_chunk[i + 1] === 13) ++i;
+				if(!last) ++real;
+				++full; last = true;
+			} else if(_chunk[i] === 13) {
+				if(_chunk[i + 1] === 10) ++i;
+				if(!last) ++real;
+				++full; last = true;
+			} else
+				last = false;
+		}});
+	stream.on('end', (... _a) => {
+		_callback(_path, full, real, hash.digest(DEFAULT_DIGEST)); });
+};
 
 //
 const prepare = (_result) => { const keys = Object.keys(_result);

@@ -27,6 +27,11 @@ Automatically manages the **source code** updates.
 * [`index.sh`](scripts/index.sh)
 * [`index.js`](scripts/index.js)
 
+Since **v0.8.1** this script supports creating and comparing hashes for all the source code files.
+Before this the updates of `version.now` were not always very 'exact', since the `index.sh` script
+itself checked the hash of the global `index.json` file. So even changes in the order of files
+within the `.json` were counted as updates - even if those files didn't even change.
+
 #### `list` / `docs`
 * [**`list.js`**](scripts/list.js) is a general file index script.
 * [**`docs.sh`**](scripts/docs.sh) is a concrete use case for it (here for automatic index of my [`~docs`](https://kekse.biz/?~docs));
@@ -35,6 +40,11 @@ Automatically manages the **source code** updates.
 On all content updates I'm calling this really tiny script.
 
 * [`update.sh`](scripts/update.sh)
+
+#### `version`
+This is kinda 'fallback' if I don't update via the [`index`](#index) script.
+
+* [`version.sh`](scripts/version.sh)
 
 #### **Index**
 The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/)

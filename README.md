@@ -28,7 +28,8 @@ Automatically manages the **source code** updates.
 * [`index.js`](scripts/index.js)
 
 Since **v0.8.1** this script supports creating and comparing hashes for all the source code files.
-Before this the updates of `version.now` were not always very 'exact'..
+Before this update the routine for updating the source/version change timestamp ('version.now')
+didn't work very exact..
 
 #### `list` / `docs`
 * [**`list.js`**](scripts/list.js) is a general file index script.

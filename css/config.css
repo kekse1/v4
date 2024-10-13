@@ -580,3 +580,7 @@ a-box, .a-box, .box
 	--max-age: 2419200000; /* in milliseconds; here: one month (1000*60*60*24*7*4); */
 }
 
+a-gallery, .gallery
+{
+}
+

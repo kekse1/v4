@@ -13,7 +13,14 @@ status="$(realpath "$dirname/../status/")"
 file="update.now"
 
 #
+if [[ -r "${status}/${file}" ]]; then
+	echo "Old timestamp: $(cat "${status}/${file}")"
+else
+	echo "Old timestamp: (none)"
+fi
+
+#
 now="$((`date +'%s%N'`/1000000))"
-echo "$now"
 echo -n "$now" >"${status}/${file}"
+echo "New timestamp: ${now}"
 

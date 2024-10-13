@@ -3,7 +3,7 @@
 # 
 # Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 # https://kekse.biz/
-# v0.1.1
+# v0.1.0
 #
 
 #realpath="$(realpath "$0")"
@@ -11,7 +11,7 @@
 #status="$(realpath "$dirname/../status/")"
 
 base="./"
-file="update.now"
+file="version.now"
 dir="status"
 
 

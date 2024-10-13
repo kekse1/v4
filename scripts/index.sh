@@ -3,7 +3,7 @@
 # 
 # Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 # https://kekse.biz/ https://github.com/kekse1/v4/
-# v0.4.0
+# v0.5.0
 #
 # This will call the `index.js` with my parameters.
 #

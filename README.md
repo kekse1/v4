@@ -25,12 +25,12 @@ It can be found on my website, look at [**this link**](https://kekse.biz/?~todo)
 Here's a list of all end-user features (only those they can really see):
 [**~features**](https://kekse.biz/?~features)
 
-### Counter script
-See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
-
 ### Configuration
 I'm massively using **CSS Custom Properties** (so CSS styles with `--` prefix) to configure
 any behavior of my website. See my [**`config.css`**](css/config.css)!
+
+### Counter script
+See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
 
 ### **Scripts**
 These are some of my helper scripts.

@@ -3,267 +3,157 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/ https://github.com/kekse1/v4/
-// v0.8.0
+// v1.0.0
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
-//
-// Will generate (at least) two .json output files from the state of my
-// JavaScript web/ and lib/ (w/ globals/) state. I'm using it to publish
-// this index on my private website/homepage https://kekse.biz/
-// (see the `Source Code` menu item).
-//
-// The INDEX is being encoded into `stdout`, the SUMMARY into `stderr`.
-// Please use a shell stream pipeline to write to two .json files, just
-// like this: `./index.js >index.json 2>summary.json`.
-//
-// ...
-// TODO / bereits { hash } für stdout/index.json integriert; nötig/sinnvoll,
-// da bislang nur ungenau changes registriert.. fehlt nur noch vergleich mit
-// (nur evtl. vorhandener) alter 'index.json' (besser direkt schreiben in
-// files - dazu auch 'index.sh' anpassen!); und je nachdem, ob entweder
-// neue datei dazu (bzw. alte weg), oder bestehende geändert, bei NO change
-// (0)-return, sonst (1) o.ä.. und dann in 'index.sh' anpassen noch (sowie
-// dort keine eigenen hashes mehr!)! ..
+// Updated version (2024-10-13).
 //
 
 //
 const PATH_SUB = [ 'lib', 'web' ];
 const PATH_BASE = 'js';
 var PATH = '../js/';
-var PATH_INDEX, PATH_SUMMARY;
-
-const DEFAULT_MODE_DIR = 0o777;//better 'd be 0o700
-const DEFAULT_MODE_FILE = 0o666;//better: 0o600
-
-const DEFAULT_HASH = 'sha3-256';
-const DEFAULT_DIGEST = 'hex';
 
 //
-var DEBUG = false;
-var withFiles = null, INDEX = null, SUMMARY = null;
+const DEFAULT_HASH = 'sha3-256';
+const DEFAULT_DIGEST = 'hex';
+const DEFAULT_MODE = 0o666;
+
+//
+// { base, name, hash, bytes, size, full, real };
+var result = []; var resultIndex = 0; var summary = null;
+//
+var originalIndex = null; var args = null; var originalChanged = null;
 
 //
 import crypto from 'node:crypto';
-// hash = crypto.createHash('sha3-256')
-// { hash.update(..) }
-// digest = hash.digest('hex');
-
-//
 import { ready } from '../js/lib.js';
 
 //
 ready(() => {
 
 	//
-	const args = getopt({
-		debug: {},
-		help: { short: '?' } });
-	if(args.help) {
-		console.log('Syntax: $0 [ <index.json> <summary.json> ]');
-		console.log('           [ -d / --debug ]');
-		console.log('           [ -? / --help ]');
-		process.exit();
-	} else if(args.debug) DEBUG = true;
-	
-	if(withFiles = (args.length > 2)) {
-		INDEX = args[2];
-		SUMMARY = args[3]; }
+	args = getopt();
 
 	//
-	if(withFiles)
+	if(args.debug)
 	{
-		if(path.isValid(INDEX) && path.isValid(SUMMARY))
+		console.warn('--debug mode enabled (so nothing will be written to disk)!');
+	}
+	else
+	{
+		if(! path.isValid(args.library))
 		{
-			INDEX = path.resolve(INDEX);
-			SUMMARY = path.resolve(SUMMARY);
-
-			const dirIndex = path.dirname(INDEX);
-			const dirSummary = path.dirname(SUMMARY);
-
-			if(fs.exists(dirIndex))
-			{
-				if(!fs.exists.directory(dirIndex))
-				{
-					console.error('Path to index output file exists, but ain\'t a directory!');
-					process.exit(2);
-				}
-				else
-				{
-					fs.chmodSync(dirIndex, DEFAULT_MODE_DIR);
-				}
-			}
-			else
-			{
-				fs.mkdirSync(dirIndex, { recursive: true, mode: DEFAULT_MODE_DIR });
-			}
-
-			if(fs.exists(dirSummary))
-			{
-				if(!fs.exists.directory(dirSummary))
-				{
-					console.error('Path to summary output file exists, but ain\'t a directory!');
-					process.exit(3);
-				}
-				else
-				{
-					fs.chmodSync(dirSummary, DEFAULT_MODE_DIR);
-				}
-			}
-			else
-			{
-				fs.mkdirSync(dirSummary, { recursive: true, mode: DEFAULT_MODE_FILE });
-			}
-
-			if(fs.exists(INDEX))
-			{
-				if(!fs.exists.file(INDEX))
-				{
-					console.error('Index output file path exists, but ain\'t a regular file!');
-					process.exit(4);
-				}
-				else
-				{
-					fs.chmodSync(INDEX, DEFAULT_MODE_FILE);
-				}
-			}
-
-			if(fs.exists(SUMMARY))
-			{
-				if(!fs.exists.file(SUMMARY))
-				{
-					console.error('Summary output file path exists, but ain\'t a regular file!');
-					process.exit(5);
-				}
-				else
-				{
-					fs.chmodSync(SUMMARY, DEFAULT_MODE_FILE);
-				}
-			}
-		}
-		else
-		{
-			console.error('Invalid file name(s), please correct one or both.');
+			console.error('Invalid --library path argument');
 			process.exit(1);
 		}
+		
+		if(! path.isValid(args.index))
+		{
+			console.error('Invalid --index path argument');
+			process.exit(1);
+		}
+		
+		if(! path.isValid(args.summary))
+		{
+			console.error('Invalid --summary path argument');
+			process.exit(1);
+		}
+		
+		if(!String.isString(args.update, false))
+		{
+			console.error('Invalid --update path argument');
+			process.exit(1);
+		}
+		
+		console.debug('  Summary: ' + args.summary.quote());
+		console.debug('    Index: ' + args.index.quote());
+		console.debug('Timestamp: ' + args.update.quote());
 	}
 
 	//
-	console.info('Creates .json output for JavaScript code of % directories.', PATH_SUB.length);
-	console.log();
-
-	//
-	PATH = path.join(import.meta.dirname, PATH);
-
-	for(var i = 0; i < PATH_SUB.length; ++i)
-		PATH_SUB[i] = path.join(PATH, PATH_SUB[i]);
-
-	//
-	console.info('Using following input paths:');
-	for(const sub of PATH_SUB)
-		console.info(' # ' + sub.quote(`'`));
-	console.log();
-
-	if(withFiles)
+	if(fs.exists.file(args.index))
 	{
-		console.info('Using following output paths (for .json code):');
-		console.info('  Index: ' + INDEX.quote());
-		console.info('Summary: ' + SUMMARY.quote());
-		console.log();
-		proceed(); //console.confirm(proceed, 'Do you really want to continue (and WRITE DATA to two files) [Yes|No]? ');
+		const orig = JSON.parse(fs.readFileSync(args.index, {
+			encoding: 'utf8' })); originalIndex = new Map();
+		for(const entry of orig) originalIndex.set(entry.name, entry);
+		if(originalIndex.size === 0) originalIndex = null;
+		else console.debug('Original index exists, so we\'ll compare the hashes.');
 	}
-	else proceed(null);
+
+	//
+	console.eol();
+	return proceed();
 });
 
-//
-const proceed = (_bool = null, _answer) => {
-	if(_bool === false) { console.log('Goodbye!'); process.exit(); }
-	var amount = 0; const cb = () => { if(--amount <= 0) return handle(result); };
-	const result = Object.create(null); for(const sub of PATH_SUB) fs.readdir(sub, {
-		encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => {
-			if(_err) return error(_err); for(var i = 0; i < _files.length; ++i) {
-				if(_files[i].name[0] !== '.' && /*_files[i].isFile() &&*/ _files[i].name.endsWith('.js')) {
-					++amount; const p = path.join(_files[i].path, _files[i].name); result[p] = { base: path.basename(_files[i].name, '.js') };
-				const pp = p.split(path.sep);
-					for(var j = pp.length - 1; j >= 0; --j)
-						if(pp[j] === PATH_BASE) {
-							result[p].name = pp.slice(j - pp.length + 1).join(path.sep); break; }
-					if(!result[p].name)
-						return error('Unknown/invalid/ path found');
-				fs.stat(p, { bigint: false }, (_err, _stats) => {
-					if(_err) return error(_err);
-					result[p].size =
-						Math.size.render(result[p].bytes =
-							_stats.size).toString(); cb(); }); }}}); };
+const proceed = () => {
+	//
+	var amount = 0; const cb = (_file) => { if(--amount <= 0) return handleResult(); };
+	for(var sub of PATH_SUB) { sub = path.join(args.library, sub); fs.readdir(sub, { encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => {
+			if(_err) return error(_err); for(var i = 0; i < _files.length; ++i) { const subResult = {};
+				if(_files[i].name[0] === '.' || !_files[i].name.endsWith('.js')) continue;
+				++amount; const p = path.join(_files[i].path, _files[i].name);
+				subResult.base = path.basename(_files[i].name, '.js');
+				const pp = p.split(path.sep); for(var j = pp.length - 1; j >= 0; --j)
+					if(pp[j] === PATH_BASE) {
+						subResult.name = pp.slice(j - pp.length + 1).join(path.sep); break; }
+				if(!subResult.name) return error('Unknown/invalid/.. path');
+				handleFile(p, result[resultIndex++] = subResult, cb); }})};
+};
 
-const handle = (_result) => {
-	var rest = Object.keys(_result).length; const cb = (_path, _full, _real, _hash) => {
-		_result[_path].full = _full;
-		_result[_path].real = _real;
-		_result[_path].hash = _hash;
-		if(--rest <= 0) return prepare(_result); };
-	for(const p in _result) handleFile(p, cb); };
-
-const handleFile = (_path, _callback) => { var full = 0, real = 0, last;
-	const hash = crypto.createHash(DEFAULT_HASH);
-	const stream = fs.createReadStream(_path, { autoClose: true, encoding: null });
-	stream.on('data', (_chunk) => { hash.update(_chunk);
+const handleFile = (_path, _sub_result, _callback) => { var bytes = 0; var real = 0; var full = 0; var last = false;
+	const hash = crypto.createHash(DEFAULT_HASH); const stream = fs.createReadStream(_path, { encoding: null, autoClose: true, emitClose: true });
+	stream.on('data', (_chunk) => { bytes += _chunk.length; hash.update(_chunk);
 		for(var i = 0; i < _chunk.length; ++i) {
 			if(_chunk[i] === 10) {
 				if(_chunk[i + 1] === 13) ++i;
-				if(!last) ++real;
-				++full; last = true;
+				if(!last) ++real; ++full;
+				last = true;
 			} else if(_chunk[i] === 13) {
 				if(_chunk[i + 1] === 10) ++i;
-				if(!last) ++real;
-				++full; last = true;
-			} else
-				last = false;
-		}});
-	stream.on('end', (... _a) => {
-		_callback(_path, full, real, hash.digest(DEFAULT_DIGEST)); });
+				if(!last) ++real; ++full;
+				last = true;
+			} else last = false; }});
+	stream.once('end', () => {
+		_sub_result.hash = hash.digest(DEFAULT_DIGEST);
+		_sub_result.size = Math.size.render(_sub_result.bytes = bytes).toString();
+		_sub_result.full = full; _sub_result.real = real; _callback(_sub_result, _path); });
+};
+
+const handleResult = () => { result.sort('bytes', false);
+	const changes = checkForChanges(); makeSummary(changes);
+	if(args.debug) console.dir(result); console.dir({ Summary: summary });
+	if(!args.debug) writeResults(changes); process.exit();
+};
+
+const writeResults = (_changes) => {
+	const stringIndex = JSON.stringify(result);
+	const stringSummary = JSON.stringify(summary);
+	const stringUpdate = Date.now().toString();
+	fs.writeFileSync(args.index, stringIndex, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
+	console.debug('  Index bytes written: ' + stringIndex.length);
+	fs.writeFileSync(args.summary, stringSummary, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
+	console.debug('Summary bytes written: ' + stringSummary.length);
+	if(_changes > 0 || args.force) {
+		if(_changes > 0) console.info('I found % changes, so we\'re updating the ' + path.basename(args.update).quote() + ' file.' + EOL + 'Don\'t forget to update your `VERSION.txt`! ;-)', _changes);
+		else console.info('No changes found, but because of `--force` we nevertheless update the ' + path.basename(args.update).quote() + ' file.');
+		if(fs.exists.file(args.update)) originalChanged = Number(fs.readFileSync(args.update, { encoding: 'utf8' }));
+		if(originalChanged !== null) console.debug('Original timestamp: ' + originalChanged); console.debug('     New timestamp: ' + stringUpdate);
+		fs.writeFileSync(args.update, stringUpdate, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true }); }
+	else console.info('No changes found. Timestamp left as it was before.'); };
+
+const makeSummary = (_changes) => { summary = { files: 0, bytes: 0, full: 0, real: 0, size: null };
+	for(var i = 0; i < result.length; ++i) { ++summary.files;
+		summary.bytes += result[i].bytes; summary.full += result[i].full;
+		summary.real += result[i].real; summary.changes = _changes; }
+	summary.size = Math.size.render(summary.bytes).toString(); return summary;
+};
+
+const checkForChanges = () => { if(!originalIndex) return result.length; var changes = 0;
+	for(var i = 0; i < result.length; ++i) {
+		if(!originalIndex.has(result[i].name)) ++changes;
+		else if(originalIndex.get(result[i].name).hash !== result[i].hash) ++changes; }
+	return changes;
 };
 
 //
-const prepare = (_result) => { const keys = Object.keys(_result);
-	const result = new Array(keys.length); for(var i = 0; i < keys.length; ++i)
-		result[i] = _result[keys[i]]; result.sort('bytes', false); return finish(result); };
-
-const prepareSummary = (_result) => {
-	const result = Object.create(null); result.files = 0;
-	for(const item of _result) { ++result.files; for(const idx in item) {
-		const e = item[idx]; if(typeof e !== 'number') continue;
-		else if(!(idx in result)) result[idx] = 0;
-		result[idx] += e; }}
-	result.size = Math.size.render(result.bytes).toString(); return result; };
-
-//
-const finish = (_result) => { if(withFiles) console.log();
-	if(DEBUG) {
-		console.dir(_result);
-		console.log(4);
-		console.dir(prepareSummary(_result));
-		return process.exit(); }
-	var length = 0; length += index(_result); length += summary(_result);
-	if(withFiles) console.log(1, 'Successfully wrote % bytes to 2 files', length);
-	process.exit(); };
-
-const index = (_result) => { const data = JSON.stringify(_result);
-	if(!withFiles) { process.stdout.write(data); return data; }
-	fs.writeFileSync(INDEX, data, {
-		encoding: 'utf8',
-		mode: DEFAULT_MODE_FILE,
-		flush: true })
-	console.log('% bytes written to INDEX \'%\'', data.length, INDEX);
-	return data.length; };
-
-const summary = (_result) => { const data = JSON.stringify(prepareSummary(_result));
-	if(!withFiles) { process.stderr.write(data); return data; }
-	fs.writeFileSync(SUMMARY, data, {
-		encoding: 'utf8',
-		mode: DEFAULT_MODE_FILE,
-		flush: true });
-	console.log('% bytes written to SUMMARY \'%\'', data.length, SUMMARY);
-	return data.length; };
-
-//
-

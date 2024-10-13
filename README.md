@@ -12,39 +12,6 @@
 ### **Modules**
 See the [**Module INDEX**](docs/modules/README.md); much parts already described here (but still much TODO in here).
 
-### **Scripts**
-These are some of my helper scripts.
-
-#### `news`
-Full overview over any file update; therefore the [**news** section](https://kekse.biz/?~news).
-
-* [`news.sh`](scripts/news.sh)
-* [`news.js`](scripts/news.js)
-
-#### `index`
-Automatically manages the **source code** updates.
-
-* [`index.sh`](scripts/index.sh)
-* [`index.js`](scripts/index.js)
-
-Since **v0.8.1** this script supports creating and comparing hashes for all the source code files.
-Before this update the routine for updating the source/version change timestamp ('version.now')
-didn't work very exact.. and it was in the `.sh` shell script, not the real `.js` JavaScript.
-
-#### `list` / `docs`
-* [**`list.js`**](scripts/list.js) is a general file index script.
-* [**`docs.sh`**](scripts/docs.sh) is a concrete use case for it (here for automatic index of my [`~docs`](https://kekse.biz/?~docs));
-
-#### `update`
-On all content updates I'm calling this really tiny script.
-
-* [`update.sh`](scripts/update.sh)
-
-#### `version`
-This is kinda 'fallback' if I don't update via the [`index`](#index) script.
-
-* [`version.sh`](scripts/version.sh)
-
 #### **Index**
 The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/)
 acts as index/overview and summary for the **lib**/ and **web**/ JavaScript sources.
@@ -64,6 +31,22 @@ See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which i
 ### Configuration
 I'm massively using **CSS Custom Properties** (so CSS styles with `--` prefix) to configure
 any behavior of my website. See my [**`config.css`**](css/config.css)!
+
+### **Scripts**
+These are some of my helper scripts.
+
+* `news`
+	* [`news.sh`](scripts/news.sh)
+	* [`news.js`](scripts/news.js)
+* `index`
+	* [`index.sh`](scripts/index.sh)
+	* [`index.js`](scripts/index.js)
+* `list` / `docs`
+	* [`list.js`](scripts/list.js)
+	* [`docs.sh`](scripts/docs.sh)
+* `update` / `version`
+	* [`update.sh`](scripts/update.sh)
+	* [`version.sh`](scripts/version.sh)
 
 # Copyright and License
 The Copyright is [(c) Sebastian Kucharczyk](COPYRIGHT.txt),

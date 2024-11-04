@@ -28,14 +28,15 @@ var ORIG = null;
 var ARGS;
 
 const prepare = () => {
-	ARGS = getopt({
+	/*ARGS = getopt({
 		root: { short: 'r', params: 1, index: 0, parse: false, help: 'Root path of the whole v4 project' },
 		time: { short: 't', params: 1, index: 0, parse: true, help: 'Current time in milliseconds' },
 		search: { short: 's', params: 1, index: 0, parse: false, help: 'The search path (for the documents)' },
 		output: { short: 'o', params: 1, index: 0, parse: false, help: 'Output path (a `.json` file)' },
 		home: { short: 'h', params: 1, index: 0, parse: false, help: 'The path below the ~home directory' },
 		update: { short: 'u', params: 1, index: 0, parse: false, help: 'Update some `main.now` to get listed by `news`' }
-	});
+	});*/
+	ARGS = getopt();
 
 	if(ARGS.search && ARGS.output)
 	{

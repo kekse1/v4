@@ -131,9 +131,9 @@ const writeResults = (_changes) => {
 	const stringSummary = JSON.stringify(summary);
 	const stringUpdate = Date.now().toString();
 	fs.writeFileSync(args.index, stringIndex, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
-	console.debug('  Index bytes written: ' + stringIndex.length);
+	console.debug('  Index bytes written: ' + stringIndex.length.toLocaleString());
 	fs.writeFileSync(args.summary, stringSummary, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
-	console.debug('Summary bytes written: ' + stringSummary.length);
+	console.debug('Summary bytes written: ' + stringSummary.length.toLocaleString());
 	if(_changes > 0 || args.force) {
 		if(_changes > 0) console.info('I found % changes, so we\'re updating the ' + path.basename(args.update).quote() + ' file.' + EOL + 'Don\'t forget to update your `VERSION.txt`! ;-)', _changes);
 		else console.info('No changes found, but because of `--force` we nevertheless update the ' + path.basename(args.update).quote() + ' file.');

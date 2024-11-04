@@ -63,12 +63,13 @@ const renderSize = (_value) => Math.size.render(_value, null, 2, 1024, true).toS
 
 //
 const prepare = () => {
-	ARGS = getopt({
+	/*ARGS = getopt({
 		config: { short: 'c', params: 0, help: 'Show the configuration for this script (see on top of this `.js` file itself)' },
 		root: { short: 'r', params: 1, index: 0, parse: false, help: 'The directory to start the traversing' },
 		output: { short: 'o', params: 1, index: 0, parse: false, help: 'The output path (a `.json` file)' },
 		time: { short: 't', params: 1, index: 0, parse: true, help: 'Milliseconds since unix epoche, for the current time' }
-	});
+	});*/
+	ARGS = getopt();
 	
 	if(ARGS.config)
 	{

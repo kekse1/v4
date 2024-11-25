@@ -56,7 +56,7 @@
 
 button
 {
-	--toggle: 'half';
+	--toggle: 'half';/* [ `half`, `full` ]; */
 	--duration-toggle: 900;
 }
 

@@ -112,7 +112,7 @@ a-dialog-button, .a-dialog-button
 	--wallpaper-background: rgba(200, 220, 240, 0.8) 0%, rgba(170, 190, 210, 0.8) 20%, rgba(140, 160, 180, 0.8) 50%, rgba(110, 130, 150, 0.8) 75%, rgba(255, 190, 0, 0.8) 100%;
 }
 
-.a-help
+a-help, .a-help
 {
 	--wallpaper-background: rgba(255, 190, 0, 0.8) 0%, rgba(170, 190, 210, 0.8) 20%, rgba(140, 160, 180, 0.8) 50%, rgba(110, 130, 150, 0.8) 75%, rgba(80, 100, 120, 0.8) 100%;
 }
@@ -293,7 +293,7 @@ div#loadProgressCarrier
 	--resize-timeout: 90;
 }
 
-.a-progress
+a-progress, .a-progress
 {
 	--animation: sigmoid;/* [ linear, sigmoid ]; */
 	--relay-method: stop;
@@ -504,7 +504,7 @@ span.loadProgressPercent
 	--date-utc: '%U';
 }
 
-.a-dialog
+a-dialog, .a-dialog
 {
 	--duration: 500;
 	--center-x: auto;
@@ -514,7 +514,7 @@ span.loadProgressPercent
 	--movable: auto;
 }
 
-.a-dialog
+a-dialog, .a-dialog
 {
 	--duration: 900;
 	--delay-each: 280;
@@ -538,7 +538,7 @@ span.loadProgressPercent
 	--delay-each: 280;
 }
 
-.a-help
+a-help, .a-help
 {
 	--speed: 1;
 	--scale: 720;
@@ -552,17 +552,13 @@ span.loadProgressPercent
 	--wallpaper-speed: 1.6;
 }
 
-.a-github-box
+a-github-box, .a-github-box
 {
 	--duration-show: 1100;
 	--duration-hide: 700;
 	--duration-blink: 600;
 	--duration-measure: 360;
 	--space: 20px;
-}
-
-.a-github-box
-{
 	--delay-each: 140;
 }
 
@@ -580,7 +576,11 @@ a-box, .a-box, .box
 	--max-age: 2419200000; /* in milliseconds; here: one month (1000*60*60*24*7*4); */
 }
 
-a-gallery, .gallery
+a-gallery, .a-gallery
+{
+}
+
+a-index, .a-index
 {
 }
 

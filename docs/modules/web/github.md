@@ -15,3 +15,6 @@ due to some incompatibilities etc..); or to handle such links.
 
 Configuration as usual in the [`config.css`](../../../css/config.css), including all (RAW and API) URLs.
 
+## Repository list
+Just added the feature to (optionally!) ignore forks, so only own repositories will be listed.
+

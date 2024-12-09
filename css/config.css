@@ -135,6 +135,7 @@ a-help, .a-help
 	--github-api-markdown: url('https://api.github.com/markdown');
 	--github-hostname-api: 'api.github.com';
 	--github-hostname-raw: 'raw.githubusercontent.com';
+	--github-ignore-forks: auto;
 }
 
 :root

@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.2.0
+ * v0.2.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -24,8 +24,7 @@ const EXTENSIONS = [
 	'.html',
 	'.htm',
 	'.css',
-	'.js',
-	'.now'
+	'.js'
 ];
 
 const INDEX = [
@@ -157,7 +156,7 @@ const readdirCallback = (_callback, _path, _error, _data) => {
 	{
 		if(_data[i].name[0] !== '.' && _data[i].isFile() && EXTENSIONS.includes(path.extname(_data[i].name)))
 		{
-			++REST; addFile(path.join(_data[i].path, _data[i].name), _callback);
+			++REST; addFile(path.join(_data[i].parentPath, _data[i].name), _callback);
 		}
 	}
 };

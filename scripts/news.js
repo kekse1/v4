@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.2.1
+ * v0.3.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -49,7 +49,6 @@ for(var i = 0; i < EXTENSIONS.length; ++i)
 //
 var TIME;
 var ARGS;
-var REST = 0;
 const MAP = new Map();
 var ORIG = null;
 var CREATE = 0;
@@ -143,22 +142,38 @@ import { ready } from '../js/lib.js';
 ready(prepare);
 
 const start = (_args, _callback) => {
+	var rest = SOURCES.length; const callback = () => {
+		if(--rest <= 0) _callback(); };
+
 	for(var i = 0; i < SOURCES.length; ++i)
 	{
 		const p = path.join(_args.root, SOURCES[i]);
 		fs.readdir(p, { encoding: 'utf8', withFileTypes: true, recursive: true },
-			(... _a) => readdirCallback(_callback, p, ... _a));
+			(... _a) => readdirCallback(callback, p, ... _a));
 	}
 };
 
 const readdirCallback = (_callback, _path, _error, _data) => {
-	for(var i = 0; i < _data.length; ++i)
+	const items = [];
+	var rest = 0; const callback = (_item) => {
+		if(--rest <= 0) _callback(items); };
+
+	for(var i = 0, j = 0; i < _data.length; ++i)
 	{
-		if(_data[i].name[0] !== '.' && _data[i].isFile() && EXTENSIONS.includes(path.extname(_data[i].name)))
+		if(_data[i].name[0] !== '.' &&
+				_data[i].isFile() &&
+				EXTENSIONS.includes(path.extname(_data[i].name)))
 		{
-			++REST; addFile(path.join(_data[i].parentPath, _data[i].name), _callback);
+			items[j++] = _data[i];
+			++rest;
 		}
 	}
+
+	for(const item of items) addFile(
+		path.join(
+			item.parentPath,
+			item.name),
+				callback);
 };
 
 const addFile = (_path, _callback) => {
@@ -174,14 +189,15 @@ const addFile = (_path, _callback) => {
 		//
 		result.path = result.path.substr(ARGS.root.length);
 		MAP.set(result.path, result);
-
+		
 		//
-		if(--REST <= 0) _callback();
+		_callback(result);
 	};
 	
 	const hash = crypto.createHash(HASH);
 	const stream = fs.createReadStream(_path, { autoClose: true, emitClose: true });
-	stream.on('data', (_chunk) => { bytes += _chunk.length; hash.update(_chunk); });
+	stream.on('data', (_chunk) => {
+		bytes += _chunk.length; hash.update(_chunk); });
 	stream.once('end', fin);
 };
 

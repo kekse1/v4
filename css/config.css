@@ -238,7 +238,7 @@ li.OSD
 #countState
 {
 	--url: url('php/count.php');
-	--refresh: 30000;
+	--refresh: 10000;
 	--duration: 520;
 	--duration-blink: 800;
 	--scale: none;
@@ -247,7 +247,7 @@ li.OSD
 #updateState
 {
 	--url: url('status/update.now');
-	--refresh: 60000;
+	--refresh: 10000;
 	--duration: 520;
 	--duration-blink: 800;
 }
@@ -255,7 +255,7 @@ li.OSD
 #versionUpdateState
 {
 	--url: url('status/version.now');
-	--refresh: 120000;
+	--refresh: 10000;
 	--duration: 520;
 	--duration-blink: 800;
 }

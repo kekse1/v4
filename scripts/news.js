@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.3.0
+ * v0.3.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -35,7 +35,6 @@ const MODE = 0o666;
 const HASH = 'sha3-256';
 const DIGEST = 'hex';
 const SPACE = null;
-const BOOL = false;
 
 //
 for(var i = 0; i < EXTENSIONS.length; ++i)
@@ -142,8 +141,8 @@ import { ready } from '../js/lib.js';
 ready(prepare);
 
 const start = (_args, _callback) => {
-	var rest = SOURCES.length; const callback = () => {
-		if(--rest <= 0) _callback(); };
+	var rest = SOURCES.length; const callback = (... _a) => {
+		if(--rest <= 0) _callback(... _a); };
 
 	for(var i = 0; i < SOURCES.length; ++i)
 	{
@@ -184,7 +183,6 @@ const addFile = (_path, _callback) => {
 		//
 		result.bytes = bytes;
 		result.hash = hash.digest(DIGEST);
-		result.time = TIME;
 		
 		//
 		result.path = result.path.substr(ARGS.root.length);
@@ -234,7 +232,7 @@ const interprete = () => {
 				++DELETE;
 		}
 	}
-
+	
 	const data = JSON.stringify(result, null, SPACE);
 	fs.writeFileSync(ARGS.output, data, { encoding: 'utf8', mode: MODE, flush: true });
 	
@@ -285,22 +283,21 @@ const withOrig = (_key) => {
 	//
 	if(curr.hash === orig.hash)
 	{
-		curr.time = orig.time;
-		if(BOOL) curr.updated = false;
+		MAP.set(_key, orig);
+		return orig;
 	}
 	else
 	{
-		if(BOOL) curr.updated = true;
 		++UPDATE;
 	}
-	
-	//
+
+	curr.time = TIME;
 	return curr;
 };
 
 const withOutOrig = (_key) => {
 	const res = MAP.get(_key);
-	if(BOOL) res.updated = null;
+	res.time = TIME;
 	++CREATE; return res;
 };
 

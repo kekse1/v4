@@ -54,3 +54,9 @@ The rest is just some less helper closures, and the following both (see the next
 | Header **Key** | **Value**   |
 | -------------: | :---------- |
 | `user-agent`   | `kekse.biz` |
+
+## Comment
+It seems there's a limit of concurrent `fetch()` connections, since some requests
+were just thrown away.. so I implemented the new `DEFAULT_MAX_CONCURRENT` with a
+queue, etc. JFYI..
+

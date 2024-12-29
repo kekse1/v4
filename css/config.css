@@ -327,7 +327,7 @@ a-progress, .a-progress
 	--line-width-percent-arc: 0.5;
 	--text-fill: rgb(230, 240, 250);
 	--text-stroke: rgb(60, 70, 80);
-	--text-line-width: 1.4;
+	--text-line-width: 0.25;
 	--arc-space: 8px;
 	--hour-color: rgb(210, 120, 30);
 	/*--hour-line: 5.4;*/

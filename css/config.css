@@ -395,9 +395,9 @@ a-progress, .a-progress
 	--draw-text: auto;
 	--size: 96px;
 	--size-mobile: 80px;
-	--text-fill: rgb(40, 60, 80, 0.9);/*rgb(230, 240, 250);*/
-	--text-stroke: rgba(60, 80, 100, 0.4);/*rgba(30, 50, 70, 0.75);*/
-	--text-line-width: 0.125;
+	--text-fill: rgb(40, 60, 80, 0.9);
+	--text-stroke: rgba(60, 80, 100, 0.4);
+	--text-line-width: 0.1;
 }
 
 .loadProgressStart, .loadProgress

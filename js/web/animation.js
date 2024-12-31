@@ -1413,7 +1413,12 @@ Reflect.defineProperty(HTMLElement.prototype, 'vibrating', {
 			return this.vibrating;
 		}
 
-		return this.vibrate(_value);
+		if(_value !== this.vibrating)
+		{
+			return this.vibrate(_value);
+		}
+
+		return _value;
 	}
 });
 

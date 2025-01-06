@@ -41,9 +41,10 @@ These are some of my helper scripts.
 * `index`
 	* [`index.sh`](scripts/index.sh)
 	* [`index.js`](scripts/index.js)
-* `list` / `docs`
+* `list` / `docs` / `downloads`
 	* [`list.js`](scripts/list.js)
 	* [`docs.sh`](scripts/docs.sh)
+    * [`downloads.sh`](scripts/downloads.sh)
 * `update` / `version`
 	* [`update.sh`](scripts/update.sh)
 	* [`version.sh`](scripts/version.sh)

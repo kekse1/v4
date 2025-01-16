@@ -34,7 +34,7 @@
 	--delay-start: 0;
 	--force-animation: none;
 	--resize-timeout: 160;
-	--dead-timeout: 600000;
+	--dead-timeout: 30000;
 	--center-x: none;
 	--center-y: none;
 	--duration-center: 480;

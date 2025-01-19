@@ -18,9 +18,6 @@ acts as index/overview and summary for the **lib**/ and **web**/ JavaScript sour
 Here you shall see more than the [API documentation / Module Index](docs/modules/README.md)
 linked above.
 
-### **TODO**
-It can be found on my website, look at [**this link**](https://kekse.biz/?~todo).
-
 ### **Features**
 Here's a list of all end-user features (only those they can really see):
 [**~features**](https://kekse.biz/?~features)

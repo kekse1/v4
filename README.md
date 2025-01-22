@@ -32,6 +32,11 @@ See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which i
 ### **Scripts**
 These are some of my helper scripts.
 
+> [!WARNING]
+> [Node.js](https://nodejs.org/) made some changes recently, so I have/had to update
+> at least two of these scripts. The first `news.js` is already 'fixed'. The rest is
+> broken where `{ recursive: true }` or so...
+
 * `news`
 	* [`news.sh`](scripts/news.sh)
 	* [`news.js`](scripts/news.js)

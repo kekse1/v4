@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.3.1
+ * v0.4.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -11,7 +11,7 @@
  * Will check a bunch of files for updates, using SHA3-256 hashes ('hex' digest).
  */
 
-const SOURCES = [
+const SOURCE = [
 	'js/lib/',
 	'js/web/',
 	'home',
@@ -74,7 +74,7 @@ const prepare = () => {
 		console.warn('to dig recursively; otherwise it\'ll only look into this directory without');
 		console.warn('any more depth.');
 		console.log();
-		console.dir({ sources: SOURCES, extensions: EXTENSIONS, root: (ARGS.root || undefined), output: (ARGS.output || undefined) });
+		console.dir({ source: SOURCE, extensions: EXTENSIONS, root: (ARGS.root || undefined), output: (ARGS.output || undefined) });
 		process.exit();
 	}
 	else if(ARGS.root && ARGS.output)
@@ -127,8 +127,8 @@ const prepare = () => {
 		console.error(`	[ --help / -? ] / [ --config / -c ]`);
 		process.exit(1);
 	}
-	
-	return start(ARGS, interprete);
+
+	return start(ARGS, proceed);
 };
 
 //
@@ -140,72 +140,83 @@ import { ready } from '../js/lib.js';
 //
 ready(prepare);
 
+//
 const start = (_args, _callback) => {
-	var rest = SOURCES.length; const callback = (... _a) => {
-		if(--rest <= 0) _callback(... _a); };
-
-	for(var i = 0; i < SOURCES.length; ++i)
-	{
-		const p = path.join(_args.root, SOURCES[i]);
-		fs.readdir(p, { encoding: 'utf8', withFileTypes: true, recursive: true },
-			(... _a) => readdirCallback(callback, p, ... _a));
-	}
-};
-
-const readdirCallback = (_callback, _path, _error, _data) => {
-	const items = [];
-	var rest = 0; const callback = (_item) => {
-		if(--rest <= 0) _callback(items); };
-
-	for(var i = 0, j = 0; i < _data.length; ++i)
-	{
-		if(_data[i].name[0] !== '.' &&
-				_data[i].isFile() &&
-				EXTENSIONS.includes(path.extname(_data[i].name)))
+	const result = [];
+	var req = 0;
+	
+	const readdirCallback = (_path, _source, _error, _files) => {
+		if(_error) throw _error;
+		
+		for(var i = 0, j = result.length; i < _files.length; ++i)
 		{
-			items[j++] = _data[i];
-			++rest;
+			if(_files[i].name[0] === '.')
+			{
+				continue;
+			}
+			
+			const p = path.join(_path, _files[i].name);
+			const n = path.join(_source, _files[i].name);
+			
+			if(_files[i].isFile())
+			{
+				if(EXTENSIONS.includes(
+						path.extname(_files[i].name)))
+				{
+					result[j++] = [ p, n ];
+				}
+			}
+			else if(_files[i].isDirectory())
+			{
+				++req;
+				fs.readdir(p, { encoding: 'utf8',
+					withFileTypes: true,
+					recursive: false }, (... _a) => {
+						readdirCallback(p, n, ... _a); });
+			}
 		}
-	}
-
-	for(const item of items) addFile(
-		path.join(
-			item.parentPath,
-			item.name),
-				callback);
-};
-
-const addFile = (_path, _callback) => {
-	const result = { path: _path };
-	var bytes = 0;
-
-	const fin = () => {
-		//
-		result.bytes = bytes;
-		result.hash = hash.digest(DIGEST);
 		
-		//
-		result.path = result.path.substr(ARGS.root.length);
-		MAP.set(result.path, result);
-		
-		//
-		_callback(result);
+		if(--req <= 0)
+		{
+			_callback(result);
+		}
 	};
 	
-	const hash = crypto.createHash(HASH);
-	const stream = fs.createReadStream(_path, { autoClose: true, emitClose: true });
-	stream.on('data', (_chunk) => {
-		bytes += _chunk.length; hash.update(_chunk); });
-	stream.once('end', fin);
+	for(const source of SOURCE)
+	{
+		++req;
+		const p = path.join(_args.root, source);
+		fs.readdir(p, { encoding: 'utf8',
+			withFileTypes: true,
+			recursive: false }, (... _a) => {
+				readdirCallback(p, source, ... _a); });
+	}
 };
 
-const interprete = () => {
-	var original;
+//
+const proceed = (_result) => {
+	const result = [];
 	
-	if(fs.existsSync(ARGS.output))
+	var rest = _result.length;
+	const callback = (_item, _path, _name) => {
+		result.push(_item);
+		if(--rest <= 0)
+			finish(result); };
+	
+	for(var i = 0; i < _result.length; ++i)
 	{
-		ORIG = new Map(); original = true;
-		const orig = JSON.parse(fs.readFileSync(ARGS.output, { encoding: 'utf8' }));
+		addFile(_result[i][0],
+			_result[i][1],
+			callback);
+	}
+};
+
+const finish = (_result) => {
+	const orig = readOriginal();
+
+	if(orig)
+	{
+		ORIG = new Map();
 		
 		for(const item of orig)
 		{
@@ -216,28 +227,17 @@ const interprete = () => {
 	}
 	else
 	{
-		original = false;
 		console.info('No previous output file found, so all items are marked as updated.');
+		ORIG = null;
 	}
 	
-	const result = compare(MAP, ORIG);
-
-	if(original)
-	{
-		const orig = [ ... ORIG.keys() ];
-	
-		for(const k of orig)
-		{
-			if(!MAP.has(k))
-				++DELETE;
-		}
-	}
-	
+	const result = compare(_result, MAP, ORIG);
 	const data = JSON.stringify(result, null, SPACE);
+	
 	fs.writeFileSync(ARGS.output, data, { encoding: 'utf8', mode: MODE, flush: true });
 	
 	const stats = fs.statSync(ARGS.output, { bigint: false, throwIfNoEntry: false });
-
+	
 	if(stats)
 	{
 		console.info('Wrote output file: % bytes (`%`)', stats.size, fs.realpathSync(ARGS.output));
@@ -250,23 +250,66 @@ const interprete = () => {
 
 	console.log();	
 	console.info('% items found in total.', result.length);
-	if(original) console.info('% item' + (UPDATE === 1 ? '' : 's') + ' really updated, ' +
+	if(orig) console.info('% item' + (UPDATE === 1 ? '' : 's') + ' really updated, ' +
 		'% deleted, % newly created.', UPDATE, DELETE, CREATE);
 };
 
-const compare = (_map, _orig) => {
-	const keys = [ ... _map.keys() ];
-	const result = [];
-	var item;
-	
-	for(var i = 0, j = 0; i < keys.length; ++i)
-	{
-		if(_orig && _orig.has(keys[i]))
-			item = withOrig(keys[i]);
-		else
-			item = withOutOrig(keys[i]);
+const readOriginal = () => {
+	if(!fs.existsSync(ARGS.output)) return null;
+	return JSON.parse(
+		fs.readFileSync(
+			ARGS.output, {
+				encoding: 'utf8' }));
+};
 
-		result[j++] = lastThings(item);
+const addFile = (_path, _name, _callback) => {
+	const result = { bytes: 0, path: _name, time: TIME };
+	const hash = crypto.createHash(HASH);
+	const stream = fs.createReadStream(_path, {
+		autoClose: true, emitClose: true });
+	stream.on('data', (_chunk) => {
+		result.bytes += _chunk.length;
+		hash.update(_chunk); });
+	stream.once('end', () => {
+		result.hash = hash.digest(DIGEST);
+		MAP.set(result.path, result);
+		_callback(result, _path, _name); });
+	return result;
+};
+
+const compare = (_result, _map, _orig) => {
+	const mapKeys = [ ... _map.keys() ];
+	const result = [];
+	
+	if(_orig)
+	{
+		const origKeys = [ ... _orig.keys() ];
+		
+		for(const k of origKeys)
+		{
+			if(!_map.has(k))
+			{
+				++DELETE;
+			}
+		}
+		
+		var item; for(var i = 0; i < mapKeys.length; ++i)
+		{
+			if(_orig.has(mapKeys[i]))
+			{
+				item = withOriginal(mapKeys[i]);
+			}
+			else
+			{
+				item = withoutOriginal(mapKeys[i]);
+			}
+			
+			result[i] = lastThings(item);
+		}
+	}
+	else for(var i = 0; i < mapKeys.length; ++i)
+	{
+		result[i] = lastThings(_map.get(mapKeys[i]));
 	}
 	
 	result.sort('bytes', false);
@@ -275,30 +318,29 @@ const compare = (_map, _orig) => {
 	return result;
 };
 
-const withOrig = (_key) => {
-	//
+const withOriginal = (_key) => {
 	const curr = MAP.get(_key);
 	const orig = ORIG.get(_key);
 	
-	//
 	if(curr.hash === orig.hash)
 	{
-		MAP.set(_key, orig);
-		return orig;
+		curr.time = orig.time;
+		return curr;
 	}
 	else
 	{
 		++UPDATE;
 	}
-
+	
 	curr.time = TIME;
 	return curr;
 };
 
-const withOutOrig = (_key) => {
-	const res = MAP.get(_key);
-	res.time = TIME;
-	++CREATE; return res;
+const withoutOriginal = (_key) => {
+	++CREATE;
+	const curr = MAP.get(_key);
+	curr.time = TIME;
+	return curr;
 };
 
 const lastThings = (_item) => {

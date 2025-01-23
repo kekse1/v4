@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.0
+ * v0.4.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -151,6 +151,10 @@ const start = (_args, _callback) => {
 		for(var i = 0, j = result.length; i < _files.length; ++i)
 		{
 			if(_files[i].name[0] === '.')
+			{
+				continue;
+			}
+			else if(_files[i].isSymbolicLink())
 			{
 				continue;
 			}

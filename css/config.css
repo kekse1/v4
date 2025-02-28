@@ -400,6 +400,13 @@ a-progress, .a-progress
 	--text-line-width: 0.1;
 }
 
+#IP
+{
+	--duration: 1200;
+	--timeout: 1200;
+	--opacity: 0.8;
+}
+
 .loadProgressStart, .loadProgress
 {
 	--stroke-style-percent: rgb(160, 210, 40);

@@ -592,3 +592,8 @@ a-index, .a-index
 {
 }
 
+a-file-info, .a-file-info
+{
+	--animate: auto;
+}
+

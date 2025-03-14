@@ -60,6 +60,7 @@ needs to be documentated in here).
 * [`element`.js](web/element.md)
 * [`event`.js](web/event.md)
 * [`fetching`.js](web/fetching.md)
+* [`fileinfo`.js](web/fileinfo.md)
 * [`freeze`.js](web/freeze.md)
 * [`github`.js](web/github.md)
 * [`hash`.js](web/hash.md)

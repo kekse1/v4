@@ -6,7 +6,6 @@
 // v1.1.0
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
-// Updated version (2024-10-13).
 //
 
 //

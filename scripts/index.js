@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/ https://github.com/kekse1/v4/
-// v1.0.0
+// v1.1.0
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 // Updated version (2024-10-13).
@@ -24,6 +24,8 @@ const DEFAULT_MODE = 0o666;
 var result = []; var resultIndex = 0; var summary = null;
 //
 var originalIndex = null; var args = null; var originalChanged = null;
+//
+const TIME = Date.now();
 
 //
 import crypto from 'node:crypto';
@@ -94,7 +96,7 @@ const proceed = () => {
 				if(_files[i].name[0] === '.' || !_files[i].name.endsWith('.js')) continue;
 				++amount; const p = path.join(_files[i].parentPath, _files[i].name);
 				subResult.base = path.basename(_files[i].name, '.js');
-				const pp = p.split(path.sep); for(var j = pp.length - 1; j >= 0; --j)
+				subResult.time = TIME; const pp = p.split(path.sep); for(var j = pp.length - 1; j >= 0; --j)
 					if(pp[j] === PATH_BASE) {
 						subResult.name = pp.slice(j - pp.length + 1).join(path.sep); break; }
 				if(!subResult.name) return error('Unknown/invalid/.. path');
@@ -150,10 +152,11 @@ const makeSummary = (_changes) => { summary = { files: 0, bytes: 0, full: 0, rea
 };
 
 const checkForChanges = () => { if(!originalIndex) return result.length; var changes = 0;
-	for(var i = 0; i < result.length; ++i) {
-		if(!originalIndex.has(result[i].name)) ++changes;
-		else if(originalIndex.get(result[i].name).hash !== result[i].hash) ++changes; }
-	return changes;
-};
+	var orig; for(var i = 0; i < result.length; ++i) {
+		if(!originalIndex.has(result[i].name)) { ++changes; continue; }
+		orig = originalIndex.get(result[i].name);
+		if(orig.hash !== result[i].hash) { ++changes; continue; }
+		if(orig.time) result[i].time = orig.time;
+	}; return changes; };
 
 //

@@ -9,19 +9,17 @@
 #
 
 #
-GOOGLE="main"
+INDEX="main"
 
 #
 real="$(realpath "$0")"
 dir="$(dirname "$real")"
 script="$(realpath "${dir}/google.js")"
 root="$(realpath "${dir}/../")"
-library="$(realpath "${root}/js")"
 home="$(realpath "${root}/home/")"
-google="$(realpath "${home}/${GOOGLE}")"
 
 #
-CMD="${script} --home '${home}' --google '${google}'"
+CMD="${script} --home '${home}' --index '${INDEX}'"
 
 for i in "$@"; do
 	CMD="${CMD} '$i'"

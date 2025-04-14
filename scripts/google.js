@@ -21,12 +21,11 @@
 //
 
 //
-const INDEX = 'main';
 const WRITE = false;
 
 //
 import { ready } from '../js/lib.js';
-var args, items, result;
+var args, items, result, INDEX;
 
 ready(() => {
 
@@ -34,17 +33,20 @@ ready(() => {
 	args = getopt();
 
 	//
-	if(!path.isValid(args.google))
-	{
-		console.error('Invalid --google path argument!');
-		process.exit(1);
-	}
-
 	if(!path.isValid(args.home))
 	{
 		console.error('Invalid --home path argument!');
 		process.exit(2);
 	}
+
+	if(!String.isString(args.index))
+	{
+		console.error('Invalid --index argument!');
+		process.exit(3);
+	}
+
+	//
+	INDEX = args.index;
 
 	//
 	if(!WRITE)
@@ -89,7 +91,7 @@ const start = () => {
 	if(items.length === 0)
 	{
 		console.error('No items found!');
-		process.exit(3);
+		process.exit(4);
 	}
 	
 	findIndexFiles(items);
@@ -146,7 +148,7 @@ const generate = (_result = result) => {
 	//
 	var p; for(const idx in res)
 	{
-		p = (args.google + '.' + idx);
+		p = (args.home + '/' + INDEX + '.' + idx);
 		
 		if(WRITE)
 		{

@@ -154,8 +154,8 @@ generate.html = (_result = result) => {
 		
 		for(var j = 0; j < _result[i].entry.length; ++j)
 		{
-			res += '\t\t<a href=' + path.join(_result[i].name + '/' +
-				_result[i].entry[j].name).quote('"', true) + '>' +
+			res += '\t\t<a href=' + ('/home/' + path.join(_result[i].name + '/' +
+				_result[i].entry[j].name)).quote('"', true) + '>' +
 				_result[i].name + _result[i].entry[j].ext + '</a>\n';
 		}
 

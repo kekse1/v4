@@ -13,17 +13,6 @@
 //
 
 //
-//
-//TODO/ausgaben generieren
-//TODO/ausgabe*n* schreiben
-//TODO/mehr formate!?!?
-//
-//
-
-//
-const WRITE = false;
-
-//
 import { ready } from '../js/lib.js';
 var args, items, result, INDEX;
 
@@ -48,13 +37,6 @@ ready(() => {
 	//
 	INDEX = args.index;
 
-	//
-	if(!WRITE)
-	{
-		console.warn('NO DATA WILL BE WRITTEN!' + EOL +
-			'This is just a simulation (this time).');
-	}
-	
 	//
 	start();
 	
@@ -85,6 +67,9 @@ const start = () => {
 			name: list[i].name,
 			path: path.join(
 				args.home,
+				list[i].name),
+			home: path.join(
+				'home/',
 				list[i].name) };
 	}
 	
@@ -123,7 +108,9 @@ const findIndexFiles = (_items = items) => {
 				continue;
 			}
 			
-			entry[k++] = list[j].name;
+			entry[k++] = {
+				name: list[j].name,
+				ext: path.extname(list[j].name) };
 		}
 		
 		if(entry.length > 0)
@@ -150,22 +137,12 @@ const generate = (_result = result) => {
 	{
 		p = (args.home + '/' + INDEX + '.' + idx);
 		
-		if(WRITE)
-		{
-			fs.writeFileSync(
-				p, res[idx], { encoding: 'utf8' });
-		}
-		
-		console.dir({p});
+		fs.writeFileSync(
+			p, res[idx], { encoding: 'utf8' });
+		console.info('Just wrote ' +
+			res[idx].length.toLocaleString() + ' Bytes:');
+		console.debug('\t' + p);
 	}
-};
-
-generate.text = (_result = result) => {
-	//
-};
-
-generate.json = (_result = result) => {
-	//
 };
 
 generate.html = (_result = result) => {
@@ -173,7 +150,16 @@ generate.html = (_result = result) => {
 
 	for(var i = 0; i < _result.length; ++i)
 	{
-		//
+		res += '\t<li>\n';
+		
+		for(var j = 0; j < _result[i].entry.length; ++j)
+		{
+			res += '\t\t<a href=' + path.join(_result[i].name + '/' +
+				_result[i].entry[j].name).quote('"', true) + '>' +
+				_result[i].name + _result[i].entry[j].ext + '</a>\n';
+		}
+
+		res += '\t</li>\n';
 	}
 	
 	return (res + '\n</ul>');

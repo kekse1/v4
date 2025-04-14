@@ -47,9 +47,9 @@ These are some of my helper scripts.
 * `update` / `version`
 	* [`update.sh`](scripts/update.sh)
 	* [`version.sh`](scripts/version.sh)
-* `google`
-    * [`google.sh`](scripts/google.sh)
-    * [`google.js`](scripts/google.js)
+* `home`
+    * [`home.sh`](scripts/home.sh)
+    * [`home.js`](scripts/home.js)
 
 <br><br>
 

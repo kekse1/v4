@@ -14,7 +14,7 @@ INDEX="main"
 #
 real="$(realpath "$0")"
 dir="$(dirname "$real")"
-script="$(realpath "${dir}/google.js")"
+script="$(realpath "${dir}/home.js")"
 root="$(realpath "${dir}/../")"
 home="$(realpath "${root}/home/")"
 

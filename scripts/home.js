@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/ https://github.com/kekse1/v4/
-// v0.1.1
+// v0.1.2
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 //
@@ -12,6 +12,8 @@
 // my 'home/'ies.
 //
 
+//
+//get's overridden by (optional) --index-ext parameter (comma sep.);
 //
 const INDEX_EXT = [
 	'.php',
@@ -36,15 +38,42 @@ ready(() => {
 	if(!path.isValid(args.home))
 	{
 		console.error('Invalid --home path argument!');
+		process.exit(1);
+	}
+
+	if(!String.isString(args.index, false))
+	{
+		console.error('Invalid --index argument!');
 		process.exit(2);
 	}
 
-	if(!String.isString(args.index))
+	if(String.isString(args['index-ext'], false))
 	{
-		console.error('Invalid --index argument!');
-		process.exit(3);
-	}
+		const split = args['index-ext'].split(',');
+		INDEX_EXT.length = 0;
 
+		var ext; for(var i = 0, j = 0; i < split.length; ++i)
+		{
+			if(split[i].length === 0 || split[i] === '.')
+			{
+				continue;
+			}
+
+			if((ext = split[i])[0] !== '.')
+			{
+				ext = '.' + ext;
+			}
+
+			INDEX_EXT[j++] = ext;
+		}
+
+		if(INDEX_EXT.length === 0)
+		{
+			console.error('Invalid --index-ext argument!');
+			process.exit(3);
+		}
+	}
+	
 	//
 	INDEX = args.index;
 

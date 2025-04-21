@@ -18,7 +18,6 @@ const INDEX_EXT = [
 	'.html',
 	'.htm',
 	'.txt',
-	'.js',
 	'.pdf',
 	'.js',
 	'.css'

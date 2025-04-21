@@ -3,7 +3,7 @@
 //
 // Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 // https://kekse.biz/ https://github.com/kekse1/v4/
-// v0.1.0
+// v0.1.1
 //
 // Helper script for my v4 project @ https://github.com/kekse1/v4/.
 //
@@ -11,6 +11,18 @@
 // index my dynamic contents, I'm creating a file index of all of
 // my 'home/'ies.
 //
+
+//
+const INDEX_EXT = [
+	'.php',
+	'.html',
+	'.htm',
+	'.txt',
+	'.js',
+	'.pdf',
+	'.js',
+	'.css'
+];
 
 //
 import { ready } from '../js/lib.js';
@@ -96,9 +108,16 @@ const findIndexFiles = (_items = items) => {
 			recursive: false });
 		entry = [];
 		
-		for(var j = 0, k = 0; j < list.length; ++j)
+		var ext; for(var j = 0, k = 0; j < list.length; ++j)
 		{
 			if(!list[j].name.startsWith(INDEX + '.'))
+			{
+				continue;
+			}
+
+			ext = path.extname(list[j].name);
+
+			if(!INDEX_EXT.includes(ext))
 			{
 				continue;
 			}
@@ -108,9 +127,7 @@ const findIndexFiles = (_items = items) => {
 				continue;
 			}
 			
-			entry[k++] = {
-				name: list[j].name,
-				ext: path.extname(list[j].name) };
+			entry[k++] = { name: list[j].name, ext };
 		}
 		
 		if(entry.length > 0)

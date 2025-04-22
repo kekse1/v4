@@ -38,28 +38,28 @@ const prepare = () => {
 	});*/
 	ARGS = getopt();
 
-	if(ARGS.search && ARGS.output)
+	if(ARGS.get('search') && ARGS.get('output'))
 	{
-		if(ARGS.search[ARGS.search.length - 1] !== path.sep)
+		if(ARGS.get('search')[ARGS.get('search').length - 1] !== path.sep)
 		{
-			ARGS.search += path.sep;
+			ARGS.set('search', ARGS.get('search') + path.sep);
 		}
 		
-		if(!ARGS.update)
+		if(!ARGS.get('update'))
 		{
-			ARGS.update = null;
+			ARGS.set('update', null);
 		}
 
-		if(fs.existsSync(ARGS.search))
+		if(fs.existsSync(ARGS.get('search')))
 		{
-			if(ARGS.output[ARGS.output.length - 1] === path.sep)
+			if(ARGS.get('output')[ARGS.get('output').length - 1] === path.sep)
 			{
 				console.error('ERROR: `--output / -o` file may not be a directory. It should end with `.json`.');
 				process.exit(3);
 			}
-			else if(fs.existsSync(ARGS.output))
+			else if(fs.existsSync(ARGS.get('output')))
 			{
-				const orig = JSON.parse(fs.readFileSync(ARGS.output, { encoding: 'utf8' }));
+				const orig = JSON.parse(fs.readFileSync(ARGS.get('output'), { encoding: 'utf8' }));
 				ORIG = new Map();
 				
 				for(const i of orig)
@@ -70,25 +70,25 @@ const prepare = () => {
 
 			console.log('You started this script correctly.. so we continue here. Right now. :-)');
 			
-			if(!ARGS.output.endsWith('.json'))
+			if(!ARGS.get('output').endsWith('.json'))
 			{
 				console.warn('WARNING: `--output / -o` file doesn\'t end with `.json`.. changing this, now.');
-				ARGS.output += '.json';
+				ARGS.set('output', ARGS.get('output') + '.json');
 			}
 			
-			ARGS.output = path.resolve(ARGS.output);
+			ARGS.set('output', path.resolve(ARGS.get('output')));
 			
-			if(Number.isInt(ARGS.time) && ARGS.time)
+			if(Number.isInt(ARGS.get('time')) && ARGS.get('time'))
 			{
-				TIME = new Date(ARGS.time);
+				TIME = new Date(ARGS.get('time'));
 			}
 			else
 			{
 				TIME = new Date();
 			}
 
-			console.info('Using search path: `' + ARGS.search + '`');
-			console.info('      Output file: `' + ARGS.output + '`');
+			console.info('Using search path: `' + ARGS.get('search') + '`');
+			console.info('      Output file: `' + ARGS.get('output') + '`');
 			console.info('             Time:  ' + TIME.toGMTString());
 			console.log();
 		}
@@ -123,8 +123,8 @@ const DIR = [];
 
 //
 const start = () => {
-	fs.readdir(ARGS.search, { encoding: 'utf8', withFileTypes: true, recursive: false },
-		(_err, _files) => readdirCallback(ARGS.search, _err, _files));
+	fs.readdir(ARGS.get('search'), { encoding: 'utf8', withFileTypes: true, recursive: false },
+		(_err, _files) => readdirCallback(ARGS.get('search'), _err, _files));
 };
 
 const transform = () => {
@@ -147,13 +147,13 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
-	if(ARGS.update && (ADD || REM || CHG))
+	if(ARGS.get('update') && (ADD || REM || CHG))
 	{
-		fs.writeFileSync(ARGS.update, TIME.getTime().toString(), { encoding: 'utf8', mode: MODE, flush: true });
+		fs.writeFileSync(ARGS.get('update'), TIME.getTime().toString(), { encoding: 'utf8', mode: MODE, flush: true });
 	}
 
 	const result = JSON.stringify(_result);
-	fs.writeFileSync(ARGS.output, result, { encoding: 'utf8', mode: MODE, flush: true });
+	fs.writeFileSync(ARGS.get('output'), result, { encoding: 'utf8', mode: MODE, flush: true });
 	fin(_result, result);
 };
 

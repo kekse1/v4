@@ -35,21 +35,21 @@ ready(() => {
 	args = getopt();
 
 	//
-	if(!path.isValid(args.home))
+	if(!path.isValid(args.get('home')))
 	{
 		console.error('Invalid --home path argument!');
 		process.exit(1);
 	}
 
-	if(!String.isString(args.index, false))
+	if(!String.isString(args.get('index'), false))
 	{
 		console.error('Invalid --index argument!');
 		process.exit(2);
 	}
 
-	if(String.isString(args['index-ext'], false))
+	if(String.isString(args.get('index-ext'), false))
 	{
-		const split = args['index-ext'].split(',');
+		const split = args.get('index-ext').split(',');
 		INDEX_EXT.length = 0;
 
 		var ext; for(var i = 0, j = 0; i < split.length; ++i)
@@ -75,7 +75,7 @@ ready(() => {
 	}
 	
 	//
-	INDEX = args.index;
+	INDEX = args.get('index');
 
 	//
 	start();
@@ -85,7 +85,7 @@ ready(() => {
 //
 const start = () => {
 
-	const list = fs.readdirSync(args.home, {
+	const list = fs.readdirSync(args.get('home'), {
 		encoding: 'utf8',
 		withFileTypes: true,
 		recursive: false });
@@ -106,7 +106,7 @@ const start = () => {
 		items[j++] = {
 			name: list[i].name,
 			path: path.join(
-				args.home,
+				args.get('home'),
 				list[i].name),
 			home: path.join(
 				'home/',
@@ -180,7 +180,7 @@ const generate = (_result = result) => {
 	//
 	var p; for(const idx in res)
 	{
-		p = (args.home + '/' + INDEX + '.' + idx);
+		p = (args.get('home') + '/' + INDEX + '.' + idx);
 		
 		fs.writeFileSync(
 			p, res[idx], { encoding: 'utf8' });

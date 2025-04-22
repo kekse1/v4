@@ -68,25 +68,25 @@ const prepare = () => {
 	});*/
 	ARGS = getopt();
 	
-	if(ARGS.config)
+	if(ARGS.get('config'))
 	{
 		console.warn('The paths (needs to be an existing directory) can end with a trailing slash,');
 		console.warn('to dig recursively; otherwise it\'ll only look into this directory without');
 		console.warn('any more depth.');
 		console.log();
-		console.dir({ source: SOURCE, extensions: EXTENSIONS, root: (ARGS.root || undefined), output: (ARGS.output || undefined) });
+		console.dir({ source: SOURCE, extensions: EXTENSIONS, root: (ARGS.get('root') || undefined), output: (ARGS.get('output') || undefined) });
 		process.exit();
 	}
-	else if(ARGS.root && ARGS.output)
+	else if(ARGS.get('root') && ARGS.get('output'))
 	{
-		if(ARGS.root[ARGS.root.length - 1] !== path.sep)
+		if(ARGS.get('root')[ARGS.get('root').length - 1] !== path.sep)
 		{
-			ARGS.root += path.sep;
+			ARGS.set('root', ARGS.get('root') + path.sep);
 		}
 
-		if(fs.existsSync(ARGS.root))
+		if(fs.existsSync(ARGS.get('root')))
 		{
-			if(ARGS.output[ARGS.output.length - 1] === path.sep)
+			if(ARGS.get('output')[ARGS.get('output').length - 1] === path.sep)
 			{
 				console.error('ERROR: `--output / -o` file may not be a directory. It should end with `.json`.');
 				process.exit(3);
@@ -94,25 +94,25 @@ const prepare = () => {
 			
 			console.log('You started this script correctly.. so we continue here. Right now. :-)');
 			
-			if(!ARGS.output.endsWith('.json'))
+			if(!ARGS.get('output').endsWith('.json'))
 			{
 				console.warn('WARNING: `--output / -o` file doesn\'t end with `.json`.. changing this, now.');
-				ARGS.output += '.json';
+				ARGS.set('output', ARGS.get('output') + '.json');
 			}
 			
-			ARGS.output = path.resolve(ARGS.output);
+			ARGS.set('output', path.resolve(ARGS.get('output')));
 			
-			if(Number.isInt(ARGS.time) && ARGS.time)
+			if(Number.isInt(ARGS.get('time')) && ARGS.get('time'))
 			{
-				TIME = ARGS.time;
+				TIME = ARGS.get('time');
 			}
 			else
 			{
 				TIME = Date.now();
 			}
 			
-			console.info('Using root path: `' + ARGS.root + '`');
-			console.info('    Output file: `' + ARGS.output + '`');
+			console.info('Using root path: `' + ARGS.get('root') + '`');
+			console.info('    Output file: `' + ARGS.get('output') + '`');
 			console.info('           Time:  ' + new Date(TIME).toGMTString());
 		}
 		else
@@ -189,7 +189,7 @@ const start = (_args, _callback) => {
 	for(const source of SOURCE)
 	{
 		++req;
-		const p = path.join(_args.root, source);
+		const p = path.join(_args.get('root'), source);
 		fs.readdir(p, { encoding: 'utf8',
 			withFileTypes: true,
 			recursive: false }, (... _a) => {
@@ -238,13 +238,13 @@ const finish = (_result) => {
 	const result = compare(_result, MAP, ORIG);
 	const data = JSON.stringify(result, null, SPACE);
 	
-	fs.writeFileSync(ARGS.output, data, { encoding: 'utf8', mode: MODE, flush: true });
+	fs.writeFileSync(ARGS.get('output'), data, { encoding: 'utf8', mode: MODE, flush: true });
 	
-	const stats = fs.statSync(ARGS.output, { bigint: false, throwIfNoEntry: false });
+	const stats = fs.statSync(ARGS.get('output'), { bigint: false, throwIfNoEntry: false });
 	
 	if(stats)
 	{
-		console.info('Wrote output file: % bytes (`%`)', stats.size, fs.realpathSync(ARGS.output));
+		console.info('Wrote output file: % bytes (`%`)', stats.size, fs.realpathSync(ARGS.get('output')));
 	}
 	else
 	{
@@ -259,10 +259,10 @@ const finish = (_result) => {
 };
 
 const readOriginal = () => {
-	if(!fs.existsSync(ARGS.output)) return null;
+	if(!fs.existsSync(ARGS.get('output'))) return null;
 	return JSON.parse(
 		fs.readFileSync(
-			ARGS.output, {
+			ARGS.get('output'), {
 				encoding: 'utf8' }));
 };
 

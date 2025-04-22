@@ -37,45 +37,45 @@ ready(() => {
 	args = getopt();
 
 	//
-	if(args.debug)
+	if(args.get('debug'))
 	{
 		console.warn('--debug mode enabled (so nothing will be written to disk)!');
 	}
 	else
 	{
-		if(! path.isValid(args.library))
+		if(! path.isValid(args.get('library')))
 		{
 			console.error('Invalid --library path argument');
 			process.exit(1);
 		}
 		
-		if(! path.isValid(args.index))
+		if(! path.isValid(args.get('index')))
 		{
 			console.error('Invalid --index path argument');
 			process.exit(1);
 		}
 		
-		if(! path.isValid(args.summary))
+		if(! path.isValid(args.get('summary')))
 		{
 			console.error('Invalid --summary path argument');
 			process.exit(1);
 		}
 		
-		if(!String.isString(args.update, false))
+		if(!String.isString(args.get('update'), false))
 		{
 			console.error('Invalid --update path argument');
 			process.exit(1);
 		}
 		
-		console.debug('  Summary: ' + args.summary.quote());
-		console.debug('    Index: ' + args.index.quote());
-		console.debug('Timestamp: ' + args.update.quote());
+		console.debug('  Summary: ' + args.get('summary').quote());
+		console.debug('    Index: ' + args.get('index').quote());
+		console.debug('Timestamp: ' + args.get('update').quote());
 	}
 
 	//
-	if(fs.exists.file(args.index))
+	if(fs.exists.file(args.get('index')))
 	{
-		const orig = JSON.parse(fs.readFileSync(args.index, {
+		const orig = JSON.parse(fs.readFileSync(args.get('index'), {
 			encoding: 'utf8' })); originalIndex = new Map();
 		for(const entry of orig) originalIndex.set(entry.name, entry);
 		if(originalIndex.size === 0) originalIndex = null;
@@ -90,7 +90,7 @@ ready(() => {
 const proceed = () => {
 	//
 	var amount = 0; const cb = (_file) => { if(--amount <= 0) return handleResult(); };
-	for(var sub of PATH_SUB) { sub = path.join(args.library, sub); fs.readdir(sub, { encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => {
+	for(var sub of PATH_SUB) { sub = path.join(args.get('library'), sub); fs.readdir(sub, { encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => {
 			if(_err) return error(_err); for(var i = 0; i < _files.length; ++i) { const subResult = {};
 				if(_files[i].name[0] === '.' || !_files[i].name.endsWith('.js')) continue;
 				++amount; const p = path.join(_files[i].parentPath, _files[i].name);
@@ -123,24 +123,24 @@ const handleFile = (_path, _sub_result, _callback) => { var bytes = 0; var real 
 
 const handleResult = () => { result.sort('bytes', false);
 	const changes = checkForChanges(); makeSummary(changes);
-	if(args.debug) console.dir(result); console.dir({ Summary: summary });
-	if(!args.debug) writeResults(changes); process.exit();
+	if(args.get('debug')) console.dir(result); console.dir({ Summary: summary });
+	if(!args.get('debug')) writeResults(changes); process.exit();
 };
 
 const writeResults = (_changes) => {
 	const stringIndex = JSON.stringify(result);
 	const stringSummary = JSON.stringify(summary);
 	const stringUpdate = Date.now().toString();
-	fs.writeFileSync(args.index, stringIndex, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
+	fs.writeFileSync(args.get('index'), stringIndex, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
 	console.debug('  Index bytes written: ' + stringIndex.length.toLocaleString());
-	fs.writeFileSync(args.summary, stringSummary, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
+	fs.writeFileSync(args.get('summary'), stringSummary, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true });
 	console.debug('Summary bytes written: ' + stringSummary.length.toLocaleString());
-	if(_changes > 0 || args.force) {
-		if(_changes > 0) console.info('I found % changes, so we\'re updating the ' + path.basename(args.update).quote() + ' file.' + EOL + 'Don\'t forget to update your `VERSION.txt`! ;-)', _changes);
-		else console.info('No changes found, but because of `--force` we nevertheless update the ' + path.basename(args.update).quote() + ' file.');
-		if(fs.exists.file(args.update)) originalChanged = Number(fs.readFileSync(args.update, { encoding: 'utf8' }));
+	if(_changes > 0 || args.get('force')) {
+		if(_changes > 0) console.info('I found % changes, so we\'re updating the ' + path.basename(args.get('update')).quote() + ' file.' + EOL + 'Don\'t forget to update your `VERSION.txt`! ;-)', _changes);
+		else console.info('No changes found, but because of `--force` we nevertheless update the ' + path.basename(args.get('update')).quote() + ' file.');
+		if(fs.exists.file(args.get('update'))) originalChanged = Number(fs.readFileSync(args.get('update'), { encoding: 'utf8' }));
 		if(originalChanged !== null) console.debug('Original timestamp: ' + originalChanged); console.debug('     New timestamp: ' + stringUpdate);
-		fs.writeFileSync(args.update, stringUpdate, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true }); }
+		fs.writeFileSync(args.get('update'), stringUpdate, { encoding: 'utf8', mode: DEFAULT_MODE, flush: true }); }
 	else console.info('No changes found. Timestamp left as it was before.'); };
 
 const makeSummary = (_changes) => { summary = { files: 0, bytes: 0, full: 0, real: 0, size: null };

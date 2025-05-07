@@ -67,7 +67,7 @@ const prepare = () => {
 		time: { short: 't', params: 1, index: 0, parse: true, help: 'Milliseconds since unix epoche, for the current time' }
 	});*/
 	ARGS = getopt();
-	
+
 	if(ARGS.get('config'))
 	{
 		console.warn('The paths (needs to be an existing directory) can end with a trailing slash,');
@@ -113,7 +113,7 @@ const prepare = () => {
 			
 			console.info('Using root path: `' + ARGS.get('root') + '`');
 			console.info('    Output file: `' + ARGS.get('output') + '`');
-			console.info('           Time:  ' + new Date(TIME).toGMTString());
+			console.info('           Time:  ' + new Date(TIME).toString());
 		}
 		else
 		{
@@ -349,7 +349,7 @@ const withoutOriginal = (_key) => {
 
 const lastThings = (_item) => {
 	_item.size = renderSize(_item.bytes);
-	_item.date = new Date(_item.time).toGMTString();
+	_item.date = new Date(_item.time).toString();
 	return _item;
 };
 

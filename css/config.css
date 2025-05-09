@@ -15,6 +15,16 @@
 	--favicon: url('favicon.png');
 	--index: 'main';
 	--home: 'home';
+	--title: '<kekse.biz>';
+}
+
+:root
+{
+	--title: ' kekse.biz ';
+	--title-animation: auto;
+	--title-animation-timeout: 160;
+	--title-animation-timeout-repolarize: 3840;
+	--title-animation-timeout-repolarize-reverse: 1280;
 }
 
 :root

@@ -24,7 +24,7 @@
 	--title-animation: auto;
 	--title-animation-timeout: 160;
 	--title-animation-timeout-repolarize: 3840;
-	--title-animation-timeout-repolarize-reverse: 1280;
+	--title-animation-timeout-repolarize-reverse: 960;
 }
 
 :root

@@ -62,11 +62,17 @@
 
 :root
 {
+	--console-log-color: '';
+	--console-info-color: rgb(50, 90, 20);
+	--console-warn-color: rgb(110, 70, 20);
+	--console-error-color: rgb(130, 30, 30);
+	--console-debug-color: rgb(30, 90, 150);
+	
 	--console-log: '';
-	--console-info: 'color: rgb(50, 90, 20);';
-	--console-warn: 'color: rgb(110, 70, 20); font-weight: bold;';
-	--console-error: 'color: rgb(130, 30, 30); font-weight: bold;';
-	--console-debug: 'color: rgb(30, 90, 150);';
+	--console-info: '';
+	--console-warn: 'font-weight: bold;';
+	--console-error: 'font-weight: bold;';
+	--console-debug: '';
 }
 
 button

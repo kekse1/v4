@@ -220,7 +220,7 @@ li.OSD
 #updateState
 {
 	--url: url('status/update.now');
-	--refresh: 10000;
+	--refresh: 30000;
 	--duration: 520;
 	--duration-blink: 800;
 }
@@ -228,7 +228,7 @@ li.OSD
 #versionUpdateState
 {
 	--url: url('status/version.now');
-	--refresh: 10000;
+	--refresh: 60000;
 	--duration: 520;
 	--duration-blink: 800;
 }

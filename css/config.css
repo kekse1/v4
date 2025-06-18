@@ -209,6 +209,14 @@ li.OSD
 	--scroll-timeout: 60;
 }
 
+#stateScrollBar
+{
+	--duration-update: 320;
+	--duration-remove: 1600;
+	--interval-update: 60;
+	--duration: 1800;
+}
+
 #countState
 {
 	--url: url('php/count.php');

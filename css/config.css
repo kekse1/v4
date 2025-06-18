@@ -211,9 +211,8 @@ li.OSD
 
 #stateScrollBar
 {
-	--duration-update: 320;
+	--duration-update: 60;
 	--duration-remove: 1600;
-	--interval-update: 60;
 	--duration: 1800;
 }
 

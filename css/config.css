@@ -238,7 +238,6 @@ li.OSD
 {
 	--duration: 1400;
 	--easing: linear;
-	--resize-timeout: 80;
 }
 
 :root

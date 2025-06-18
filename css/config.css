@@ -235,8 +235,9 @@ li.OSD
 
 #INFO
 {
-	--duration: 900;
+	--duration: 1400;
 	--easing: linear;
+	--resize-timeout: 80;
 }
 
 :root

@@ -202,15 +202,15 @@ li.OSD
 	--duration-data: 1400;
 }
 
-#STATE
+#STATE, #BAR
 {
 	--duration: 1200;
 	--delay-each: 800;
 	--scroll-timeout: 60;
-	--scroll-scale: 1.6421;
+	--scroll-scale: 1.5;
 }
 
-#stateScrollBar
+#scrollBar, #BAR
 {
 	--duration-update: 120;
 	--duration-remove: 1600;

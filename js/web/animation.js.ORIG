@@ -256,6 +256,11 @@ const continueAnimation = (_element, _options) => {
 	return true; };
 
 //
+//TODO/.. just show warning once when 'noAnimation'.. NEEDS MORE CODE! ..
+//
+var __noAnimationWarning = false;
+
+//
 Reflect.defineProperty(HTMLElement.prototype, '_animate', { value: _animate });
 Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyframes, _options, ... _args) {
 	//
@@ -286,8 +291,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	if(typeof _options.force !== 'boolean') _options.force = this.parseVariable('force-animation');
 
 	//
-	var noAnimation = ((this.isConnected && this.parentNode) ?
-		(_options.force ? false : !!this.noAnimation) : true);
+	var noAnimation = ((this.isConnected && this.parentNode) ? (_options.force ? false : !!this.noAnimation) : true);
 	
 	//
 	var global = document.parseVariable('global'); if(global < 0) global = 0;
@@ -352,63 +356,65 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	}
 
 	//
-	if(noAnimation)
-	{
-		_options.duration = 0;
-		_options.delay = 0;
-	}
-
-	//
 	const abortSignal = (Reflect.is(_options.signal, 'AbortSignal') ? _options.signal : null);
 
 	//
-	if(!String.isString(_options.easing, false)) _options.easing = this.getVariable('easing');
-	if(typeof _options.managed !== 'boolean' && _options.managed !== null) _options.managed = true;
-	//
-	if(!_options.managed) { _keyframes = Animation.prepareKeyframes(_keyframes, this, _options);
-		const result = _animate.call(this, _keyframes, _options, ... _args);
-		if(!result) return null; else if(_options.managed === null) return result;
-		result.options = _options; const onabort = (... _args) => { if(String.isString(abortSignal.reason, false) && typeof result[abortSignal.reason] === 'function')
-			return result[abortSignal.reason](... _args); else if(String.isString(_options.abortMethod, false) &&
-				typeof result[_options.abortMethod] === 'function') return result[_options.abortMethod](... _args);
-			const method = this.parseVariable('abort-method'); if(String.isString(method, false) &&
-				typeof result[method] === 'function') return result[method](... _args);
-			return error('Invalid abort method'); };
-		Reflect.defineProperty(result, 'keyframes', { get: () => { return _keyframes; }});
-		Reflect.defineProperty(result, 'options', { get: () => { return _options; }});
-		Reflect.defineProperty(result, 'element', { get: () => { return this; }});
-		Reflect.defineProperty(result, 'style', { get: () => { return ''; }});
-		Reflect.defineProperty(result, 'isStopped', { get: () => { return null; }});
-		Reflect.defineProperty(result, 'manager', { value: () => { return null; }});
-		const callback = (_event, ... _a) => { document.realAnimations.remove(result);
-			result.removeEventListener('finish', callback);
-			result.removeEventListener('cancel', callback);
-			result.removeEventListener('remove', callback);
-			if(abortSignal) abortSignal.removeEventListener('abort', onabort);
-			Reflect.defineProperty(_event, 'animation', { value: result });
-			callCallbacks(this, _options, _event, result, ... _a); };
-		result.addEventListener('finish', callback, { passive: true });
-		result.addEventListener('cancel', callback, { passive: true });
-		result.addEventListener('remove', callback, { passive: true });
-		document.realAnimations.push(result);
-		if(abortSignal) abortSignal.addEventListener(
-			'abort', onabort, { once: true, passive: true });
-		return result; }
+	if(!noAnimation) {
+		//
+		if(!String.isString(_options.easing, false)) _options.easing = this.getVariable('easing');
+		if(typeof _options.managed !== 'boolean' && _options.managed !== null) _options.managed = true;
+		//
+		if(!_options.managed) { _keyframes = Animation.prepareKeyframes(_keyframes, this, _options);
+			const result = _animate.call(this, _keyframes, _options, ... _args);
+			if(!result) return null; else if(_options.managed === null) return result;
+			result.options = _options; const onabort = (... _args) => { if(String.isString(abortSignal.reason, false) && typeof result[abortSignal.reason] === 'function')
+				return result[abortSignal.reason](... _args); else if(String.isString(_options.abortMethod, false) &&
+					typeof result[_options.abortMethod] === 'function') return result[_options.abortMethod](... _args);
+				const method = this.parseVariable('abort-method'); if(String.isString(method, false) &&
+					typeof result[method] === 'function') return result[method](... _args);
+				return error('Invalid abort method'); };
+			Reflect.defineProperty(result, 'keyframes', { get: () => { return _keyframes; }});
+			Reflect.defineProperty(result, 'options', { get: () => { return _options; }});
+			Reflect.defineProperty(result, 'element', { get: () => { return this; }});
+			Reflect.defineProperty(result, 'style', { get: () => { return ''; }});
+			Reflect.defineProperty(result, 'isStopped', { get: () => { return null; }});
+			Reflect.defineProperty(result, 'manager', { value: () => { return null; }});
+			const callback = (_event, ... _a) => { document.realAnimations.remove(result);
+				result.removeEventListener('finish', callback);
+				result.removeEventListener('cancel', callback);
+				result.removeEventListener('remove', callback);
+				if(abortSignal) abortSignal.removeEventListener('abort', onabort);
+				Reflect.defineProperty(_event, 'animation', { value: result });
+				callCallbacks(this, _options, _event, result, ... _a); };
+			result.addEventListener('finish', callback, { passive: true });
+			result.addEventListener('cancel', callback, { passive: true });
+			result.addEventListener('remove', callback, { passive: true });
+			document.realAnimations.push(result);
+			if(abortSignal) abortSignal.addEventListener('abort', onabort, { once: true, passive: true });
+			return result; }
 
-	//
-	/*if(typeof _options.scale !== 'boolean' && !Number.isNumber(_options.scale))
-		_options.scale = this.parseVariable('scale');*/
-	//".duration = round(.duration * last.currentTime / last.duration);".. ^_^
-	//
-	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
-	if(typeof _options.smooth !== 'boolean') _options.smooth = DEFAULT_SMOOTH;
+		//
+		/*if(typeof _options.scale !== 'boolean' && !Number.isNumber(_options.scale))
+			_options.scale = this.parseVariable('scale');*/
+		//".duration = round(.duration * last.currentTime / last.duration);".. ^_^
+		//
+		if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
+		if(typeof _options.smooth !== 'boolean') _options.smooth = DEFAULT_SMOOTH;
 
-	//
-	_options.method = Callback.checkMethod(_options.method, true, this);
+		//
+		_options.method = Callback.checkMethod(_options.method, true, this);
 		
-	//
-	if(!Number.isInt(this._animations)) this._animations = 0;
-	if(!Object.isObject(this._animation)) this._animation = Object.create(null);
+		//
+		if(!Number.isInt(this._animations)) this._animations = 0;
+		if(!Object.isObject(this._animation)) this._animation = Object.create(null);
+	}
+	else if(!__noAnimationWarning)
+	{
+		console.group('Animation');
+		console.warn('The `noAnimation` is (true), but I think there\'s some parts missing in the `.animate()` routine...');
+		console.warn('This message is only shown ONCE (just to remember to extend the animation code)!');
+		__noAnimationWarning = true;
+	}
 
 	//
 	const keyframes = Animation.manageKeyframes(_keyframes, this, _options);
@@ -427,16 +433,19 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	for(const style of styles) delete keyframes[style].targetValue;
 
 	//
-	/*if(!noAnimation && !_options.force) {
+	if(!noAnimation && !_options.force) {
 		var all = true; const computedStyle = getComputedStyle(this);
 		for(const style in keyframes) for(const idx in keyframes[style]) {
 			for(var i = 0; i < keyframes[style][idx].length; ++i)
 				if(keyframes[style][idx][i] !== _options.targetValues[style]) {
 					all = false; break; }}
-		if(all) noAnimation = true; }*/
+		if(all) noAnimation = true; }
 
 	//
-	/*if(noAnimation && !_options.force) {
+	//TODO/i don't think that is enough.. maybe some callback calls missing or so!?
+	//	.. just tried to disable animations, and it seems #MAIN doesn't get filled; ...
+	//
+	if(noAnimation && !_options.force) {
 	//if(_options.duration <= 0 || (noAnimation && !_options.force)) {
 		const finish = () => {
 			for(const style in _options.targetValues) {
@@ -444,7 +453,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 					this.style[style] = _options.targetValues[style]; }
 			callCallbacks(this, _options, { type: 'finish', element: this, animation: null }, null); };
 		if(_options.delay > 0) return setTimeout(finish, -_options.delay);
-		else finish(); return true; }*/
+		else finish(); return true; }
 
 	//
 	const removeAnimation = (_animation, _force = false) => { if(! _animation._registered && !_force) return;

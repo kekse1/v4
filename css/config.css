@@ -37,8 +37,8 @@
 	--easing: linear;/*ease-in-out;*//* linear; then set --speed = ~1.5; w/ ease-in-out better ~1.0; ... */
 	--scale: none;/* a boolean or a number of minimum scaled duration */
 	--speed: 1.42;
-	--global: 2.5;
-	/*--global: 0;*/
+	--global: 2.71828;
+	--global-timeout: 1.35914;
 	--scroll-behavior: smooth; /* [ `smooth`, `instant` ] (TODO!!11); ... */
 	--duration: 1000;
 	--duration-show: 1080;

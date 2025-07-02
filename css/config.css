@@ -202,11 +202,7 @@ li.OSD
 	--duration-data: 1400;
 }
 
-<<<<<<< HEAD
 #STATE, #BAR, #stateScrollBar, #BARScroll
-=======
-#STATE, #BAR
->>>>>>> 31b7163c1f4e280a34fc0ecd0251978463448b0e
 {
 	--duration: 1200;
 	--delay-each: 800;
@@ -214,11 +210,7 @@ li.OSD
 	--scroll-scale: 1.5;
 }
 
-<<<<<<< HEAD
 #stateScrollBar, #BAR, #stateScrollBar, #BARScroll
-=======
-#scrollBar, #BAR
->>>>>>> 31b7163c1f4e280a34fc0ecd0251978463448b0e
 {
 	--duration-remove: 1600;
 	--duration: 1800;

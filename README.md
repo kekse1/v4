@@ -51,7 +51,13 @@ These are some of my helper scripts.
     * [`home.sh`](scripts/home.sh)
     * [`home.js`](scripts/home.js)
 
-<br><br>
+### Cookies
+[**New**] visitors can manage the cookies now. Including some settings (TODO).
+
+There should also be a Dialog asking for the cookie permissions..
+But the current Interface should be enough.. for now.
+
+<br><br><br>
 
 # Contact
 <img src="https://kekse.biz/github.php?override=github:v4&draw&text=v4@kekse.biz&angle=6&size=38pt&fg=150,20,90&font=OpenSans&ro&readonly&h=64&v=16" />

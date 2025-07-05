@@ -293,53 +293,36 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	var global = document.parseVariable('global'); if(global < 0) global = 0;
 	var speed = this.parseVariable('speed'); if(speed < 0) speed = 0;
 	var factor = (global * speed);
-
-	//
-	var forced;
 	
+	//
 	if(factor <= 0)
 	{
 		_options.duration = 0;
 		_options.delay = 0;
-		forced = true;
 	}
 	else if(this.hasVariable('force'))
 	{
 		_options.duration = this.parseVariable('force');
-		forced = true;
 	}
 	else
 	{
 		if(_options.duration === false) _options.duration = 0;
 		else if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
-
-		forced = false;
 	}
 
-	if(!forced)
-	{	
-		if(Number.isNumber(_options.duration) && _options.duration > 0)
-		{
-			_options.duration /= factor;
-		}
-		else if(_options.duration < 0)
-		{
-			_options.duration = 0;
-		}
-
-		if(!_options.delay) _options.delay = 0;
-		else if(!Number.isNumber(_options.delay))
-		{
-			options.delay = this.parseVariable('delay');
-		}
-	}
-	else if(_options.delay === false)
+	if(Number.isNumber(_options.duration) && _options.duration > 0)
 	{
-		_options.delay = 0;
+		_options.duration /= factor;
 	}
+	else if(_options.duration < 0)
+	{
+		_options.duration = 0;
+	}
+
+	if(!_options.delay) _options.delay = 0;
 	else if(!Number.isNumber(_options.delay))
 	{
-		_options.delay = this.parseVariable('delay');
+		options.delay = this.parseVariable('delay');
 	}
 	
 	if(Number.isNumber(_options.delay) && _options.delay > 0)
@@ -352,7 +335,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	}
 
 	//
-	if(noAnimation)
+	if(noAnimation || _options.duration <= 0)
 	{
 		_options.duration = 0;
 		_options.delay = 0;
@@ -427,24 +410,23 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	for(const style of styles) delete keyframes[style].targetValue;
 
 	//
-	/*if(!noAnimation && !_options.force) {
+	if(!noAnimation && !_options.force) {
 		var all = true; const computedStyle = getComputedStyle(this);
 		for(const style in keyframes) for(const idx in keyframes[style]) {
 			for(var i = 0; i < keyframes[style][idx].length; ++i)
 				if(keyframes[style][idx][i] !== _options.targetValues[style]) {
 					all = false; break; }}
-		if(all) noAnimation = true; }*/
+		if(all) noAnimation = true; }
 
 	//
-	/*if(noAnimation && !_options.force) {
-	//if(_options.duration <= 0 || (noAnimation && !_options.force)) {
+	if(noAnimation && !_options.force) {
 		const finish = () => {
 			for(const style in _options.targetValues) {
 				if(this.hasAnimation(style, true)) this.stopAnimation(style);
 					this.style[style] = _options.targetValues[style]; }
 			callCallbacks(this, _options, { type: 'finish', element: this, animation: null }, null); };
 		if(_options.delay > 0) return setTimeout(finish, -_options.delay);
-		else finish(); return true; }*/
+		else finish(); return true; }
 
 	//
 	const removeAnimation = (_animation, _force = false) => { if(! _animation._registered && !_force) return;
@@ -806,23 +788,25 @@ Reflect.defineProperty(Animation.prototype, 'stop', { value: function(... _args)
 }});
 
 Reflect.defineProperty(Animation.prototype, 'hardStop', { value: function(... _args) {
-	this._callback = this.clean; const result = this.stop(... _args);
-	if(this.manager) this.manager.remove(this.style); return result; }});
+	try { this._callback = this.clean; const result = this.stop(... _args);
+	if(this.manager) this.manager.remove(this.style); return result; }
+	catch(_err) {} }});
 
 Reflect.defineProperty(Animation.prototype, 'cancel', { value: function(... _args) {
-	this.pause(); this._isStopped = false; this._currentTime = this.currentTime; return _cancel.apply(this, _args);
+	this.pause(); this._isStopped = false; this._currentTime = this.currentTime;
+	try { return _cancel.apply(this, _args); } catch(_err) {}
 }});
 
 Reflect.defineProperty(Animation.prototype, 'finish', { value: function(... _args) {
-	delete this._currentTime; this._isStopped = false; return _finish.apply(this, _args);
+	delete this._currentTime; this._isStopped = false; try { return _finish.apply(this, _args); } catch(_err) {}
 }});
 
 Reflect.defineProperty(Animation.prototype, 'pause', { value: function(... _args) {
-	this._currentTime = this.currentTime; this._isStopped = false; return _pause.apply(this, _args);
+	this._currentTime = this.currentTime; this._isStopped = false; try { return _pause.apply(this, _args); } catch(_err) {}
 }});
 
 Reflect.defineProperty(Animation.prototype, 'play', { value: function(... _args) {
-	delete this._currentTime; this._isStopped = false; return _play.apply(this, _args);
+	delete this._currentTime; this._isStopped = false; try { return _play.apply(this, _args); } catch(_err) {}
 }});
 
 Reflect.defineProperty(Animation.prototype, 'isIdle', { get: function() { return (this.playState === 'idle'); }});

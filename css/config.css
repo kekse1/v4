@@ -63,11 +63,6 @@
 
 :root
 {
-	--ready-timeout: 3600;
-}
-
-:root
-{
 	--console-log-color: '';
 	--console-info-color: rgb(50, 90, 20);
 	--console-warn-color: rgb(110, 70, 20);

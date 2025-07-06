@@ -63,6 +63,11 @@
 
 :root
 {
+	--ready-timeout: 3600;
+}
+
+:root
+{
 	--console-log-color: '';
 	--console-info-color: rgb(50, 90, 20);
 	--console-warn-color: rgb(110, 70, 20);
@@ -181,10 +186,13 @@ li.OSD
 {
 	--method: set;
 	--speed: 0.7;
-	--duration-each: 400;
+	/*--duration-each: 400;*/
+	--duration-each: 1000;
 	--easing: linear;
-	--delay-each: 36;
-	--delay-start: 600;
+	/*--delay-each: 36;
+	--delay-start: 600;*/
+	--delay-each: 260;
+	--delay-start: 1000;
 }
 
 #MAIN

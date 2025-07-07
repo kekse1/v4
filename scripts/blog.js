@@ -12,7 +12,7 @@
  * 	(b) every entry's 'body', each as '*.txt'
  *
  *
- * TODO!!1 ...
+ * TODO!!1 ... and really untested atm..
  *
  */
 
@@ -72,7 +72,12 @@ const parse = (_chunk) => {
 
 	loop: for(var i = 0, j = 0; i < _chunk.length; ++i)
 	{
-		if(_chunk[i] === '\n')
+		if(state.esc)
+		{
+			sub += _chunk[i];
+			state.esc = false;
+		}
+		else if(_chunk[i] === '\n')
 		{
 			if(_chunk[i + 1] === '\r')
 			{
@@ -89,12 +94,12 @@ const parse = (_chunk) => {
 				++i;
 			}
 
-			lines[j++] = sub;
+			lines[j++] = sub.trim();
 			sub = '';
 		}
-		else if(_chunk[i] === '\\' && i < (_chunk.length - 1))
+		else if(_chunk[i] === '\\')
 		{
-			sub += _chunk[++i];
+			state.esc = true;
 		}
 		else
 		{
@@ -149,6 +154,7 @@ const pushItem = () => {
 };
 
 const state = {
+	esc: false,
 	time: '',
 	head: '',
 	body: '',

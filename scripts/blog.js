@@ -92,13 +92,17 @@ const parse = (_chunk) => {
 			lines[j++] = sub;
 			sub = '';
 		}
+		else if(_chunk[i] === '\\' && i < (_chunk.length - 1))
+		{
+			sub += _chunk[++i];
+		}
 		else
 		{
 			sub += _chunk[i];
 		}
 	}
 
-	var idx; for(var i = 0; i < lines.length; ++i)
+	var idx, line; for(var i = 0; i < lines.length; ++i)
 	{
 		if(lines[i].startsWith('### '))
 		{
@@ -117,8 +121,6 @@ const parse = (_chunk) => {
 				state.head = lines[i].substr(
 					idx + 2);
 			}
-
-			state.item = 'body';
 		}
 		else if(lines[i][0] === '#')
 		{
@@ -147,7 +149,6 @@ const pushItem = () => {
 };
 
 const state = {
-	item: '',
 	time: '',
 	head: '',
 	body: '',

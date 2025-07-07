@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.0
+ * v0.4.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -17,7 +17,7 @@
  */
 
 //
-const DEFAULT_BUFFER = (1024 * 256);
+const DEFAULT_BUFFER = (1024 * 512);
 const DEFAULT_ENCODING = 'utf8';
 
 //

@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.2.0
+ * v0.3.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -68,39 +68,10 @@ const chunk = (_stream, _chunk) => {
 };
 
 const parse = (_chunk) => {
-	loop: for(var i = 0; i < _chunk.length; ++i)
+	const lines = []; var sub = '';
+
+	loop: for(var i = 0, j = 0; i < _chunk.length; ++i)
 	{
-		if(state.comment)
-		{
-			if(_chunk[i] === '\n')
-			{
-				if(_chunk[i + 1] === '\r')
-				{
-					++i;
-				}
-
-				state.comment = false;
-			}
-			
-			if(_chunk[i] === '\r')
-			{
-				if(_chunk[i + 1] === '\n')
-				{
-					++i;
-				}
-
-				state.comment = false;
-			}
-
-			continue;
-		}
-
-		if(_chunk[i] === '\\' && i < (_chunk.length - 1))
-		{
-			state[state.item] += _chunk[++i];
-			continue;
-		}
-
 		if(_chunk[i] === '\n')
 		{
 			if(_chunk[i + 1] === '\r')
@@ -108,7 +79,8 @@ const parse = (_chunk) => {
 				++i;
 			}
 
-			++state.newLines;
+			lines[j++] = sub;
+			sub = '';
 		}
 		else if(_chunk[i] === '\r')
 		{
@@ -117,66 +89,44 @@ const parse = (_chunk) => {
 				++i;
 			}
 
-			++state.newLines;
+			lines[j++] = sub;
+			sub = '';
 		}
 		else
 		{
-			if(state.newLines > 0)
-			{
-				if(_chunk.at(i, '### '))
-				{
-					pushItem();
-					state.item = '';
-					i += 3;
-					continue;
-				}
+			sub += _chunk[i];
+		}
+	}
 
-				if(_chunk[i] === '#')
-				{
-					state.comment = true;
-					--state.newLines;
-					continue;
-				}
+	var idx; for(var i = 0; i < lines.length; ++i)
+	{
+		if(lines[i].startsWith('### '))
+		{
+			pushItem();
+			
+			lines[i] = lines[i].substr(4);
+
+			if((idx = lines[i].indexOf(' # ')) === -1)
+			{
+				state.time = lines[i];
+			}
+			else
+			{
+				state.time = lines[i].substr(
+					0, idx);
+				state.head = lines[i].substr(
+					idx + 2);
 			}
 
-			state.newLines = 0;
-
-			if(!state.item)
-			{
-				state.item = 'time';
-			}
+			state.item = 'body';
 		}
-		
-		if(state.item) switch(state.item)
+		else if(lines[i][0] === '#')
 		{
-			case 'time':
-				if(state.newLines > 0)
-				{
-					state.item = 'body';
-					continue loop;
-				}
-				
-				if(_chunk.at(i, ' # '))
-				{
-					state.item = 'head';
-					i += 2;
-					continue loop;
-				}
-				break;
-			case 'head':
-				if(state.newLines >= 2)
-				{
-					state.item = 'body';
-					continue loop;
-				}
-				break;
-			case 'body':
-				break;
+			continue;
 		}
-
-		if(state.item)
+		else
 		{
-			state[state.item] += _chunk[i];
+			state.body += lines[i] + EOL;
 		}
 	}
 };
@@ -197,8 +147,6 @@ const pushItem = () => {
 };
 
 const state = {
-	comment: false,
-	newLines: 0,
 	item: '',
 	time: '',
 	head: '',

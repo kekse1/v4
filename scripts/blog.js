@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.1
+ * v0.5.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -12,23 +12,26 @@
  * 	(b) every entry's 'body', each as '*.txt'
  *
  *
- * TODO!!1 ... and really untested atm..
+ * TODO!!1 ... write into (prepared) file system! :-)
  *
  */
 
 //
 const DEFAULT_BUFFER = (1024 * 512);
 const DEFAULT_ENCODING = 'utf8';
+const DEFAULT_HASH = 'sha3-256';
+const DEFAULT_DIGEST = 'base64';
 
 //
 import { ready } from '../js/lib.js';
+import crypto from 'node:crypto';
 
 //
 // --blog (.txt)
 // --json
 // --body (dir 4 .txt)
 //
-var args = null, items = [];
+var args = null, items = [], stream;
 ready(() => main(args = getopt()));
 
 const main = (_args = args) => {
@@ -37,25 +40,73 @@ const main = (_args = args) => {
 	//	... gehe aber erstmal von korrektheit aus.
 	//
 	
-	const stream = fs.createReadStream(
+	checkArgs(_args, true);
+
+	stream = fs.createReadStream(
 		_args.get('blog'), {
 			encoding: DEFAULT_ENCODING,
 			autoClose: true,
 			emitClose: true,
 			highWaterMark: DEFAULT_BUFFER });
 	stream.once('end', (... _a) => chunk(
-		stream, null, ... _a));
+		null, ... _a));
 	stream.on('data', (... _a) => chunk(
-		stream, ... _a));
+		... _a));
+};
+
+const checkArgs = (_args, _throw = true) => {
+	const missing = [];
+
+	if(!_args.has('blog'))
+	{
+		missing.push('blog');
+	}
+
+	if(!_args.has('json'))
+	{
+		missing.push('json');
+	}
+
+	if(!_args.has('body'))
+	{
+		missing.push('body');
+	}
+	
+	if(_throw && missing.length > 0)
+	{
+		//
+		//todo/
+		// atm seems to be a mistake in the 'lib/console*' or so (@ EOLs)??
+		//
+		var msg = 'The following parameters are missing:' + eol(3);
+
+		for(const m of missing)
+		{
+			msg += '\t--' + m + EOL;
+		}
+		
+		msg += EOL + EOL + 'You *really* should use my `blog.sh` startup script,' +
+			EOL + 'which also prepares the file system, btw.!';
+
+		console.error(msg);
+		process.exit(254);
+	}
+
+	return missing;
 };
 
 const finish = (_stream) => {
-	console.dir({ items, length: items.length });
+	console.dir({ items });
+	console.info('Found % blog entries.',
+		items.length.toLocaleString());
+	//todo/write
 };
 
-const chunk = (_stream, _chunk) => {
+const chunk = (_chunk) => {
 	if(_chunk === null)
 	{
+		stream = null;
+
 		if(state.sub)
 		{
 			line();
@@ -144,13 +195,20 @@ const pushItem = () => {
 	{
 		return false;
 	}
-
-	items.push({
+	
+	const item = {
 		time: (state.time.trim() || '-/-'),
 		head: (state.head.trim() || '-/-'),
-		body: state.body });
-	
+		body: state.body,
+		now: Date.now() };
+	items.push(item);
+
 	state.time = state.head = state.body = '';
+
+	const hash = crypto.createHash(DEFAULT_HASH);
+	hash.update(JSON.stringify(item));
+	item.hash = hash.digest(DEFAULT_DIGEST);
+
 	return true;
 };
 

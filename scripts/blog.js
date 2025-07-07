@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.3.0
+ * v0.4.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -56,6 +56,11 @@ const finish = (_stream) => {
 const chunk = (_stream, _chunk) => {
 	if(_chunk === null)
 	{
+		if(state.sub)
+		{
+			line();
+		}
+	
 		if(state.body)
 		{
 			pushItem();
@@ -67,14 +72,42 @@ const chunk = (_stream, _chunk) => {
 	parse(_chunk);
 };
 
-const parse = (_chunk) => {
-	const lines = []; var sub = '';
+const line = () => {
+	var sub = state.sub.trim();
+	state.sub = ''; var idx;
 
+	if(sub.startsWith('### '))
+	{
+		pushItem();
+
+		if((idx = (sub = sub.substr(4)).indexOf(' # ')) === -1)
+		{
+			state.time = sub;
+		}
+		else
+		{
+			state.time = sub.substr(
+				0, idx);
+			state.head = sub.substr(
+				idx + 2);
+		}
+	}
+	else if(sub[0] === '#')
+	{
+		return;
+	}
+	else
+	{
+		state.body += sub + EOL;
+	}
+};
+
+const parse = (_chunk) => {
 	loop: for(var i = 0, j = 0; i < _chunk.length; ++i)
 	{
 		if(state.esc)
 		{
-			sub += _chunk[i];
+			state.sub += _chunk[i];
 			state.esc = false;
 		}
 		else if(_chunk[i] === '\n')
@@ -84,8 +117,7 @@ const parse = (_chunk) => {
 				++i;
 			}
 
-			lines[j++] = sub;
-			sub = '';
+			line();
 		}
 		else if(_chunk[i] === '\r')
 		{
@@ -94,8 +126,7 @@ const parse = (_chunk) => {
 				++i;
 			}
 
-			lines[j++] = sub.trim();
-			sub = '';
+			line();
 		}
 		else if(_chunk[i] === '\\')
 		{
@@ -103,37 +134,7 @@ const parse = (_chunk) => {
 		}
 		else
 		{
-			sub += _chunk[i];
-		}
-	}
-
-	var idx, line; for(var i = 0; i < lines.length; ++i)
-	{
-		if(lines[i].startsWith('### '))
-		{
-			pushItem();
-			
-			lines[i] = lines[i].substr(4);
-
-			if((idx = lines[i].indexOf(' # ')) === -1)
-			{
-				state.time = lines[i];
-			}
-			else
-			{
-				state.time = lines[i].substr(
-					0, idx);
-				state.head = lines[i].substr(
-					idx + 2);
-			}
-		}
-		else if(lines[i][0] === '#')
-		{
-			continue;
-		}
-		else
-		{
-			state.body += lines[i] + EOL;
+			state.sub += _chunk[i];
 		}
 	}
 };
@@ -155,6 +156,7 @@ const pushItem = () => {
 
 const state = {
 	esc: false,
+	sub: '',
 	time: '',
 	head: '',
 	body: '',

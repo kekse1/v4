@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.5.1
+ * v0.6.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -148,39 +148,79 @@ const line = () => {
 	}
 	else
 	{
-		state.body += sub + EOL;
+		for(var i = 0; i < sub.length; ++i)
+		{
+			if(sub[i] === '\\' && i < (sub.length - 1))
+			{
+				state.body += sub[++i];
+			}
+			else
+			{
+				state.body += sub[i];
+			}
+		}
+
+		state.body += EOL;
 	}
 };
 
 const parse = (_chunk) => {
 	loop: for(var i = 0, j = 0; i < _chunk.length; ++i)
 	{
-		if(state.esc)
+		if(state.eol) switch(state.eol)
 		{
-			state.sub += _chunk[i];
-			state.esc = false;
+			case '\n':
+				state.eol = '';
+
+				if(_chunk[i] === '\r')
+				{
+					++i;
+				}
+
+				line();
+				break;
+			case '\r':
+				state.eol = '';
+
+				if(_chunk[i] === '\n')
+				{
+					++i;
+				}
+				
+				line();
+				break;
 		}
 		else if(_chunk[i] === '\n')
 		{
-			if(_chunk[i + 1] === '\r')
+			if(i < (_chunk.length - 1))
 			{
-				++i;
-			}
+				if(_chunk[i + 1] === '\r')
+				{
+					++i;
+				}
 
-			line();
+				line();
+			}
+			else
+			{
+				state.eol = '\n';
+			}
 		}
 		else if(_chunk[i] === '\r')
 		{
-			if(_chunk[i + 1] === '\n')
+			if(i < (_chunk.length - 1))
 			{
-				++i;
-			}
+				if(_chunk[i + 1] === '\n')
+				{
+					++i;
+				}
 
-			line();
-		}
-		else if(_chunk[i] === '\\')
-		{
-			state.esc = true;
+				line();
+			}
+			else
+			{
+				state.eol = '\r';
+			}
 		}
 		else
 		{
@@ -212,7 +252,7 @@ const pushItem = () => {
 };
 
 const state = {
-	esc: false,
+	eol: '',
 	sub: '',
 	time: '',
 	head: '',

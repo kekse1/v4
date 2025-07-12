@@ -11,14 +11,20 @@
 ### Link
 [https://**`kekse.biz`**/](https://kekse.biz/)
 
+<br><br>
+
 ### **Modules**
 See the [**Module INDEX**](docs/modules/README.md); much parts already described here (but still much TODO in here).
+
+<br>
 
 #### **Index**
 The [**source code** section](https://kekse.biz/?~sources) on [my website](https://kekse.biz/)
 acts as index/overview and summary for the **lib**/ and **web**/ JavaScript sources.
 Here you shall see more than the [API documentation / Module Index](docs/modules/README.md)
 linked above.
+
+<br><br>
 
 ### **Features**
 Here's a list of all end-user features (only those they can really see):
@@ -30,6 +36,8 @@ any behavior of my website. See my [**`config.css`**](css/config.css)!
 
 ### Counter script
 See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
+
+<br><br>
 
 ### **Scripts**
 These are some of my helper scripts.
@@ -50,9 +58,14 @@ These are some of my helper scripts.
 * `home`
     * [`home.sh`](scripts/home.sh)
     * [`home.js`](scripts/home.js)
+* `blog`
+    * [`blog.sh`](scripts/blog.sh)
+    * [`blog.js`](scripts/blog.js)
+
+<br><br>
 
 ### Cookies
-[**New**] visitors can manage the cookies now. Including some settings (TODO).
+\[**New** (Juni 2025)\] visitors can manage the cookies now. Including some settings (TODO).
 
 There should also be a Dialog asking for the cookie permissions..
 But the current Interface should be enough.. for now.
@@ -69,3 +82,4 @@ and it's licensed under the [MIT](LICENSE.txt) (also known as 'X' or 'X11' licen
 <a href="https://kekse.biz/">
 <img src="favicon.png" alt="Favicon" />
 </a>
+

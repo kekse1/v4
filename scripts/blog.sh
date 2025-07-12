@@ -13,7 +13,11 @@ real="$(realpath "$0")"
 dir="$(dirname "$real")"
 root="$(realpath "${dir}/../")"
 script="$(realpath "${dir}/blog.js")"
+<<<<<<< HEAD
 json="$(realpath "${root}/home/blog/main.json")"
+=======
+json="$(realpath "${root}/home/blog/blog.json")"
+>>>>>>> e8567e0c8319963d3aedec2e69225779008098e4
 blog="$(realpath "${root}/home/blog/main.txt")"
 body="$(realpath "${root}/home/blog/body/")"
 

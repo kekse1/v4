@@ -9,11 +9,6 @@
 #
 
 #
-INDEX="index.json"
-SUMMARY="summary.json"
-UPDATE="version.now"
-
-#
 real="$(realpath "$0")"
 dir="$(dirname "$real")"
 script="$(realpath "${dir}/index.js")"
@@ -21,7 +16,7 @@ root="$(realpath "${dir}/../")"
 library="$(realpath "${root}/js")"
 sources="$(realpath "${root}/home/sources/")"
 update="$(realpath "${sources}/version.now")"
-index="$(realpath "${sources}/index.json")"
+index="$(realpath "${sources}/main.json")"
 summary="$(realpath "${sources}/summary.json")"
 
 #

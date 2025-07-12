@@ -14,7 +14,7 @@ dir="$(dirname "$real")"
 root="$(realpath "${dir}/../")"
 home="$(realpath "${root}/home/downloads/")"
 script="$(realpath "${dir}/list.js")"
-output="$(realpath "${home}/downloads.json")"
+output="$(realpath "${home}/main.json")"
 search="$(realpath "${home}/files/")"
 update="$(realpath "${home}/main.now")"
 

@@ -192,6 +192,11 @@ li.OSD
 
 #MAIN
 {
+	--delay-each: 90;
+}
+
+#MAIN
+{
 	--duration-blink: 900;
 	--duration-each: 300;
 }

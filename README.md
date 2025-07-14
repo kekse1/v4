@@ -61,14 +61,8 @@ These are some of my helper scripts.
 * `blog`
     * [`blog.sh`](scripts/blog.sh)
     * [`blog.js`](scripts/blog.js)
-
-<br><br>
-
-### Cookies
-\[**New** (Juni 2025)\] visitors can manage the cookies now. Including some settings (TODO).
-
-There should also be a Dialog asking for the cookie permissions..
-But the current Interface should be enough.. for now.
+* `hardware`
+    * [`hardware.sh`](scripts/hardware.sh)
 
 <br><br><br>
 

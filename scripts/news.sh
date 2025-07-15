@@ -13,11 +13,12 @@ real="$(realpath "$0")"
 dir="$(dirname "$real")"
 root="$(realpath "${dir}/../")"
 script="$(realpath "${dir}/news.js")"
-output="$(realpath "${root}/home/news/news.json")"
+json="home/news/news.json"
+output="$(realpath "${root}/${json}")"
 root="$(realpath "${root}/htdocs/")"
 
 #
-cmd="${script} --root '${root}' --output '${output}'"
+cmd="${script} --root '${root}' --output '${output}' --self '${json}'"
 #echo "'$cmd'"
 eval "$cmd"
 

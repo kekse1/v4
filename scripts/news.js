@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.1
+ * v0.4.2
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -24,6 +24,7 @@ const EXTENSIONS = [
 	'.html',
 	'.htm',
 	'.css',
+	'.json',
 	'.js'
 ];
 
@@ -46,6 +47,7 @@ for(var i = 0; i < EXTENSIONS.length; ++i)
 }
 
 //
+var SELF = null, SELF_BASE = null;
 var TIME;
 var ARGS;
 const MAP = new Map();
@@ -100,8 +102,14 @@ const prepare = () => {
 				ARGS.set('output', ARGS.get('output') + '.json');
 			}
 			
-			ARGS.set('output', path.resolve(ARGS.get('output')));
+			ARGS.set('output', SELF_BASE = path.resolve(ARGS.get('output')));
+			SELF_BASE = path.basename(SELF_BASE);
 			
+			if(ARGS.get('self'))
+			{
+				SELF = ARGS.get('self');
+			}
+
 			if(Number.isInt(ARGS.get('time')) && ARGS.get('time'))
 			{
 				TIME = ARGS.get('time');
@@ -161,7 +169,19 @@ const start = (_args, _callback) => {
 			
 			const p = path.join(_path, _files[i].name);
 			const n = path.join(_source, _files[i].name);
-			
+
+			if(SELF !== null)
+			{
+				if(n === SELF)
+				{
+					continue;
+				}
+			}
+			else if(_files[i].name === SELF_BASE)
+			{
+				continue;
+			}			
+
 			if(_files[i].isFile())
 			{
 				if(EXTENSIONS.includes(

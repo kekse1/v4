@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.2
+ * v0.5.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -32,6 +32,9 @@ const INDEX = [
 	'main'
 ];
 
+const EXCLUDE = [];
+
+//
 const MODE = 0o666;
 const HASH = 'sha3-256';
 const DIGEST = 'hex';
@@ -68,7 +71,7 @@ const prepare = () => {
 		output: { short: 'o', params: 1, index: 0, parse: false, help: 'The output path (a `.json` file)' },
 		time: { short: 't', params: 1, index: 0, parse: true, help: 'Milliseconds since unix epoche, for the current time' }
 	});*/
-	ARGS = getopt();
+	ARGS = getopt(true, true);
 
 	if(ARGS.get('config'))
 	{
@@ -88,6 +91,17 @@ const prepare = () => {
 
 		if(fs.existsSync(ARGS.get('root')))
 		{
+			const exclude = ARGS.get('exclude');
+
+			if(String.isString(exclude, false))
+			{
+				EXCLUDE.push(exclude);
+			}
+			else if(Array.isArray(exclude, false))
+			{
+				EXCLUDE.push(... exclude);
+			}
+
 			if(ARGS.get('output')[ARGS.get('output').length - 1] === path.sep)
 			{
 				console.error('ERROR: `--output / -o` file may not be a directory. It should end with `.json`.');
@@ -122,6 +136,7 @@ const prepare = () => {
 			console.info('Using root path: `' + ARGS.get('root') + '`');
 			console.info('    Output file: `' + ARGS.get('output') + '`');
 			console.info('           Time:  ' + new Date(TIME).toString());
+			console.info('      Excluding:  ' + EXCLUDE.length);
 		}
 		else
 		{
@@ -180,7 +195,12 @@ const start = (_args, _callback) => {
 			else if(_files[i].name === SELF_BASE)
 			{
 				continue;
-			}			
+			}
+
+			if(EXCLUDE.includes(n))
+			{
+				continue;
+			}
 
 			if(_files[i].isFile())
 			{

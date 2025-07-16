@@ -16,7 +16,7 @@ root="$(realpath "${dir}/../")"
 library="$(realpath "${root}/js")"
 sources="$(realpath "${root}/home/sources/")"
 update="$(realpath "${sources}/version.now")"
-index="$(realpath "${sources}/main.json")"
+index="$(realpath "${sources}/sources.json")"
 summary="$(realpath "${sources}/summary.json")"
 
 #

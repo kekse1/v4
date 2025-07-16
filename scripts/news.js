@@ -133,10 +133,12 @@ const prepare = () => {
 				TIME = Date.now();
 			}
 			
+			console.eol();
 			console.info('Using root path: `' + ARGS.get('root') + '`');
 			console.info('    Output file: `' + ARGS.get('output') + '`');
 			console.info('           Time:  ' + new Date(TIME).toString());
-			console.info('      Excluding:  ' + EXCLUDE.length);
+			console.info('       Excludes:  ' + EXCLUDE.length);
+			console.eol();
 		}
 		else
 		{

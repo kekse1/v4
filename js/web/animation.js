@@ -386,9 +386,9 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
 	if(typeof _options.smooth !== 'boolean') _options.smooth = DEFAULT_SMOOTH;
 
-	//
-	_options.method = Callback.checkMethod(_options.method, true, this);
-		
+	//.. false was true. checkmethod() erweitert..
+	_options.method = Callback.checkMethod(_options.method, false, this);
+
 	//
 	if(!Number.isInt(this._animations)) this._animations = 0;
 	if(!Object.isObject(this._animation)) this._animation = Object.create(null);

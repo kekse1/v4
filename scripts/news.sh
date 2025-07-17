@@ -16,7 +16,7 @@ script="$(realpath "${dir}/news.js")"
 json="home/news/news.json"
 output="$(realpath "${root}/${json}")"
 root="$(realpath "${root}/htdocs/")"
-exclude=( "home/sources/sources.json" "home/sources/summary.json" )
+exclude=( "home/sources/main.json" "home/sources/summary.json" )
 
 #
 cmd="${script} --root '${root}' --output '${output}' --self '${json}'"

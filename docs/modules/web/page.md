@@ -25,4 +25,5 @@ when necessary (when the user/client requests it).
 - [x] Since it's an `EventTarget`, we also got some own events being fired here, after starting to load..
 - [x] And since I've got my own `URL[.prototype].render()` (better style in HTML), after loading all/some will be replaced
 - [x] Anchor `<a>` without content will also be `URL[.protoype].render()`ed automatically now.
+- [x] Remove all local page events automatically (which can be defined in any page)
 

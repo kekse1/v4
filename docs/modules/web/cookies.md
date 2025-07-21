@@ -17,6 +17,7 @@ These ones are defined in the `document` object:
 * `.getCookies()`
 * `.hasCookie(_name)`
 * `.hasNumericCookie(_name)`
+* `.hasBooleanCookie(_name)`
 * `.listCookies()`
 * `.removeCookie(_name, _seconds_to_live, _path)`
 * `.setCookie(_name, _value, _hours, _path, _same_site, _secure)`

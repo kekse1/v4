@@ -4,7 +4,7 @@
 To easily manage your `document.cookie`; otherwise you'd to deal with long strings (so your key and value plus parameters).
 
 ## Source Code
-And [here's the **source code**](/src/js/web/cookies.js).
+And [here's the **source code**](/js/web/cookies.js).
 
 ## Numerical cookies
 The routines will automatically convert numerical cookies to/from `Number` or `BigInt`.

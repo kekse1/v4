@@ -4,10 +4,6 @@
 */
 
 //
-//see also 'settings.js'. maybe..
-//
-
-//
 const DEFAULT_PROXY_PREFIX = '';//'_';
 //const DEFAULT_SAME_SITE_COOKIE = 'Strict';
 const DEFAULT_HOURS = 17600;

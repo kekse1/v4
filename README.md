@@ -58,9 +58,6 @@ These are some of my helper scripts.
 * `home`
     * [`home.sh`](scripts/home.sh)
     * [`home.js`](scripts/home.js)
-* `blog`
-    * [`blog.sh`](scripts/blog.sh)
-    * [`blog.js`](scripts/blog.js)
 * `hardware`
     * [`hardware.sh`](scripts/hardware.sh)
 

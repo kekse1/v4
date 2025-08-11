@@ -173,7 +173,7 @@ li.OSD
 
 #MAIN
 {
-	--threshold: 420px;
+	/*--threshold: 420px;*/
 	--threshold-toc: 1.4;
 	--max-file-size: 1048576;
 }
@@ -214,8 +214,8 @@ li.OSD
 
 #STATE, #BAR, #stateScrollBar, #BARScroll
 {
-	--duration: 1300;
-	--delay-each: 1400;
+	/*--duration: 1400;
+	--delay-each: 1400;*/
 	--scroll-timeout: 60;
 	--scroll-scale: 1.5;
 }

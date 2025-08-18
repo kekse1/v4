@@ -4,6 +4,10 @@
 */
 
 //
+//see also 'settings.js'. maybe..
+//
+
+//
 const DEFAULT_PROXY_PREFIX = '';//'_';
 //const DEFAULT_SAME_SITE_COOKIE = 'Strict';
 const DEFAULT_HOURS = 17600;
@@ -117,8 +121,8 @@ Reflect.defineProperty(document, 'clearCookies', { value: function(... _args)
 	const cookies = document.listCookies(false, false); const result = [];
 	for(const c of cookies) if(document.removeCookie(c[0], ... _args) !== null)
 		result.push(c[0]);
-	if(DEFAULT_OSD) osd(render(result.length).outerHTML + ' cookies ' +
-		'<span class="false">cleared</span>!', DEFAULT_OSD, 'clearCookies');
+	if(DEFAULT_OSD) osd('<span style="color: yellow;">' + result.length.toLocaleString() +
+		'</span> cookies <span class="false">cleared</span>!', DEFAULT_OSD, 'clearCookies');
 	setTimeout(() => document.emit('cookie', { method: 'clear' }));
 	return result;
 }});
@@ -161,7 +165,6 @@ Reflect.defineProperty(document, 'getCookie', { value: function(_name, _parse = 
 
 const parseCookieValue = (_value) => {
 	if(typeof _value !== 'string') return _value;
-	if(_value.length < 2) return '';
 	if(!isNaN(_value)) return Number(_value);
 	if(_value[_value.length - 1] === 'n' &&
 			!isNaN(_value.slice(0, -1)))
@@ -169,7 +172,7 @@ const parseCookieValue = (_value) => {
 	switch(_value.toLowerCase()) {
 		case 'true': return true;
 		case 'false': return false; }
-	return _value; };
+	return (_value.length < 2 ? '' : _value); };
 
 Reflect.defineProperty(document, 'getCookies', { value: function(_parse = true)
 {
@@ -257,7 +260,7 @@ Reflect.defineProperty(document, 'setCookie', { value: function(_name, _value, _
 	if(!document.COOKIES) return;
 	if(String.isString(_name, false)) _name = encodeURIComponent(_name);
 	else return error('Invalid % argument (not a non-empty %)', null, '_name', 'String');
-	if(_value === null || _value === '') return document.removeCookie(_name);
+	if(typeof _value === 'undefined') return document.removeCookie(_name);
 	const secure = (location.protocol === 'https:' ? ' Secure;' : '');
 	//if(! String.isString(_same_site, false)) _same_site = DEFAULT_SAME_SITE_COOKIE;
 	//_same_site = ' SameSite=' + _same_site + ';';
@@ -293,8 +296,7 @@ Reflect.defineProperty(document, 'setCookie', { value: function(_name, _value, _
 	}
 	
 	const result = document.cookie = (_name + '=' + _value + ';' + expires + ' Path=' + _path + ';' + secure);// _same_site + secure);
-	setTimeout(() => document.emit('cookie', { method: 'set', name: _name,
-		value, string: _value }));
+	setTimeout(() => document.emit('cookie', { method: 'set', name: _name, value, string: _value }));
 	return result;
 }});
 

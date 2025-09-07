@@ -136,8 +136,8 @@ const prepare = () => {
 			console.eol();
 			console.info('Using root path: `' + ARGS.get('root') + '`');
 			console.info('    Output file: `' + ARGS.get('output') + '`');
-			console.info('           Time:  ' + new Date(TIME).toString());
 			console.info('       Excludes:  ' + EXCLUDE.length);
+			console.info('           Time:  ' + new Date(TIME).toString());
 			console.eol();
 		}
 		else

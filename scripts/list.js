@@ -12,6 +12,9 @@
  */
 
 //
+const DEFAULT_DIRECTORIES = false;
+
+//
 const HASH = 'sha3-256';
 const DIGEST = 'hex';
 const MODE = 0o666;
@@ -193,7 +196,14 @@ const readdirCallback = (_path, _error, _list) => {
 		{
 			continue;
 		}
-		else if(! (item.isFile() || item.isDirectory()))
+		else if(item.isDirectory())
+		{
+			if(!DEFAULT_DIRECTORIES)
+			{
+				continue;
+			}
+		}
+		else if(!item.isFile())
 		{
 			continue;
 		}

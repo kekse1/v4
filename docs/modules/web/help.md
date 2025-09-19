@@ -1,6 +1,6 @@
 <img src="https://kekse.biz/github.php?draw&text=`Help`&override=github:v4" />
 
-# `class Help` (global as `Help`)
+# `class Help` (global as `Help`) (`.. extends HTMLElement`);
 A help, which is some **PopUp**/**ToolTip**, is only working on desktops, not mobile
 browsers; or, better said, it works only with **mouse** (not touch or pen).
 

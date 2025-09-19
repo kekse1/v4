@@ -50,3 +50,5 @@ Usually you can set a member or it's attribute `disabled` to a **Boolean** value
 **Here** you can now (optionally!) set a **String** to this member/attribute (both supported), and the
 regular Help PopUp will **also** show this string (beneath the regular info about the `disabled` state!).
 
+It's meant as some **REASON** for the (true) `disabled state.
+

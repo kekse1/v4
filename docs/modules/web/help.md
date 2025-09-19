@@ -17,6 +17,7 @@ It's my own, extended version of a simple popup for HTML Nodes with their
 | **`href`**               | Fallback (if nothing else); shows clickable link (rendered, see [`URL`](../lib/url.md)) |
 | **`helpStyle`**          | Define **additional** CSS styles for the `Help` node/element                            |
 | **`helpClass`**          | Also **additional** CSS classes (space separated list!)                                 |
+| **`disabled`**           | Only holds for `<button>`: with an optional **String**, the button's help shows it      |
 
 The other way to (un-)set these ones as (node) object members, without HTML
 attributes. Great thing when setting whole HTML **Node**s as payload/content,
@@ -42,4 +43,10 @@ both on `.show()` and `.hide()` (w/ this as the `_event.type` parameter).
 
 ## `Freeze` support
 Look at [`freeze.js`](freeze.md) for more info.
+
+### `<button>`
+Usually you can set a member or it's attribute `disabled` to a **Boolean** value.
+
+**Here** you can now (optionally!) set a **String** to this member/attribute (both supported), and the
+regular Help PopUp will **also** show this string (beneath the regular info about the `disabled` state!).
 

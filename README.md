@@ -52,6 +52,7 @@ These are some of my helper scripts.
 	* [`list.js`](scripts/list.js)
 	* [`docs.sh`](scripts/docs.sh)
     * [`downloads.sh`](scripts/downloads.sh)
+    * [`models.sh`](scripts/models.sh)
 * `update` / `version`
 	* [`update.sh`](scripts/update.sh)
 	* [`version.sh`](scripts/version.sh)

@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.2
+ * v0.1.3
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -185,32 +185,45 @@ const readdirCallback = (_path, _error, _list) => {
 		throw _error;
 	}
 
-	var rest = 0; const cb = (_file) => { if(_file) {
-		if(_file.size === null) DIR.push(_file);
-		else { FILE.push(_file); SIZE += _file.size; }}
-		if(--rest <= 0) transform(); };
-	
-	for(const item of _list)
-	{
-		if(item.name[0] === '.')
+	var rest = 0; const cb = (_file) => {
+		if(_file)
 		{
+			if(_file.size === null) DIR.push(_file);
+			else { FILE.push(_file); SIZE += _file.size; }
+		}
+
+		if(--rest <= 0) transform(); };
+
+	var item; for(var i = 0; i < _list.length; ++i)
+	{
+		if((item = _list[i]).name[0] === '.')
+		{
+			_list.splice(i--, 1);
 			continue;
 		}
-		else if(item.isDirectory())
+
+		if(item.isDirectory())
 		{
 			if(!DEFAULT_DIRECTORIES)
 			{
+				_list.splice(i--, 1);
 				continue;
 			}
 		}
 		else if(!item.isFile())
 		{
+			_list.splice(i--, 1);
 			continue;
 		}
 
 		++rest; const p = path.join(_path, item.name);
 		fs.stat(p, { bigint: false },
 			(_err, _stats) => statCallback(p, _err, _stats, cb));
+	}
+
+	if(_list.length === 0)
+	{
+		cb(null);
 	}
 };
 

@@ -61,6 +61,8 @@ These are some of my helper scripts.
     * [`home.js`](scripts/home.js)
 * `hardware`
     * [`hardware.sh`](scripts/hardware.sh)
+* `models`
+    * [`find-abliterated-models.sh`](scripts/find-abliterated-models.sh)
 
 <br><br><br>
 

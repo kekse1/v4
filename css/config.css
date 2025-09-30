@@ -29,6 +29,11 @@
 
 :root
 {
+	--keyboard: none;
+}
+
+:root
+{
 	--abort-method: 'stop';/*try out! also possible: 'cancel', 'stop', 'finish', ...*/
 	--method: add;
 	--font-size: 14px;
@@ -140,33 +145,6 @@ button
 	--unit-base: 1024;
 }
 
-li.OSD
-{
-	--speed: 1;
-	--refresh: 800;/*important, maybe..!*/
-	--clear: none;
-	--scale: none;
-	--timeout: 1900;
-	--timeout-speed: 1.5;
-	--duration: 900;
-	--duration-blink: 340;
-	--font-size: 2.5rem;
-	--font-size-mobile: 1.75rem;
-	--text: none;
-	--space: 12px;
-	--space-top-add: 32px;
-}
-
-div#OSDInfo
-{
-	--duration: 800;
-}
-
-li.OSD
-{
-	--duration: 800;
-}
-
 :root
 {
 	--lottie-player: url('https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js');
@@ -206,7 +184,7 @@ li.OSD
 
 #MENU, #TOC
 {
-	--duration-blink: 1200;
+	--duration-blink: 3600;
 }
 
 #MAIN
@@ -214,18 +192,12 @@ li.OSD
 	--duration-data: 1400;
 }
 
-#STATE, #BAR, #stateScrollBar, #BARScroll
+#STATE
 {
 	/*--duration: 1400;
 	--delay-each: 1400;*/
 	--scroll-timeout: 60;
 	--scroll-scale: 1.5;
-}
-
-#stateScrollBar, #BAR, #stateScrollBar, #BARScroll
-{
-	--duration-remove: 1600;
-	--duration: 1800;
 }
 
 #countState

@@ -16,7 +16,7 @@ home="$(realpath "${root}/home/models/")"
 script="$(realpath "${dir}/list.js")"
 output="$(realpath "${home}/main.json")"
 search="$(realpath "${home}/files/")"
-update="$(realpath "${home}/main.now")"
+update="$(realpath "${home}/models.now")"
 
 #
 cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${downloads}' --update '${update}'"

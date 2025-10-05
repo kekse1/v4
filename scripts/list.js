@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.3
+ * v0.1.4
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -239,8 +239,10 @@ const statCallback = (_path, _error, _stats, _callback) => {
 	}
 	
 	const result = Object.create(null);
-	result.file = path.basename(_path);
 	
+	result.file = path.basename(_path);
+	result.type = path.extname(_path, 0);
+
 	if(_stats.isFile())
 	{
 		result.size = _stats.size;

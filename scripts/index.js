@@ -93,6 +93,7 @@ const proceed = () => {
 	for(var sub of PATH_SUB) { sub = path.join(args.get('library'), sub); fs.readdir(sub, { encoding: 'utf8', withFileTypes: true, recursive: true }, (_err, _files) => {
 			if(_err) return error(_err); for(var i = 0; i < _files.length; ++i) { const subResult = {};
 				if(_files[i].name[0] === '.' || !_files[i].name.endsWith('.js')) continue;
+				if(_files[i].isSymbolicLink() || !_files[i].isFile()) continue;
 				++amount; const p = path.join(_files[i].parentPath, _files[i].name);
 				subResult.base = path.basename(_files[i].name, '.js');
 				subResult.time = TIME; const pp = p.split(path.sep); for(var j = pp.length - 1; j >= 0; --j)

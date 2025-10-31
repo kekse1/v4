@@ -3,16 +3,23 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.1.5
+ * v0.2.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
  * This will (re-)generate an index of files (depending on
  * the calling `.sh`-script or rather it's parameters). ..
+ *
+ *
+ * [v0.2.0]: new --progress (w/ --refresh), etc..! ^_^
+ *
  */
 
 //
 const DEFAULT_DIRECTORIES = false;
+const DEFAULT_PROGRESS = false;
+const DEFAULT_PROGRESS_REFRESH = 1000;
+const DEFAULT_BUFFER = (1024 * 64);
 
 //
 const HASH = 'sha3-256';
@@ -24,6 +31,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { ready } from '../js/lib.js';
+
+//
+var PROGRESS = DEFAULT_PROGRESS;
+var REFRESH = DEFAULT_PROGRESS_REFRESH;
+var BUFFER = DEFAULT_BUFFER;
 
 //
 var TIME = null;
@@ -51,6 +63,36 @@ const prepare = () => {
 		if(!ARGS.get('update'))
 		{
 			ARGS.set('update', null);
+		}
+		
+		if(process.stdout.isTTY && process.stdout.columns > 0)
+		{
+			if(ARGS.has('refresh'))
+			{
+				PROGRESS = true;
+				REFRESH = ARGS.get('refresh');
+			}
+			
+			if(ARGS.has('progress'))
+			{
+				PROGRESS = ARGS.get('progress');
+			}
+		}
+		else
+		{
+			PROGRESS = false;
+		}
+		
+		if(ARGS.has('buffer'))
+		{
+			if(!Number.isInt(BUFFER = ARGS.get('buffer')))
+			{
+				throw new Error('Invalid --buffer argument');
+			}
+			else if(BUFFER < 1)
+			{
+				BUFFER = DEFAULT_BUFFER;
+			}
 		}
 
 		if(fs.existsSync(ARGS.get('search')))
@@ -120,6 +162,7 @@ var ADD = 0;
 var REM = 0;
 var CHG = 0;
 var SIZE = 0;
+var hadFiles = false;
 //
 const FILE = [];
 const DIR = [];
@@ -157,7 +200,8 @@ const write = (_result) => {
 
 	const result = JSON.stringify(_result);
 	fs.writeFileSync(ARGS.get('output'), result, { encoding: 'utf8', mode: MODE, flush: true });
-	fin(_result, result);
+
+	return fin(_result, result);
 };
 
 const fin = (_result, _output) => {
@@ -179,7 +223,6 @@ const fin = (_result, _output) => {
 
 //
 const readdirCallback = (_path, _error, _list) => {
-
 	if(_error)
 	{
 		throw _error;
@@ -193,38 +236,198 @@ const readdirCallback = (_path, _error, _list) => {
 		}
 
 		if(--rest <= 0) transform(); };
+		
+	const removeFromList = (_index) => {
+		_list.splice(_index, 1);
+		return (_index - 1); };
 
 	var item; for(var i = 0; i < _list.length; ++i)
 	{
 		if((item = _list[i]).name[0] === '.')
 		{
-			_list.splice(i--, 1);
+			i = removeFromList(i);
 			continue;
 		}
 
+		if(item.isSymbolicLink())
+		{
+			i = removeFromList(i);
+			continue;
+		}
+		
 		if(item.isDirectory())
 		{
 			if(!DEFAULT_DIRECTORIES)
 			{
-				_list.splice(i--, 1);
+				i = removeFromList(i);
 				continue;
 			}
 		}
 		else if(!item.isFile())
 		{
-			_list.splice(i--, 1);
+			i = removeFromList(i);
 			continue;
 		}
 
 		++rest; const p = path.join(_path, item.name);
-		fs.stat(p, { bigint: false },
-			(_err, _stats) => statCallback(p, _err, _stats, cb));
+		fs.stat(p, { bigint: false }, (_err, _stats) => statCallback(
+			p, _err, _stats, cb));
 	}
 
 	if(_list.length === 0)
 	{
 		cb(null);
 	}
+};
+
+var	lastRefresh = null,
+	maxLength = 0;
+const	progressLines = [],
+	progressItems = [],
+	progressKeys = new Map();
+
+const createProgressItem = (_item, _number = 0) => {
+	var number;
+	
+	if(progressKeys.has(_item.file))
+		number = (progressKeys.get(_item.file) + 1);
+	else	number = 0;
+	
+	const result = Object.assign(_item, { number: 0,
+		read: 0, progress: 0, percent: '  0%' });
+
+	Reflect.defineProperty(result, 'key', { get: () => {
+		var res = result.file;
+		
+		if(!result.number)
+		{
+			return res;
+		}
+		
+		return (res + '(' + result.number + ')');
+	}});
+	maxLength = Math.max(maxLength, result.key.length);
+
+	progressItems.push(result);
+	process.stdout.write('\n');
+
+	return result;
+};
+
+const ESC = String.fromCharCode(27); const clear = (_lines) => {
+	const up = (ESC + '[' + _lines + 'A'); const clear = (ESC + '[0J');
+	return (up + clear + '\r'); };
+
+const updateProgressItem = (_item, _read, _force) => {
+	if(Number.isInt(_read))
+	{
+		_item.percent = Math._round(
+			(_item.progress = Math.min(1, (_item.
+				read += _read) / _item.size)) * 100).
+					toString().padStart(3, ' ') + '%';
+	}
+	else
+	{
+		_item.read = _item.size;
+		_item.progress = 1;
+		_item.percent = '100%';
+	}
+
+	if(_force)
+	{
+		_force = progressItems.length;
+	}
+	else
+	{
+		_force = 0;
+	}
+	
+	return updateProgressLines(_force);
+};
+
+const endProgressLines = (_size) => process.stdout.write(clear(_size));
+
+const updateProgressLines = (_force = 0) => {
+	//
+	const now = Date.now();
+	
+	if(lastRefresh === null)
+	{
+		lastRefresh = now;
+	}
+	else
+	{
+		const delta = (now - lastRefresh);
+		if(!_force && delta < REFRESH) return 0;
+		lastRefresh = now;
+	}
+
+	//
+	process.stdout.write(clear((Number.isInt(_force) &&
+		_force > 0) ? _force : progressItems.length));
+
+	for(const item of progressItems)
+	{
+		process.stdout.write(
+			getProgressLine(item) + '\n');
+	}
+
+	//
+	return progressItems.length;
+};
+
+const getProgressLine = (_item) => {
+	var result = (_item.key.padStart(
+		maxLength, ' ') + ' ' +
+		_item.percent + ' ');
+	return (result + progressBar(
+		_item, result.length + 2));
+};
+	
+const progressBar = (_item, _length) => {
+	var width = process.stdout.columns;
+	
+	if((width -= _length) <= _length)
+	{
+		return '';
+	}
+
+	var done = Math._floor(_item.progress * width);
+	var todo = (width - done);
+
+	return ('[' + '#'.repeat(done) + '-'.repeat(todo) + ']');
+};
+
+//
+//TODO/bitte alle anderen item.number dann aktualisieren!! ;-D
+//
+const removeProgressItem = (_item) => {
+	const size = progressItems.length; maxLength = 0;
+
+	for(var i = 0; i < progressItems.length; ++i)
+	{
+		if(progressItems[i] === _item)
+		{
+			progressItems.splice(i--, 1);
+		}
+		else
+		{
+			if(progressItems[i].number > _item.number)
+			{
+				--progressItems[i].number;
+			}
+			
+			maxLength = Math.max(maxLength,
+				progressItems[i].key.length);
+		}
+	}
+	
+	if(progressItems.length === 0)
+	{
+		return endProgressLines(size);
+	}
+	
+	return updateProgressLines(size);
 };
 
 const statCallback = (_path, _error, _stats, _callback) => {
@@ -236,12 +439,14 @@ const statCallback = (_path, _error, _stats, _callback) => {
 	else
 	{
 		++FOUND;
+		hadFiles = true;
 	}
 	
 	const result = Object.create(null);
-	
 	result.file = path.basename(_path);
-	result.type = (result.ext = path.extname(_path, 0)).substr(1);
+	result.ext = path.extname(_path, 0);
+	result.type = path.extname(_path, 1).
+		substr(1);
 
 	if(_stats.isFile())
 	{
@@ -271,15 +476,31 @@ const statCallback = (_path, _error, _stats, _callback) => {
 				result.time = TIME.getTime();
 				++ADD;
 			}
+
+			//
+			if(PROGRESS)
+			{
+				removeProgressItem(result);
+			}
 			
 			//
 			_callback(result);
 		};
 		
+		const onData = (_chunk) => {
+			hash.update(_chunk); if(PROGRESS)
+				updateProgressItem(result,
+					_chunk.length); };
+		
 		const hash = crypto.createHash(HASH);
-		const stream = fs.createReadStream(_path, { autoClose: true, emitClose: true });
-		stream.on('data', (_chunk) => hash.update(_chunk));
+		const stream = fs.createReadStream(_path, {
+			autoClose: true, emitClose: true,
+			highWaterMark: BUFFER });
+
+		stream.on('data', onData);
 		stream.once('end', onEnd);
+		
+		if(PROGRESS) createProgressItem(result);
 	}
 	else
 	{
@@ -297,6 +518,8 @@ const statCallback = (_path, _error, _stats, _callback) => {
 		
 		_callback(result);
 	}
+	
+	return result;
 };
 
 //

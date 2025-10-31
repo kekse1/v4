@@ -9,6 +9,10 @@
 #
 
 #
+_REFRESH=0 # <=0 to disable!
+_BUFFER=0 # <=0 for default (1024*64);
+
+#
 real="$(realpath "$0")"
 dir="$(dirname "$real")"
 root="$(realpath "${dir}/../")"
@@ -19,7 +23,9 @@ search="$(realpath "${home}/files/")"
 update="$(realpath "${home}/downloads.now")"
 
 #
-cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${downloads}' --update '${update}'"
+cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${downloads}' --update '${update}' --buffer ${_BUFFER}"
+[[ $_REFRESH -gt 0 ]] && cmd+=" --progress on --refresh ${_REFRESH}"
+
 #echo "'$cmd'"
 eval "$cmd"
 

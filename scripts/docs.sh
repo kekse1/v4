@@ -8,6 +8,9 @@
 # This will call the `list.js` with my parameters (for `~docs`);
 #
 
+_REFRESH=0 # <=0 to disable!
+_BUFFER=0 # <=0 for default (1024*64);
+
 #
 real="$(realpath "$0")"
 dir="$(dirname "$real")"
@@ -19,7 +22,9 @@ search="$(realpath "${home}/files/")"
 update="$(realpath "${home}/docs.now")"
 
 #
-cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${docs}' --update '${update}'"
+cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${docs}' --update '${update}' --buffer ${_BUFFER}"
+[[ $_REFRESH -gt 0 ]] && cmd+=" --progress on --refresh ${_REFRESH}"
+
 #echo "'$cmd'"
 eval "$cmd"
 

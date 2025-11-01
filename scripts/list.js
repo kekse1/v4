@@ -163,7 +163,11 @@ var REM = 0;
 var CHG = 0;
 var SIZE = 0;
 
+<<<<<<< HEAD
 //
+=======
+z//
+>>>>>>> 13490055ac1d62ad46c4c41554c408ceb3687e20
 const FILE = [];
 const DIR = [];
 

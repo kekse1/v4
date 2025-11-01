@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.2.0
+ * v0.2.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -162,8 +162,8 @@ var ADD = 0;
 var REM = 0;
 var CHG = 0;
 var SIZE = 0;
-var hadFiles = false;
-//
+
+z//
 const FILE = [];
 const DIR = [];
 
@@ -270,8 +270,9 @@ const readdirCallback = (_path, _error, _list) => {
 		}
 
 		++rest; const p = path.join(_path, item.name);
-		fs.stat(p, { bigint: false }, (_err, _stats) => statCallback(
-			p, _err, _stats, cb));
+		fs.stat(p, { bigint: false },
+			(_err, _stats) => statCallback(
+				p, _err, _stats, cb));
 	}
 
 	if(_list.length === 0)
@@ -306,6 +307,7 @@ const createProgressItem = (_item, _number = 0) => {
 		
 		return (res + '(' + result.number + ')');
 	}});
+
 	maxLength = Math.max(maxLength, result.key.length);
 
 	progressItems.push(result);
@@ -383,13 +385,14 @@ const getProgressLine = (_item) => {
 		maxLength, ' ') + ' ' +
 		_item.percent + ' ');
 	return (result + progressBar(
-		_item, result.length + 2));
+		_item, result.length + 2)).substr(
+			0, process.stdout.columns);
 };
 	
 const progressBar = (_item, _length) => {
 	var width = process.stdout.columns;
 	
-	if((width -= _length) <= _length)
+	if((width -= _length) <= 0)
 	{
 		return '';
 	}
@@ -400,9 +403,6 @@ const progressBar = (_item, _length) => {
 	return ('[' + '#'.repeat(done) + '-'.repeat(todo) + ']');
 };
 
-//
-//TODO/bitte alle anderen item.number dann aktualisieren!! ;-D
-//
 const removeProgressItem = (_item) => {
 	const size = progressItems.length; maxLength = 0;
 
@@ -438,12 +438,8 @@ const statCallback = (_path, _error, _stats, _callback) => {
 		++ERR;
 		return _callback(null);
 	}
-	else
-	{
-		++FOUND;
-		hadFiles = true;
-	}
-	
+	else	++FOUND;
+
 	const result = Object.create(null);
 	result.file = path.basename(_path);
 	result.ext = path.extname(_path, 0);
@@ -525,3 +521,4 @@ const statCallback = (_path, _error, _stats, _callback) => {
 };
 
 //
+

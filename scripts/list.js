@@ -345,7 +345,9 @@ const updateProgressItem = (_item, _read, _force) => {
 	return updateProgressLines(_force);
 };
 
-const endProgressLines = (_size) => process.stdout.write(clear(_size));
+const endProgressLines = (_size) => {
+	process.stdout.write(clear(_size));
+	process.stdout.write('\n'); };
 
 const updateProgressLines = (_force = 0) => {
 	//

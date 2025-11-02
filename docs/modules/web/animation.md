@@ -155,8 +155,9 @@ Additionally, there's the (only global!) `--global` for more global adaption.
 ### Using the `AbortController`
 Both animation types (whether managed or not) do support the `AbortController` (native
 JavaScript), you just need to put a `{ signal }` into the `_options`. The type of stopping
-animations this way is configurable in the [`config.css`](../../../css/config.css) (see `--abort-method`), and this
-will also hold if not specified as the reason for the `.abort()` (so [ `stop`, `cancel`, `finish`, .. ]).
+animations this way is configurable in the [`config.css`](https://kekse.biz/config.css)
+(see `--abort-method`), and this will also hold if not specified as the reason for the
+`.abort()` (so [ `stop`, `cancel`, `finish`, .. ]).
 
 ## Attributes
 These are two possible modifier attributes (of the `HTMLElement`s).

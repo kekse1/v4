@@ -110,8 +110,11 @@ These are the **`%`** modifiers for format strings. I tried to make them one sin
 |  **%G**  | GMT format                                                  |
 |  **%U**  | UTC format                                                  |
 
-### Pre-defined formats (see [`config.css`](../../../css/config.css));
+### Pre-defined formats
 The names (after `--date-`) can be used for `.format()` etc. instead of real format strings. These are **pre-defined** formats.
+
+> [!TIP]
+> See my [`config.css`](https://kekse.biz/config.css), plus my extensions for the [**CSS Custom Properties**](../web/css.md).
 
 ```css
 	--date-now: '%h:%m:%s.%S';

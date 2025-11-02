@@ -9,8 +9,8 @@ This is an important feature, especially in the **web** code:
 * **`URL.render(_url, ... _args)`**
 * **`URL.prototype.render(... _args)`**
 
-The [`config.css`](../../../css/config.css) holds the styles, etc..
-See it's Custom Properties starting with `--url-`.
+My [`config.css`](https://kekse.biz/config.css) holds the styles, etc..
+See it's [Custom Properties](../web/css.md) starting with `--url-`.
 
 ## All extensions together
 * `URL.supportedProtocols`

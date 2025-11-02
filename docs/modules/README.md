@@ -20,10 +20,10 @@ for obvious reasons).
 > **But** I'm also avoiding any Promise as good as I can.. xD~
 
 ## Configuration
-Beneath the regular configuration elements (like [`config.css`](../../css/config.css), which will maybe be used at
-server-side, too?) most `.js` files got some `const DEFAULT_*` constants defined on their
-tops; .. for things that don't really fit into some configuration, but which are nevertheless
-not really static. Thus, avoiding hard-coded styles etc., just look at the files beginnings, too.
+Beneath the regular [configuration elements](web/css.md) (like [`config.css`](https://kekse.biz/config.css),
+which will maybe be used at server-side, too?) most `.js` files got some `const DEFAULT_*` constants
+defined on their tops; .. for things that don't really fit into some configuration, but which are
+nevertheless not really static. Thus, avoiding hard-coded styles etc., just look at the files beginnings.
 
 ## TODO
 Here's the whole [**TODO**](https://kekse.biz/home/todo/) (and there's an extra menu item on
@@ -58,6 +58,7 @@ needs to be documentated in here).
 * [`css`.js](web/css.md)
 * [`dialog`.js](web/dialog.md)
 * [`element`.js](web/element.md)
+* [`error`.js](web/error.md)
 * [`event`.js](web/event.md)
 * [`fetching`.js](web/fetching.md)
 * [`fileinfo`.js](web/fileinfo.md)

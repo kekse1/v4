@@ -15,6 +15,6 @@ right site of the website the #TOC is created with `<ol>` and `<li>`
 it's just `text/plain`, the whole #TOC will be disabled and hidden).
 
 ## Update
-Now w/ automatic scrolling in the `#TOC` on scrolling the `#MAIN`
-contents.. see `--scroll` in the [`config.css`](../../../css/config.css).
+Now w/ automatic scrolling in the `#TOC` on scrolling the `#MAIN` contents..
+see `--scroll` in my [`config.css`](https://kekse.biz/config.css).
 

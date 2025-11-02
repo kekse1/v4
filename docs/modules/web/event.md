@@ -30,7 +30,39 @@ this events belong to.
 * **`EventTarget.prototype.removeAllListeners()`**
 * **`EventTarget.prototype.on(... _args)`**
 * **`EventTarget.prototype.once(_event, _handler, _options, ... _args)`**
+* **`EventTarget.prototype.countEventListener(_type)`**
+* **`EventTarget.prototype.hasEventListener(_type)`**
+* **`EventTarget.prototype.emitError(... _args)`**
+
+> [!TIP]
+> As usual in this tiny [v4](https://kekse.biz/) documentation, some arguments
+> may be optional. Like the `_type` (which results in a global operation which
+> treats any event, not only one specific).
+
+### Global scope
+Both following are additionally implemented:
+
 * **`window.removeEventListener(_type, _handler, _options)`**
 * **`window.removeAllListeners()`**
 
-..
+My intention was that these special extensions are also able to remove event listeners
+globally - so for any object with events. Usually such an event emitting object can
+only manage it's own events.. these both `window` functions can also (e.g.) receive
+an arbitrary Event ID (e.g.!) and remove 'em from any other event emitting object!
+
+## Errors
+Additionally (see also [Error](./error.md)) there's also the following function available:
+
+* **`EventTarget.prototype.emitError(...)`**
+
+This is to really stay event-oriented on the one hand: so one can either catch
+`error` events as usual, to handle them in any way. On the other hand: if no such
+`error` listener was registered, it'll handle the error as usually any
+[Error](./error.md); so either via my global [`error()`](./error.md) function,
+or (if not defined) it'll `throw` (then use `catch` etc. to handle such error).
+
+See also this function (also listed above):
+
+* **`EventTarget.prototype.emitError(... _args)`**
+
+

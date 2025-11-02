@@ -6,10 +6,28 @@
 
 <br>
 
+## News
+* \[**2025-11-02**\] Added some more documentation (i.e. for my newest extensions), and a bit more style-up here.
+
+<br><br>
+
 ## Overview
 
+<br>
+
 ### Link
-[https://**`kekse.biz`**/](https://kekse.biz/)
+This is the link to my (current) **private Website**: [https://**`kekse.biz`**/](https://kekse.biz/)
+
+This was the reason why I implemented my **v4**. As pointed out in the [**About** page](https://kekse.biz/?~about),
+sometimes I call it my **`CMS::1`** (or the **`localhost CMS`**): when I was young, I always/only coded
+[**PHP**](https://www.php.net/) Content Management Systems ('**CMS**'). Nowadays I usually use
+**JavaScript**, which became my favorite language in the meantime! Also because there's the
+[**Node.js**](https://nodejs.org/) since some time... ;-)
+
+BTW: I came to the understanding that the **CLIENT side** is sometimes 'stronger', or better in other ways.
+I realized it when I came to the [**PSYC** protocol](https://about.psyc.eu/) (or [here](https://psyc.eu/)).
+.. so **greetz** fly out to Lynx, fippo, heldensaga, silverblossom, .. and all the others which I don't
+remember in this moment/.. ;-)
 
 <br><br>
 
@@ -27,12 +45,17 @@ linked above.
 <br><br>
 
 ### **Features**
-Here's a list of all end-user features (only those they can really see):
-[**~features**](https://kekse.biz/?~features)
+Here's a list of some end-user features - those which the user/visitor is really able to see
+in the web browser! So here's my [**~features** section](https://kekse.biz/?~features).
+
+<br>
 
 ### Configuration
-I'm massively using **CSS Custom Properties** (so CSS styles with `--` prefix) to configure
-any behavior of my website. See my [**`config.css`**](css/config.css)!
+I'm massively using [**CSS Custom Properties**](https://www.w3.org/TR/css-variables-1/) (meaning CSS styles
+with `--` prefix) to configure much behavior of the website/... see here the [`css.js`](./docs/modules/web/css.md)
+and my own [`config.css`](https://kekse.biz/config.css).
+
+<br>
 
 ### Counter script
 See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which is being used in here..
@@ -40,7 +63,9 @@ See also my own [**`count.php`**](https://github.com/kekse1/count.php/), which i
 <br><br>
 
 ### **Scripts**
-These are some of my helper scripts.
+These are only some(!) of my helper scripts. Some also as **JavaScript** implementation (for the
+[Node.js](https://nodejs.org/) interpreter (**love it**)), and some are my [secret pleasure](https://github.com/kekse1/scripts/):
+scripts for the [`bash` shell](https://www.gnu.org/software/bash/).
 
 * `news`
 	* [`news.sh`](scripts/news.sh)
@@ -49,7 +74,7 @@ These are some of my helper scripts.
 	* [`index.sh`](scripts/index.sh)
 	* [`index.js`](scripts/index.js)
 * `list` / `docs` / `downloads`
-	* [`list.js`](scripts/list.js)
+	* [`list.js`](scripts/list.js) (newest version with progress bars now)
 	* [`docs.sh`](scripts/docs.sh)
     * [`downloads.sh`](scripts/downloads.sh)
     * [`models.sh`](scripts/models.sh)

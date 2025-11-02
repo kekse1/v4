@@ -12,7 +12,8 @@ but also usable if no `Content-Length` HTTP header was sent to us).
 There are some more features than covered here (since this documentation is still much TODO).
 
 ## Customization
-Take a look at my [**`config.css`**](/css/config.css), there are really many Custom CSS Properties to configure
+Take a look at my [**`config.css`**](https://kekse.biz/config.css);
+there are really many Custom CSS Properties to configure
 the behavior and look of this `Progress` class.
 
 ## `.block`
@@ -33,7 +34,8 @@ the other is visible when downloading via `fetching()` function (my extension to
 ![scroll & clock](../img/progress-scroll+clock.png)
 ![blocks @ fetching.js](../img/progress-blocks.png)
 
-And here's an excerpt from my [`config.css`](/css/config.css), only for my `Progress` base:
+And here's an excerpt from my [`config.css`](https://kekse.biz/config.css),
+only for this whole `Progress` class/..:
 
 ![config.css excerpts...](../img/config-progress.png)
 

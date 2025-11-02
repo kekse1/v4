@@ -3,6 +3,9 @@
 # **`css`**.js
 The documentation for this file is still *TODO*!
 
+> [!TIP]
+> Most of my **configuration** is in my [`config.css`](https://kekse.biz/config.css)!
+
 ## `[window.]css` functions
 These are mostly (and much!) used for **CSS custom properties**!!
 
@@ -11,7 +14,9 @@ These are mostly (and much!) used for **CSS custom properties**!!
 * `css.parse(_param, _parse, _throw)`
 * `css.parse.value(_param, _throw)`
 * `css.parse.url(_param, _throw)`
-* `css.render(_param, _throw)`
+* `css.parse.color(_para, _throw)`
+* `css.renderValue(_param, _throw)`
+* `css.renderValue.color(_item)`
 * `CSSStyleDeclaration.prototype.hasProperty(... _args)`
 * `CSSStyleDeclaration.prototype.parse(... _args)`
 * `CSSStyleDeclaration.prototype.setProperty(_key, _value, ... _args)`
@@ -41,3 +46,4 @@ traverse up each real `.parentNode` and continue the queries there.
 
 One **exception**: using the `.hasOwnVariable()` won't traverse up (nor use the
 `getComputedStyle()`).
+

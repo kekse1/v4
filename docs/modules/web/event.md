@@ -51,15 +51,15 @@ only manage it's own events.. these both `window` functions can also (e.g.) rece
 an arbitrary Event ID (e.g.!) and remove 'em from any other event emitting object!
 
 ## Errors
-Additionally (see also [Error](./error.md)) there's also the following function available:
+Additionally (see also [`Error`/Exception](./exception.md)) there's also the following function available:
 
 * **`EventTarget.prototype.emitError(...)`**
 
 This is to really stay event-oriented on the one hand: so one can either catch
 `error` events as usual, to handle them in any way. On the other hand: if no such
 `error` listener was registered, it'll handle the error as usually any
-[Error](./error.md); so either via my global [`error()`](./error.md) function,
-or (if not defined) it'll `throw` (then use `catch` etc. to handle such error).
+[`Error`/Exception](./exception.md); so either via my global [`error()`](./exception.md)
+function, or (if not defined) it'll `throw` (then use `catch` etc. to handle such error).
 
 See also this function (also listed above):
 

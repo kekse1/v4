@@ -1,6 +1,6 @@
 <img src="https://kekse.biz/github.php?draw&text=`Error`&override=github:v4" />
 
-# `Error`
+# `Error` (JavaScript's **Exception**)
 
 At this moment I'm extending this base class with just one function:
 

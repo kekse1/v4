@@ -3,15 +3,12 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.2.1
+ * v0.2.2
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
  * This will (re-)generate an index of files (depending on
  * the calling `.sh`-script or rather it's parameters). ..
- *
- *
- * [v0.2.0]: new --progress (w/ --refresh), etc..! ^_^
  *
  */
 
@@ -20,6 +17,7 @@ const DEFAULT_DIRECTORIES = false;
 const DEFAULT_PROGRESS = false;
 const DEFAULT_PROGRESS_REFRESH = 1000;
 const DEFAULT_BUFFER = (1024 * 64);
+const DEFAULT_PARALLEL = 7;
 
 //
 const HASH = 'sha3-256';
@@ -36,6 +34,11 @@ import { ready } from '../js/lib.js';
 var PROGRESS = DEFAULT_PROGRESS;
 var REFRESH = DEFAULT_PROGRESS_REFRESH;
 var BUFFER = DEFAULT_BUFFER;
+var PARALLEL = DEFAULT_PARALLEL;
+
+//
+const open = [];
+const todo = [];
 
 //
 var TIME = null;
@@ -93,6 +96,23 @@ const prepare = () => {
 			{
 				BUFFER = DEFAULT_BUFFER;
 			}
+		}
+
+		if(ARGS.has('parallel'))
+		{
+			if(!Number.isInt(PARALLEL = ARGS.get('parallel')))
+			{
+				throw new Error('Invalid --parallel argument');
+			}
+			else if(PARALLEL < 0)
+			{
+				PARALLEL = DEFAULT_PARALLEL;
+			}
+		}
+
+		if(!PARALLEL)
+		{
+			PARALLEL = Infinity;
 		}
 
 		if(fs.existsSync(ARGS.get('search')))
@@ -432,7 +452,29 @@ const removeProgressItem = (_item) => {
 	return updateProgressLines(size);
 };
 
+//
 const statCallback = (_path, _error, _stats, _callback) => {
+	const check = () => {
+		while(open.length < PARALLEL && todo.length > 0)
+		{
+			const item = todo.shift();
+			const origCb = item[3];
+
+			item[3] = (_res, ... _a) => {
+				open.remove(_res);
+				setImmediate(check);
+				origCb(_res, ... _a);
+			};
+
+			open.push(handleFile(... item));
+		}
+	};
+
+	todo.push([ _path, _error, _stats, _callback ]);
+	setImmediate(check);
+};
+
+const handleFile = (_path, _error, _stats, _callback) => {
 	if(_error)
 	{
 		++ERR;
@@ -441,10 +483,10 @@ const statCallback = (_path, _error, _stats, _callback) => {
 	else	++FOUND;
 
 	const result = Object.create(null);
+
 	result.file = path.basename(_path);
 	result.ext = path.extname(_path, 0);
-	result.type = path.extname(_path, 1).
-		substr(1);
+	result.type = path.extname(_path, 1).substr(1);
 
 	if(_stats.isFile())
 	{

@@ -10,6 +10,7 @@
 
 _REFRESH=1000 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
+_PARALLEL=4 # 0 for Infinity, below for defaults
 
 #
 real="$(realpath "$0")"
@@ -24,6 +25,7 @@ update="$(realpath "${home}/models.now")"
 #
 cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home '${downloads}' --update '${update}' --buffer ${_BUFFER}"
 [[ $_REFRESH -gt 0 ]] && cmd+=" --progress on --refresh ${_REFRESH}"
+[[ $_PARALLEL -ge 0 ]] && cmd+=" --parallel ${_PARALLEL}"
 
 #echo "'$cmd'"
 eval "$cmd"

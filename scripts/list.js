@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.2.2
+ * v0.3.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -417,7 +417,7 @@ const progressBar = (_item, _length) => {
 		return '';
 	}
 
-	var done = Math._floor(_item.progress * width);
+	var done = Math._round(_item.progress * width);
 	var todo = (width - done);
 
 	return ('[' + '#'.repeat(done) + '-'.repeat(todo) + ']');

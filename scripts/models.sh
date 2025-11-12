@@ -8,9 +8,16 @@
 # This will call the `list.js` with my parameters (for `~downloads`);
 #
 
+#
 _REFRESH=1000 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
 _PARALLEL=4 # 0 for Infinity, below for defaults
+
+#
+if [[ "`hostname`" != "kekse.biz" ]]; then
+	echo "Are you sure you want to run this script on this host!??" >&2
+	exit 110
+fi
 
 #
 real="$(realpath "$0")"

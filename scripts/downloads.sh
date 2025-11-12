@@ -11,7 +11,7 @@
 #
 _REFRESH=0 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
-_PARALLEL=8 # 0 for Infinity, below for defaults
+_PARALLEL=16 # 0 for Infinity, below for defaults
 
 #
 real="$(realpath "$0")"

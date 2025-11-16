@@ -3,12 +3,16 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.3.0
+ * v0.4.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
  * This will (re-)generate an index of files (depending on
  * the calling `.sh`-script or rather it's parameters). ..
+ *
+ *
+ * TODO * the progress bar feature is finished now (including total/sum);
+ * 	.. but it has to be tested more now!1
  *
  */
 
@@ -44,6 +48,9 @@ const todo = [];
 var TIME = null;
 var ORIG = null;
 var ARGS;
+
+const mathSize = (_value) => Math.size.render(
+	_value, null, 2, 1024, true, true);
 
 const prepare = () => {
 	/*ARGS = getopt({
@@ -170,6 +177,7 @@ const prepare = () => {
 		process.exit(1);
 	}
 	
+	resetMaxLength();
 	start();
 };
 
@@ -226,7 +234,7 @@ const write = (_result) => {
 
 const fin = (_result, _output) => {
 	//
-	const totalSize = Math.size.render(SIZE, null, 2, 1024, true, true);
+	const totalSize = mathSize(SIZE);
 	console.info(EOL + 'Total size of available documents: %' + (totalSize[3] === 0 ? '' : ' (' + SIZE.toLocaleString() + ' Bytes)') + '.', totalSize.toString());
 	//
 	console.info('Found % items in total (those without errors).', FOUND);
@@ -237,7 +245,7 @@ const fin = (_result, _output) => {
 	console.info('Changed: %', CHG);
 	console.log(2);
 	//
-	const wrote = Math.size.render(_output = _output.length, null, 2, 1024, true, true);
+	const wrote = mathSize(_output = _output.length);
 	console.info('Wrote %' + (wrote[3] === 0 ? '' : ' (' + _output.toLocaleString() + ' Bytes)') + '.', wrote.toString());
 };
 
@@ -301,13 +309,29 @@ const readdirCallback = (_path, _error, _list) => {
 	}
 };
 
+const getTotalString = () => ('  ' + mathSize(doneSize) + ' / ' + mathSize(totalSize) + ' (' +
+		doneItems.toLocaleString() + ' / ' + totalItems.toLocaleString() + ')  ');
+
+const resetMaxLength = () => {
+	return maxLength = getTotalString().length;
+};
+
 var	lastRefresh = null,
-	maxLength = 0;
+	totalSize = 0,
+	doneSize = 0,
+	totalItems = 0,
+	doneItems = 0;
 const	progressLines = [],
 	progressItems = [],
 	progressKeys = new Map();
+var	maxLength = 0;
 
 const createProgressItem = (_item, _number = 0) => {
+	if(progressItems.length === 0)
+	{
+		console.eol(2);
+	}
+	
 	var number;
 	
 	if(progressKeys.has(_item.file))
@@ -337,7 +361,7 @@ const createProgressItem = (_item, _number = 0) => {
 };
 
 const ESC = String.fromCharCode(27); const clear = (_lines) => {
-	const up = (ESC + '[' + _lines + 'A'); const clear = (ESC + '[0J');
+	const up = (ESC + '[' + (_lines + 2) + 'A'); const clear = (ESC + '[0J');
 	return (up + clear + '\r'); };
 
 const updateProgressItem = (_item, _read, _force) => {
@@ -390,6 +414,8 @@ const updateProgressLines = (_force = 0) => {
 	process.stdout.write(clear((Number.isInt(_force) &&
 		_force > 0) ? _force : progressItems.length));
 
+	process.stdout.write(totalProgressBar() + '\n\n');
+
 	for(const item of progressItems)
 	{
 		process.stdout.write(
@@ -424,7 +450,8 @@ const progressBar = (_item, _length) => {
 };
 
 const removeProgressItem = (_item) => {
-	const size = progressItems.length; maxLength = 0;
+	const size = progressItems.length;
+	resetMaxLength();
 
 	for(var i = 0; i < progressItems.length; ++i)
 	{
@@ -452,6 +479,17 @@ const removeProgressItem = (_item) => {
 	return updateProgressLines(size);
 };
 
+const totalProgressBar = () => {
+	var result = getTotalString().padStart(maxLength, ' ');
+	const progress = (doneSize / totalSize);
+	result += ' ' + Math._round(progress * 100).toString().padStart(3, ' ') + '% [';
+	const width = (process.stdout.columns - result.length - 1);
+	const done = Math._round(progress * width);
+	const todo = (width - done);
+	result += '#'.repeat(done) + '-'.repeat(todo) + ']';
+	return result.substr(0, process.stdout.columns);
+};
+
 //
 const statCallback = (_path, _error, _stats, _callback) => {
 	const check = () => {
@@ -470,6 +508,9 @@ const statCallback = (_path, _error, _stats, _callback) => {
 		}
 	};
 
+	++totalItems;
+	totalSize += _stats.size;
+	
 	todo.push([ _path, _error, _stats, _callback ]);
 	setImmediate(check);
 };
@@ -496,6 +537,9 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			//
 			result.hash = hash.digest(DIGEST);
 			
+			//
+			++doneItems;
+
 			//
 			if(ORIG && ORIG.has(result.file))
 			{
@@ -528,6 +572,7 @@ const handleFile = (_path, _error, _stats, _callback) => {
 		};
 		
 		const onData = (_chunk) => {
+			doneSize += _chunk.length;
 			hash.update(_chunk); if(PROGRESS)
 				updateProgressItem(result,
 					_chunk.length); };

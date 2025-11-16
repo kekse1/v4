@@ -10,10 +10,6 @@
  * This will (re-)generate an index of files (depending on
  * the calling `.sh`-script or rather it's parameters). ..
  *
- *
- * TODO * the progress bar feature is finished now (including total/sum);
- * 	.. but it has to be tested more now!1
- *
  */
 
 //

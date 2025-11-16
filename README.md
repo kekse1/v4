@@ -4,11 +4,6 @@
 <!--<img src="https://mirror.kekse.biz/noto-emoji-animation/emoji.php?tag=face-in-clouds&type=webp" />-->
 ![Gebt mir Kekse!](https://kekse.biz/img/Gebt%20mir%20die%20Kekse%20-%20und%20niemand%20wird%20verletzt.medium.jpg)
 
-<br>
-
-## News
-* \[**2025-11-02**\] Added some more documentation (i.e. for my newest extensions), and a bit more style-up here.
-
 <br><br>
 
 ## Overview

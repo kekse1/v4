@@ -327,7 +327,7 @@ const	progressLines = [],
 	progressKeys = new Map();
 var	maxLength = 0;
 
-const createProgressItem = (_item, _number = 0) => {
+const createProgressItem = (_item, _number) => {
 	if(progressItems.length === 0)
 	{
 		console.eol(2);
@@ -339,21 +339,21 @@ const createProgressItem = (_item, _number = 0) => {
 		number = (progressKeys.get(_item.file) + 1);
 	else	number = 0;
 	
-	const result = Object.assign(_item, { number: 0,
-		read: 0, progress: 0, percent: '  0%' });
-
-	Reflect.defineProperty(result, 'key', { get: () => {
+	const result = Object.assign(_item, { progress: {
+		number: 0, read: 0, value: 0, percent: '  0%' }});
+	
+	Reflect.defineProperty(result.progress, 'key', { get: () => {
 		var res = result.file;
 		
-		if(!result.number)
+		if(!result.progress.number)
 		{
 			return res;
 		}
 		
-		return (res + '(' + result.number + ')');
+		return (res + '(' + result.progress.number + ')');
 	}});
 
-	maxLength = Math.max(maxLength, result.key.length);
+	maxLength = Math.max(maxLength, result.progress.key.length);
 
 	progressItems.push(result);
 	process.stdout.write('\n');
@@ -368,16 +368,16 @@ const ESC = String.fromCharCode(27); const clear = (_lines) => {
 const updateProgressItem = (_item, _read, _force) => {
 	if(Number.isInt(_read))
 	{
-		_item.percent = Math._round(
-			(_item.progress = Math.min(1, (_item.
-				read += _read) / _item.size)) * 100).
+		_item.progress.percent = Math._round(
+			(_item.progress.value = Math.min(1, (_item.
+				progress.read += _read) / _item.size)) * 100).
 					toString().padStart(3, ' ') + '%';
 	}
 	else
 	{
-		_item.read = _item.size;
-		_item.progress = 1;
-		_item.percent = '100%';
+		_item.progress.read = _item.size;
+		_item.progress.value = 1;
+		_item.progress.percent = '100%';
 	}
 
 	if(_force)
@@ -428,9 +428,9 @@ const updateProgressLines = (_force = 0) => {
 };
 
 const getProgressLine = (_item) => {
-	var result = (_item.key.padStart(
+	var result = (_item.progress.key.padStart(
 		maxLength, ' ') + ' ' +
-		_item.percent + ' ');
+		_item.progress.percent + ' ');
 	return (result + progressBar(
 		_item, result.length + 2)).substr(
 			0, process.stdout.columns);
@@ -444,7 +444,7 @@ const progressBar = (_item, _length) => {
 		return '';
 	}
 
-	var done = Math._round(_item.progress * width);
+	var done = Math._round(_item.progress.value * width);
 	var todo = (width - done);
 
 	return ('[' + '#'.repeat(done) + '-'.repeat(todo) + ']');
@@ -462,13 +462,13 @@ const removeProgressItem = (_item) => {
 		}
 		else
 		{
-			if(progressItems[i].number > _item.number)
+			if(progressItems[i].progress.number > _item.progress.number)
 			{
-				--progressItems[i].number;
+				--progressItems[i].progress.number;
 			}
 			
 			maxLength = Math.max(maxLength,
-				progressItems[i].key.length);
+				progressItems[i].progress.key.length);
 		}
 	}
 	
@@ -519,8 +519,7 @@ const statCallback = (_path, _error, _stats, _callback) => {
 const handleFile = (_path, _error, _stats, _callback) => {
 	if(_error)
 	{
-		++ERR;
-		return _callback(null);
+		++ERR; return _callback(null);
 	}
 	else	++FOUND;
 
@@ -540,15 +539,6 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			
 			//
 			++doneItems;
-			
-			//
-			if(PROGRESS)
-			{
-				delete result.number;
-				delete result.percent;
-				delete result.progress;
-				delete result.read;
-			}
 
 			//
 			if(ORIG && ORIG.has(result.file))
@@ -576,6 +566,9 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			{
 				removeProgressItem(result);
 			}
+
+			//
+			delete result.progress;
 			
 			//
 			_callback(result);

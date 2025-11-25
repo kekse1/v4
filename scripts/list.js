@@ -3,12 +3,15 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.0
+ * v0.4.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
  * This will (re-)generate an index of files (depending on
  * the calling `.sh`-script or rather it's parameters). ..
+ *
+ * Here's an example how to use the `.json` output files:
+ * 	https://kekse.biz/home/downloads/downloads.js
  *
  */
 
@@ -231,7 +234,9 @@ const write = (_result) => {
 const fin = (_result, _output) => {
 	//
 	const totalSize = mathSize(SIZE);
-	console.info(EOL + 'Total size of available documents: %' + (totalSize[3] === 0 ? '' : ' (' + SIZE.toLocaleString() + ' Bytes)') + '.', totalSize.toString());
+	console.info(EOL + 'Total size of available documents: %' +
+		(totalSize[3] === 0 ? '' : ' (' + SIZE.toLocaleString() +
+			' Bytes)') + '.', totalSize.toString());
 	//
 	console.info('Found % items in total (those without errors).', FOUND);
 	if(ERR) console.warn('There ' + (ERR === 1 ? 'was' : 'were') + ' % error' +
@@ -535,6 +540,15 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			
 			//
 			++doneItems;
+			
+			//
+			if(PROGRESS)
+			{
+				delete result.number;
+				delete result.percent;
+				delete result.progress;
+				delete result.read;
+			}
 
 			//
 			if(ORIG && ORIG.has(result.file))

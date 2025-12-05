@@ -18,8 +18,8 @@ const DEFAULT_INIT = true;//if element not already faded/toggled, it'll start th
 const DEFAULT_HARD_STOP = true;//after 'window.stop()/.stopped',set the styles w/o animation nevertheless, or do NOTHING at all!?
 const DEFAULT_AXES = null;//see 'extractAxes()'!! 'xyz' seems not to work, btw. (scheint sich gegenseitig aufzuheben! x)~
 const DEFAULT_OSD = 1200;
-const DEFAULT_VIBRATE_CHANGE_ALLOWED = true;//if content of elem is changed, vibration will stop if(false); ..
-const DEFAULT_VIBRATE_CHANGE_DOTS = 8;
+const DEFAULT_VIBRATE_CHANGEABLE = true;//if content of elem is changed, vibration will stop if(false); ..
+const DEFAULT_VIBRATE_DOTS = 8;
 
 //
 const appendKeyframeStyle = (_style, _new = '') => {
@@ -1433,12 +1433,11 @@ Reflect.defineProperty(HTMLElement.prototype, 'vibrate', { value: function(_enab
 	
 	if(!Number.isInt(_changeable) || _changeable < 0)
 	{
-		if(DEFAULT_VIBRATE_CHANGE_ALLOWED)
+		if(DEFAULT_VIBRATE_CHANGEABLE)
 		{
-			if(Number.isInt(DEFAULT_VIBRATE_CHANGE_DOTS) &&
-				DEFAULT_VIBRATE_CHANGE_DOTS >= 0)
+			if(Number.isInt(DEFAULT_VIBRATE_DOTS) && DEFAULT_VIBRATE_DOTS >= 0)
 			{
-				_changeable = DEFAULT_VIBRATE_CHANGE_DOTS;
+				_changeable = DEFAULT_VIBRATE_DOTS;
 			}
 			else
 			{
@@ -1447,7 +1446,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'vibrate', { value: function(_enab
 		}
 		else
 		{
-			_changeable = 0;
+			_changeable = false;
 		}
 	}
 	
@@ -1477,36 +1476,72 @@ Reflect.defineProperty(HTMLElement.prototype, 'vibrate', { value: function(_enab
 	//
 	if(this.vibration)
 	{
-		if(_enabled)
-		{
-			return false;
-		}
-		
-		return fin(true);
-	}
-	else
-	{
 		if(!_enabled)
 		{
-			return false;
+			return fin(true);
 		}
-		
-		this.vibration = {
-			speed: _speed, interval: _interval, opacity: _opacity,
-			last: null, animation: null, seconds: 0, counter: 0,
-			dots: 0, psin: null, countedDots: countDots(this),
-			changeable: _changeable, lastHTML: null };
-		
-		if(this.vibration.countedDots)
+
+		var result;
+
+		if(this.innerHTML !== this.vibration.lastHTML)
 		{
-			this.innerHTML = this.innerHTML.slice(
-				0, -this.vibration.countedDots);
-			this.vibration.lastHTML = this.innerHTML;
+			if(this.vibration.animation)
+			{
+				cancelAnimationFrame(this.vibration.animation);
+				this.vibration.animation = null;
+			}
+
+			result = null;
 		}
+		else
+		{
+			result = false;
+		}
+
+		const change = {
+			speed: _speed,
+			interval: _interval,
+			opacity: _opacity,
+			changeable: _changeable };
+
+		for(const idx in change)
+		{
+			if(this.vibration[idx] !== change[idx])
+			{
+				this.vibration[idx] = change[idx];
+				if(result === false) result = true;
+			}
+		}
+
+		if(result !== null)
+		{
+			return result;
+		}
+	}
+	else if(!_enabled)
+	{
+		return false;
+	}
+		
+	this.vibration = {
+		speed: _speed, interval: _interval, opacity: _opacity,
+		last: null, animation: null, seconds: 0, counter: 0,
+		dots: 0, psin: null, countedDots: countDots(this),
+		changeable: _changeable, lastHTML: this.innerHTML };
+		
+	if(this.vibration.countedDots)
+	{
+		this.innerHTML = this.innerHTML.slice(
+			0, -this.vibration.countedDots);
+		this.vibration.lastHTML = this.innerHTML;
+	}
+	else if(Number.isInt(DEFAULT_VIBRATE_DOTS) && DEFAULT_VIBRATE_DOTS > 0)
+	{
+		this.vibration.countedDots = DEFAULT_VIBRATE_DOTS;
 	}
 
 	const animationFrame = () => {
-		if(!this.vibration)
+		if(!this.vibration || !this.vibration.animation)
 		{
 			return fin(false);
 		}
@@ -1585,7 +1620,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'vibrate', { value: function(_enab
 			this.vibration.lastHTML = this.innerHTML;
 		}
 		
-		if(this.vibration)
+		if(this.vibration && this.vibration.animation)
 		{
 			this.vibration.animation =
 				requestAnimationFrame(
@@ -1601,16 +1636,12 @@ Reflect.defineProperty(HTMLElement.prototype, 'vibrate', { value: function(_enab
 }});
 
 const countDots = (_elem) => {
-	const text = _elem.textContent.trim();
-	var result = 0, byte;
-	
-	for(var i = text.length - 1; i >= 0; --i)
+	const data = _elem.innerHTML;
+	var result = 0;
+
+	for(var i = data.length - 1; i >= 0; --i)
 	{
-		if((byte = text.charCodeAt(i)) <= 32 || byte === 127)
-		{
-			continue;
-		}
-		else if(text[i] === '.')
+		if(data[i] === '.')
 		{
 			++result;
 		}
@@ -1619,7 +1650,7 @@ const countDots = (_elem) => {
 			break;
 		}
 	}
-	
+
 	return result;
 };
 

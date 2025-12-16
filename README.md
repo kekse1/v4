@@ -69,7 +69,7 @@ scripts for the [`bash` shell](https://www.gnu.org/software/bash/).
 	* [`index.sh`](scripts/index.sh)
 	* [`index.js`](scripts/index.js)
 * `list` / `docs` / `downloads`
-	* [`list.js`](scripts/list.js) (newest version now with progress bars, one line for each file :-)
+	* [`list.js`](scripts/list.js) (newest version now with progress bars! ;-)
 	* [`docs.sh`](scripts/docs.sh)
     * [`downloads.sh`](scripts/downloads.sh)
     * [`models.sh`](scripts/models.sh)
@@ -83,6 +83,8 @@ scripts for the [`bash` shell](https://www.gnu.org/software/bash/).
     * [`hardware.sh`](scripts/hardware.sh)
 * `models`
     * [`find-abliterated-models.sh`](scripts/find-abliterated-models.sh)
+    * [`models.sh`](scripts/models.sh)
+    * [`list.js`](scripts/list.js)
 
 <br><br><br>
 

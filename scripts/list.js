@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.1
+ * v0.4.2
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -52,14 +52,6 @@ const mathSize = (_value) => Math.size.render(
 	_value, null, 2, 1024, true, true);
 
 const prepare = () => {
-	/*ARGS = getopt({
-		root: { short: 'r', params: 1, index: 0, parse: false, help: 'Root path of the whole v4 project' },
-		time: { short: 't', params: 1, index: 0, parse: true, help: 'Current time in milliseconds' },
-		search: { short: 's', params: 1, index: 0, parse: false, help: 'The search path (for the documents)' },
-		output: { short: 'o', params: 1, index: 0, parse: false, help: 'Output path (a `.json` file)' },
-		home: { short: 'h', params: 1, index: 0, parse: false, help: 'The path below the ~home directory' },
-		update: { short: 'u', params: 1, index: 0, parse: false, help: 'Update some `main.now` to get listed by `news`' }
-	});*/
 	ARGS = getopt();
 
 	if(ARGS.get('search') && ARGS.get('output'))
@@ -234,7 +226,7 @@ const write = (_result) => {
 const fin = (_result, _output) => {
 	//
 	const totalSize = mathSize(SIZE);
-	console.info(EOL + 'Total size of available documents: %' +
+	console.info(EOL + 'Total size of available files: %' +
 		(totalSize[3] === 0 ? '' : ' (' + SIZE.toLocaleString() +
 			' Bytes)') + '.', totalSize.toString());
 	//

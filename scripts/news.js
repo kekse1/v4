@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.5.0
+ * v0.5.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  *
@@ -179,7 +179,8 @@ const start = (_args, _callback) => {
 			{
 				continue;
 			}
-			else if(_files[i].isSymbolicLink())
+			
+			if(_files[i].isSymbolicLink())
 			{
 				continue;
 			}
@@ -296,8 +297,8 @@ const finish = (_result) => {
 
 	console.log();	
 	console.info('% items found in total.', result.length);
-	if(orig) console.info('% item' + (UPDATE === 1 ? '' : 's') + ' really updated, ' +
-		'% deleted, % newly created.', UPDATE, DELETE, CREATE);
+	if(orig) console.info('% item' + (UPDATE === 1 ? '' : 's') + ' updated, ' +
+		'% deleted, and % newly created.', UPDATE, DELETE, CREATE);
 };
 
 const readOriginal = () => {

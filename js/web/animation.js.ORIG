@@ -244,10 +244,9 @@ Reflect.defineProperty(HTMLElement.prototype, 'noAnimation', { get: function()
 	if(!this.isConnected || !this.parentNode) return 2;
 	if(!document.parseVariable('animate')) return 3;
 	if(this.parseAttribute('noanim')) return 4;
-	if(this.parseAttribute('ignanim')) return 5;
-	if(!this.parseVariable('animate')) return 6;
-	if(this.parseVariable('speed') <= 0) return 7;
-	if(document.parseVariable('global') <= 0) return 8;
+	if(!this.parseVariable('animate')) return 5;
+	if(this.parseVariable('speed') <= 0) return 6;
+	if(document.parseVariable('global') <= 0) return 7;
 	return 0; }});
 
 // should be checked everywhere where an animation is being started (but not in 'animate')!
@@ -297,16 +296,13 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 		else _options = {}; }
 
 	//
-	//if(this.parseAttribute('ignanim')) return earlyFinish(false);
-	if(this.parseAttribute('ignanim')) return false;
-	
-	if(DEFAULT_HARD_STOP && !_options.force) {
+	if(this.parseAttribute('ignanim')) return earlyFinish(false);
+	else if(DEFAULT_HARD_STOP && !_options.force) {
 		if(window.stopped) return earlyFinish(false);
 		else if(this.locked) return earlyFinish(false); }
 
 	//
-	if(!Animation.validKeyframes(_keyframes))
-		return error('Invalid % argument (needs to be % or %)', null, '_keyframes', 'Object', 'Array');
+	if(!Animation.validKeyframes(_keyframes)) return error('Invalid % argument (needs to be % or %)', null, '_keyframes', 'Object', 'Array');
 
 	//
 	if(!Number.isInt(this._animations)) this._animations = 0;
@@ -926,7 +922,6 @@ Reflect.defineProperty(HTMLElement.prototype, 'animation', { get: function() {
 //
 function fade(_type, _options, ... _args)
 {
-	if(this.parseAttribute('ignanim')) return false;
 	if(!Object.isObject(_options)) {
 		if(Number.isNumber(_options)) _options = { duration: _options };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
@@ -1109,7 +1104,6 @@ const toggleCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_options, ... _args)
 {
-	if(this.parseAttribute('ignanim')) return false;
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
 		else if(typeof _options === 'function') _options = { callback: _options };
@@ -1166,7 +1160,6 @@ const blinkCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'blink', { value: function(_options, ... _args)
 {
-	if(this.parseAttribute('ignanim')) return false;
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
 		else if(typeof _options === 'function') _options = { callback: _options };
@@ -1260,7 +1253,6 @@ const pulseCallbacks = new Callback();
 
 Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_options, ... _args)
 {
-	if(this.parseAttribute('ignanim')) return false;
 	if(!Object.isObject(_options)) { if(Number.isNumber(_options)) _options = { duration: Math.round(_options) };
 		else if(typeof _options === 'boolean') _options = { duration: _options };
 		else if(typeof _options === 'function') _options = { callback: _options };
@@ -1418,12 +1410,6 @@ Reflect.defineProperty(document, 'pauseAnimation', { value: (... _args) => {
 //
 Reflect.defineProperty(HTMLElement.prototype, 'vibrate', { value: function(_enabled, _speed, _interval, _opacity, _changeable)
 {
-	//
-	if(this.noAnimation)
-	{
-		return false;
-	}
-
 	//
 	if(typeof _enabled !== 'boolean')
 	{
@@ -1721,10 +1707,6 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 		if(!this.element)
 		{
 			return error('No valid `HTMLElement` specified.');
-		}
-		else if(this.element.noAnimation)
-		{
-			return null;
 		}
 
 		if(!String.isString(this.background, false))
@@ -2142,11 +2124,6 @@ Reflect.defineProperty(HTMLElement.prototype, 'wallpaper', {
 //
 Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options, _items, _callback)
 {
-	if(this.parseAttribute('ignanim'))
-	{
-		return false;
-	}
-	
 	const withItems = Array.isArray(_items, true);
 	const items = (withItems ? _items : [ ... this.children ]);
 	
@@ -2404,7 +2381,13 @@ const styles = {
 			delete options.callback;
 		}
 
-		return !!_target.animate({ [ _property ]: _value }, options);
+		if(!_target.animate({ [ _property ]: _value }, options))
+		{
+			return false;
+		}
+
+		return true;
+		
 	},
 	
 	has: (_target, _property) => {
@@ -2429,22 +2412,16 @@ Reflect.defineProperty(HTMLElement.prototype, 'styles', {
 });
 
 //
-Reflect.defineProperty(Node.prototype, 'finishSetTextContent', { value: function()
+Reflect.defineProperty(Node.prototype, 'finishTextContent', { value: function()
 {
-	if(!this._setTextContent)
+	if(!this._setTextContent || !this._setTextContent.lines)
 	{
 		return this._setTextContent = null;
-	}
-	
-	if(this._setTextContent.timeout)
-	{
-		clearTimeout(this._setTextContent.timeout);
-		this._setTextContent.timeout = null;
 	}
 
 	const rest = [ ... this._setTextContent.lines ];
 
-	if(this._setTextContent.animation)
+	if(typeof this._setTextContent.animation === 'number')
 	{
 		cancelAnimationFrame(this._setTextContent.animation);
 		this._setTextContent.animation = null;
@@ -2470,10 +2447,6 @@ Reflect.defineProperty(Node.prototype, 'addTextContent', { value: function(_text
 			add: true }));
 }});
 
-//
-//todo/bei frueherem return auch callback(s) beachten!?!
-//todo/*evtl*(..!1) auch callbacks {,finish,...} dazu???
-//
 Reflect.defineProperty(Node.prototype, 'setTextContent', { value: function(_text, _options)
 {
 	if(!Array._isArray(_text) && typeof _text !== 'string')
@@ -2485,31 +2458,18 @@ Reflect.defineProperty(Node.prototype, 'setTextContent', { value: function(_text
 		
 		return [];
 	}
-
-	if(typeof _text === 'string')
+	else if(typeof _text === 'string')
 	{
+		if(_text.length === 0)
+		{
+			return _text;
+		}
+		
 		_text = _text.split(EOL);
 	}
-	else if(!Array._isArray(_text))
+	else if(_text.length === 0)
 	{
-		return null;
-	}
-
-	var empty = (_text.length === 0);
-
-	if(!empty) for(var i = 0; i < _text.length; ++i)
-	{
-		if(_text[i].trim())
-		{
-			empty = false;
-			break;
-		}
-	}
-
-	if(!this.isConnected)
-	{
-		this.finishSetTextContent();
-		return this.textContent = _text.join(EOL);
+		return '';
 	}
 
 	const finish = (_success = true) => {
@@ -2517,7 +2477,7 @@ Reflect.defineProperty(Node.prototype, 'setTextContent', { value: function(_text
 		{
 			return;
 		}
-
+		
 		if(typeof this._setTextContent.animation === 'function')
 		{
 			const anim = this._setTextContent.animation;
@@ -2532,89 +2492,20 @@ Reflect.defineProperty(Node.prototype, 'setTextContent', { value: function(_text
 				this, null, this.textContent);
 			this._setTextContent.callbacks.clear(this);
 		}
-
-		if(!this._setTextContent.timeout)
-		{
-			this._setTextContent = null;
-		}
 		
+		this._setTextContent = null;
 		return !!has;
 	};
 
-	const earlyReturn = (_fin = true) => {
-		if(_fin)
-		{
-			this.finishSetTextContent();
-		}
-		else
-		{
-			if(this._setTextContent?.animation)
-			{
-				cancelAnimationFrame(this._setTextContent.animation);
-				this._setTextContent.animation = null;
-			}
-
-			if(this._setTextContent?.timeout)
-			{
-				clearTimeout(this._setTextContent.timeout);
-				this._setTextContent.timeout = null;
-			}
-		}
-
-		if(_options.delay) return setTimeout(() => {
-			if(this._setTextContent?.timeout)
-			{
-				clearTimeout(this._setTextContent.timeout);
-				this._setTextContent.timeout = null;
-			}
-
-			return this.textContent = _text.join(EOL);
-		}, _options.delay);
-
-		return this.textContent = _text.join(EOL);
-	};
-
-	_options = Object.assign({}, _options);
-
-	if(typeof _options.add !== 'boolean')
-	{
-		_options.add = false;
-	}
-
-	if(!Number.isInt(_options.delay))
-	{
-		_options.delay = this.parseVariable('line-delay');
-	}
-
-	if(_options.delay < 0)
-	{
-		_options.delay = 0;
-	}
-
 	if(this._setTextContent)
 	{
-		if(_options.add || empty)
+		if(_options.add)
 		{
 			return this._setTextContent.lines.push(... _text);
 		}
-		else if(empty)
-		{
-			return earlyReturn(true);
-		}
 		
-		this._setTextContent.lines = [ ... _text ];
 		this._setTextContent.animation = false;
 		this.textContent = '';
-		
-		if(this._setTextContent.timeout)
-		{
-			clearTimeout(this._setTextContent.timeout);
-			this._setTextContent.timeout = null;
-		}
-	}
-	else if(empty)
-	{
-		return earlyReturn(false);
 	}
 	else
 	{
@@ -2629,6 +2520,11 @@ Reflect.defineProperty(Node.prototype, 'setTextContent', { value: function(_text
 		_options.start = 0;
 	}
 	
+	if(typeof _options.add !== 'boolean')
+	{
+		_options.add = false;
+	}
+
 	if(!Number.isInt(_options.duration))
 	{
 		_options.duration = this.parseVariable('line-duration');
@@ -2640,6 +2536,16 @@ Reflect.defineProperty(Node.prototype, 'setTextContent', { value: function(_text
 		{
 			_options.lines = this.parseVariable('line-count');
 		}
+	}
+
+	if(!Number.isInt(_options.delay))
+	{
+		_options.delay = this.parseVariable('line-delay');
+	}
+
+	if(_options.delay < 0)
+	{
+		_options.delay = 0;
 	}
 	
 	if(_options.duration <= 0 || _options.lines <= 0)
@@ -2765,12 +2671,12 @@ Reflect.defineProperty(Node.prototype, 'setTextContent', { value: function(_text
 					requestAnimationFrame(animationFrame);
 			}
 		};
-
-	return this._setTextContent.timeout =
-		setTimeout(() => { if(!this._setTextContent) return;
-			this._setTextContent.timeout = null; lastNow = Date.now();
-			this._setTextContent.animation = requestAnimationFrame(
-				animationFrame); }, _options.delay);
+	
+	return setTimeout(() => {
+		lastNow = Date.now();
+		this._setTextContent.animation =
+			requestAnimationFrame(animationFrame); },
+		_options.delay);
 }});
 
 //

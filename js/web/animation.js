@@ -241,7 +241,7 @@ const callCallbacks = (_context, _options, _event, ... _args) => {
 Reflect.defineProperty(HTMLElement.prototype, 'noAnimation', { get: function()
 {
 	if(window.stopped) return 1;
-	if(!this.isConnected || !this.parentNode) return 2;
+	if(!this.isConnected) return 2;
 	if(!document.parseVariable('animate')) return 3;
 	if(this.parseAttribute('noanim')) return 4;
 	if(this.parseAttribute('ignanim')) return 5;
@@ -314,8 +314,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'animate', { value: function(_keyf
 	if(typeof _options.force !== 'boolean') _options.force = this.parseVariable('force-animation');
 
 	//
-	var noAnimation = ((this.isConnected && this.parentNode) ?
-		(_options.force ? false : !!this.noAnimation) : true);
+	var noAnimation = (_options.force ? false : !!this.noAnimation);
 	
 	//
 	var global = document.parseVariable('global'); if(global < 0) global = 0;

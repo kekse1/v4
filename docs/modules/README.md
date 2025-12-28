@@ -68,13 +68,13 @@ needs to be documentated in here).
 * [`help`.js](web/help.md)
 * [`html`.js](web/html.md)
 * [`markdown`.js](web/markdown.md)
-* [`mobile`.js](web/mobile.md)
 * [`module`.js](web/module.md)
 * [`osd`.js](web/osd.md)
 * [`page`.js](web/page.md)
 * [`progress`.js](web/progress.md)
 * [`testing`.js](web/testing.md)
 * [`toc`.js](web/toc.md)
+* [`view`.js](web/view.md)
 * [`window`.js](web/window.md)
 
 ## **test**/

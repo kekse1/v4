@@ -130,8 +130,6 @@ const prepare = () => {
 					ORIG.set(i.file, i);
 				}
 			}
-
-			console.log('You started this script correctly.. so we continue here. Right now. :-)');
 			
 			if(!ARGS.get('output').endsWith('.json'))
 			{

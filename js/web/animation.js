@@ -16,7 +16,6 @@ const DEFAULT_PERSIST = true;//will end any (managed) animation with comitting t
 const DEFAULT_SMOOTH = true;//will start any (managed) animation with current style state!
 const DEFAULT_INIT = true;//if element not already faded/toggled, it'll start this with suitable start styles!!
 const DEFAULT_HARD_STOP = true;//after 'window.stop()/.stopped',set the styles w/o animation nevertheless, or do NOTHING at all!?
-const DEFAULT_AXES = null;//see 'extractAxes()'!! 'xyz' seems not to work, btw. (scheint sich gegenseitig aufzuheben! x)~
 const DEFAULT_OSD = 1200;
 const DEFAULT_VIBRATE_CHANGEABLE = true;//if content of elem is changed, vibration will stop if(false); ..
 const DEFAULT_VIBRATE_DOTS = 8;
@@ -1118,24 +1117,25 @@ Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_optio
 	if(!continueAnimation(this, _options)) return earlyFinish(undefined);
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-toggle');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
-	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
+	const origDuration = _options.duration = Math.round(_options.duration / 1/*2*/); _options.method = Callback.checkMethod(_options.method, true, this);
 	if(typeof _options.init !== 'boolean') _options.init = DEFAULT_INIT; if(typeof _options.scale !== 'boolean') _options.scale = true;
-	if('filter' in _options) { _options.blur = _options.filter; delete _options.filter; } _options.rotate = extractAxes(_options.rotate);
+	if('filter' in _options) { _options.blur = _options.filter; delete _options.filter; }
+	if(!('rotate' in _options)) _options.rotate = this.parseVariable('toggle-axes');  _options.rotate = extractAxes(_options.rotate);
 	if(typeof _options.blur !== 'boolean') _options.blur = true; if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
 	toggleCallbacks[_options.method](this, 'half', _options.half); toggleCallbacks[_options.method](this, 'callback', _options.callback);
 	toggleCallbacks[_options.method](this, 'finish', _options.finish); delete _options.finish; delete _options.half; delete _options.callback;
 	if(_options.init && !this._toggleOptions) { this.style.opacity = '1'; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(1)');
 		for(const axis of _options.rotate) transform = appendKeyframeStyle(transform, 'rotate' + axis.toUpperCase() + '(0)');
 		if(transform) this.style.transform = transform; if(_options.blur) this.style.filter = 'blur(0)'; }
-	if(!this._toggleOptions) { this._toggleOptions = { source: {} }; this._toggleOptions.source.opacity = this.style.opacity;
+	if(!this._toggleOptions) { this._toggleOptions = { source: {} }; this._toggleOptions.source.opacity = this.styles.opacity;
 		if(_options.scale || _options.rotate.length > 0) this._toggleOptions.source.transform = this.style.transform; if(_options.blur) this._toggleOptions.source.filter = this.style.filter; }
-	const toggleIn = () => { const keyframes = { opacity: '0.4' }; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(0.4)');
+	const toggleIn = () => { const keyframes = { opacity: '0' }; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(0.4)');
 		for(const axis of _options.rotate) transform = appendKeyframeStyle(transform, 'rotate' + axis.toUpperCase() + '(180deg)'); if(transform) keyframes.transform = transform;
 		if(_options.blur) keyframes.filter = 'blur(3px)'; _options.finish = (_e, ... _a) => { delete _options.sourceValues;
 			Reflect.defineProperty(_e, 'type', { value: 'half' }); toggleCallbacks.call(this, 'half', _e, ... _a);
 			delete _options.targetValues; toggleCallbacks.call(this, 'callback', _e, ... _a); return this._toggle = toggleOut(); };
-		_options.callback = (_e, ... _a) => { if(_e.type !== 'finish') { delete this._toggle; }};
-		return this._toggle = this.animate(keyframes, _options, ... _args); };
+		_options.callback = (_e, ... _a) => { _options.duration = origDuration; if(_e.type !== 'finish') { delete this._toggle; }};
+		_options.duration = Math._round(_options.duration / 2); return this._toggle = this.animate(keyframes, _options, ... _args); };
 	const toggleOut = () => { const keyframes = { opacity: '1' }; var transform; if(_options.scale) transform = appendKeyframeStyle(transform, 'scale(1)');
 		for(const axis of _options.rotate) transform = appendKeyframeStyle(transform, 'rotate' + axis.toUpperCase() + '(359deg)');
 		if(transform) keyframes.transform = transform; if(_options.blur) keyframes.filter = 'blur(0)'; _options.finish = (... _a) => {
@@ -1148,16 +1148,28 @@ Reflect.defineProperty(HTMLElement.prototype, 'toggle', { value: function(_optio
 	return this._toggle = this.animate(keyframes, _options, ... _args); }; return this._toggle = toggleIn();
 }});
 
-const extractAxes = (_value, _fallback = DEFAULT_AXES) => { const result = [];
-	if(_value === null) return (Math.random.bool() ? 'x' : 'y');
-	if(typeof _value === 'boolean') { if(_value) return extractAxes(DEFAULT_AXES); return result; }
-	else if(typeof _value === 'string') { if(_value.length === 0) return result; var value; for(var i = 0; i < _value.length; ++i)
-		switch(value = _value[i].toLowerCase()) { case 'x': case 'y': case 'z': result.pushUnique(value); break; }}
-	else if(Array.isArray(_value, true)) { for(var i = _value.length - 1; i >= 0; --i) { if(typeof _value[i] !== 'string')
-		_value.splice(i, 1); else result.pushUnique(... extractAxes(_value[i])); }}
-	else if(_fallback !== null && typeof _fallback !== 'string' && !Array.isArray(_fallback, true))
-		return error('Invalid [%] option!', null, 'axes');
-	else return extractAxes(_fallback, null); return result.sort();
+const extractAxes = global.axes = (_value) => {
+	var result;
+	
+	if(String.isString(_value, false))
+	{
+		result = _value;
+	}
+	else if(Array.isArray(_value, false))
+	{
+		result = _value.getRandom(1);
+	}
+	else
+	{
+		result = null;
+	}
+
+	if(String.isString(result))
+	{
+		result = result.split('');
+	}
+
+	return result;
 };
 
 //
@@ -2226,11 +2238,11 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 		scroll = null;
 	}
 
-	for(var i = 0; i < items.length; ++i)
+	var SCROLL; for(var i = 0; i < items.length; ++i)
 	{
 		const child = items[i];
-		
-		if(child.style)
+
+		if(SCROLL = (child.style && scroll && HTMLElement.inScrollArea(child, scroll) && !child.parseAttribute('ignanim')))
 		{
 			child.style.opacity = '0';
 		}
@@ -2240,7 +2252,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 			this.appendChild(child);
 		}
 		
-		if((scroll && HTMLElement.inScrollArea(child, scroll)) || !scroll)
+		if(SCROLL || !scroll)
 		{
 			if(child.tagName === 'UL' || child.tagName === 'OL' || child.tagName === 'TABLE')
 			{

@@ -2818,4 +2818,215 @@ ready(() => { setTimeout(() => {
 }, 1200); });
 
 //
+//TODO/bitte @ 'config.css' noch mehr variablen/settings/options/.. u.a. kegel-groesze, etc...!1 ^_^
+//
+Reflect.defineProperty(Element.prototype, 'spotlight', {
+	get: function()
+	{
+		return !!this.SPOTLIGHT;
+	},
+	set: function(_value)
+	{
+		//
+		if(typeof _value !== 'boolean')
+		{
+			_value = !this.spotlight;
+		}
+		
+		//
+		const removeSpotlight = () => {
+			if(!this.SPOTLIGHT)
+			{
+				return false;
+			}
+			
+			if(this.SPOTLIGHT.lerpEffectFrame)
+			{
+				cancelAnimationFrame(this.SPOTLIGHT.lerpEffectFrame);
+				this.SPOTLIGHT.lerpEffectFrame = null;
+			}
+			
+			if(this.SPOTLIGHT.onPointerMove)
+			{
+				this.removeEventListener(
+					this.SPOTLIGHT.onPointerMove);
+				this.SPOTLIGHT.onPointerMove = null;
+			}
+			
+			if(this.SPOTLIGHT.onPointerDown)
+			{
+				this.removeEventListener(
+					this.SPOTLIGHT.onPointerDown);
+				this.SPOTLIGHT.onPointerDown = null;
+			}
+			
+			if(this.SPOTLIGHT.onPointerUp)
+			{
+				this.removeEventListener(
+					this.SPOTLIGHT.onPointerUp);
+				this.SPOTLIGHT.onPointerUp = null;
+			}
+			
+			this.classList.remove('spotlight');
+			return !(this.SPOTLIGHT = null);
+		};
+		
+		const calculateMouse = (_e) => {
+			const rect = this.SPOTLIGHT.rectangle = this.getBoundingClientRect(); return [
+				this.SPOTLIGHT.mouseX = (((_e.clientX - rect.left) / rect.width) * 100),
+				this.SPOTLIGHT.mouseY = (((_e.clientY - rect.top) / rect.height) * 100) ]; };
 
+		//
+		if(!_value)
+		{
+			return removeSpotlight();
+		}
+		
+		removeSpotlight();
+		
+		//
+		this.classList.add('spotlight');
+
+		//
+		this.SPOTLIGHT = { lerpEffect: this.parseVariable('spotlight-lerp-effect'),
+			clickToggle: this.parseVariable('spotlight-click'), mouseDown: null,
+				mouseX: 0, mouseY: 0, currentX: 0, currentY: 0 };
+			
+		/* (0.1) = 10% annaeherung pro frame */
+		if(!Number.isNumber(this.SPOTLIGHT.lerpEffect) || this.SPOTLIGHT.lerpEffect <= 0)
+		{
+			this.SPOTLIGHT.lerpEffect = 0;
+		}
+		
+		if(this.SPOTLIGHT.clickToggle) this.SPOTLIGHT.onPointerDown = this.on('pointerdown', (_e) => {
+			if(this.SPOTLIGHT.mouseDown)
+			{
+				return;
+			}
+			
+			this.setPointerCapture(_e.pointerId);
+			this.SPOTLIGHT.mouseDown = true;
+			
+			if(this.SPOTLIGHT.lerpEffect)
+			{
+				this.SPOTLIGHT.lerpEffectFrame = requestAnimationFrame(
+					this.SPOTLIGHT.lerpEffectHandler);
+			}
+			else
+			{
+				this.SPOTLIGHT.lerpEffectFrame = null;
+			}
+			
+			return _e.stop();
+		}, { passive: false });
+		
+		if(this.SPOTLIGHT.clickToggle) this.SPOTLIGHT.onPointerUp = this.on('pointerup', (_e) => {
+			if(!this.hasPointerCapture(_e.pointerId))
+			{
+				return this.SPOTLIGHT.mouseDown = false;
+			}
+			
+			this.releasePointerCapture(_e.pointerId);
+			this.SPOTLIGHT.mouseDown = false;
+			
+			if(this.SPOTLIGHT.lerpEffectFrame)
+			{
+				cancelAnimationFrame(this.SPOTLIGHT.lerpEffectFrame);
+				this.SPOTLIGHT.lerpEffectFrame = null;
+			}
+			
+			return _e.stop();
+		}, { passive: false });
+		
+		this.SPOTLIGHT.onPointerMove = this.on('pointermove', (_e) => {
+			if(this.SPOTLIGHT.clickToggle && !this.hasPointerCapture(_e.pointerId))
+			{
+				return this.SPOTLIGHT.mouseDown = false;
+			}
+			
+			const [ mx, my ] = calculateMouse(_e);
+			
+			if(!this.SPOTLIGHT.lerpEffect)
+			{
+				this.style.setProperty('--spot-x', mx + '%');
+				this.style.setProperty('--spot-y', my + '%');
+			}
+			
+			return _e.stop();
+		}, { passive: false });
+		
+		this.SPOTLIGHT.lerpEffectHandler = () => {
+			this.SPOTLIGHT.currentX += ((this.SPOTLIGHT.mouseX -
+				this.SPOTLIGHT.currentX) * this.SPOTLIGHT.lerpEffect);
+			this.SPOTLIGHT.currentY += ((this.SPOTLIGHT.mouseY -
+				this.SPOTLIGHT.currentY) * this.SPOTLIGHT.lerpEffect);
+			
+			this.style.setProperty('--spot-x', this.SPOTLIGHT.currentX + '%');
+			this.style.setProperty('--spot-y', this.SPOTLIGHT.currentY + '%');
+
+			if(this.SPOTLIGHT.lerpEffectFrame)
+			{
+				this.SPOTLIGHT.lerpEffectFrame = requestAnimationFrame(
+					this.SPOTLIGHT.lerpEffectHandler);
+			}
+		};
+		
+		if(!this.SPOTLIGHT.clickToggle && this.SPOTLIGHT.lerpEffect)
+		{
+			this.SPOTLIGHT.lerpEffectFrame = requestAnimationFrame(
+				this.SPOTLIGHT.lerpEffectHandler);
+		}
+		
+		return true;
+	}
+});
+
+/*window.spotlight = (_element) => {
+	if(_element.classList.contains('spotlight'))
+	{
+		_element.removeEventListener(
+			_element.spotlightEvent);
+		_element.classList.remove('spotlight');
+		
+		delete _element.spotlightLerpEffect;
+		
+		return false;
+	}
+
+	if(!Number.isNumber(_element.spotlightLerpEffect =
+		_element.parseVariable('spotlight-lerp-effect')) ||
+			_element.spotlightLerpEffect <= 0)
+	{
+		_element.spotlightLerpEffect = 0;
+	}
+	
+	_element.classList.add('spotlight');
+	_element.spotlightEvent = _element.on('pointermove', (_e) => {
+		const rect = _element.getBoundingClientRect();
+		const x = ((_e.clientX - rect.left) / rect.width) * 100;
+		const y = ((_e.clientY - rect.top) / rect.height) * 100;
+		
+		if(!_element.spotlightLerpEffect)
+		{
+			_element.style.setProperty('--spot-x', `${x}%`);
+			_element.style.setProperty('--spot-y', `${y}%`);
+		}
+	}, { passive: true });
+	
+	_element.spotlightLerpEffektFrame = () => {
+		//
+		.spotlightCurrentX += (_
+		
+		//
+		_element.spotlightLerpEffectAnimation =
+			requestAnimationFrame(_element.spotlightLerpEffectFrame);
+	};
+	
+	if(LERP) _element.spotlightLerpEffectAnimation =
+		requestAnimationFrame(_element.spotlightLerpEffect);
+		
+	return true;
+};
+*/
+
+//

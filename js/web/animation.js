@@ -2900,9 +2900,7 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 			{
 				this.SPOTLIGHT.lerpEffectFrame = null;
 			}
-			
-			return _e.stop();
-		}, { passive: false });
+		}, { passive: true });
 		
 		if(this.SPOTLIGHT.clickToggle) this.SPOTLIGHT.onPointerUp = this.on('pointerup', (_e) => {
 			if(!this.hasPointerCapture(_e.pointerId))
@@ -2918,9 +2916,7 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 				cancelAnimationFrame(this.SPOTLIGHT.lerpEffectFrame);
 				this.SPOTLIGHT.lerpEffectFrame = null;
 			}
-			
-			return _e.stop();
-		}, { passive: false });
+		}, { passive: true });
 		
 		this.SPOTLIGHT.onPointerMove = this.on('pointermove', (_e) => {
 			if(this.SPOTLIGHT.clickToggle && !this.hasPointerCapture(_e.pointerId))
@@ -2935,9 +2931,7 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 				this.style.setProperty('--spot-x', mx + '%');
 				this.style.setProperty('--spot-y', my + '%');
 			}
-			
-			return _e.stop();
-		}, { passive: false });
+		}, { passive: true });
 		
 		this.SPOTLIGHT.lerpEffectHandler = () => {
 			this.SPOTLIGHT.currentX += ((this.SPOTLIGHT.mouseX -
@@ -2965,52 +2959,5 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 	}
 });
 
-/*window.spotlight = (_element) => {
-	if(_element.classList.contains('spotlight'))
-	{
-		_element.removeEventListener(
-			_element.spotlightEvent);
-		_element.classList.remove('spotlight');
-		
-		delete _element.spotlightLerpEffect;
-		
-		return false;
-	}
-
-	if(!Number.isNumber(_element.spotlightLerpEffect =
-		_element.parseVariable('spotlight-lerp-effect')) ||
-			_element.spotlightLerpEffect <= 0)
-	{
-		_element.spotlightLerpEffect = 0;
-	}
-	
-	_element.classList.add('spotlight');
-	_element.spotlightEvent = _element.on('pointermove', (_e) => {
-		const rect = _element.getBoundingClientRect();
-		const x = ((_e.clientX - rect.left) / rect.width) * 100;
-		const y = ((_e.clientY - rect.top) / rect.height) * 100;
-		
-		if(!_element.spotlightLerpEffect)
-		{
-			_element.style.setProperty('--spot-x', `${x}%`);
-			_element.style.setProperty('--spot-y', `${y}%`);
-		}
-	}, { passive: true });
-	
-	_element.spotlightLerpEffektFrame = () => {
-		//
-		.spotlightCurrentX += (_
-		
-		//
-		_element.spotlightLerpEffectAnimation =
-			requestAnimationFrame(_element.spotlightLerpEffectFrame);
-	};
-	
-	if(LERP) _element.spotlightLerpEffectAnimation =
-		requestAnimationFrame(_element.spotlightLerpEffect);
-		
-	return true;
-};
-*/
-
 //
+

@@ -2888,7 +2888,7 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 				return;
 			}
 			
-			this.setPointerCapture(_e.pointerId);
+			//this.setPointerCapture(_e.pointerId);
 			this.SPOTLIGHT.mouseDown = true;
 			
 			if(this.SPOTLIGHT.lerpEffect)
@@ -2903,12 +2903,12 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 		}, { passive: true });
 		
 		if(this.SPOTLIGHT.clickToggle) this.SPOTLIGHT.onPointerUp = this.on('pointerup', (_e) => {
-			if(!this.hasPointerCapture(_e.pointerId))
+			/*if(!this.hasPointerCapture(_e.pointerId))
 			{
 				return this.SPOTLIGHT.mouseDown = false;
-			}
+			}*/
 			
-			this.releasePointerCapture(_e.pointerId);
+			//this.releasePointerCapture(_e.pointerId);
 			this.SPOTLIGHT.mouseDown = false;
 			
 			if(this.SPOTLIGHT.lerpEffectFrame)
@@ -2919,10 +2919,10 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 		}, { passive: true });
 		
 		this.SPOTLIGHT.onPointerMove = this.on('pointermove', (_e) => {
-			if(this.SPOTLIGHT.clickToggle && !this.hasPointerCapture(_e.pointerId))
+			/*if(this.SPOTLIGHT.clickToggle && !this.hasPointerCapture(_e.pointerId))
 			{
 				return this.SPOTLIGHT.mouseDown = false;
-			}
+			}*/
 			
 			const [ mx, my ] = calculateMouse(_e);
 			

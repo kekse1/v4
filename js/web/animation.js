@@ -1740,7 +1740,9 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 
 		if(!String.isString(this.background, false))
 		{
-			this.background = this.element.getVariable('wallpaper-background');
+			this.background = GradientAnimation.
+				getBackgroundLinearGradientString(
+					this.element.getVariable('wallpaper-background'));
 		}
 		
 		if(!Number.isNumber(this.speed) || this.speed <= 0)
@@ -1749,6 +1751,11 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 		}
 		
 		GradientAnimation.INDEX.push(this);
+	}
+	
+	static getBackgroundLinearGradientString(_string)
+	{
+		return 'linear-gradient(var(--degrees), ' + _string + ')';
 	}
 	
 	static get enabled()
@@ -1828,7 +1835,8 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 		
 		if(_get)
 		{
-			this.background = this.element.getVariable('wallpaper-background');
+			this.background = GradientAnimation.getBackgroundLinearGradientString(
+				this.element.getVariable('wallpaper-background'));
 			this.speed = this.element.parseVariable('wallpaper-speed');
 		}
 		
@@ -1861,9 +1869,10 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 		}
 
 		this._last = Date.now();
+		this.time = this.degrees = 0;
 		this._originalBackground = this.element.style.background;
-		this.element.style.background = this.getBackgroundStyle(this.time = this.degrees = 0);
-		this._lastBackground = this.element.style.background;
+		this.element.style.background = GradientAnimation.getBackgroundLinearGradientString(
+			this.element.getVariable('wallpaper-background'));
 		
 		this.animation = requestAnimationFrame(GradientAnimation.prototype.animationFrame.bind(this));
 
@@ -1971,11 +1980,6 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 			return;
 		}
 		
-		if(this._lastBackground !== this.element.style.background)
-		{
-			return this.destroy();
-		}
-		
 		if(this._pause)
 		{
 			return;
@@ -1987,9 +1991,8 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 		this._last = now;
 
 		//
-		this.element.style.background = GradientAnimation.getBackgroundStyle(this.degrees = Math.scale(this.psin = Math.psin(this.time / 1000 * this.speed), 360, 0), this.background);
-		this._lastBackground = this.element.style.background;
-		
+		this.element.setVariable('--degrees', this.getDegrees());
+
 		//
 		if(typeof this.animation === 'number')
 		{
@@ -1997,30 +2000,11 @@ const GradientAnimation = Animation.GradientAnimation = HTMLElement.GradientAnim
 		}
 	}
 	
-	getBackgroundStyle(_degrees = this.degrees, _background = this.background)
+	getDegrees()
 	{
-		return GradientAnimation.getBackgroundStyle(_degrees, _background);
+		return (Math.scale(this.psin = Math.psin(this.time / 1000 * this.speed), 360, 0) + 'deg');
 	}
-	
-	static getBackgroundStyle(_degrees, _background)
-	{
-		if(!String.isString(_background, false))
-		{
-			return error('Invalid % argument (not a %)', null, '_background', 'String');
-		}
-		
-		if(!Number.isNumber(_degrees))
-		{
-			_degrees = 0;
-		}
-		else if((_degrees %= 360) < 0)
-		{
-			_degrees = (360 + _degrees);
-		}
 
-		return `linear-gradient(${_degrees}deg, ${_background})`;
-	}
-	
 	static disable(_pause = true)
 	{
 		const index = GradientAnimation.INDEX;

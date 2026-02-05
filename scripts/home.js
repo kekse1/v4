@@ -93,7 +93,7 @@ const start = () => {
 	
 	for(var i = 0, j = 0; i < list.length; ++i)
 	{
-		if(list[i][0] === '.')
+		if(list[i].name[0] === '.')
 		{
 			continue;
 		}
@@ -138,6 +138,11 @@ const findIndexFiles = (_items = items) => {
 		
 		var ext; for(var j = 0, k = 0; j < list.length; ++j)
 		{
+			if(list[j].name[0] === '.')
+			{
+				continue;
+			}
+
 			if(!list[j].name.startsWith(INDEX + '.'))
 			{
 				continue;

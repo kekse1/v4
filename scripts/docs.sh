@@ -11,6 +11,7 @@
 _REFRESH=0 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
 _PARALLEL=32 # 0 for Infinity, below for defaults
+_SORT="off" # don't sort the progress bars!?
 
 #
 real="$(realpath "$0")"
@@ -27,6 +28,7 @@ cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home
 
 [[ $_REFRESH -gt 0 ]] && cmd+=" --progress on --refresh ${_REFRESH}"
 [[ $_PARALLEL -ge 0 ]] && cmd+=" --parallel ${_PARALLEL}"
+[[ -n "$_SORT" ]] && cmd+=" --sort $_SORT"
 
 #echo "'$cmd'"
 eval "$cmd"

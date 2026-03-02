@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.3
+ * v0.4.4
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -21,6 +21,7 @@ const DEFAULT_PROGRESS = false;
 const DEFAULT_PROGRESS_REFRESH = 1000;
 const DEFAULT_BUFFER = (1024 * 64);
 const DEFAULT_PARALLEL = 7;
+const DEFAULT_SORT = false;
 
 //
 const HASH = 'sha3-256';
@@ -38,6 +39,7 @@ var PROGRESS = DEFAULT_PROGRESS;
 var REFRESH = DEFAULT_PROGRESS_REFRESH;
 var BUFFER = DEFAULT_BUFFER;
 var PARALLEL = DEFAULT_PARALLEL;
+var SORT = DEFAULT_SORT;
 
 //
 const open = [];
@@ -111,6 +113,11 @@ const prepare = () => {
 		if(!PARALLEL)
 		{
 			PARALLEL = Infinity;
+		}
+
+		if(ARGS.has('sort'))
+		{
+			SORT = ARGS.get('sort');
 		}
 
 		if(fs.existsSync(ARGS.get('search')))
@@ -406,8 +413,8 @@ const updateProgressLines = (_force = 0) => {
 		_force > 0) ? _force : progressItems.length));
 
 	process.stdout.write(totalProgressBar() + '\n\n');
-	progressItems.sort('value', false);
 
+	if(SORT) progressItems.sort('progress.value', false);
 	for(const item of progressItems)
 	{
 		process.stdout.write(

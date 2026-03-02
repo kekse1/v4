@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.2
+ * v0.4.3
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -406,6 +406,7 @@ const updateProgressLines = (_force = 0) => {
 		_force > 0) ? _force : progressItems.length));
 
 	process.stdout.write(totalProgressBar() + '\n\n');
+	progressItems.sort('value', false);
 
 	for(const item of progressItems)
 	{

@@ -21,7 +21,7 @@ const DEFAULT_PROGRESS = false;
 const DEFAULT_PROGRESS_REFRESH = 1000;
 const DEFAULT_BUFFER = (1024 * 64);
 const DEFAULT_PARALLEL = 7;
-const DEFAULT_SORT = false;
+const DEFAULT_SORT = true;
 
 //
 const HASH = 'sha3-256';

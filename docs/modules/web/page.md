@@ -27,4 +27,5 @@ when necessary (when the user/client requests it).
 - [x] Anchor `<a>` without content will also be `URL[.protoype].render()`ed automatically now.
 - [x] Remove all local page events and objects automatically.. kinda 'garbage collection'.
 - [x] If an [`href`] click element has a [`raw`] **attribute**, it's time for kinda regular `simulateClick()`
+- [x] On HTTP ERROR it'll load and render a template file.
 

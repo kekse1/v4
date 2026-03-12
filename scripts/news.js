@@ -26,6 +26,7 @@ const EXTENSIONS = [
 	'.css',
 	'.json',
 	'.js',
+	'.sh',
 	'.cfg',
 	'.conf'
 ];

@@ -8,7 +8,7 @@
 # This will call the `list.js` with my parameters (for `~docs`);
 #
 
-_REFRESH=0 # <=0 to disable!
+_REFRESH=1000 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
 _PARALLEL=32 # 0 for Infinity, below for defaults
 _SORT="off" # don't sort the progress bars!?

@@ -25,7 +25,9 @@ const EXTENSIONS = [
 	'.htm',
 	'.css',
 	'.json',
-	'.js'
+	'.js',
+	'.cfg',
+	'.conf'
 ];
 
 const INDEX = [

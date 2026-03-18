@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.4
+ * v0.4.5
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -481,8 +481,10 @@ const removeProgressItem = (_item) => {
 const totalProgressBar = () => {
 	var result = getTotalString().padStart(maxLength, ' ');
 	const progress = (doneSize / totalSize);
-	result += ' ' + Math._round(progress * 100).toString().padStart(3, ' ') + '% [';
-	const width = (process.stdout.columns - result.length - 1);
+	const tmp = ' ' + Math._round(progress * 100).toString().padStart(3, ' ') + '%';
+	const width = (process.stdout.columns - result.length - tmp.length - 1);
+	if(width < 1) return result.substr(0, process.stdout.columns);//return result.slice(0, width);
+	result += tmp + ' [';
 	const done = Math._round(progress * width);
 	const todo = (width - done);
 	result += '#'.repeat(done) + '-'.repeat(todo) + ']';

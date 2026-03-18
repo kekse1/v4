@@ -1,0 +1,17 @@
+Permissions  Size User    Date Modified Name
+.rw-------      0 u0_a348 28 Mar  2025  .keep
+.rwx------    994 u0_a348 18 Mar 18:06  docs.sh
+.rwx------  1,012 u0_a348  2 Mar 21:20  downloads.sh
+.rwx------  2.7Ki u0_a348  5 Oct  2025  find-abliterated-models.sh
+.rwx------    562 u0_a348  5 Oct  2025  hardware.sh
+.rwx------  3.5Ki u0_a348 19 Feb 04:12  home.js
+.rwx------    606 u0_a348  5 Oct  2025  home.sh
+.rwx------  6.1Ki u0_a348 26 Oct  2025  index.js
+.rwx------    716 u0_a348  5 Oct  2025  index.sh
+.rwx------  2.7Ki u0_a348  5 Oct  2025  install.sh
+.rwx------   12Ki u0_a348 18 Mar 18:06  list.js
+.rwx------  1.1Ki u0_a348  2 Mar 21:20  models.sh
+.rwx------  8.5Ki u0_a348 18 Mar 18:06  news.js
+.rwx------    648 u0_a348  5 Oct  2025  news.sh
+.rwx------    469 u0_a348  5 Oct  2025  update.sh
+.rwx------    470 u0_a348  5 Oct  2025  version.sh

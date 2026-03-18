@@ -84,7 +84,6 @@ scripts for the [`bash` shell](https://www.gnu.org/software/bash/).
 * `models`
     * [`find-abliterated-models.sh`](scripts/find-abliterated-models.sh)
     * [`models.sh`](scripts/models.sh)
-    * [`list.js`](scripts/list.js)
 
 <br><br><br>
 

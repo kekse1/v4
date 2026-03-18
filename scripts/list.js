@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.5
+ * v0.4.6
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -338,9 +338,17 @@ const createProgressItem = (_item, _number) => {
 	
 	const result = Object.assign(_item, { progress: {
 		number: 0, read: 0, value: 0, percent: '  0%' }});
+	const width = process.stdout.columns;
+	const half = (width ? Math._round(width / 2) : null);
+	const cut = '...'; const cutLen = cut.length;
 	
 	Reflect.defineProperty(result.progress, 'key', { get: () => {
 		var res = result.file;
+
+		if(width && res.length > half)
+		{
+			res = res.substr(0, half - cutLen) + cut;
+		}
 		
 		if(!result.progress.number)
 		{
@@ -479,15 +487,14 @@ const removeProgressItem = (_item) => {
 };
 
 const totalProgressBar = () => {
-	var result = getTotalString().padStart(maxLength, ' ');
 	const progress = (doneSize / totalSize);
-	const tmp = ' ' + Math._round(progress * 100).toString().padStart(3, ' ') + '%';
-	const width = (process.stdout.columns - result.length - tmp.length - 1);
-	if(width < 1) return result.substr(0, process.stdout.columns);//return result.slice(0, width);
-	result += tmp + ' [';
+	var result = Math._round(progress * 100).toString().
+		padStart(3, ' ') + '%  ' + getTotalString();
+	const width = (process.stdout.columns - result.length - 4);
+	if(width < 4) return result.substr(0, process.stdout.columns);
 	const done = Math._round(progress * width);
 	const todo = (width - done);
-	result += '#'.repeat(done) + '-'.repeat(todo) + ']';
+	result += '  [' + '#'.repeat(done) + '-'.repeat(todo) + ']';
 	return result.substr(0, process.stdout.columns);
 };
 

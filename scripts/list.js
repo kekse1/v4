@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.7
+ * v0.4.8
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -147,18 +147,23 @@ const prepare = () => {
 			
 			ARGS.set('output', path.resolve(ARGS.get('output')));
 			
-			if(Number.isInt(ARGS.get('time')) && ARGS.get('time'))
+			if(ARGS.has('time', 'int'))
 			{
 				TIME = new Date(ARGS.get('time'));
 			}
 			else
 			{
-				TIME = new Date();
+				TIME = null;
 			}
 
 			console.info('Using search path: `' + ARGS.get('search') + '`');
 			console.info('      Output file: `' + ARGS.get('output') + '`');
-			console.info('             Time:  ' + TIME.toGMTString());
+			
+			if(TIME !== null)
+			{
+				console.info('             Time:  ' + TIME.toGMTString());
+			}
+
 			console.log();
 		}
 		else
@@ -567,13 +572,29 @@ const handleFile = (_path, _error, _stats, _callback) => {
 				}
 				else
 				{
-					result.time = TIME.getTime();
+					if(TIME === null)
+					{
+						result.time = Date.now();
+					}
+					else
+					{
+						result.time = TIME.getTime();
+					}
+
 					++CHG;
 				}
 			}
 			else
 			{
-				result.time = TIME.getTime();
+				if(TIME === null)
+				{
+					result.time = Date.now();
+				}
+				else
+				{
+					result.time = TIME.getTime();
+				}
+
 				++ADD;
 			}
 
@@ -616,7 +637,15 @@ const handleFile = (_path, _error, _stats, _callback) => {
 		}
 		else
 		{
-			result.time = TIME.getTime();
+			if(TIME === null)
+			{
+				result.time = Date.now();
+			}
+			else
+			{
+				result.time = TIME.getTime();
+			}
+
 			++ADD;
 		}
 		

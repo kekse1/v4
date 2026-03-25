@@ -3,7 +3,7 @@
 # 
 # Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 # https://kekse.biz/ https://github.com/kekse1/v4/
-# v0.1.0
+# v0.1.1
 # 
 # This will call the `list.js` with my parameters (for `~docs`);
 #
@@ -29,6 +29,10 @@ cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home
 [[ $_REFRESH -gt 0 ]] && cmd+=" --progress on --refresh ${_REFRESH}"
 [[ $_PARALLEL -ge 0 ]] && cmd+=" --parallel ${_PARALLEL}"
 [[ -n "$_SORT" ]] && cmd+=" --sort $_SORT"
+
+for i in "$@"; do
+	cmd+=" '${i}'"
+done
 
 #echo "'$cmd'"
 eval "$cmd"

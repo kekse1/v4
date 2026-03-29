@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.8
+ * v0.4.9
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -223,6 +223,11 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
+	if(TIME === null)
+	{
+		TIME = new Date();
+	}
+
 	if(ARGS.get('update') && (ADD || REM || CHG))
 	{
 		fs.writeFileSync(ARGS.get('update'), TIME.getTime().toString(), { encoding: 'utf8', mode: MODE, flush: true });

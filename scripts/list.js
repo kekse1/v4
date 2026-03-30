@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.5.0
+ * v0.6.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -107,7 +107,7 @@ const prepare = () => {
 			{
 				throw new Error('Invalid --parallel argument');
 			}
-			else if(PARALLEL < 0)
+			else if(PARALLEL < 1)
 			{
 				PARALLEL = DEFAULT_PARALLEL;
 			}
@@ -186,7 +186,11 @@ const prepare = () => {
 		process.exit(1);
 	}
 	
-	resetMaxLength();
+	if(PROGRESS)
+	{
+		resetMaxLength();
+	}
+
 	start();
 };
 
@@ -526,27 +530,30 @@ const totalProgressBar = () => {
 
 //
 const statCallback = (_path, _error, _stats, _callback) => {
-	const check = () => {
-		while(open.length < PARALLEL && todo.length > 0)
-		{
-			const item = todo.shift();
-			const origCb = item[3];
-
-			item[3] = (_res, ... _a) => {
-				open.remove(_res);
-				setImmediate(check);
-				origCb(_res, ... _a);
-			};
-
-			open.push(handleFile(... item));
-		}
-	};
-
-	++totalItems;
-	totalSize += _stats.size;
-	
+	++totalItems; totalSize += _stats.size;
 	todo.push([ _path, _error, _stats, _callback ]);
-	setImmediate(check);
+	setImmediate(checkQueue);
+};
+
+const checkQueue = () => {
+	var result = 0;
+
+	while(open.length < PARALLEL && todo.length > 0)
+	{
+		const item = todo.shift();
+		const orig = item[3];
+
+		item[3] = (_res, ... _a) => setImmediate(() => {
+			open.remove(_res);
+			setImmediate(checkQueue);
+			orig(_res, ... _a);
+		});
+
+		open.push(handleFile(... item));
+		++result;
+	}
+
+	return result;
 };
 
 const handleFile = (_path, _error, _stats, _callback) => {
@@ -563,13 +570,35 @@ const handleFile = (_path, _error, _stats, _callback) => {
 	result.ext = path.extname(_path, 0);
 	result.type = path.extname(_path, 1).substr(1);
 
+	var hash;
+	
+	if(CMP)
+	{
+		hash = true;
+	}
+	else if(ORIG)
+	{
+		if(ORIG.has(result.file))
+		{
+			hash = !ORIG.get(result.file).hash;
+		}
+		else
+		{
+			hash = true;
+		}
+	}
+	else
+	{
+		hash = true;
+	}
+	
 	if(_stats.isFile())
 	{
 		result.size = _stats.size;
 
 		const onEnd = () => {
 			//
-			if(CMP)
+			if(hash)
 			{
 				result.hash = result.hash.digest(DIGEST);
 
@@ -591,9 +620,10 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			{
 				const orig = ORIG.get(result.file);
 				
-				if(!CMP || orig.hash === result.hash)
+				if(!hash || orig.hash === result.hash)
 				{
 					result.time = orig.time;
+					result.hash = orig.hash;
 				}
 				else
 				{
@@ -630,18 +660,7 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			_callback(result);
 		};
 		
-		var noHash;
-
-		if(ORIG && ORIG.has(result.file))
-		{
-			noHash = !ORIG.get(result.file).hash;
-		}
-		else
-		{
-			noHash = true;
-		}
-
-		if(CMP || noHash)
+		if(hash)
 		{
 			const onData = (_chunk) => {
 				doneSize += _chunk.length;

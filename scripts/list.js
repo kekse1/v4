@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.6.0
+ * v0.6.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -569,32 +569,30 @@ const handleFile = (_path, _error, _stats, _callback) => {
 	result.file = path.basename(_path);
 	result.ext = path.extname(_path, 0);
 	result.type = path.extname(_path, 1).substr(1);
-
-	var hash;
-	
-	if(CMP)
-	{
-		hash = true;
-	}
-	else if(ORIG)
-	{
-		if(ORIG.has(result.file))
-		{
-			hash = !ORIG.get(result.file).hash;
-		}
-		else
-		{
-			hash = true;
-		}
-	}
-	else
-	{
-		hash = true;
-	}
 	
 	if(_stats.isFile())
 	{
 		result.size = _stats.size;
+
+		var hash;
+
+		if(CMP || !ORIG || !ORIG.has(result.file))
+		{
+			hash = true;
+		}
+		else
+		{
+			const orig = ORIG.get(result.file);
+			
+			if(orig.size !== result.size)
+			{
+				hash = true;
+			}
+			else
+			{
+				hash = !orig.hash;
+			}
+		}
 
 		const onEnd = () => {
 			//

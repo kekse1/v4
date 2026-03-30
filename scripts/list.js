@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.4.9
+ * v0.5.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -23,6 +23,7 @@ const DEFAULT_BUFFER = (1024 * 64);
 const DEFAULT_PARALLEL = 7;
 const DEFAULT_SORT = true;
 const DEFAULT_CUT = true;
+const DEFAULT_CMP = true;
 
 //
 const HASH = 'sha3-256';
@@ -50,6 +51,7 @@ const todo = [];
 var TIME = null;
 var ORIG = null;
 var ARGS;
+var CMP = DEFAULT_CMP;
 
 const mathSize = (_value) => Math.size.render(
 	_value, null, 2, 1024, true, true);
@@ -119,6 +121,11 @@ const prepare = () => {
 		if(ARGS.has('sort'))
 		{
 			SORT = ARGS.get('sort');
+		}
+
+		if(ARGS.has('compare', 'bool'))
+		{
+			CMP = ARGS.get('compare');
 		}
 
 		if(fs.existsSync(ARGS.get('search')))
@@ -545,7 +552,8 @@ const statCallback = (_path, _error, _stats, _callback) => {
 const handleFile = (_path, _error, _stats, _callback) => {
 	if(_error)
 	{
-		++ERR; return _callback(null);
+		++ERR;
+		return _callback(null);
 	}
 	else	++FOUND;
 
@@ -561,7 +569,19 @@ const handleFile = (_path, _error, _stats, _callback) => {
 
 		const onEnd = () => {
 			//
-			result.hash = hash.digest(DIGEST);
+			if(CMP)
+			{
+				result.hash = result.hash.digest(DIGEST);
+
+				if(PROGRESS)
+				{
+					removeProgressItem(result);
+				}
+			}
+			else
+			{
+				result.hash = null;
+			}
 			
 			//
 			++doneItems;
@@ -571,7 +591,7 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			{
 				const orig = ORIG.get(result.file);
 				
-				if(orig.hash === result.hash)
+				if(!CMP || orig.hash === result.hash)
 				{
 					result.time = orig.time;
 				}
@@ -604,33 +624,50 @@ const handleFile = (_path, _error, _stats, _callback) => {
 			}
 
 			//
-			if(PROGRESS)
-			{
-				removeProgressItem(result);
-			}
-
-			//
 			delete result.progress;
 			
 			//
 			_callback(result);
 		};
 		
-		const onData = (_chunk) => {
-			doneSize += _chunk.length;
-			hash.update(_chunk); if(PROGRESS)
-				updateProgressItem(result,
-					_chunk.length); };
-		
-		const hash = crypto.createHash(HASH);
-		const stream = fs.createReadStream(_path, {
-			autoClose: true, emitClose: true,
-			highWaterMark: BUFFER });
+		var noHash;
 
-		stream.on('data', onData);
-		stream.once('end', onEnd);
+		if(ORIG && ORIG.has(result.file))
+		{
+			noHash = !ORIG.get(result.file).hash;
+		}
+		else
+		{
+			noHash = true;
+		}
+
+		if(CMP || noHash)
+		{
+			const onData = (_chunk) => {
+				doneSize += _chunk.length;
+				result.hash.update(_chunk);
+				if(PROGRESS)
+					updateProgressItem(result,
+						_chunk.length); };
 		
-		if(PROGRESS) createProgressItem(result);
+			result.hash = crypto.createHash(HASH);
+			const stream = fs.createReadStream(_path, {
+				autoClose: true, emitClose: true,
+				highWaterMark: BUFFER });
+
+			stream.on('data', onData);
+			stream.once('end', onEnd);
+		
+			if(PROGRESS)
+			{
+				createProgressItem(result);
+			}
+		}
+		else
+		{
+			doneSize += result.size;
+			onEnd();
+		}
 	}
 	else
 	{

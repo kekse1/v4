@@ -2837,20 +2837,6 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 				this.SPOTLIGHT.onPointerMove = null;
 			}
 			
-			if(this.SPOTLIGHT.onPointerDown)
-			{
-				this.removeEventListener(
-					this.SPOTLIGHT.onPointerDown);
-				this.SPOTLIGHT.onPointerDown = null;
-			}
-			
-			if(this.SPOTLIGHT.onPointerUp)
-			{
-				this.removeEventListener(
-					this.SPOTLIGHT.onPointerUp);
-				this.SPOTLIGHT.onPointerUp = null;
-			}
-			
 			this.classList.remove('spotlight');
 			return !(this.SPOTLIGHT = null);
 		};
@@ -2873,8 +2859,7 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 
 		//
 		this.SPOTLIGHT = { lerpEffect: this.parseVariable('spotlight-lerp-effect'),
-			clickToggle: this.parseVariable('spotlight-click'), mouseDown: null,
-				mouseX: 0, mouseY: 0, currentX: 0, currentY: 0 };
+			mouseDown: null, mouseX: 0, mouseY: 0, currentX: 0, currentY: 0 };
 			
 		/* (0.1) = 10% annaeherung pro frame */
 		if(!Number.isNumber(this.SPOTLIGHT.lerpEffect) || this.SPOTLIGHT.lerpEffect <= 0)
@@ -2882,48 +2867,7 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 			this.SPOTLIGHT.lerpEffect = 0;
 		}
 		
-		if(this.SPOTLIGHT.clickToggle) this.SPOTLIGHT.onPointerDown = this.on('pointerdown', (_e) => {
-			if(this.SPOTLIGHT.mouseDown)
-			{
-				return;
-			}
-			
-			//this.setPointerCapture(_e.pointerId);
-			this.SPOTLIGHT.mouseDown = true;
-			
-			if(this.SPOTLIGHT.lerpEffect)
-			{
-				this.SPOTLIGHT.lerpEffectFrame = requestAnimationFrame(
-					this.SPOTLIGHT.lerpEffectHandler);
-			}
-			else
-			{
-				this.SPOTLIGHT.lerpEffectFrame = null;
-			}
-		}, { passive: true });
-		
-		if(this.SPOTLIGHT.clickToggle) this.SPOTLIGHT.onPointerUp = this.on('pointerup', (_e) => {
-			/*if(!this.hasPointerCapture(_e.pointerId))
-			{
-				return this.SPOTLIGHT.mouseDown = false;
-			}*/
-			
-			//this.releasePointerCapture(_e.pointerId);
-			this.SPOTLIGHT.mouseDown = false;
-			
-			if(this.SPOTLIGHT.lerpEffectFrame)
-			{
-				cancelAnimationFrame(this.SPOTLIGHT.lerpEffectFrame);
-				this.SPOTLIGHT.lerpEffectFrame = null;
-			}
-		}, { passive: true });
-		
 		this.SPOTLIGHT.onPointerMove = this.on('pointermove', (_e) => {
-			/*if(this.SPOTLIGHT.clickToggle && !this.hasPointerCapture(_e.pointerId))
-			{
-				return this.SPOTLIGHT.mouseDown = false;
-			}*/
-			
 			const [ mx, my ] = calculateMouse(_e);
 			
 			if(!this.SPOTLIGHT.lerpEffect)
@@ -2949,7 +2893,7 @@ Reflect.defineProperty(Element.prototype, 'spotlight', {
 			}
 		};
 		
-		if(!this.SPOTLIGHT.clickToggle && this.SPOTLIGHT.lerpEffect)
+		if(this.SPOTLIGHT.lerpEffect)
 		{
 			this.SPOTLIGHT.lerpEffectFrame = requestAnimationFrame(
 				this.SPOTLIGHT.lerpEffectHandler);

@@ -2137,7 +2137,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'wallpaper', {
 //
 Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options, _items, _callback)
 {
-	if(this.parseAttribute('ignanim'))
+	if(this.parseAttribute('ignanim') || this.parseAttribute('noanim'))
 	{
 		return false;
 	}
@@ -2226,7 +2226,7 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 	{
 		const child = items[i];
 
-		if(SCROLL = (child.style && scroll && HTMLElement.inScrollArea(child, scroll) && !child.parseAttribute('ignanim')))
+		if(SCROLL = (child.style && scroll && HTMLElement.inScrollArea(child, scroll) && !child.parseAttribute('ignanim') && !child.parseAttribute('noanim')))
 		{
 			child.style.opacity = '0';
 		}

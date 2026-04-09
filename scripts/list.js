@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.6.1
+ * v0.6.2
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -24,6 +24,7 @@ const DEFAULT_PARALLEL = 7;
 const DEFAULT_SORT = true;
 const DEFAULT_CUT = true;
 const DEFAULT_CMP = true;
+const DEFAULT_CHAR = '#';
 
 //
 const HASH = 'sha3-256';
@@ -482,7 +483,7 @@ const progressBar = (_item, _length) => {
 	var done = Math._round(_item.progress.value * width);
 	var todo = (width - done);
 
-	return ('[' + '#'.repeat(done) + '-'.repeat(todo) + ']');
+	return ('[' + DEFAULT_CHAR.repeat(done) + '-'.repeat(todo) + ']');
 };
 
 const removeProgressItem = (_item) => {

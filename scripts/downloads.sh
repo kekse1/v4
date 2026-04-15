@@ -13,6 +13,8 @@ _REFRESH=0 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
 _PARALLEL=16 # 0 for Infinity, below for defaults
 _SORT="off" # don't sort the progres bars!?
+_COMPARE="" # better provide manual override "--compare no/off/false".
+_EXT="" # filter files by extension(s)? ';' as delim.
 
 #
 real="$(realpath "$0")"
@@ -30,6 +32,8 @@ cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home
 [[ $_REFRESH -gt 0 ]] && cmd+=" --progress on --refresh ${_REFRESH}"
 [[ $_PARALLEL -ge 0 ]] && cmd+=" --parallel ${_PARALLEL}"
 [[ -n "$_SORT" ]] && cmd+=" --sort $_SORT"
+[[ -n "$_COMPARE" ]] && cmd+=" --compare ${_COMPARE}"
+[[ -n "$_EXT" ]] && cmd+=" --extension '${_EXT}'"
 
 for i in "$@"; do
 	cmd+=" '${i}'"

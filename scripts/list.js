@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.6.2
+ * v0.6.3
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -25,6 +25,7 @@ const DEFAULT_SORT = true;
 const DEFAULT_CUT = true;
 const DEFAULT_CMP = true;
 const DEFAULT_CHAR = '#';
+const DEFAULT_SPLIT = ';';
 
 //
 const HASH = 'sha3-256';
@@ -43,6 +44,7 @@ var REFRESH = DEFAULT_PROGRESS_REFRESH;
 var BUFFER = DEFAULT_BUFFER;
 var PARALLEL = DEFAULT_PARALLEL;
 var SORT = DEFAULT_SORT;
+const EXT = [];
 
 //
 const open = [];
@@ -164,6 +166,31 @@ const prepare = () => {
 				TIME = null;
 			}
 
+			var ext;
+			
+			if(ARGS.has('extension', 'string'))
+			{
+				ext = ARGS.get('extension').trim();
+			}
+
+			if(ext)
+			{
+				ext = ext.split(DEFAULT_SPLIT);
+
+				for(var i = 0, j = 0; i < ext.length; ++i)
+				{
+					if(ext[i] = ext[i].trim())
+					{
+						if(ext[i][0] !== '.')
+						{
+							ext[i] = '.' + ext[i];
+						}
+
+						EXT[j++] = ext[i].toLowerCase();
+					}
+				}
+			}
+
 			console.info('Using search path: `' + ARGS.get('search') + '`');
 			console.info('      Output file: `' + ARGS.get('output') + '`');
 			
@@ -172,6 +199,11 @@ const prepare = () => {
 				console.info('             Time:  ' + TIME.toGMTString());
 			}
 
+			if(EXT.length > 0)
+			{
+				console.info('       Extensions: ' + EXT.length);
+			}
+			
 			console.log();
 		}
 		else
@@ -235,6 +267,9 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
+	const _update = './_update';//ARGS.get('update');
+	const _output = './_output';//ARGS.get('output');
+
 	if(TIME === null)
 	{
 		TIME = new Date();
@@ -242,11 +277,13 @@ const write = (_result) => {
 
 	if(ARGS.get('update') && (ADD || REM || CHG))
 	{
-		fs.writeFileSync(ARGS.get('update'), TIME.getTime().toString(), { encoding: 'utf8', mode: MODE, flush: true });
+		fs.writeFileSync(_update, TIME.getTime().toString(), {
+			encoding: 'utf8', mode: MODE, flush: true });
 	}
 
 	const result = JSON.stringify(_result);
-	fs.writeFileSync(ARGS.get('output'), result, { encoding: 'utf8', mode: MODE, flush: true });
+	fs.writeFileSync(_output, result, {
+		encoding: 'utf8', mode: MODE, flush: true });
 
 	return fin(_result, result);
 };
@@ -290,6 +327,17 @@ const readdirCallback = (_path, _error, _list) => {
 		_list.splice(_index, 1);
 		return (_index - 1); };
 
+	const withExt = (EXT.length > 0); const checkExt = (_file) => {
+		for(const ext of EXT)
+		{
+			if(_file.toLowerCase().endsWith(ext))
+			{
+				return (_file.length > ext.length);
+			}
+		}
+
+		return false; };
+
 	var item; for(var i = 0; i < _list.length; ++i)
 	{
 		if((item = _list[i]).name[0] === '.')
@@ -301,6 +349,11 @@ const readdirCallback = (_path, _error, _list) => {
 		if(item.isSymbolicLink())
 		{
 			i = removeFromList(i);
+			continue;
+		}
+
+		if(withExt && !checkExt(_list[i].name))
+		{
 			continue;
 		}
 		

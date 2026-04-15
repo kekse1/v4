@@ -9,14 +9,18 @@
 #
 
 #
+_LOCK_HOST=0
+
+#
 _REFRESH=1000 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
 _PARALLEL=6 # 0 for Infinity, below for defaults
 _SORT="on" # sort the progress bars..!?!
 _COMPARE="yes" # better provide manual override "--compare no/off/false".
+_EXT="gguf" # filter files by extension(s)? ';' as delim..
 
 #
-if [[ "`hostname`" != "kekse.biz" ]]; then
+if [[ $_LOCK_HOST -gt 0 && "`hostname`" != "kekse.biz" ]]; then
 	echo "Are you sure you want to run this script on this host!??" >&2
 	exit 110
 fi
@@ -37,6 +41,7 @@ cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home
 [[ $_PARALLEL -ge 0 ]] && cmd+=" --parallel ${_PARALLEL}"
 [[ -n "$_SORT" ]] && cmd+=" --sort ${_SORT}"
 [[ -n "$_COMPARE" ]] && cmd+=" --compare ${_COMPARE}"
+[[ -n "$_EXT" ]] && cmd+=" --extension '${_EXT}'"
 
 for i in "$@"; do
 	cmd+=" '${i}'"

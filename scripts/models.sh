@@ -9,7 +9,7 @@
 #
 
 #
-_LOCK_HOST=1
+_LOCK_HOST="kekse.biz"
 
 #
 _REFRESH=1000 # <=0 to disable!
@@ -20,9 +20,10 @@ _COMPARE="yes" # better provide manual override "--compare no/off/false".
 _EXT="gguf" # filter files by extension(s)? ';' as delim..
 
 #
-if [[ $_LOCK_HOST -gt 0 && "`hostname`" != "kekse.biz" ]]; then
+if [[ -n "$_LOCK_HOST" && "`hostname`" != "$_LOCK_HOST" ]]; then
 	echo "Are you sure you want to run this script on this host!??" >&2
-	exit 110
+	echo "Try it on '${_LOCK_HOST}' again (or adapt this script)." >&2
+	exit 112
 fi
 
 #

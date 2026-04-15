@@ -9,7 +9,7 @@
 #
 
 #
-_LOCK_HOST=0
+_LOCK_HOST=1
 
 #
 _REFRESH=1000 # <=0 to disable!

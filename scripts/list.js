@@ -267,8 +267,8 @@ const compare = (_result) => {
 };
 
 const write = (_result) => {
-	const _update = './_update';//ARGS.get('update');
-	const _output = './_output';//ARGS.get('output');
+	const _update = ARGS.get('update');
+	const _output = ARGS.get('output');
 
 	if(TIME === null)
 	{

@@ -25,7 +25,6 @@ const DEFAULT_SORT = true;
 const DEFAULT_CUT = true;
 const DEFAULT_CMP = true;
 const DEFAULT_CHAR = '#';
-const DEFAULT_SPLIT = ';';
 
 //
 const HASH = 'sha3-256';
@@ -61,7 +60,7 @@ const mathSize = (_value) => Math.size.render(
 
 const prepare = () => {
 	ARGS = getopt();
-
+	
 	if(ARGS.get('search') && ARGS.get('output'))
 	{
 		if(ARGS.get('search')[ARGS.get('search').length - 1] !== path.sep)
@@ -175,7 +174,7 @@ const prepare = () => {
 
 			if(ext)
 			{
-				ext = ext.split(DEFAULT_SPLIT);
+				ext = ext.split(path.delimiter);
 
 				for(var i = 0, j = 0; i < ext.length; ++i)
 				{

@@ -17,7 +17,7 @@ _BUFFER=0 # <=0 for default (1024*64);
 _PARALLEL=6 # 0 for Infinity, below for defaults
 _SORT="on" # sort the progress bars..!?!
 _COMPARE="yes" # better provide manual override "--compare no/off/false".
-_EXT="gguf" # filter files by extension(s)? ';' as delim..
+_EXT="gguf" # filter files by extension(s)? ':' as delim.
 
 #
 if [[ -n "$_LOCK_HOST" && "`hostname`" != "$_LOCK_HOST" ]]; then

@@ -13,12 +13,9 @@ These are my current extensions in this file `lib/globals/math.js`. There's also
 * `Math.round(_value, _precision = 0)`
 * `Math.floor(_value, _precision = 0)`
 * `Math.ceil(_value, _precision = 0)`
-* `Math.int(_value, _precision = 0, _inverse = false)`
 
 The first three ones now also support the `_precision` argument. The regular implementation missed it.
 But they can be found at the same place, but with a `_` sign before (e.g. `Math._round`).
-
-The `Math.int()` is new, and is a 'workaround' when converting negative floating points to integers..
 
 * `Math.min(... _args)`
 * `Math.max(... _args)`

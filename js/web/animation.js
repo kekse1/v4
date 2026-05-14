@@ -1282,7 +1282,10 @@ Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_option
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration-pulse');
 	if(!Number.isNumber(_options.duration)) _options.duration = this.parseVariable('duration');
 	_options.duration = Math.round(_options.duration / 2); _options.method = Callback.checkMethod(_options.method, true, this);
-	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST;
+	if(typeof _options.persist !== 'boolean') _options.persist = DEFAULT_PERSIST; var opacity, withColor = true, withBackgroundColor = true;
+	if(typeof _options.opacity === 'boolean') { if(_options.opacity) opacity = '0'; else opacity = null; }
+	else if(String.isString(_options.opacity, false)) opacity = _options.opacity; else opacity = null;
+	if(_options.color === false) withColor = false; if(_options.backgroundColor === false) withBackgroundColor = false;
 	if(String.isString(_options.colorization, false)) switch(_options.colorization = _options.colorization.toLowerCase()) { case 'contrast': case 'complement':
 	break; default: return error('Invalid [%] option [ `contrast`, `complement` ]'); } else _options.colorization = this.parseVariable('pulse-colorization');
 	pulseCallbacks[_options.method](this, 'half', _options.half); pulseCallbacks[_options.method](this, 'callback', _options.callback);
@@ -1290,16 +1293,18 @@ Reflect.defineProperty(HTMLElement.prototype, 'pulse', { value: function(_option
 	if(!this._pulseOptions) { const computed = getComputedStyle(this);
 	if(!(color.isValid(computed.backgroundColor) && color.isValid(computed.color))) return error('Invalid color(s)');
 	this._pulseOptions = { color: computed.color, backgroundColor: computed.backgroundColor, wallpaper: this.gradientAnimation,
-		original: { color: this.style.color, backgroundColor: this.style.backgroundColor }}; }
+		opacity: computed.opacity, original: { color: this.style.color, backgroundColor: this.style.backgroundColor }}; }
 	if(this._pulseOptions.wallpaper) this._pulseOptions.wallpaper.pause();
 	const pulseIn = () => { const keyframes = { color: [ this.style.color, color[_options.colorization](this._pulseOptions.color) ],
 		backgroundColor: [ this.style.backgroundColor, color[_options.colorization](this._pulseOptions.backgroundColor) ] };
+		if(opacity) keyframes.opacity = opacity; if(!withColor) delete keyframes.color; if(!withBackgroundColor) delete keyframes.backgroundColor;
 		_options.finish = (_e, ... _a) => { delete _options.sourceValues; Reflect.defineProperty(_e, 'type', { value: 'half' });
 		pulseCallbacks.call(this, 'half', _e, ... _a); delete _options.targetValues; pulseCallbacks.call(this, 'callback', _e, ... _a);
 		return this._pulse = pulseOut(); }; return this._pulse = this.animate(keyframes, _options, ... _args); };
 	const pulseOut = () => { if(!this._pulseOptions) { delete this._pulse; return; } const keyframes = { color: this._pulseOptions.color,
-		backgroundColor: this._pulseOptions.backgroundColor }; _options.finish = (... _a) => { pulseCallbacks.call(this, 'finish', ... _a);
-			pulseCallbacks.call(this, 'callback', ... _a); };
+		backgroundColor: this._pulseOptions.backgroundColor }; if(opacity !== null) keyframes.opacity = this._pulseOptions.opacity;
+		if(!withColor) delete keyframes.color; if(!withBackgroundColor) delete keyframes.backgroundColor;
+		_options.finish = (... _a) => { pulseCallbacks.call(this, 'finish', ... _a); pulseCallbacks.call(this, 'callback', ... _a); };
 		_options.callback = (... _a) => { if(!_options.persist && this._pulseOptions) for(const idx in this._pulseOptions.original)
 			this.style[idx] = this._pulseOptions.original[idx]; if(this._pulseOptions && this._pulseOptions.wallpaper)
 				this._pulseOptions.wallpaper.resume();
@@ -2172,7 +2177,8 @@ Reflect.defineProperty(HTMLElement.prototype, 'fade', { value: function(_options
 		{
 			_item.style.opacity = '1';
 		}
-		
+
+		//TODO/NICHT KORREKT (unten)!?
 		if(--rest <= 0)
 		{
 			if(_callback)
@@ -2378,7 +2384,7 @@ const styles = {
 			}
 			else if(Number.isNumber(_value[i]))
 			{
-				options.duration = Math.int(_value.splice(i--, 1)[0]);
+				options.duration = Math.trunc(_value.splice(i--, 1)[0]);
 			}
 			else if(typeof _value[i] === 'function')
 			{

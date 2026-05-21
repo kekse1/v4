@@ -3,13 +3,13 @@
 # 
 # Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 # https://kekse.biz/ https://github.com/kekse1/v4/
-# v0.1.3
+# v0.1.4
 # 
 # This will call the `list.js` with my parameters (for `~downloads`);
 #
 
 #
-_REFRESH=0 # <=0 to disable!
+_REFRESH=1000 # <=0 to disable!
 _BUFFER=0 # <=0 for default (1024*64);
 _PARALLEL=16 # 0 for Infinity, below for defaults
 _SORT="off" # don't sort the progres bars!?

@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.7.0
+ * v0.7.1
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -373,14 +373,12 @@ const readdirCallback = (_path, _error, _list) => {
 
 				if(stats.isFile())
 				{
-					++rest;
-					setImmediate(() => {
-						statCallback(
-							p, null, stats, cb); });
-				}
-				else
-				{
-					i = removeFromList(i);
+					++rest; setImmediate(() => {
+						statCallback(p,
+							null,
+							stats,
+							cb);
+					});
 				}
 			}
 			catch(_err)
@@ -649,7 +647,7 @@ const handleFile = (_path, _error, _stats, _callback) => {
 	result.ext = path.extname(_path, 0);
 	result.type = path.extname(_path, 1).substr(1);
 	
-	if(_stats.isFile())
+	if(_stats.isFile() || _stats.isSymbolicLink())
 	{
 		result.size = _stats.size;
 
@@ -732,7 +730,7 @@ const handleFile = (_path, _error, _stats, _callback) => {
 
 			//
 			delete result.progress;
-			
+
 			//
 			_callback(result);
 		};

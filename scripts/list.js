@@ -380,6 +380,10 @@ const readdirCallback = (_path, _error, _list) => {
 							cb);
 					});
 				}
+				else
+				{
+					i = removeFromList(i);
+				}
 			}
 			catch(_err)
 			{

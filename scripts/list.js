@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.6.4
+ * v0.7.0
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -16,7 +16,6 @@
  */
 
 //
-const DEFAULT_DIRECTORIES = false;
 const DEFAULT_PROGRESS = false;
 const DEFAULT_PROGRESS_REFRESH = 1000;
 const DEFAULT_BUFFER = (1024 * 64);
@@ -353,33 +352,52 @@ const readdirCallback = (_path, _error, _list) => {
 			continue;
 		}
 
-		if(item.isSymbolicLink() && !LINKS)
-		{
-			i = removeFromList(i);
-			continue;
-		}
-
 		if(withExt && !checkExt(_list[i].name))
 		{
 			continue;
 		}
+
+		const p = path.join(_path, item.name);
 		
-		if(item.isDirectory())
+		if(item.isSymbolicLink())
 		{
-			if(!DEFAULT_DIRECTORIES)
+			if(!LINKS)
 			{
 				i = removeFromList(i);
-				continue;
 			}
+			else try
+			{
+				const stats = fs.statSync(p, {
+					throwIfNoEntry: true,
+					bigInt: false });
+
+				if(stats.isFile())
+				{
+					++rest;
+					setImmediate(() => {
+						statCallback(
+							p, null, stats, cb); });
+				}
+				else
+				{
+					i = removeFromList(i);
+				}
+			}
+			catch(_err)
+			{
+				i = removeFromList(i);
+			}
+
+			continue;
 		}
-		else if(!item.isFile())
+		
+		if(!item.isFile())
 		{
 			i = removeFromList(i);
 			continue;
 		}
 
-		++rest; const p = path.join(_path, item.name);
-		fs.stat(p, { bigint: false },
+		++rest; fs.stat(p, { bigint: false },
 			(_err, _stats) => statCallback(
 				p, _err, _stats, cb));
 	}

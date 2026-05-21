@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.6.3
+ * v0.6.4
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -25,6 +25,7 @@ const DEFAULT_SORT = true;
 const DEFAULT_CUT = true;
 const DEFAULT_CMP = true;
 const DEFAULT_CHAR = '#';
+const DEFAULT_LINKS = false;
 
 //
 const HASH = 'sha3-256';
@@ -43,6 +44,8 @@ var REFRESH = DEFAULT_PROGRESS_REFRESH;
 var BUFFER = DEFAULT_BUFFER;
 var PARALLEL = DEFAULT_PARALLEL;
 var SORT = DEFAULT_SORT;
+var LINKS = DEFAULT_LINKS;
+
 const EXT = [];
 
 //
@@ -128,6 +131,11 @@ const prepare = () => {
 		if(ARGS.has('compare', 'bool'))
 		{
 			CMP = ARGS.get('compare');
+		}
+
+		if(ARGS.has('links', 'bool'))
+		{
+			LINKS = ARGS.get('links');
 		}
 
 		if(fs.existsSync(ARGS.get('search')))
@@ -345,7 +353,7 @@ const readdirCallback = (_path, _error, _list) => {
 			continue;
 		}
 
-		if(item.isSymbolicLink())
+		if(item.isSymbolicLink() && !LINKS)
 		{
 			i = removeFromList(i);
 			continue;

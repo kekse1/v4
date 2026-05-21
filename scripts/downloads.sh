@@ -3,7 +3,7 @@
 # 
 # Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 # https://kekse.biz/ https://github.com/kekse1/v4/
-# v0.1.2
+# v0.1.3
 # 
 # This will call the `list.js` with my parameters (for `~downloads`);
 #
@@ -15,6 +15,7 @@ _PARALLEL=16 # 0 for Infinity, below for defaults
 _SORT="off" # don't sort the progres bars!?
 _COMPARE="" # better provide manual override "--compare no/off/false".
 _EXT="" # filter files by extension(s)? ':' as delim.
+_LINKS="yes" # symlinks
 
 #
 real="$(realpath "$0")"
@@ -34,6 +35,7 @@ cmd="${script} --search '${search}' --output '${output}' --root '${root}' --home
 [[ -n "$_SORT" ]] && cmd+=" --sort $_SORT"
 [[ -n "$_COMPARE" ]] && cmd+=" --compare ${_COMPARE}"
 [[ -n "$_EXT" ]] && cmd+=" --extension '${_EXT}'"
+[[ -n "$_LINKS" ]] && cmd+=" --links '${_LINKS}'"
 
 for i in "$@"; do
 	cmd+=" '${i}'"

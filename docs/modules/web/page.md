@@ -28,4 +28,5 @@ when necessary (when the user/client requests it).
 - [x] Remove all local page events and objects automatically.. kinda 'garbage collection'.
 - [x] If an [`href`] click element has a [`raw`] **attribute**, it's time for kinda regular `simulateClick()`
 - [x] On HTTP ERROR it'll load and render a template file.
+- [ ] //this is a test only/wg. https://kekse.biz/js/web/markdown.js ...
 

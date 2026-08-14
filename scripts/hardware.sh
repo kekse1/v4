@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-_TABS=1
+_TABS=0
 
 #
 if [[ ! -d ~/git/hardware/ ]]; then

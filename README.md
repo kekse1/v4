@@ -77,6 +77,8 @@ scripts for the [`bash` shell](https://www.gnu.org/software/bash/).
 * `update` / `version`
 	* [`update.sh`](scripts/update.sh)
 	* [`version.sh`](scripts/version.sh)
+    * [`update-blog.sh`](scripts/update-blog.sh)
+    * [`update-links.sh`](scripts/update-links.sh)
 * `home`
     * [`home.sh`](scripts/home.sh)
     * [`home.js`](scripts/home.js)

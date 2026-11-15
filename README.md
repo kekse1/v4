@@ -96,7 +96,6 @@ Another [**list**](./json/).
 * [`colors.json`](./json/colors.json)
 * [`entities.json`](./json/entities.json) \[[source](./json/entities.json.txt)\]
 * [`mime.json`](./json/mime.json)
-* [`tld.json`](./json/tld.json)
 
 I'm using (most of) them in my **v4**.
 

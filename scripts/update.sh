@@ -3,14 +3,20 @@
 # 
 # Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
 # https://kekse.biz/
-# v0.2.0
+# v0.2.1
 #
+
+#
+_UPDATE="CONTENT"
 
 #
 realpath="$(realpath "$0")"
 dirname="$(dirname "$realpath")"
 status="$(realpath "$dirname/../status/")"
 file="update.now"
+
+#
+echo -e "Updating $_UPDATE timestamp ...\n"
 
 #
 if [[ -r "${status}/${file}" ]]; then

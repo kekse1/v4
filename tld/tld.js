@@ -18,8 +18,11 @@ var	MAX = 0;
 //
 for(var i = 0; i < data.length; ++i)
 {
-	MAX = Math.max(MAX, data[i].split('.').length);
-	set.add(data[i].toLowerCase());
+	if(data[i])
+	{
+		MAX = Math.max(MAX, data[i].split('.').length);
+		set.add(data[i].toLowerCase());
+	}
 }
 
 const	origSize = set.size;
@@ -28,8 +31,11 @@ console.info('The official TLD list contained ' +
 
 for(var i = 0; i < ovh.length; ++i)
 {
-	MAX = Math.max(MAX, ovh[i].split('.').length);
-	set.add(ovh[i].toLowerCase());
+	if(ovh[i])
+	{
+		MAX = Math.max(MAX, ovh[i].split('.').length);
+		set.add(ovh[i].toLowerCase());
+	}
 }
 
 console.info('The OVH TLD list contained ' +

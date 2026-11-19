@@ -18,26 +18,22 @@ var	MAX = 0;
 //
 for(var i = 0; i < data.length; ++i)
 {
-	if(data[i])
-	{
-		MAX = Math.max(MAX, data[i].split('.').length);
-		set.add(data[i].toLowerCase());
-	}
+	MAX = Math.max(MAX, data[i].split('.').length);
+	set.add(data[i].toLowerCase());
 }
 
+set.delete('');
 const	origSize = set.size;
 console.info('The official TLD list contained ' +
 	origSize.toLocaleString() + ' items.');
 
 for(var i = 0; i < ovh.length; ++i)
 {
-	if(ovh[i])
-	{
-		MAX = Math.max(MAX, ovh[i].split('.').length);
-		set.add(ovh[i].toLowerCase());
-	}
+	MAX = Math.max(MAX, ovh[i].split('.').length);
+	set.add(ovh[i].toLowerCase());
 }
 
+set.delete('');
 console.info('The OVH TLD list contained ' +
 	ovh.length.toLocaleString() + ' items.');
 

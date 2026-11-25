@@ -3,7 +3,7 @@
 /*
  * Copyright (c) Sebastian Kucharczyk <kuchen@kekse.biz>
  * https://kekse.biz/ https://github.com/kekse1/v4/
- * v0.7.1
+ * v0.7.2
  *
  * Helper script for my v4 project @ https://github.com/kekse1/v4/.
  * 
@@ -369,7 +369,7 @@ const readdirCallback = (_path, _error, _list) => {
 			{
 				const stats = fs.statSync(p, {
 					throwIfNoEntry: true,
-					bigInt: false });
+					bigint: false });
 
 				if(stats.isFile())
 				{
